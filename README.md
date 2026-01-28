@@ -4,23 +4,29 @@
 
 ![Game Type](https://img.shields.io/badge/Type-Party%20Game-gold)
 ![Players](https://img.shields.io/badge/Players-2--10-blue)
+![Mode](https://img.shields.io/badge/Mode-Local%20Multiplayer-orange)
 ![Duration](https://img.shields.io/badge/Duration-15--30%20min-green)
 ![Status](https://img.shields.io/badge/Status-Complete-success)
+
+> 🎮 **Pass-and-Play Local Multiplayer** - Gather your friends, share one device, and take turns competing for glory!
 
 ---
 
 ## 📖 Overview
 
-**Missions of Pavel** is a competitive multiplayer challenge game set in the whimsical village of Pavel, where King Antony's greatest concern is keeping the ale flowing and the peace intact. Players select from 10 unique heroes and navigate through a series of trials, managing limited resources to accumulate the most Glory points.
+**Missions of Pavel** is a **local multiplayer** challenge game designed for 2-10 players sharing the same device. Set in the whimsical village of Pavel, where King Antony's greatest concern is keeping the ale flowing and the peace intact, players take turns selecting from 10 unique heroes and navigating through a series of trials, managing limited resources to accumulate the most Glory points.
+
+**Perfect for game nights, parties, or gatherings** - just pass the phone, tablet, or laptop around!
 
 ### Key Features
 
 - 🎭 **10 Unique Heroes** - Each with distinct abilities and stat distributions
+- 📱 **Pass-and-Play Multiplayer** - Everyone shares the same device, taking turns
 - 🗺️ **Rich World Lore** - Explore Pavel and its surrounding lands through interactive books
 - ⚔️ **Strategic Gameplay** - Manage 5 attributes (POW, SPD, BRN, CHA, WIL) across multiple challenges
 - 🤝 **Friend Challenges** - Competitive dual-challenge system for tactical gameplay
 - 🎨 **Medieval Aesthetic** - Immersive parchment design with animated elements
-- 📱 **Fully Responsive** - Play on desktop, tablet, or mobile
+- 📱 **Fully Responsive** - Play on desktop, tablet, or mobile - works on any screen size
 
 ---
 
@@ -28,17 +34,21 @@
 
 ### Game Setup
 
-1. **Choose Party Size** (2-10 players)
-2. **Register Players** - Each player gets a unique hero (no duplicates!)
-3. **Set Quest Length** (5-70 challenges)
-4. **Begin Your Descent** into the Missions
+**Important:** This is a **local multiplayer game** - all players share the same device and take turns!
+
+1. **Gather Your Group** - Get 2-10 friends together around one device
+2. **Choose Party Size** - Select how many players are joining
+3. **Register Players** - Each player enters their name and receives a unique hero (no duplicates!)
+4. **Set Quest Length** - Decide on 5-70 challenges
+5. **Pass the Device** - Players take turns as indicated by the game
 
 ### Core Mechanics
 
 **Turn Structure:**
-- Player to your left draws a challenge card
-- Choose difficulty: Minor (1 Glory) or Deadly (2 Glory)
-- Decide your approach to the challenge
+- The game indicates whose turn it is
+- **Player to your left** draws a challenge card and chooses difficulty: Minor (1 Glory) or Deadly (2 Glory)
+- **Active player** receives the device and decides their approach to the challenge
+- After completing your turn, **pass the device** to the next player
 
 **Resource Management:**
 - 5 Attributes: POW (Power), SPD (Speed), BRN (Brain), CHA (Charisma), WIL (Willpower)
@@ -146,9 +156,19 @@ Undead wanderer eternally searching for true love.
 ### Technologies Used
 
 - **Pure HTML5/CSS3/JavaScript** - No frameworks required
+- **Local Multiplayer** - Pass-and-play on a single shared device
 - **Google Fonts** - Cinzel Decorative, MedievalSharp, Almendra
 - **CSS Animations** - Smooth transitions and subtle effects
-- **Responsive Design** - Mobile-first approach
+- **Responsive Design** - Works perfectly on phones, tablets, and desktops
+
+### Multiplayer Design
+
+This game is specifically designed for **local pass-and-play multiplayer**:
+- ✅ One device shared among all players
+- ✅ Players take turns as indicated by the game
+- ✅ Perfect for parties, game nights, and social gatherings
+- ✅ No internet connection required
+- ❌ Not an online multiplayer game (no networking features)
 
 ### File Structure
 
@@ -250,9 +270,10 @@ Potential additions being considered:
 - **Ork Fortress Campaign** - New challenges and heroes from the western fortress
 - **Dragon Town Missions** - Sky-based challenges in the floating city
 - **Monk Monastery Trials** - Wisdom and meditation-focused gameplay
-- **Multiplayer Online** - Play with friends across the internet
+- **Online Multiplayer** - Network play to connect with friends remotely (currently local-only)
 - **Custom Hero Creator** - Design your own heroes
 - **Campaign Mode** - Story-driven single-player experience
+- **AI Opponents** - Play solo against computer-controlled heroes
 
 ---
 
