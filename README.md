@@ -1,4 +1,5 @@
-# <img src="./images/map.png" width="80" height="80"> Missions of Pavel
+# <img src="./images/map.png" width="150" height="150">
+## Missions of Pavel
 
 **A medieval tavern card game where heroes compete for glory through strategic resource management, unique passive abilities, and tactical decisions. Visit at: https://chamitro.github.io/PAVEL_MISSIONS/**
 
