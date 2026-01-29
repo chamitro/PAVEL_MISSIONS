@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
-    <title>Missions of Pavel</title>
+    <title>Absurdity: The Dark Descent</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=MedievalSharp&family=Almendra:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root { 
@@ -477,7 +477,7 @@
             </div>
             
             <div class="instruction-text" style="text-align: justify;">
-                <p>The village of <b>Pavel Town</b> sits at the heart of a vast and varied realm, surrounded by ancient forests that stretch in every direction. To those who know where to look, pathways wind through these woods to distant lands and settlements.</p>
+                <p><b>Pavel Town</b> sits at the heart of a vast and varied realm, surrounded by ancient forests that stretch in every direction. To those who know where to look, pathways wind through these woods to distant lands and settlements.</p>
                 
                 <p><b>To the Northeast</b>, beyond the clouds themselves, floats the mystical <b>Lost Dragon Town</b>. This ethereal city hovers in the sky, home to ancient dragons who have lived for centuries. On clear nights, villagers can sometimes see its lights twinkling among the stars.</p>
                 
@@ -501,7 +501,7 @@
             <div class="instruction-text" style="text-align: justify;">
                 <p>In the heart of a realm where ancient forests whisper forgotten secrets, there lies the village of <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of ale.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">King Antony - The Jovial Monarch</b></p>
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">King Antony - The Friendly King</b></p>
                 <p>At the center of this peculiar kingdom sits <b>King Antony</b>, a ruler unlike any other. While neighboring monarchs concern themselves with conquest and coin, Antony has but two ambitions: to keep his village peaceful and his tankard full. You'll find him most evenings at the tavern's corner table, laughing heartily and buying rounds for travelers, believing that a kingdom held together by friendship and beer is stronger than any held by the sword. His crown sits askew on his head, and his royal robes are often stained with ale, but his people love him for it. "A happy village is a peaceful village," he often declares, raising his mug high.</p>
                 
                 <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Old Nick the Geezer - Keeper of Tales</b></p>
@@ -801,8 +801,8 @@
 
     <div id="view-setup" style="display:none;">
         <div class="stage-frame" style="margin-top: 60px;">
-            <h1>Missions of</h1>
-            <p class="medieval" style="font-size: 12px; color: #888; letter-spacing: 4px;">Pavel</p>
+            <h1>ABSURDITY</h1>
+            <p class="medieval" style="font-size: 12px; color: #888; letter-spacing: 4px;">THE DARK DESCENT</p>
             <div style="margin: 30px 0;">
                 <label class="medieval" style="display:block; font-size: 12px;">Party Size</label>
                 <input type="number" id="p-count-in" value="2" min="2" max="10" class="input-hero" style="width: 80px; font-size:30px; text-align:center; color: var(--gold);">
@@ -1042,53 +1042,8 @@ function setDiff(m, pts) {
     document.getElementById('st-desc').innerText = pStage.d;
     document.getElementById('st-req').innerText = `REQUIREMENT: ${pStage.s.toUpperCase()}`;
     document.getElementById('draw-btn').style.display='none'; 
-    
-    const h = party[activeIdx];
-    
-    // Drunken Paladin passive: Liquid Courage - roll dice at start
-    if(h.n === 'Drunken Paladin') {
-        showModal("🍺 Liquid Courage Activated!", "The Paladin takes a swig...", `
-            <p style="font-size:14px; margin-bottom:20px;">Rolling the dice of fate...</p>
-            <div id="dice-container" style="margin: 20px 0;"></div>
-        `);
-        
-        // Roll animation - show random numbers
-        let rollCount = 0;
-        const rollInterval = setInterval(() => {
-            const randomNum = Math.floor(Math.random() * 6) + 1;
-            document.getElementById('dice-container').innerHTML = renderDice(randomNum);
-            rollCount++;
-            if(rollCount >= 8) clearInterval(rollInterval);
-        }, 100);
-        
-        setTimeout(() => {
-            clearInterval(rollInterval);
-            const roll = Math.floor(Math.random() * 6) + 1;
-            document.getElementById('dice-container').innerHTML = renderDice(roll);
-            
-            setTimeout(() => {
-                if(roll >= 5) {
-                    // Auto-win!
-                    h.score += pPts;
-                    h.cur[pStage.s] += 1;
-                    showModal("⚡ MIRACULOUS VICTORY!", `Rolled a ${roll}! The gods favor the drunk!`, `
-                        <p style="font-size:16px; color:#8b0000; font-weight:bold;">Auto-win! Gained ${pPts} Glory!</p>
-                        <button class="btn btn-main" onclick="checkStore()">Continue</button>
-                    `);
-                    updatePartyUI();
-                } else {
-                    // Normal challenge
-                    showModal("Dice Rolled", `Result: ${roll}`, `
-                        <p style="font-size:14px;">The dice shows ${roll}. Must face the challenge normally.</p>
-                        <button class="btn btn-main" onclick="closeModalAndShowControls()">Proceed to Challenge</button>
-                    `);
-                }
-            }, 500);
-        }, 900);
-    } else {
-        document.getElementById('game-controls').style.display='block';
-        closeModal();
-    }
+    document.getElementById('game-controls').style.display='block';
+    closeModal();
 }
 
 function closeModalAndShowControls() {
@@ -1104,11 +1059,16 @@ function startFight() {
     // Check for Friendly AI passive (System Override) - can use different attribute
     let canUseOverride = (h.n === 'Friendly AI' && !passiveUsed[activeIdx]);
     
+    // Check for Drunken Paladin passive (Liquid Courage) - can roll dice
+    let canUsePaladinDice = (h.n === 'Drunken Paladin');
+    
     let passiveOptions = '';
     if(canUseRitual) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useRitualCircle()">⚡ Use Ritual Circle (BRN instead)</button>`;
     } else if(canUseOverride) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useSystemOverride()">⚡ Use System Override (Choose Stat)</button>`;
+    } else if(canUsePaladinDice) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="rollPaladinDice()">🎲 Roll the Paladin's Dice</button>`;
     }
     
     showModal(`The Strike`, `Hero: ${h.pName}`, `
@@ -1121,6 +1081,48 @@ function startFight() {
         <button class="btn btn-main" style="margin-top:20px;" onclick="processAttempt()">Unleash!</button>
         ${passiveOptions}
     `);
+}
+
+function rollPaladinDice() {
+    const h = party[activeIdx];
+    
+    showModal("🍺 Liquid Courage!", "The Paladin takes a swig and rolls...", `
+        <div id="dice-container" style="margin: 30px 0;"></div>
+    `);
+    
+    // Roll animation - show random numbers
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+    
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const roll = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(roll);
+        
+        setTimeout(() => {
+            if(roll >= 5) {
+                // Auto-win!
+                h.score += pPts;
+                h.cur[pStage.s] += 1;
+                showModal("⚡ MIRACULOUS VICTORY!", `Rolled a ${roll}! The gods favor the drunk!`, `
+                    <p style="font-size:16px; color:#8b0000; font-weight:bold;">Auto-win! Gained ${pPts} Glory!</p>
+                    <button class="btn btn-main" onclick="checkStore()">Continue</button>
+                `);
+                updatePartyUI();
+            } else {
+                // Failed roll - must do challenge normally
+                showModal("Dice Rolled", `Result: ${roll} - Not enough!`, `
+                    <p style="font-size:14px;">The dice shows ${roll}. Must face the challenge normally.</p>
+                    <button class="btn btn-main" onclick="startFight()">Proceed to Challenge</button>
+                `);
+            }
+        }, 500);
+    }, 900);
 }
 
 function useRitualCircle() {
@@ -1544,7 +1546,7 @@ function showChallengeResult() {
     const opponentWin = challengeData.opponentWin;
     
     let bothWinPoints = pPts;
-    let singleWinPoints = pPts + 1;
+    let singleWinPoints = pPts * 2; // Double points for solo victory
     
     if(challengerWin && opponentWin) {
         challenger.score += bothWinPoints;
