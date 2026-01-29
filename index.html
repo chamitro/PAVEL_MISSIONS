@@ -477,7 +477,7 @@
             </div>
             
             <div class="instruction-text" style="text-align: justify;">
-                <p><b>Pavel Town</b> sits at the heart of a vast and varied realm, surrounded by ancient forests that stretch in every direction. To those who know where to look, pathways wind through these woods to distant lands and settlements.</p>
+                <p>The village of <b>Pavel Town</b> sits at the heart of a vast and varied realm, surrounded by ancient forests that stretch in every direction. To those who know where to look, pathways wind through these woods to distant lands and settlements.</p>
                 
                 <p><b>To the Northeast</b>, beyond the clouds themselves, floats the mystical <b>Lost Dragon Town</b>. This ethereal city hovers in the sky, home to ancient dragons who have lived for centuries. On clear nights, villagers can sometimes see its lights twinkling among the stars.</p>
                 
@@ -501,7 +501,7 @@
             <div class="instruction-text" style="text-align: justify;">
                 <p>In the heart of a realm where ancient forests whisper forgotten secrets, there lies the village of <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of ale.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">King Antony - The Friendly King</b></p>
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">King Antony - The Peacefull King</b></p>
                 <p>At the center of this peculiar kingdom sits <b>King Antony</b>, a ruler unlike any other. While neighboring monarchs concern themselves with conquest and coin, Antony has but two ambitions: to keep his village peaceful and his tankard full. You'll find him most evenings at the tavern's corner table, laughing heartily and buying rounds for travelers, believing that a kingdom held together by friendship and beer is stronger than any held by the sword. His crown sits askew on his head, and his royal robes are often stained with ale, but his people love him for it. "A happy village is a peaceful village," he often declares, raising his mug high.</p>
                 
                 <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Old Nick the Geezer - Keeper of Tales</b></p>
@@ -548,8 +548,8 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A mysterious figure who finds fascination in observing others. The Dark Stalker's interest lies in following people and learning everything about their lives—their habits, their secrets, their fears. Some say he knows more about the villagers than they know about themselves.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Hunt from the Shadows</p>
-                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Your stat spending is hidden from opponents until results are revealed</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Shadow Control</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">3 times per game, force another player to meditate (skip their turn)</p>
                     </div>
                 </div>
                 
@@ -640,8 +640,8 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">In retirement for the last ten years, this wise mage seeks only peace and quiet. Though reluctant to return to adventure, their vast magical knowledge and powerful spells remain undiminished by time.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Ritual Circle</p>
-                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Can spend BRN instead of the required stat once per game</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Arcane Alliance</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Once per game, borrow stat points from another player to help you in a challenge</p>
                     </div>
                 </div>
                 
@@ -710,7 +710,7 @@
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A veteran warrior who fought orcs countless times in brutal campaigns. Now tired of battle, he spends all day drinking, trying to drown the memories of war. Despite his constant inebriation, his combat experience and unwavering resolve occasionally shine through.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
                         <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Liquid Courage</p>
-                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">At the beginning of each challenge, roll a dice. If 5 or 6, automatically win the challenge</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Once per turn, roll a dice. If 5 or 6, automatically win the challenge</p>
                     </div>
                 </div>
                 
@@ -922,14 +922,14 @@ const STAGES = [
 ];
 
 const HEROES = [
-    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:3, spd:5, brn:5, cha:5, wil:4}, passive: 'Hunt from the Shadows', passiveDesc: 'Your stat spending is hidden from opponents until results are revealed' },
+    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:3, spd:5, brn:5, cha:5, wil:4}, passive: 'Shadow Control', passiveDesc: '3 times per game, force another player to meditate (skip their turn)' },
     { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:4, brn:6, cha:1, wil:5}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:3, cha:5, wil:6}, passive: 'Stone Skin', passiveDesc: 'When you fail a challenge, keep 1 stat point you spent (returned to that same attribute)' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:4, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
-    { n: 'Neighboor Mage', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7}, passive: 'Ritual Circle', passiveDesc: 'Can spend BRN instead of the required stat once per game' },
+    { n: 'Neighboor Mage', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Once per game, borrow stat points from another player to help you in a challenge' },
     { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:2, wil:6}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:2}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
-    { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'At the beginning of each challenge, roll a dice. If 5 or 6, automatically win the challenge' },
+    { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll a dice. If 5 or 6, automatically win the challenge' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:4, brn:9, cha:2, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +2 to one attribute of your choice (instead of no benefit)' },
     { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Undead Hunger', passiveDesc: 'Gain +1 to POW every time you complete a challenge' }
 ];
@@ -1034,9 +1034,60 @@ function renderDice(number) {
 function drawCard() {
     openerIdx = activeIdx; pStage = deck[round];
     const setter = party[(activeIdx + 1) % party.length].pName;
+    
     showModal(`Shadow Ritual`, `${setter}, manifest the peril:`, `<button class="btn btn-main" onclick="setDiff('e',1)">Minor Encounter (1pt)</button><button class="btn btn-main" style="border-color:var(--blood); color: var(--blood)" onclick="setDiff('h',2)">Deadly Trial (2pt)</button>`);
 }
+
+function useShadowControl() {
+    const h = party[activeIdx];
+    h.shadowControlUses = (h.shadowControlUses || 0) + 1;
+    
+    // Select another player to force meditation
+    let otherPlayers = party.filter((p, i) => i !== activeIdx);
+    let playerOptions = otherPlayers.map((p, i) => {
+        let realIdx = party.indexOf(p);
+        return `<option value="${realIdx}">${p.pName} (${p.n})</option>`;
+    }).join('');
+    
+    showModal(`🌑 Shadow Control`, "Force another player to meditate", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Choose a player to force into meditation (they skip their next turn):</p>
+        <select id="shadow-target" class="input-hero" style="width:100%; font-size:16px; padding:10px; margin-bottom:15px;">
+            ${playerOptions}
+        </select>
+        <p style="font-size:12px; color:#666;">Uses remaining: ${3 - h.shadowControlUses}</p>
+        <button class="btn btn-main" onclick="applyShadowControl()">Cast Shadow</button>
+    `);
+}
+
+function applyShadowControl() {
+    const targetIdx = parseInt(document.getElementById('shadow-target').value);
+    const target = party[targetIdx];
+    
+    // Mark target to skip their next turn
+    target.forcedMeditation = true;
+    
+    showModal("Shadow Controlled!", `${target.pName} falls under your control`, `
+        <p style="font-size:14px; margin:20px 0;">${target.pName} will be forced to meditate on their next turn!</p>
+        <button class="btn btn-main" onclick="startFight()">Continue to Your Challenge</button>
+    `);
+    updatePartyUI();
+}
+
 function setDiff(m, pts) {
+    // Check if player is under Shadow Control (forced meditation)
+    const h = party[activeIdx];
+    if(h.forcedMeditation) {
+        h.forcedMeditation = false; // Clear the flag
+        showModal("🌑 Shadow Controlled", "You must meditate this turn", `
+            <p style="font-size:14px; margin:20px 0;">The Dark Stalker's shadows force you to meditate...</p>
+            <button class="btn btn-main" onclick="rotateCycle()">Skip Turn</button>
+        `);
+        return;
+    }
+    
     pTarget = pStage[m]; pPts = pts;
     document.getElementById('st-title').innerText = pStage.t;
     document.getElementById('st-desc').innerText = pStage.d;
@@ -1053,22 +1104,27 @@ function closeModalAndShowControls() {
 function startFight() {
     const h = party[activeIdx];
     
-    // Check for Neighbor Mage passive (Ritual Circle) - can use BRN instead
-    let canUseRitual = (h.n === 'Neighboor Mage' && !passiveUsed[activeIdx] && pStage.s !== 'brn');
+    // Check for Neighbor Mage passive (Arcane Alliance) - can borrow from another player
+    let canUseArcaneAlliance = (h.n === 'Neighboor Mage' && !passiveUsed[activeIdx]);
     
     // Check for Friendly AI passive (System Override) - can use different attribute
     let canUseOverride = (h.n === 'Friendly AI' && !passiveUsed[activeIdx]);
     
-    // Check for Drunken Paladin passive (Liquid Courage) - can roll dice
-    let canUsePaladinDice = (h.n === 'Drunken Paladin');
+    // Check for Drunken Paladin passive (Liquid Courage) - can roll dice ONCE per turn
+    let canUsePaladinDice = (h.n === 'Drunken Paladin' && !h.paladinDiceUsedThisTurn);
+    
+    // Check for Dark Stalker passive (Shadow Control) - can force meditation 3 times per game
+    let canUseShadowControl = (h.n === 'Dark Stalker' && (h.shadowControlUses || 0) < 3);
     
     let passiveOptions = '';
-    if(canUseRitual) {
-        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useRitualCircle()">⚡ Use Ritual Circle (BRN instead)</button>`;
+    if(canUseArcaneAlliance) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useArcaneAlliance()">⚡ Use Arcane Alliance (Borrow Points)</button>`;
     } else if(canUseOverride) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useSystemOverride()">⚡ Use System Override (Choose Stat)</button>`;
     } else if(canUsePaladinDice) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="rollPaladinDice()">🎲 Roll the Paladin's Dice</button>`;
+    } else if(canUseShadowControl) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useShadowControl()">🌑 Use Shadow Control (${3 - (h.shadowControlUses || 0)} left)</button>`;
     }
     
     showModal(`The Strike`, `Hero: ${h.pName}`, `
@@ -1085,6 +1141,7 @@ function startFight() {
 
 function rollPaladinDice() {
     const h = party[activeIdx];
+    h.paladinDiceUsedThisTurn = true; // Mark as used for this turn
     
     showModal("🍺 Liquid Courage!", "The Paladin takes a swig and rolls...", `
         <div id="dice-container" style="margin: 30px 0;"></div>
@@ -1125,18 +1182,90 @@ function rollPaladinDice() {
     }, 900);
 }
 
-function useRitualCircle() {
+function useArcaneAlliance() {
     const h = party[activeIdx];
     passiveUsed[activeIdx] = true;
-    showModal(`Ritual Circle Activated!`, `Using BRN instead of ${pStage.s.toUpperCase()}`, `
+    
+    // Select another player
+    let otherPlayers = party.filter((p, i) => i !== activeIdx);
+    let playerOptions = otherPlayers.map((p, i) => {
+        let realIdx = party.indexOf(p);
+        return `<option value="${realIdx}">${p.pName} (${p.n}) - ${pStage.s.toUpperCase()}: ${p.cur[pStage.s]}</option>`;
+    }).join('');
+    
+    showModal(`⚡ Arcane Alliance`, "Borrow power from an ally", `
         <div style="margin: 15px 0;">
             <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
         </div>
-        <p>Invest BRN Points (Max: ${h.cur.brn}):</p>
-        <input type="number" id="amt" value="1" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
-        <div id="error-msg" style="color:var(--blood); font-size:13px; margin-top:5px; display:none; font-weight:bold;">Forbidden! Lack of essence.</div>
-        <button class="btn btn-main" style="margin-top:20px;" onclick="processAttempt('brn')">Unleash!</button>
+        <p style="font-size:14px; margin-bottom:15px;">Choose an ally to borrow ${pStage.s.toUpperCase()} points from:</p>
+        <select id="alliance-player" class="input-hero" style="width:100%; font-size:14px; padding:10px; margin-bottom:15px;">
+            ${playerOptions}
+        </select>
+        <p>Your ${pStage.s.toUpperCase()}: <b>${h.cur[pStage.s]}</b></p>
+        <p style="font-size:14px; margin:10px 0;">How many points to borrow?</p>
+        <input type="number" id="borrow-amt" value="1" min="0" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <button class="btn btn-main" style="margin-top:15px;" onclick="processBorrow()">Borrow & Fight</button>
     `);
+}
+
+function processBorrow() {
+    const h = party[activeIdx];
+    const allyIdx = parseInt(document.getElementById('alliance-player').value);
+    const ally = party[allyIdx];
+    const borrowAmt = parseInt(document.getElementById('borrow-amt').value) || 0;
+    
+    if(borrowAmt > ally.cur[pStage.s]) {
+        alert(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
+        return;
+    }
+    
+    // Ask how many of your own points to spend
+    showModal(`Arcane Alliance: ${ally.pName} lends ${borrowAmt}`, "Now add your own points", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p>Borrowed from ${ally.pName}: <b style="color:var(--gold);">${borrowAmt}</b></p>
+        <p>Your ${pStage.s.toUpperCase()}: <b>${h.cur[pStage.s]}</b></p>
+        <p style="font-size:14px; margin:10px 0;">How many of YOUR points to add?</p>
+        <input type="number" id="own-amt" value="0" min="0" max="${h.cur[pStage.s]}" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <div id="error-msg" style="color:var(--blood); font-size:13px; margin-top:5px; display:none; font-weight:bold;">Not enough points!</div>
+        <button class="btn btn-main" style="margin-top:15px;" onclick="finalizeBorrow(${allyIdx}, ${borrowAmt})">Unleash Combined Power!</button>
+    `);
+}
+
+function finalizeBorrow(allyIdx, borrowAmt) {
+    const h = party[activeIdx];
+    const ally = party[allyIdx];
+    const ownSpend = parseInt(document.getElementById('own-amt').value) || 0;
+    
+    if(ownSpend > h.cur[pStage.s]) {
+        document.getElementById('error-msg').style.display = 'block';
+        return;
+    }
+    
+    // Calculate total
+    const totalSpend = ownSpend + borrowAmt;
+    let bonus = (h.a === pStage.a ? 3 : 0);
+    
+    // Shadow Ninja passive on borrowed points too
+    let effectiveSpend = totalSpend;
+    if(h.n === 'Shadow Ninja' && pStage.s === 'spd') {
+        effectiveSpend = totalSpend * 2;
+    }
+    
+    // Lost Dragon passive
+    let dragonBonus = 0;
+    if(h.n === 'Lost Dragon' && totalSpend >= 5) {
+        dragonBonus = 3;
+    }
+    
+    let total = effectiveSpend + bonus + dragonBonus;
+    
+    // Deduct points
+    h.cur[pStage.s] -= ownSpend;
+    ally.cur[pStage.s] -= borrowAmt;
+    
+    showResult(totalSpend, bonus + dragonBonus, total, total >= pTarget, pStage.s, effectiveSpend);
 }
 
 function useSystemOverride() {
@@ -1313,14 +1442,25 @@ function gamble(cur, usedStat = pStage.s) {
     }, 900);
 }
 function rotateCycle() {
+    // Reset Paladin dice flag for new turn
+    if(party[activeIdx].n === 'Drunken Paladin') {
+        party[activeIdx].paladinDiceUsedThisTurn = false;
+    }
+    
     activeIdx = (activeIdx + 1) % party.length;
+    
+    // Reset flag for the new active player too
+    if(party[activeIdx].n === 'Drunken Paladin') {
+        party[activeIdx].paladinDiceUsedThisTurn = false;
+    }
+    
     if(activeIdx === openerIdx) showModal("Room Abandoned", "Everyone failed. The path shifts...", `<button class="btn btn-main" onclick="checkStore(true)">Next Path</button>`);
     else { closeModal(); setTurnLabel(); updatePartyUI(); }
 }
 function checkStore(silent=false) {
     round++;
     if(round >= totalRounds) { endGame(); return; }
-    if(round % 3 === 0) { storePlayerIdx = 0; openStore(); }
+    if(round % 5 === 0) { storePlayerIdx = 0; openStore(); }
     else { if(!silent) activeIdx = (activeIdx + 1) % party.length; resetUI(); }
 }
 function openStore() { storePoints = 5; tempStats = {pow:0, spd:0, brn:0, cha:0, wil:0}; renderStore(); }
@@ -1583,24 +1723,12 @@ function showChallengeResult() {
 function refill(idx, stat) { /* Refill disabled - only through Alchemist every 3 turns */ }
 function updatePartyUI() {
     document.getElementById('party-list').innerHTML = party.map((p, i) => {
-        // Dark Stalker passive: hide stats unless it's their turn
-        let statsDisplay = '';
-        if(p.n === 'Dark Stalker' && i !== activeIdx) {
-            statsDisplay = `<div class="stat-grid">${['pow','spd','brn','cha','wil'].map(s => `
-                <div class="stat-box">
-                    <div class="stat-val">?</div>
-                    <span class="stat-lbl">${s}</span>
-                </div>`).join('')}
-            </div>
-            <div style="text-align:center; font-size:10px; color:#666; margin-top:5px;">⚡ Hidden by shadows</div>`;
-        } else {
-            statsDisplay = `<div class="stat-grid">${['pow','spd','brn','cha','wil'].map(s => `
-                <div class="stat-box">
-                    <div class="stat-val">${p.cur[s]}</div>
-                    <span class="stat-lbl">${s}</span>
-                </div>`).join('')}
-            </div>`;
-        }
+        let statsDisplay = `<div class="stat-grid">${['pow','spd','brn','cha','wil'].map(s => `
+            <div class="stat-box">
+                <div class="stat-val">${p.cur[s]}</div>
+                <span class="stat-lbl">${s}</span>
+            </div>`).join('')}
+        </div>`;
         
         return `
         <div class="hero-sheet ${i === activeIdx ? 'active-now' : ''}">
@@ -1616,7 +1744,7 @@ function updatePartyUI() {
             ${statsDisplay}
             
             <div style="background: rgba(197,160,89,0.1); border-left: 3px solid var(--gold); padding: 6px 8px; margin-top: 12px; font-size: 10px;">
-                <div style="color: var(--gold-bright); font-weight: bold; margin-bottom: 2px;">⚡ ${p.passive}${passiveUsed[i] ? ' (USED)' : ''}</div>
+                <div style="color: var(--gold-bright); font-weight: bold; margin-bottom: 2px;">⚡ ${p.passive}${p.n === 'Dark Stalker' ? ` (${p.shadowControlUses || 0}/3 used)` : passiveUsed[i] ? ' (USED)' : ''}</div>
                 <div style="color: var(--blood); line-height: 1.2;">${p.passiveDesc}</div>
             </div>
         </div>
