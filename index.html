@@ -148,7 +148,7 @@
 
 <div class="container">
     <div id="view-intro">
-        <!-- Book Selection Screen -->
+        <!-- Scroll Selection Screen -->
         <div id="intro-book-select" class="hero-sheet" style="margin-top: 20px; padding: 40px; position: relative; overflow: hidden;">
             <!-- Animated background particles -->
             <div style="position: absolute; inset: 0; pointer-events: none; opacity: 0.15;">
@@ -206,125 +206,133 @@
                 
                 <!-- Main title -->
                 <div style="text-align: center; position: relative; z-index: 2;">
-                    <div style="font-family: 'Cinzel Decorative', serif; font-weight: 900; font-size: 36px; 
-                               letter-spacing: 5px; line-height: 1.2; margin-bottom: 6px;
-                               background: linear-gradient(180deg, #f3cf7a 0%, #d4af5f 30%, #b8984a 70%, #8e7b55 100%);
+                    <div style="font-family: 'MedievalSharp', cursive; font-weight: 700; font-size: 24px; 
+                               letter-spacing: 3px; line-height: 1.2; margin-bottom: 4px;
+                               color: #3a2817;
+                               text-shadow: 
+                                   1px 1px 0px #5a3a1a,
+                                   2px 2px 0px #4a2f15,
+                                   3px 3px 5px rgba(0,0,0,0.5),
+                                   0 0 10px rgba(90,58,26,0.3);
+                               background: linear-gradient(to bottom, #5a3a1a 0%, #3a2817 40%, #2a1a0f 100%);
                                -webkit-background-clip: text;
                                -webkit-text-fill-color: transparent;
-                               background-clip: text;
-                               filter: drop-shadow(0 2px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 12px rgba(197,160,89,0.4));
-                               animation: glow 4s ease-in-out infinite;">
+                               background-clip: text;">
                         MISSIONS
                     </div>
                     
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 8px 0;">
-                        <div style="width: 60px; height: 1px; background: linear-gradient(to right, transparent, #8e7b55, transparent);"></div>
-                        <div style="font-family: 'MedievalSharp', cursive; font-size: 13px; letter-spacing: 2px; color: #8e7b55; font-weight: bold;">OF</div>
-                        <div style="width: 60px; height: 1px; background: linear-gradient(to right, transparent, #8e7b55, transparent);"></div>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin: 5px 0;">
+                        <div style="width: 40px; height: 1px; background: linear-gradient(to right, transparent, #5a3a1a, transparent);"></div>
+                        <div style="font-family: 'MedievalSharp', cursive; font-size: 10px; letter-spacing: 1px; color: #5a3a1a; font-weight: bold;">OF</div>
+                        <div style="width: 40px; height: 1px; background: linear-gradient(to right, transparent, #5a3a1a, transparent);"></div>
                     </div>
                     
-                    <div style="font-family: 'Cinzel Decorative', serif; font-weight: 900; font-size: 36px; 
-                               letter-spacing: 5px; line-height: 1.2;
-                               background: linear-gradient(180deg, #f3cf7a 0%, #d4af5f 30%, #b8984a 70%, #8e7b55 100%);
+                    <div style="font-family: 'MedievalSharp', cursive; font-weight: 700; font-size: 24px; 
+                               letter-spacing: 3px; line-height: 1.2;
+                               color: #3a2817;
+                               text-shadow: 
+                                   1px 1px 0px #5a3a1a,
+                                   2px 2px 0px #4a2f15,
+                                   3px 3px 5px rgba(0,0,0,0.5),
+                                   0 0 10px rgba(90,58,26,0.3);
+                               background: linear-gradient(to bottom, #5a3a1a 0%, #3a2817 40%, #2a1a0f 100%);
                                -webkit-background-clip: text;
                                -webkit-text-fill-color: transparent;
-                               background-clip: text;
-                               filter: drop-shadow(0 2px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 12px rgba(197,160,89,0.4));
-                               animation: glow 4s ease-in-out infinite 0.5s;">
+                               background-clip: text;">
                         PAVEL
                     </div>
                 </div>
                 
                 <!-- Subtitle -->
-                <div style="text-align: center; margin-top: 15px; font-family: 'Almendra', serif; font-style: italic; 
-                           font-size: 11px; letter-spacing: 2px; color: #7a6a4a; opacity: 0.9;">
-                    A Tale of Heroes and Ale
+                <div style="text-align: center; margin-top: 12px; font-family: 'Almendra', serif; font-style: italic; 
+                           font-size: 10px; letter-spacing: 2px; color: #7a6a4a; opacity: 0.9;">
+                    A Tale of Heroes and Beer
                 </div>
             </div>
             
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 14px; margin-bottom: 25px; animation: fadeIn 2s ease-in; position: relative; z-index: 1;">Choose a tome to begin your journey...</p>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 14px; margin-bottom: 25px; animation: fadeIn 2s ease-in; position: relative; z-index: 1;">Choose a scroll to begin your journey...</p>
             
             <div style="display: grid; gap: 25px; margin-bottom: 30px; position: relative; z-index: 1;">
-                <!-- Book 1: The World Map -->
+                <!-- Scroll 1: The World Map -->
                 <div onclick="showBook(1)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 0.6s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
                          onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
                          onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
-                        <!-- Book spine/side -->
+                        <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #3a2a1a, #5a4a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
-                        <!-- Book cover -->
+                        <!-- Scroll cover -->
                         <div style="position: absolute; left: 20px; right: 0; height: 100%; background: linear-gradient(135deg, #4a3520 0%, #6b5030 50%, #4a3520 100%); 
                                     border: 3px solid #8e7b55; border-radius: 0 5px 5px 0; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.5), inset -2px 0 10px rgba(0,0,0,0.3);
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite;"></div>
-                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📖 The World Map</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 The World Map</h3>
                             <p style="font-size: 12px; margin: 0; color: #c5a882; line-height: 1.3; position: relative;">Explore the lands surrounding Pavel and understand the geography of this realm.</p>
                         </div>
-                        <!-- Book pages effect -->
+                        <!-- Scroll pages effect -->
                         <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
                     </div>
                 </div>
                 
-                <!-- Book 2: Pavel Town -->
+                <!-- Scroll 2: Pavel Town -->
                 <div onclick="showBook(2)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 0.8s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
                          onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
                          onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
-                        <!-- Book spine/side -->
+                        <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #2a1a1a, #4a3a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
-                        <!-- Book cover -->
+                        <!-- Scroll cover -->
                         <div style="position: absolute; left: 20px; right: 0; height: 100%; background: linear-gradient(135deg, #3a2020 0%, #5a3030 50%, #3a2020 100%); 
                                     border: 3px solid #8e7b55; border-radius: 0 5px 5px 0; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.5), inset -2px 0 10px rgba(0,0,0,0.3);
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 1s;"></div>
-                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📖 Pavel Town</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 Pavel Town</h3>
                             <p style="font-size: 12px; margin: 0; color: #c5a882; line-height: 1.3; position: relative;">Learn about the village, its people, and the legends who call Pavel home.</p>
                         </div>
-                        <!-- Book pages effect -->
+                        <!-- Scroll pages effect -->
                         <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
                     </div>
                 </div>
                 
-                <!-- Book 3: The Heroes -->
+                <!-- Scroll 3: The Heroes -->
                 <div onclick="showBook(3)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 1s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
                          onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
                          onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
-                        <!-- Book spine/side -->
+                        <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #1a1a2a, #3a3a4a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
-                        <!-- Book cover -->
+                        <!-- Scroll cover -->
                         <div style="position: absolute; left: 20px; right: 0; height: 100%; background: linear-gradient(135deg, #2a2040 0%, #3a3060 50%, #2a2040 100%); 
                                     border: 3px solid #8e7b55; border-radius: 0 5px 5px 0; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.5), inset -2px 0 10px rgba(0,0,0,0.3);
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 1.5s;"></div>
-                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📖 The Heroes</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 The Heroes</h3>
                             <p style="font-size: 12px; margin: 0; color: #c5a882; line-height: 1.3; position: relative;">Meet the legendary warriors who gather at Pavel's tavern seeking glory.</p>
                         </div>
-                        <!-- Book pages effect -->
+                        <!-- Scroll pages effect -->
                         <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
                     </div>
                 </div>
                 
-                <!-- Book 4: Game Rules -->
+                <!-- Scroll 4: Game Rules -->
                 <div onclick="showBook(4)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 1.2s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
                          onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
                          onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
-                        <!-- Book spine/side -->
+                        <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #1a2a1a, #3a4a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
-                        <!-- Book cover -->
+                        <!-- Scroll cover -->
                         <div style="position: absolute; left: 20px; right: 0; height: 100%; background: linear-gradient(135deg, #203a20 0%, #305a30 50%, #203a20 100%); 
                                     border: 3px solid #8e7b55; border-radius: 0 5px 5px 0; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.5), inset -2px 0 10px rgba(0,0,0,0.3);
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 2s;"></div>
-                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📖 Game Rules</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 Game Rules</h3>
                             <p style="font-size: 12px; margin: 0; color: #c5a882; line-height: 1.3; position: relative;">Understand the mechanics, missions, and how to achieve victory.</p>
                         </div>
-                        <!-- Book pages effect -->
+                        <!-- Scroll pages effect -->
                         <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
                     </div>
                 </div>
@@ -333,7 +341,7 @@
             <button class="btn btn-main" onclick="showSetup()" style="font-size: 16px; padding: 20px; animation: pulse 2s ease-in-out infinite; position: relative; z-index: 1;">ENTER THE MISSIONS</button>
         </div>
 
-        <!-- Book 1: The World Map -->
+        <!-- Scroll 1: The World Map -->
         <div id="intro-book-1" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
             <h1 style="color:var(--gold); text-align: center; font-size: 28px; margin-bottom: 10px;">THE WORLD MAP</h1>
             <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 20px;">The Lands Surrounding Pavel</p>
@@ -357,10 +365,10 @@
                 <p>But between Pavel and safety lie <b>the Swamps</b>—a treacherous expanse of murky water and twisted trees. Here, trolls lurk in the shadows, emerging to raid the village under cover of darkness. Many heroes have ventured into the swamps seeking to end the threat, but the mist keeps its secrets well.</p>
             </div>
             
-            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Books</button>
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
         </div>
 
-        <!-- Book 2: Pavel Town -->
+        <!-- Scroll 2: Pavel Town -->
         <div id="intro-book-2" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
             <h1 style="color:var(--blood); text-align: center; font-size: 28px;">PAVEL TOWN</h1>
             <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">The Village of Ale and Fellowship</p>
@@ -368,25 +376,25 @@
             <div class="instruction-text" style="text-align: justify;">
                 <p>In the heart of a realm where ancient forests whisper forgotten secrets, there lies the village of <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of ale.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 16px;">King Antony - The Jovial Monarch</b></p>
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">King Antony - The Jovial Monarch</b></p>
                 <p>At the center of this peculiar kingdom sits <b>King Antony</b>, a ruler unlike any other. While neighboring monarchs concern themselves with conquest and coin, Antony has but two ambitions: to keep his village peaceful and his tankard full. You'll find him most evenings at the tavern's corner table, laughing heartily and buying rounds for travelers, believing that a kingdom held together by friendship and beer is stronger than any held by the sword. His crown sits askew on his head, and his royal robes are often stained with ale, but his people love him for it. "A happy village is a peaceful village," he often declares, raising his mug high.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 16px;">Old Nick the Geezer - Keeper of Tales</b></p>
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Old Nick the Geezer - Keeper of Tales</b></p>
                 <p>Every night, as the fire crackles and the ale flows, <b>Old Nick the Geezer</b> takes his seat by the hearth. With a voice weathered by a hundred winters, he weaves tales for all who will listen—stories of the days when the forests were deeper and the monsters bolder, when heroes walked among them and magic still lingered in the morning mist. The villagers gather around him like moths to flame, for Nick's stories are the living memory of Pavel itself. Some say he's been telling tales since the village was founded; others claim he's simply too stubborn to let death interrupt a good story.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 16px;">Panchonco & Yuumi - The Eternal Patron</b></p>
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Panchonco & Yuumi - The Eternal Patron</b></p>
                 <p>And there, propped against the bar as if he were part of the furniture, you'll always find <b>Panchonco</b>. Day or night, rain or shine, this eternal patron haunts the pub with his faithful cat <b>Yuumi</b> perched on his shoulder, both swaying gently to some unheard rhythm. His coin purse may empty and refill with the seasons, but his stool never stays vacant for long. Yuumi, a gray tabby with knowing eyes, seems to be the only creature who truly understands Panchonco's slurred philosophy. Some say he's been drinking since before King Antony was born; others swear they've never seen him sober enough to confirm. The barkeep simply keeps his tab running and his mug full.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 16px;">The Visitors</b></p>
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">The Visitors</b></p>
                 <p>Pavel's fame has spread across the realm, drawing visitors from the strangest corners of the world. <b>Dragons</b> descend from the cloud-wreathed <b>Lost Dragon Town</b>, folding their great wings to squeeze through the pub's door. <b>Orcs</b> march down from their <b>Fortress</b>, their war cries replaced with drinking songs. <b>Monks</b> journey from their <b>Monasteries</b>, finding that enlightenment tastes remarkably like honey mead. Even the reclusive <b>Dwarves</b> emerge from the misty mountains, drawn by rumors of the finest brews this side of the realm.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 16px;">The Threat</b></p>
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">The Threat</b></p>
                 <p>But not all is merriment in Pavel. Beyond the village, past the protective embrace of the ancient woods, the land grows dark and treacherous. In <b>the Swamps</b> lurk <b>trolls</b>—brutal, cunning creatures who hide in the mire and strike without warning. Their raids are swift and merciless, leaving burning homes and grieving families in their wake. Many brave souls have ventured into those cursed marshes to end the threat, but few return, and those who do speak in whispers of what dwells in the deepest shadows.</p>
             </div>
-            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Books</button>
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
         </div>
 
-        <!-- Book 3: The Heroes -->
+        <!-- Scroll 3: The Heroes -->
         <div id="intro-book-3" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none; overflow-y: auto; max-height: 80vh;">
             <h1 style="color:var(--blood); text-align: center; font-size: 28px;">THE HEROES OF PAVEL</h1>
             <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">Legendary Warriors Seeking Glory</p>
@@ -402,7 +410,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/dark.png" alt="Dark Stalker" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px; transition: all 0.3s ease;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Dark Stalker</h3>
+                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Dark Stalker</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Dark • Affinity: Shadows</p>
                         </div>
                     </div>
@@ -413,7 +421,11 @@
                         <div><b>CHA:</b> 5</div>
                         <div><b>WIL:</b> 4</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.4;">A mysterious figure who finds fascination in observing others. The Dark Stalker's interest lies in following people and learning everything about their lives—their habits, their secrets, their fears. Some say he knows more about the villagers than they know about themselves.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A mysterious figure who finds fascination in observing others. The Dark Stalker's interest lies in following people and learning everything about their lives—their habits, their secrets, their fears. Some say he knows more about the villagers than they know about themselves.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Hunt from the Shadows</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Your stat spending is hidden from opponents until results are revealed</p>
+                    </div>
                 </div>
                 
                 <!-- Hero 2: Friendly AI -->
@@ -421,7 +433,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/ai.png" alt="Friendly AI" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Friendly AI</h3>
+                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Friendly AI</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Tech • Affinity: Machinery</p>
                         </div>
                     </div>
@@ -432,7 +444,11 @@
                         <div><b>CHA:</b> 1</div>
                         <div><b>WIL:</b> 5</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.4;">Created by wise mages a century ago, this mechanical marvel was designed to assist with everyday village work. Though lacking in social graces, the Friendly AI's analytical mind and tireless nature make it an invaluable ally in solving complex problems.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">Created by wise mages a century ago, this mechanical marvel was designed to assist with everyday village work. Though lacking in social graces, the Friendly AI's analytical mind and tireless nature make it an invaluable ally in solving complex problems.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: System Override</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Once per game, you can attempt a challenge using a different attribute than required</p>
+                    </div>
                 </div>
                 
                 <!-- Hero 3: Thug Dwarf -->
@@ -440,7 +456,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/swag.png" alt="Thug Dwarf" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Thug Dwarf</h3>
+                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Thug Dwarf</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Stone • Affinity: Mountains</p>
                         </div>
                     </div>
@@ -451,7 +467,11 @@
                         <div><b>CHA:</b> 5</div>
                         <div><b>WIL:</b> 6</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.4;">A stout warrior from the misty mountains, built like the stone itself. Though slow-moving, his incredible strength and unwavering determination make him a formidable presence in any challenge.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A stout warrior from the misty mountains, built like the stone itself. Though slow-moving, his incredible strength and unwavering determination make him a formidable presence in any challenge.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Stone Skin</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">When you fail a challenge, keep 1 stat point you spent (returned to that same attribute)</p>
+                    </div>
                 </div>
                 
                 <!-- Hero 4: Babbler Rogue -->
@@ -459,7 +479,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/rogue.png" alt="Babbler Rogue" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Babbler Rogue</h3>
+                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Babbler Rogue</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Crowd • Affinity: Social</p>
                         </div>
                     </div>
@@ -470,7 +490,11 @@
                         <div><b>CHA:</b> 8</div>
                         <div><b>WIL:</b> 6</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.4;">A silver-tongued charmer who wants nothing more than to befriend everyone and maintain good relations with everybody. The Babbler Rogue can talk their way out of (or into) any situation, making allies wherever they go.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A silver-tongued charmer who wants nothing more than to befriend everyone and maintain good relations with everybody. The Babbler Rogue can talk their way out of (or into) any situation, making allies wherever they go.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Crowd Favorite</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Gain +1 Glory for every 3 challenges you complete</p>
+                    </div>
                 </div>
                 
                 <!-- Hero 5: Neighbor Mage -->
@@ -478,7 +502,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/magic.png" alt="Neighbor Mage" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Neighbor Mage</h3>
+                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Neighbor Mage</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Magic • Affinity: Mystical</p>
                         </div>
                     </div>
@@ -489,7 +513,11 @@
                         <div><b>CHA:</b> 3</div>
                         <div><b>WIL:</b> 7</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.4;">In retirement for the last ten years, this wise mage seeks only peace and quiet. Though reluctant to return to adventure, their vast magical knowledge and powerful spells remain undiminished by time.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">In retirement for the last ten years, this wise mage seeks only peace and quiet. Though reluctant to return to adventure, their vast magical knowledge and powerful spells remain undiminished by time.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Ritual Circle</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Can spend BRN instead of the required stat once per game</p>
+                    </div>
                 </div>
                 
                 <!-- Hero 6: Shadow Ninja -->
@@ -497,7 +525,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/ninja.png" alt="Shadow Ninja" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Shadow Ninja</h3>
+                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Shadow Ninja</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Shadow • Affinity: Stealth</p>
                         </div>
                     </div>
@@ -508,7 +536,11 @@
                         <div><b>CHA:</b> 2</div>
                         <div><b>WIL:</b> 6</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.4;">A hired blade who takes on missions for coin. Though they weren't quite good enough to join the elite assassin guilds, the Shadow Ninja's speed and agility still make them a dangerous opponent in the right circumstances.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A hired blade who takes on missions for coin. Though they weren't quite good enough to join the elite assassin guilds, the Shadow Ninja's speed and agility still make them a dangerous opponent in the right circumstances.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Double Strike</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Spend SPD twice as effectively (every 1 SPD counts as 2)</p>
+                    </div>
                 </div>
                 
                 <!-- Hero 7: Lost Dragon -->
@@ -516,7 +548,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/dragon.png" alt="Lost Dragon" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Lost Dragon</h3>
+                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Lost Dragon</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Sky • Affinity: Flight</p>
                         </div>
                     </div>
@@ -527,7 +559,11 @@
                         <div><b>CHA:</b> 3</div>
                         <div><b>WIL:</b> 2</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.4;">Years ago, this dragon lost its way from the floating Dragon Town and has been trying to find the path back home ever since. Powerful but melancholic, the Lost Dragon carries the weight of displacement and an unrelenting homesickness.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">Years ago, this dragon lost its way from the floating Dragon Town and has been trying to find the path back home ever since. Powerful but melancholic, the Lost Dragon carries the weight of displacement and an unrelenting homesickness.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Dragon Rage</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">When spending 5+ on any stat, gain +3 bonus</p>
+                    </div>
                 </div>
                 
                 <!-- Hero 8: Drunken Paladin -->
@@ -546,7 +582,11 @@
                         <div><b>CHA:</b> 8</div>
                         <div><b>WIL:</b> 7</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.4;">A veteran warrior who fought orcs countless times in brutal campaigns. Now tired of battle, he spends all day drinking, trying to drown the memories of war. Despite his constant inebriation, his combat experience and unwavering resolve occasionally shine through.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A veteran warrior who fought orcs countless times in brutal campaigns. Now tired of battle, he spends all day drinking, trying to drown the memories of war. Despite his constant inebriation, his combat experience and unwavering resolve occasionally shine through.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Drunk Luck</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Failed challenges have 30% chance to still give +1 Glory</p>
+                    </div>
                 </div>
                 
                 <!-- Hero 9: Mute Monk -->
@@ -565,7 +605,11 @@
                         <div><b>CHA:</b> 2</div>
                         <div><b>WIL:</b> 7</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.4;">This silent monk visited Pavel from the southeastern monasteries, bringing sacred wine as a gift. Having taken a vow of silence, the Mute Monk communicates through gestures and expressions, yet possesses profound wisdom and mental discipline.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">This silent monk visited Pavel from the southeastern monasteries, bringing sacred wine as a gift. Having taken a vow of silence, the Mute Monk communicates through gestures and expressions, yet possesses profound wisdom and mental discipline.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Inner Peace</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Meditating restores +2 to one attribute of your choice (instead of no benefit)</p>
+                    </div>
                 </div>
                 
                 <!-- Hero 10: Lover Zombie -->
@@ -584,14 +628,18 @@
                         <div><b>CHA:</b> 3</div>
                         <div><b>WIL:</b> 8</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0; line-height: 1.4;">This undead wanderer roams the realm in an eternal search for true love. Though death has claimed his body, his heart still yearns. Incredibly strong and nearly unstoppable, the Lover Zombie approaches each new encounter with tragic hope that this might be the one.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">This undead wanderer roams the realm in an eternal search for true love. Though death has claimed his body, his heart still yearns. Incredibly strong and nearly unstoppable, the Lover Zombie approaches each new encounter with tragic hope that this might be the one.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Undead Hunger</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Gain +1 to POW every time you complete a challenge</p>
+                    </div>
                 </div>
             </div>
             
-            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Books</button>
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
         </div>
 
-        <!-- Book 4: Game Rules -->
+        <!-- Scroll 4: Game Rules -->
         <div id="intro-book-4" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
             <h1 style="color:var(--blood); text-align: center; font-size: 28px;">GAME RULES</h1>
             <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">How to Claim Victory in the Missions</p>
@@ -616,13 +664,13 @@
                 
                  <p><b>5. Pass and Play:</b> When you finish your turn, pass the mobile to the player next to you.</p>
                 
-                <p><b>6. Recovery System:</b> Every 3 challenges, visit the Alchemist to restore <b>5 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
+                <p><b>6. Recovery System:</b> Every 5 challenges, visit the Alchemist to restore <b>5 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
                 
                 <p><b>7. Victory Condition:</b> After all Missions are completed, the hero with the highest accumulated Glory is declared the victor and claims the prize.</p>
                 
                 <p style="margin-top: 15px; color: var(--blood);"><b>Strategic Considerations:</b> Balance immediate Glory gains against long-term resource sustainability. Identify which challenges favor your Soul-Type. Conserve Meditations for truly impossible trials. Use "Challenge a Friend" to split difficult challenges or eliminate competition.</p>
             </div>
-            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Books</button>
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
         </div>
     </div>
 
@@ -749,20 +797,22 @@ const STAGES = [
 ];
 
 const HEROES = [
-    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:3, spd:5, brn:5, cha:5, wil:4} },
-    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:4, brn:6, cha:1, wil:5} },
-    { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:3, cha:5, wil:6} },
-    { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:4, cha:8, wil:6} },
-    { n: 'Neighboor Mage', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7} },
-    { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:2, wil:6} },
-    { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:2} },
-    { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7} },
-    { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:4, brn:9, cha:2, wil:7} },
-    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8} }
+    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:3, spd:5, brn:5, cha:5, wil:4}, passive: 'Hunt from the Shadows', passiveDesc: 'Your stat spending is hidden from opponents until results are revealed' },
+    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:4, brn:6, cha:1, wil:5}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
+    { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:3, cha:5, wil:6}, passive: 'Stone Skin', passiveDesc: 'When you fail a challenge, keep 1 stat point you spent (returned to that same attribute)' },
+    { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:4, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
+    { n: 'Neighboor Mage', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7}, passive: 'Ritual Circle', passiveDesc: 'Can spend BRN instead of the required stat once per game' },
+    { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:2, wil:6}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
+    { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:2}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
+    { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Drunk Luck', passiveDesc: 'Failed challenges have 30% chance to still give +1 Glory' },
+    { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:4, brn:9, cha:2, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +2 to one attribute of your choice (instead of no benefit)' },
+    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Undead Hunger', passiveDesc: 'Gain +1 to POW every time you complete a challenge' }
 ];
 
 let party = [], deck = [], round = 0, totalRounds = 0, activeIdx = 0, pTarget = 0, pPts = 0, pStage = null, pCount = 2, regIdx = 0, openerIdx = -1, storePlayerIdx = 0, storePoints = 5, tempStats = {};
 let usedHeroes = []; // Track which heroes have been selected
+let passiveUsed = {}; // Track one-time passive usage (key: playerIndex)
+let challengesCompleted = {}; // Track challenges completed per player for Crowd Favorite
 
 function showBookSelect() {
     document.getElementById('intro-book-select').style.display = 'block';
@@ -812,6 +862,10 @@ function handleReg() {
     usedHeroes.push(originalIndex);
     
     party.push({ pName: name, ...hero, cur: {...hero.s}, score: 0, skips: 3 });
+    
+    // Initialize passive tracking for this player
+    passiveUsed[regIdx] = false;
+    challengesCompleted[regIdx] = 0;
 
     showModal(
         `Soul Linked`, 
@@ -849,6 +903,20 @@ function setDiff(m, pts) {
 }
 function startFight() {
     const h = party[activeIdx];
+    
+    // Check for Neighbor Mage passive (Ritual Circle) - can use BRN instead
+    let canUseRitual = (h.n === 'Neighboor Mage' && !passiveUsed[activeIdx] && pStage.s !== 'brn');
+    
+    // Check for Friendly AI passive (System Override) - can use different attribute
+    let canUseOverride = (h.n === 'Friendly AI' && !passiveUsed[activeIdx]);
+    
+    let passiveOptions = '';
+    if(canUseRitual) {
+        passiveOptions = `<button class="btn btn-main" style="background:#1b301b; border-color:#2d5a2d; margin-top:10px;" onclick="useRitualCircle()">⚡ Use Ritual Circle (BRN instead)</button>`;
+    } else if(canUseOverride) {
+        passiveOptions = `<button class="btn btn-main" style="background:#1b301b; border-color:#2d5a2d; margin-top:10px;" onclick="useSystemOverride()">⚡ Use System Override (Choose Stat)</button>`;
+    }
+    
     showModal(`The Strike`, `Hero: ${h.pName}`, `
         <div style="margin: 15px 0;">
             <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
@@ -857,40 +925,194 @@ function startFight() {
         <input type="number" id="amt" value="1" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
         <div id="error-msg" style="color:var(--blood); font-size:13px; margin-top:5px; display:none; font-weight:bold;">Forbidden! Lack of essence.</div>
         <button class="btn btn-main" style="margin-top:20px;" onclick="processAttempt()">Unleash!</button>
+        ${passiveOptions}
     `);
 }
-function processAttempt() {
+
+function useRitualCircle() {
     const h = party[activeIdx];
+    passiveUsed[activeIdx] = true;
+    showModal(`Ritual Circle Activated!`, `Using BRN instead of ${pStage.s.toUpperCase()}`, `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p>Invest BRN Points (Max: ${h.cur.brn}):</p>
+        <input type="number" id="amt" value="1" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <div id="error-msg" style="color:var(--blood); font-size:13px; margin-top:5px; display:none; font-weight:bold;">Forbidden! Lack of essence.</div>
+        <button class="btn btn-main" style="margin-top:20px;" onclick="processAttempt('brn')">Unleash!</button>
+    `);
+}
+
+function useSystemOverride() {
+    const h = party[activeIdx];
+    passiveUsed[activeIdx] = true;
+    showModal(`System Override Activated!`, `Choose which stat to use`, `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p>Select attribute to use:</p>
+        <select id="override-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin:15px 0;">
+            <option value="pow">POW (${h.cur.pow})</option>
+            <option value="spd">SPD (${h.cur.spd})</option>
+            <option value="brn">BRN (${h.cur.brn})</option>
+            <option value="cha">CHA (${h.cur.cha})</option>
+            <option value="wil">WIL (${h.cur.wil})</option>
+        </select>
+        <p>Invest Points:</p>
+        <input type="number" id="amt" value="1" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <div id="error-msg" style="color:var(--blood); font-size:13px; margin-top:5px; display:none; font-weight:bold;">Forbidden! Lack of essence.</div>
+        <button class="btn btn-main" style="margin-top:20px;" onclick="processAttemptOverride()">Unleash!</button>
+    `);
+}
+
+function processAttemptOverride() {
+    const h = party[activeIdx];
+    const chosenStat = document.getElementById('override-stat').value;
     let spend = parseInt(document.getElementById('amt').value) || 0;
-    if (spend > h.cur[pStage.s]) {
+    if (spend > h.cur[chosenStat]) {
         document.getElementById('error-msg').style.display = 'block';
         return;
     }
     let bonus = (h.a === pStage.a ? 3 : 0);
     let total = spend + bonus;
-    h.cur[pStage.s] -= spend;
-    showResult(spend, bonus, total, total >= pTarget);
+    h.cur[chosenStat] -= spend;
+    showResult(spend, bonus, total, total >= pTarget, chosenStat);
 }
-function showResult(spent, bonus, final, win) {
+
+function processAttempt(overrideStat = null) {
     const h = party[activeIdx];
-    let upMsg = win ? `<p style="color:#1b5e20; font-weight:bold; font-size: 18px;">🏆 ${pStage.s.toUpperCase()} LEVEL UP!</p>` : "";
-    let bonusLine = bonus > 0 ? `<p class="crit-text" style="color:#8b0000; font-weight:900; animation: shake 0.4s infinite;">✨ DIVINE INTUITION: +${bonus} added!</p>` : `<p style="opacity:0.5; font-size: 12px;">No divine bonus found.</p>`;
+    const useStat = overrideStat || pStage.s;
+    let spend = parseInt(document.getElementById('amt').value) || 0;
+    
+    if (spend > h.cur[useStat]) {
+        document.getElementById('error-msg').style.display = 'block';
+        return;
+    }
+    
+    // Shadow Ninja passive: Double Strike (SPD counts as 2x)
+    let effectiveSpend = spend;
+    if(h.n === 'Shadow Ninja' && useStat === 'spd') {
+        effectiveSpend = spend * 2;
+    }
+    
+    // Lost Dragon passive: Dragon Rage (+3 when spending 5+)
+    let dragonBonus = 0;
+    if(h.n === 'Lost Dragon' && spend >= 5) {
+        dragonBonus = 3;
+    }
+    
+    let bonus = (h.a === pStage.a ? 3 : 0);
+    let total = effectiveSpend + bonus + dragonBonus;
+    h.cur[useStat] -= spend;
+    showResult(spend, bonus + dragonBonus, total, total >= pTarget, useStat, effectiveSpend);
+}
+function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpend = spent) {
+    const h = party[activeIdx];
+    
+    // Shadow Ninja display adjustment
+    let spentDisplay = spent;
+    if(h.n === 'Shadow Ninja' && usedStat === 'spd' && effectiveSpend !== spent) {
+        spentDisplay = `${spent} (×2 = ${effectiveSpend})`;
+    }
+    
+    // Lost Dragon display adjustment
+    let bonusDisplay = bonus;
+    let bonusExplanation = '';
+    if(bonus > 0) {
+        if(h.n === 'Lost Dragon' && spent >= 5) {
+            bonusExplanation = `(Affinity +${bonus - 3} + Dragon Rage +3)`;
+        } else {
+            bonusExplanation = `(Affinity bonus)`;
+        }
+    }
+    
+    let upMsg = win ? `<p style="color:#1b5e20; font-weight:bold; font-size: 18px;">🏆 ${usedStat.toUpperCase()} LEVEL UP!</p>` : "";
+    let bonusLine = bonus > 0 ? `<p class="crit-text" style="color:#8b0000; font-weight:900;">✨ BONUS: +${bonusDisplay} ${bonusExplanation}</p>` : `<p style="opacity:0.5; font-size: 12px;">No bonus applied.</p>`;
+    
     if(!win && final < pTarget) {
-        showModal(`Defeat Imminent?`, `Power: ${final}`, `${bonusLine}<p>Short of the target! Sacrifice a Drink to Gamble for +1 to +6?</p><button class="btn btn-main" style="background:var(--blood); color:white; border-color:white;" onclick="gamble(${final})">Drink & Gamble</button><button class="btn btn-skip" style="border:none; background:none;" onclick="rotateCycle()">Yield Turn</button>`);
+        // Thug Dwarf passive: Stone Skin - keep 1 point on failure
+        if(h.n === 'Thug Dwarf' && spent > 0) {
+            h.cur[usedStat] += 1;
+            bonusLine += `<p style="color:#2d5a2d; font-size:12px; margin-top:8px;">⚡ Stone Skin: Recovered 1 ${usedStat.toUpperCase()}</p>`;
+        }
+        
+        // Drunken Paladin passive: Drunk Luck - 30% chance to gain +1 Glory on failure
+        let drunkLuckTriggered = false;
+        if(h.n === 'Drunken Paladin') {
+            if(Math.random() < 0.30) {
+                h.score += 1;
+                drunkLuckTriggered = true;
+                bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Drunk Luck: Gained +1 Glory despite failure!</p>`;
+            }
+        }
+        
+        showModal(`Defeat Imminent?`, `Power: ${final}`, `${bonusLine}<p>Short of the target! Sacrifice a Drink to Gamble for +1 to +6?</p><button class="btn btn-main" style="background:var(--blood); color:white; border-color:white;" onclick="gamble(${final}, '${usedStat}')">Drink & Gamble</button><button class="btn btn-skip" style="border:none; background:none;" onclick="rotateCycle()">Yield Turn</button>`);
     } else {
-        if(win) { h.score += pPts; h.cur[pStage.s] += 1; }
+        if(win) { 
+            h.score += pPts; 
+            h.cur[usedStat] += 1;
+            
+            // Babbler Rogue passive: Crowd Favorite - +1 Glory every 3 challenges
+            challengesCompleted[activeIdx]++;
+            if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
+                h.score += 1;
+                bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Crowd Favorite: +1 Bonus Glory (${challengesCompleted[activeIdx]} challenges complete)!</p>`;
+            }
+            
+            // Lover Zombie passive: Undead Hunger - +1 POW per challenge completion
+            if(h.n === 'Lover Zombie') {
+                h.cur.pow += 1;
+                bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Undead Hunger: POW increased by 1!</p>`;
+            }
+        }
         showModal(win?"ROOM CLEARED":"FALSIFIED", `Outcome`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${final}</b><br><small>Your Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>The Peril</small></div></div>${bonusLine} ${upMsg}<button class="btn btn-main" onclick="${win ? 'checkStore()' : 'rotateCycle()'}">Continue</button>`);
     }
     updatePartyUI();
 }
-function gamble(cur) {
+function gamble(cur, usedStat = pStage.s) {
     const luck = Math.floor(Math.random() * 6) + 1;
     showModal("Rolling the Bones...", "", `<h1 style="font-size: 60px;">+${luck}</h1>`);
     setTimeout(() => {
+        const h = party[activeIdx];
         let fin = cur + luck;
         let win = fin >= pTarget;
-        if(win) { party[activeIdx].score += pPts; party[activeIdx].cur[pStage.s] += 1; }
-        showModal(win?"MIRACULOUS VICTORY":"TOTAL FAILURE", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div><button class="btn btn-main" onclick="${win ? 'checkStore()' : 'rotateCycle()'}">Continue</button>`);
+        if(win) { 
+            party[activeIdx].score += pPts; 
+            party[activeIdx].cur[usedStat] += 1;
+            
+            // Babbler Rogue passive: Crowd Favorite
+            challengesCompleted[activeIdx]++;
+            let crowdBonus = '';
+            if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
+                h.score += 1;
+                crowdBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Crowd Favorite: +1 Bonus Glory!</p>`;
+            }
+            
+            // Lover Zombie passive: Undead Hunger
+            let zombieBonus = '';
+            if(h.n === 'Lover Zombie') {
+                h.cur.pow += 1;
+                zombieBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Undead Hunger: POW increased by 1!</p>`;
+            }
+            
+            showModal("MIRACULOUS VICTORY", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${crowdBonus}${zombieBonus}<button class="btn btn-main" onclick="checkStore()">Continue</button>`);
+        } else {
+            // Thug Dwarf passive: Stone Skin - keep 1 point on gamble failure too
+            let stoneSkinBonus = '';
+            if(h.n === 'Thug Dwarf') {
+                h.cur[usedStat] += 1;
+                stoneSkinBonus = `<p style="color:#2d5a2d; font-size:12px; margin-top:8px;">⚡ Stone Skin: Recovered 1 ${usedStat.toUpperCase()}</p>`;
+            }
+            
+            // Drunken Paladin passive: Drunk Luck on gamble failure
+            let drunkLuckBonus = '';
+            if(h.n === 'Drunken Paladin' && Math.random() < 0.30) {
+                h.score += 1;
+                drunkLuckBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Drunk Luck: Gained +1 Glory despite failure!</p>`;
+            }
+            
+            showModal("TOTAL FAILURE", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${stoneSkinBonus}${drunkLuckBonus}<button class="btn btn-main" onclick="rotateCycle()">Continue</button>`);
+        }
         updatePartyUI();
     }, 1000);
 }
@@ -902,7 +1124,7 @@ function rotateCycle() {
 function checkStore(silent=false) {
     round++;
     if(round >= totalRounds) { endGame(); return; }
-    if(round % 3 === 0) { storePlayerIdx = 0; openStore(); }
+    if(round % 5 === 0) { storePlayerIdx = 0; openStore(); }
     else { if(!silent) activeIdx = (activeIdx + 1) % party.length; resetUI(); }
 }
 function openStore() { storePoints = 5; tempStats = {pow:0, spd:0, brn:0, cha:0, wil:0}; renderStore(); }
@@ -932,12 +1154,40 @@ function resetUI() {
 }
 
 function meditateTurn() { 
-    if(party[activeIdx].skips > 0) {
-        party[activeIdx].skips--; 
-        rotateCycle(); 
+    const h = party[activeIdx];
+    if(h.skips > 0) {
+        h.skips--;
+        
+        // Mute Monk passive: Inner Peace - restore +2 to chosen attribute
+        if(h.n === 'Mute Monk') {
+            showModal("Inner Peace Activated", "Choose an attribute to restore +2", `
+                <div style="margin: 15px 0;">
+                    <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+                </div>
+                <p style="font-size:14px; margin-bottom:15px;">Select attribute to restore:</p>
+                <select id="monk-restore-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+                    <option value="pow">POW</option>
+                    <option value="spd">SPD</option>
+                    <option value="brn">BRN</option>
+                    <option value="cha">CHA</option>
+                    <option value="wil">WIL</option>
+                </select>
+                <button class="btn btn-main" onclick="finishMonkMeditate()">Restore & Continue</button>
+            `);
+        } else {
+            rotateCycle();
+        }
     } else {
         alert("Your spirit is exhausted! You can no longer Meditate.");
     }
+}
+
+function finishMonkMeditate() {
+    const h = party[activeIdx];
+    const chosenStat = document.getElementById('monk-restore-stat').value;
+    h.cur[chosenStat] += 2;
+    updatePartyUI();
+    rotateCycle();
 }
 
 let challengeData = null;
@@ -1057,19 +1307,34 @@ function resolveFriendChallenge() {
     challengeData.challengerWin = challengerWin;
     challengeData.opponentWin = opponentWin;
     
+    // Dark Stalker passive: Hide spending amounts
+    let challengerSpendDisplay = challengeData.challengerSpend;
+    let opponentSpendDisplay = challengeData.opponentSpend;
+    
+    if(challenger.n === 'Dark Stalker') {
+        challengerSpendDisplay = '???';
+    }
+    if(opponent.n === 'Dark Stalker') {
+        opponentSpendDisplay = '???';
+    }
+    
     showModal("The Challenge Unfolds...", "Calculating Fates...", `
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin:20px 0;">
             <div style="border:2px solid #8e7b55; padding:15px; border-radius:5px;">
                 <img src="${challenger.i}" alt="${challenger.n}" style="width: 60px; height: 60px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px; margin-bottom: 10px;">
                 <b style="color:var(--blood); display:block;">${challenger.pName}</b>
-                <p style="font-size:24px; margin:10px 0;">${challengerTotal}</p>
+                <p style="font-size:18px; margin:5px 0;">Spent: ${challengerSpendDisplay}</p>
+                <p style="font-size:24px; margin:10px 0; color:var(--gold);">${challengerTotal}</p>
                 <small>${challengerBonus > 0 ? `+${challengerBonus} bonus` : 'No bonus'}</small>
+                ${challenger.n === 'Dark Stalker' ? '<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Hidden by shadows</p>' : ''}
             </div>
             <div style="border:2px solid #8e7b55; padding:15px; border-radius:5px;">
                 <img src="${opponent.i}" alt="${opponent.n}" style="width: 60px; height: 60px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px; margin-bottom: 10px;">
                 <b style="color:var(--blood); display:block;">${opponent.pName}</b>
-                <p style="font-size:24px; margin:10px 0;">${opponentTotal}</p>
+                <p style="font-size:18px; margin:5px 0;">Spent: ${opponentSpendDisplay}</p>
+                <p style="font-size:24px; margin:10px 0; color:var(--gold);">${opponentTotal}</p>
                 <small>${opponentBonus > 0 ? `+${opponentBonus} bonus` : 'No bonus'}</small>
+                ${opponent.n === 'Dark Stalker' ? '<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Hidden by shadows</p>' : ''}
             </div>
         </div>
         <p style="font-size:14px; margin-top:10px;">Target: <b style="color:var(--blood);">${pTarget}</b></p>
@@ -1121,7 +1386,27 @@ function showChallengeResult() {
 
 function refill(idx, stat) { /* Refill disabled - only through Alchemist every 3 turns */ }
 function updatePartyUI() {
-    document.getElementById('party-list').innerHTML = party.map((p, i) => `
+    document.getElementById('party-list').innerHTML = party.map((p, i) => {
+        // Dark Stalker passive: hide stats unless it's their turn
+        let statsDisplay = '';
+        if(p.n === 'Dark Stalker' && i !== activeIdx) {
+            statsDisplay = `<div class="stat-grid">${['pow','spd','brn','cha','wil'].map(s => `
+                <div class="stat-box">
+                    <div class="stat-val">?</div>
+                    <span class="stat-lbl">${s}</span>
+                </div>`).join('')}
+            </div>
+            <div style="text-align:center; font-size:10px; color:#666; margin-top:5px;">⚡ Hidden by shadows</div>`;
+        } else {
+            statsDisplay = `<div class="stat-grid">${['pow','spd','brn','cha','wil'].map(s => `
+                <div class="stat-box">
+                    <div class="stat-val">${p.cur[s]}</div>
+                    <span class="stat-lbl">${s}</span>
+                </div>`).join('')}
+            </div>`;
+        }
+        
+        return `
         <div class="hero-sheet ${i === activeIdx ? 'active-now' : ''}">
             <div class="meditate-count">Meditates: ${p.skips}</div>
             <div class="wax-seal">${p.score}</div>
@@ -1132,14 +1417,15 @@ function updatePartyUI() {
                 <span>${p.n}</span>
             </div>
 
-            <div class="stat-grid">${['pow','spd','brn','cha','wil'].map(s => `
-                <div class="stat-box">
-                    <div class="stat-val">${p.cur[s]}</div>
-                    <span class="stat-lbl">${s}</span>
-                </div>`).join('')}
+            ${statsDisplay}
+            
+            <div style="background: rgba(197,160,89,0.1); border-left: 3px solid var(--gold); padding: 6px 8px; margin-top: 12px; font-size: 10px;">
+                <div style="color: var(--blood); font-weight: bold; margin-bottom: 2px;">⚡ ${p.passive}${passiveUsed[i] ? ' (USED)' : ''}</div>
+                <div style="color: var(--blood); line-height: 1.2;">${p.passiveDesc}</div>
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 function endGame() {
     const winner = [...party].sort((a,b) => b.score - a.score)[0];
