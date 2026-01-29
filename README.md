@@ -98,8 +98,7 @@ Each hero has a **unique passive ability** that creates distinct playstyles!
 *Soul: Dark • Affinity: Shadows*  
 **Stats:** POW 3 | SPD 5 | BRN 5 | CHA 5 | WIL 4  
 **⚡ Passive: Hunt from the Shadows**  
-Your stat spending is hidden from opponents until results are revealed.  
-*A mysterious observer who knows everyone's secrets.*
+3 times per game, force another player to meditate (skip their turn)
 
 ### Friendly AI
 *Soul: Tech • Affinity: Machinery*  
@@ -126,8 +125,7 @@ Gain +1 Glory for every 3 challenges you complete.
 *Soul: Magic • Affinity: Mystical*  
 **Stats:** POW 2 | SPD 2 | BRN 8 | CHA 3 | WIL 7  
 **⚡ Passive: Ritual Circle**  
-Can spend BRN instead of the required stat once per game.  
-*Retired mage seeking peace and quiet.*
+Once per game, borrow stat points from another player to help you in a challenge.
 
 ### Shadow Ninja
 *Soul: Shadow • Affinity: Stealth*  
@@ -147,8 +145,7 @@ When spending 5+ on any stat, gain +3 bonus.
 *Soul: Pub • Affinity: Taverns*  
 **Stats:** POW 3 | SPD 2 | BRN 3 | CHA 8 | WIL 7  
 **⚡ Passive: Liquid Courage**  
-At the beginning of each challenge, roll a dice. If 5 or 6, automatically win!  
-*War-weary veteran who drinks to forget - and sometimes wins by sheer luck.*
+Once per turn, roll a dice. If 5 or 6, automatically win the challenge.
 
 ### Mute Monk
 *Soul: Silent • Affinity: Meditation*  
