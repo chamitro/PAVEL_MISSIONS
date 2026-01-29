@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=MedievalSharp&family=Almendra:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --gold: #c5a059; --gold-bright: #f3cf7a; --iron: #2c2c2c;
+            --gold: #c5a059; --gold-bright: #8b0000; --iron: #2c2c2c;
             --parchment: #d4c3a3; --blood: #800000; --ink: #1a0f08;
             --shadow: rgba(0,0,0,0.8);
         }
@@ -35,7 +35,7 @@
         .hero-sheet.active-now { transform: scale(1.02); border: 2px solid var(--gold-bright); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
         .wax-seal {
             position: absolute; top: -10px; right: -5px; width: 45px; height: 45px;
-            background: radial-gradient(#900, #500); border-radius: 50%; color: var(--gold-bright);
+            background: radial-gradient(#900, #500); border-radius: 50%; color: #f3cf7a;
             display: flex; align-items: center; justify-content: center; font-weight: 900;
             font-family: 'Cinzel Decorative'; border: 2px solid #400; box-shadow: 2px 2px 8px #000; font-size: 18px; transform: rotate(5deg);
         }
@@ -46,7 +46,7 @@
         .stat-lbl { font-size: 8px; font-weight: 900; text-transform: uppercase; color: #5a4634; }
         .btn { border-radius: 0; padding: 16px; border: 2px solid var(--gold); font-weight: 900; font-size: 14px; cursor: pointer; width: 100%; transition: 0.3s; margin-bottom: 10px; text-transform: uppercase; font-family: 'Cinzel Decorative'; letter-spacing: 1px; }
         .btn-main { background: #1a1a1a; color: var(--gold); box-shadow: 0 4px 0 #000; }
-        .btn-fight { background: #1b301b; color: #9f9; border-color: #2d5a2d; }
+        .btn-fight { background: #2b1010; color: #9f9; border-color: #8b0000; }
         .btn-skip { background: #222; color: #888; border-color: #444; }
         .btn-danger { background: #400; color: #fcc; border-color: #700; }
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(5px); }
@@ -89,6 +89,33 @@
         @keyframes shimmer {
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
+        }
+        
+        @keyframes diceRoll {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(1); }
+            75% { transform: rotate(270deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        .dice {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #f0f0f0, #c0c0c0);
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.5);
+            animation: diceRoll 0.6s ease-in-out;
+        }
+        
+        .dice-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #333;
+            border-radius: 50%;
         }
         
         /* Subtle button hover effects */
@@ -246,7 +273,7 @@
                 <!-- Subtitle -->
                 <div style="text-align: center; margin-top: 12px; font-family: 'Almendra', serif; font-style: italic; 
                            font-size: 10px; letter-spacing: 2px; color: #7a6a4a; opacity: 0.9;">
-                    A Tale of Heroes and Beer
+                    A Tale of Heroes and Ale
                 </div>
             </div>
             
@@ -266,8 +293,8 @@
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite;"></div>
-                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 The World Map</h3>
-                            <p style="font-size: 12px; margin: 0; color: #c5a882; line-height: 1.3; position: relative;">Explore the lands surrounding Pavel and understand the geography of this realm.</p>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 The World Map</h3>
+                            <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Explore the lands surrounding Pavel and understand the geography of this realm.</p>
                         </div>
                         <!-- Scroll pages effect -->
                         <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
@@ -287,8 +314,8 @@
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 1s;"></div>
-                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 Pavel Town</h3>
-                            <p style="font-size: 12px; margin: 0; color: #c5a882; line-height: 1.3; position: relative;">Learn about the village, its people, and the legends who call Pavel home.</p>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 Pavel Town</h3>
+                            <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Learn about the village, its people, and the legends who call Pavel home.</p>
                         </div>
                         <!-- Scroll pages effect -->
                         <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
@@ -308,8 +335,8 @@
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 1.5s;"></div>
-                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 The Heroes</h3>
-                            <p style="font-size: 12px; margin: 0; color: #c5a882; line-height: 1.3; position: relative;">Meet the legendary warriors who gather at Pavel's tavern seeking glory.</p>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 The Heroes</h3>
+                            <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Meet the legendary warriors who gather at Pavel's tavern seeking glory.</p>
                         </div>
                         <!-- Scroll pages effect -->
                         <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
@@ -329,8 +356,8 @@
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 2s;"></div>
-                            <h3 style="color: var(--gold-bright); margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 Game Rules</h3>
-                            <p style="font-size: 12px; margin: 0; color: #c5a882; line-height: 1.3; position: relative;">Understand the mechanics, missions, and how to achieve victory.</p>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 Game Rules</h3>
+                            <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Understand the mechanics, missions, and how to achieve victory.</p>
                         </div>
                         <!-- Scroll pages effect -->
                         <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
@@ -410,7 +437,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/dark.png" alt="Dark Stalker" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px; transition: all 0.3s ease;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Dark Stalker</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Dark Stalker</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Dark • Affinity: Shadows</p>
                         </div>
                     </div>
@@ -423,7 +450,7 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A mysterious figure who finds fascination in observing others. The Dark Stalker's interest lies in following people and learning everything about their lives—their habits, their secrets, their fears. Some say he knows more about the villagers than they know about themselves.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Hunt from the Shadows</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Hunt from the Shadows</p>
                         <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Your stat spending is hidden from opponents until results are revealed</p>
                     </div>
                 </div>
@@ -433,7 +460,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/ai.png" alt="Friendly AI" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Friendly AI</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Friendly AI</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Tech • Affinity: Machinery</p>
                         </div>
                     </div>
@@ -446,7 +473,7 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">Created by wise mages a century ago, this mechanical marvel was designed to assist with everyday village work. Though lacking in social graces, the Friendly AI's analytical mind and tireless nature make it an invaluable ally in solving complex problems.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: System Override</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: System Override</p>
                         <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Once per game, you can attempt a challenge using a different attribute than required</p>
                     </div>
                 </div>
@@ -456,7 +483,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/swag.png" alt="Thug Dwarf" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Thug Dwarf</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Thug Dwarf</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Stone • Affinity: Mountains</p>
                         </div>
                     </div>
@@ -469,7 +496,7 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A stout warrior from the misty mountains, built like the stone itself. Though slow-moving, his incredible strength and unwavering determination make him a formidable presence in any challenge.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Stone Skin</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Stone Skin</p>
                         <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">When you fail a challenge, keep 1 stat point you spent (returned to that same attribute)</p>
                     </div>
                 </div>
@@ -479,7 +506,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/rogue.png" alt="Babbler Rogue" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Babbler Rogue</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Babbler Rogue</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Crowd • Affinity: Social</p>
                         </div>
                     </div>
@@ -492,7 +519,7 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A silver-tongued charmer who wants nothing more than to befriend everyone and maintain good relations with everybody. The Babbler Rogue can talk their way out of (or into) any situation, making allies wherever they go.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Crowd Favorite</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Crowd Favorite</p>
                         <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Gain +1 Glory for every 3 challenges you complete</p>
                     </div>
                 </div>
@@ -502,7 +529,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/magic.png" alt="Neighbor Mage" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Neighbor Mage</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Neighbor Mage</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Magic • Affinity: Mystical</p>
                         </div>
                     </div>
@@ -515,7 +542,7 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">In retirement for the last ten years, this wise mage seeks only peace and quiet. Though reluctant to return to adventure, their vast magical knowledge and powerful spells remain undiminished by time.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Ritual Circle</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Ritual Circle</p>
                         <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Can spend BRN instead of the required stat once per game</p>
                     </div>
                 </div>
@@ -525,7 +552,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/ninja.png" alt="Shadow Ninja" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Shadow Ninja</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Shadow Ninja</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Shadow • Affinity: Stealth</p>
                         </div>
                     </div>
@@ -538,7 +565,7 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A hired blade who takes on missions for coin. Though they weren't quite good enough to join the elite assassin guilds, the Shadow Ninja's speed and agility still make them a dangerous opponent in the right circumstances.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Double Strike</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Double Strike</p>
                         <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Spend SPD twice as effectively (every 1 SPD counts as 2)</p>
                     </div>
                 </div>
@@ -548,7 +575,7 @@
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
                         <img src="./images/dragon.png" alt="Lost Dragon" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--blood); margin: 0 0 5px 0; font-size: 18px;">Lost Dragon</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Lost Dragon</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Sky • Affinity: Flight</p>
                         </div>
                     </div>
@@ -561,7 +588,7 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">Years ago, this dragon lost its way from the floating Dragon Town and has been trying to find the path back home ever since. Powerful but melancholic, the Lost Dragon carries the weight of displacement and an unrelenting homesickness.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Dragon Rage</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Dragon Rage</p>
                         <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">When spending 5+ on any stat, gain +3 bonus</p>
                     </div>
                 </div>
@@ -584,8 +611,8 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A veteran warrior who fought orcs countless times in brutal campaigns. Now tired of battle, he spends all day drinking, trying to drown the memories of war. Despite his constant inebriation, his combat experience and unwavering resolve occasionally shine through.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Drunk Luck</p>
-                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Failed challenges have 30% chance to still give +1 Glory</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Liquid Courage</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">At the beginning of each challenge, roll a dice. If 5 or 6, automatically win the challenge</p>
                     </div>
                 </div>
                 
@@ -607,7 +634,7 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">This silent monk visited Pavel from the southeastern monasteries, bringing sacred wine as a gift. Having taken a vow of silence, the Mute Monk communicates through gestures and expressions, yet possesses profound wisdom and mental discipline.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Inner Peace</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Inner Peace</p>
                         <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Meditating restores +2 to one attribute of your choice (instead of no benefit)</p>
                     </div>
                 </div>
@@ -630,7 +657,7 @@
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">This undead wanderer roams the realm in an eternal search for true love. Though death has claimed his body, his heart still yearns. Incredibly strong and nearly unstoppable, the Lover Zombie approaches each new encounter with tragic hope that this might be the one.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--blood); font-weight: bold;">⚡ PASSIVE: Undead Hunger</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Undead Hunger</p>
                         <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Gain +1 to POW every time you complete a challenge</p>
                     </div>
                 </div>
@@ -664,7 +691,7 @@
                 
                  <p><b>5. Pass and Play:</b> When you finish your turn, pass the mobile to the player next to you.</p>
                 
-                <p><b>6. Recovery System:</b> Every 5 challenges, visit the Alchemist to restore <b>5 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
+                <p><b>6. Recovery System:</b> Every 3 challenges, visit the Alchemist to restore <b>5 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
                 
                 <p><b>7. Victory Condition:</b> After all Missions are completed, the hero with the highest accumulated Glory is declared the victor and claims the prize.</p>
                 
@@ -804,7 +831,7 @@ const HEROES = [
     { n: 'Neighboor Mage', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7}, passive: 'Ritual Circle', passiveDesc: 'Can spend BRN instead of the required stat once per game' },
     { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:2, wil:6}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:2}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
-    { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Drunk Luck', passiveDesc: 'Failed challenges have 30% chance to still give +1 Glory' },
+    { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'At the beginning of each challenge, roll a dice. If 5 or 6, automatically win the challenge' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:4, brn:9, cha:2, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +2 to one attribute of your choice (instead of no benefit)' },
     { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Undead Hunger', passiveDesc: 'Gain +1 to POW every time you complete a challenge' }
 ];
@@ -888,6 +915,24 @@ function startGame() {
     updatePartyUI(); setTurnLabel();
 }
 function setTurnLabel() { document.getElementById('turn-label').innerText = `${party[activeIdx].pName.toUpperCase()}'S ACTION`; }
+
+function renderDice(number) {
+    const positions = {
+        1: [[40, 40]],
+        2: [[20, 20], [60, 60]],
+        3: [[20, 20], [40, 40], [60, 60]],
+        4: [[20, 20], [60, 20], [20, 60], [60, 60]],
+        5: [[20, 20], [60, 20], [40, 40], [20, 60], [60, 60]],
+        6: [[20, 20], [60, 20], [20, 40], [60, 40], [20, 60], [60, 60]]
+    };
+    
+    let dots = positions[number].map(([left, top]) => 
+        `<div class="dice-dot" style="left: ${left}px; top: ${top}px;"></div>`
+    ).join('');
+    
+    return `<div class="dice">${dots}</div>`;
+}
+
 function drawCard() {
     openerIdx = activeIdx; pStage = deck[round];
     const setter = party[(activeIdx + 1) % party.length].pName;
@@ -898,7 +943,58 @@ function setDiff(m, pts) {
     document.getElementById('st-title').innerText = pStage.t;
     document.getElementById('st-desc').innerText = pStage.d;
     document.getElementById('st-req').innerText = `REQUIREMENT: ${pStage.s.toUpperCase()}`;
-    document.getElementById('draw-btn').style.display='none'; document.getElementById('game-controls').style.display='block';
+    document.getElementById('draw-btn').style.display='none'; 
+    
+    const h = party[activeIdx];
+    
+    // Drunken Paladin passive: Liquid Courage - roll dice at start
+    if(h.n === 'Drunken Paladin') {
+        showModal("🍺 Liquid Courage Activated!", "The Paladin takes a swig...", `
+            <p style="font-size:14px; margin-bottom:20px;">Rolling the dice of fate...</p>
+            <div id="dice-container" style="margin: 20px 0;"></div>
+        `);
+        
+        // Roll animation - show random numbers
+        let rollCount = 0;
+        const rollInterval = setInterval(() => {
+            const randomNum = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+            rollCount++;
+            if(rollCount >= 8) clearInterval(rollInterval);
+        }, 100);
+        
+        setTimeout(() => {
+            clearInterval(rollInterval);
+            const roll = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('dice-container').innerHTML = renderDice(roll);
+            
+            setTimeout(() => {
+                if(roll >= 5) {
+                    // Auto-win!
+                    h.score += pPts;
+                    h.cur[pStage.s] += 1;
+                    showModal("⚡ MIRACULOUS VICTORY!", `Rolled a ${roll}! The gods favor the drunk!`, `
+                        <p style="font-size:16px; color:#8b0000; font-weight:bold;">Auto-win! Gained ${pPts} Glory!</p>
+                        <button class="btn btn-main" onclick="checkStore()">Continue</button>
+                    `);
+                    updatePartyUI();
+                } else {
+                    // Normal challenge
+                    showModal("Dice Rolled", `Result: ${roll}`, `
+                        <p style="font-size:14px;">The dice shows ${roll}. Must face the challenge normally.</p>
+                        <button class="btn btn-main" onclick="closeModalAndShowControls()">Proceed to Challenge</button>
+                    `);
+                }
+            }, 500);
+        }, 900);
+    } else {
+        document.getElementById('game-controls').style.display='block';
+        closeModal();
+    }
+}
+
+function closeModalAndShowControls() {
+    document.getElementById('game-controls').style.display='block';
     closeModal();
 }
 function startFight() {
@@ -912,9 +1008,9 @@ function startFight() {
     
     let passiveOptions = '';
     if(canUseRitual) {
-        passiveOptions = `<button class="btn btn-main" style="background:#1b301b; border-color:#2d5a2d; margin-top:10px;" onclick="useRitualCircle()">⚡ Use Ritual Circle (BRN instead)</button>`;
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useRitualCircle()">⚡ Use Ritual Circle (BRN instead)</button>`;
     } else if(canUseOverride) {
-        passiveOptions = `<button class="btn btn-main" style="background:#1b301b; border-color:#2d5a2d; margin-top:10px;" onclick="useSystemOverride()">⚡ Use System Override (Choose Stat)</button>`;
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useSystemOverride()">⚡ Use System Override (Choose Stat)</button>`;
     }
     
     showModal(`The Strike`, `Hero: ${h.pName}`, `
@@ -1033,17 +1129,7 @@ function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpen
         // Thug Dwarf passive: Stone Skin - keep 1 point on failure
         if(h.n === 'Thug Dwarf' && spent > 0) {
             h.cur[usedStat] += 1;
-            bonusLine += `<p style="color:#2d5a2d; font-size:12px; margin-top:8px;">⚡ Stone Skin: Recovered 1 ${usedStat.toUpperCase()}</p>`;
-        }
-        
-        // Drunken Paladin passive: Drunk Luck - 30% chance to gain +1 Glory on failure
-        let drunkLuckTriggered = false;
-        if(h.n === 'Drunken Paladin') {
-            if(Math.random() < 0.30) {
-                h.score += 1;
-                drunkLuckTriggered = true;
-                bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Drunk Luck: Gained +1 Glory despite failure!</p>`;
-            }
+            bonusLine += `<p style="color:#8b0000; font-size:12px; margin-top:8px;">⚡ Stone Skin: Recovered 1 ${usedStat.toUpperCase()}</p>`;
         }
         
         showModal(`Defeat Imminent?`, `Power: ${final}`, `${bonusLine}<p>Short of the target! Sacrifice a Drink to Gamble for +1 to +6?</p><button class="btn btn-main" style="background:var(--blood); color:white; border-color:white;" onclick="gamble(${final}, '${usedStat}')">Drink & Gamble</button><button class="btn btn-skip" style="border:none; background:none;" onclick="rotateCycle()">Yield Turn</button>`);
@@ -1070,51 +1156,61 @@ function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpen
     updatePartyUI();
 }
 function gamble(cur, usedStat = pStage.s) {
-    const luck = Math.floor(Math.random() * 6) + 1;
-    showModal("Rolling the Bones...", "", `<h1 style="font-size: 60px;">+${luck}</h1>`);
+    showModal("🎲 Rolling the Bones...", "Your fate is in the hands of chance", `
+        <div id="dice-container" style="margin: 30px 0;"></div>
+    `);
+    
+    // Roll animation - show random numbers changing
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+    
     setTimeout(() => {
-        const h = party[activeIdx];
-        let fin = cur + luck;
-        let win = fin >= pTarget;
-        if(win) { 
-            party[activeIdx].score += pPts; 
-            party[activeIdx].cur[usedStat] += 1;
-            
-            // Babbler Rogue passive: Crowd Favorite
-            challengesCompleted[activeIdx]++;
-            let crowdBonus = '';
-            if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
-                h.score += 1;
-                crowdBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Crowd Favorite: +1 Bonus Glory!</p>`;
+        clearInterval(rollInterval);
+        const luck = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(luck);
+        
+        setTimeout(() => {
+            const h = party[activeIdx];
+            let fin = cur + luck;
+            let win = fin >= pTarget;
+            if(win) { 
+                party[activeIdx].score += pPts; 
+                party[activeIdx].cur[usedStat] += 1;
+                
+                // Babbler Rogue passive: Crowd Favorite
+                challengesCompleted[activeIdx]++;
+                let crowdBonus = '';
+                if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
+                    h.score += 1;
+                    crowdBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Crowd Favorite: +1 Bonus Glory!</p>`;
+                }
+                
+                // Lover Zombie passive: Undead Hunger
+                let zombieBonus = '';
+                if(h.n === 'Lover Zombie') {
+                    h.cur.pow += 1;
+                    zombieBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Undead Hunger: POW increased by 1!</p>`;
+                }
+                
+                showModal("MIRACULOUS VICTORY", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${crowdBonus}${zombieBonus}<button class="btn btn-main" onclick="checkStore()">Continue</button>`);
+            } else {
+                // Thug Dwarf passive: Stone Skin - keep 1 point on gamble failure too
+                let stoneSkinBonus = '';
+                if(h.n === 'Thug Dwarf') {
+                    h.cur[usedStat] += 1;
+                    stoneSkinBonus = `<p style="color:#8b0000; font-size:12px; margin-top:8px;">⚡ Stone Skin: Recovered 1 ${usedStat.toUpperCase()}</p>`;
+                }
+                
+                showModal("TOTAL FAILURE", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${stoneSkinBonus}<button class="btn btn-main" onclick="rotateCycle()">Continue</button>`);
             }
-            
-            // Lover Zombie passive: Undead Hunger
-            let zombieBonus = '';
-            if(h.n === 'Lover Zombie') {
-                h.cur.pow += 1;
-                zombieBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Undead Hunger: POW increased by 1!</p>`;
-            }
-            
-            showModal("MIRACULOUS VICTORY", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${crowdBonus}${zombieBonus}<button class="btn btn-main" onclick="checkStore()">Continue</button>`);
-        } else {
-            // Thug Dwarf passive: Stone Skin - keep 1 point on gamble failure too
-            let stoneSkinBonus = '';
-            if(h.n === 'Thug Dwarf') {
-                h.cur[usedStat] += 1;
-                stoneSkinBonus = `<p style="color:#2d5a2d; font-size:12px; margin-top:8px;">⚡ Stone Skin: Recovered 1 ${usedStat.toUpperCase()}</p>`;
-            }
-            
-            // Drunken Paladin passive: Drunk Luck on gamble failure
-            let drunkLuckBonus = '';
-            if(h.n === 'Drunken Paladin' && Math.random() < 0.30) {
-                h.score += 1;
-                drunkLuckBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Drunk Luck: Gained +1 Glory despite failure!</p>`;
-            }
-            
-            showModal("TOTAL FAILURE", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${stoneSkinBonus}${drunkLuckBonus}<button class="btn btn-main" onclick="rotateCycle()">Continue</button>`);
-        }
-        updatePartyUI();
-    }, 1000);
+            updatePartyUI();
+        }, 500);
+    }, 900);
 }
 function rotateCycle() {
     activeIdx = (activeIdx + 1) % party.length;
@@ -1124,7 +1220,7 @@ function rotateCycle() {
 function checkStore(silent=false) {
     round++;
     if(round >= totalRounds) { endGame(); return; }
-    if(round % 5 === 0) { storePlayerIdx = 0; openStore(); }
+    if(round % 3 === 0) { storePlayerIdx = 0; openStore(); }
     else { if(!silent) activeIdx = (activeIdx + 1) % party.length; resetUI(); }
 }
 function openStore() { storePoints = 5; tempStats = {pow:0, spd:0, brn:0, cha:0, wil:0}; renderStore(); }
@@ -1420,7 +1516,7 @@ function updatePartyUI() {
             ${statsDisplay}
             
             <div style="background: rgba(197,160,89,0.1); border-left: 3px solid var(--gold); padding: 6px 8px; margin-top: 12px; font-size: 10px;">
-                <div style="color: var(--blood); font-weight: bold; margin-bottom: 2px;">⚡ ${p.passive}${passiveUsed[i] ? ' (USED)' : ''}</div>
+                <div style="color: var(--gold-bright); font-weight: bold; margin-bottom: 2px;">⚡ ${p.passive}${passiveUsed[i] ? ' (USED)' : ''}</div>
                 <div style="color: var(--blood); line-height: 1.2;">${p.passiveDesc}</div>
             </div>
         </div>
