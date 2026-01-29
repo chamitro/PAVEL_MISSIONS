@@ -501,7 +501,7 @@
             <div class="instruction-text" style="text-align: justify;">
                 <p>In the heart of a realm where ancient forests whisper forgotten secrets, there lies the village of <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of ale.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">King Antony - The Peacefull King</b></p>
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">King Antony - The Peaceful King</b></p>
                 <p>At the center of this peculiar kingdom sits <b>King Antony</b>, a ruler unlike any other. While neighboring monarchs concern themselves with conquest and coin, Antony has but two ambitions: to keep his village peaceful and his tankard full. You'll find him most evenings at the tavern's corner table, laughing heartily and buying rounds for travelers, believing that a kingdom held together by friendship and beer is stronger than any held by the sword. His crown sits askew on his head, and his royal robes are often stained with ale, but his people love him for it. "A happy village is a peaceful village," he often declares, raising his mug high.</p>
                 
                 <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Old Nick the Geezer - Keeper of Tales</b></p>
@@ -1034,6 +1034,12 @@ function renderDice(number) {
 function drawCard() {
     openerIdx = activeIdx; pStage = deck[round];
     const setter = party[(activeIdx + 1) % party.length].pName;
+    
+    // Reset Paladin dice flag for the new challenge
+    const currentHero = party[activeIdx];
+    if(currentHero.n === 'Drunken Paladin') {
+        currentHero.paladinDiceUsedThisTurn = false;
+    }
     
     showModal(`Shadow Ritual`, `${setter}, manifest the peril:`, `<button class="btn btn-main" onclick="setDiff('e',1)">Minor Encounter (1pt)</button><button class="btn btn-main" style="border-color:var(--blood); color: var(--blood)" onclick="setDiff('h',2)">Deadly Trial (2pt)</button>`);
 }
