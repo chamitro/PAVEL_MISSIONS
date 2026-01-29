@@ -169,9 +169,107 @@
         .book-3d {
             transition: all 0.3s ease;
         }
+        
+        /* Fullscreen exit button (mobile only) */
+        #exit-fullscreen {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10000;
+            background: rgba(0,0,0,0.7);
+            border: 2px solid var(--gold);
+            border-radius: 5px;
+            padding: 8px 12px;
+            color: var(--gold);
+            font-family: 'MedievalSharp', cursive;
+            font-size: 11px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        #exit-fullscreen:hover {
+            background: rgba(0,0,0,0.9);
+            transform: scale(1.05);
+        }
+        
+        /* Show button only on mobile devices */
+        @media (max-width: 768px) {
+            #exit-fullscreen {
+                display: block;
+            }
+        }
+        
+        /* Fullscreen splash screen */
+        #fullscreen-splash {
+            position: fixed;
+            inset: 0;
+            background: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.4) 0%, #000 100%), url('https://www.transparenttextures.com/patterns/dark-stone.png');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        #fullscreen-splash h1 {
+            font-family: 'Cinzel Decorative', serif;
+            color: #f3cf7a;
+            font-size: 32px;
+            text-align: center;
+            margin: 0;
+            text-shadow: 2px 2px 4px #000;
+        }
+        
+        #fullscreen-splash p {
+            font-family: 'Almendra', serif;
+            color: #d4c3a3;
+            font-size: 16px;
+            text-align: center;
+            margin: 0;
+            max-width: 400px;
+            padding: 0 20px;
+        }
+        
+        #enter-fullscreen-btn {
+            background: linear-gradient(135deg, #4a3520 0%, #6b5030 50%, #4a3520 100%);
+            border: 3px solid var(--gold);
+            border-radius: 5px;
+            padding: 20px 40px;
+            color: #f3cf7a;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        #enter-fullscreen-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(197,160,89,0.4);
+            background: linear-gradient(135deg, #5a4530 0%, #7b6040 50%, #5a4530 100%);
+        }
+        
+        #enter-fullscreen-btn:active {
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body>
+
+<!-- Fullscreen splash screen -->
+<div id="fullscreen-splash">
+    <img src="./images/map.png" alt="Pavel Map" style="width: 150px; height: 150px; margin-bottom: 20px; border: 3px solid var(--gold); border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.5);">
+    <h1>Missions of Pavel</h1>
+    <p>For the best experience, this game is designed to be played in fullscreen mode.</p>
+    <button id="enter-fullscreen-btn" onclick="startGameFullscreen()">Enter the Tavern</button>
+</div>
+
+<button id="exit-fullscreen" onclick="exitFullscreen()" style="display: none;">Exit ✕</button>
 
 <div class="container">
     <div id="view-intro">
@@ -1573,6 +1671,60 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(heroBook, { attributes: true });
     }
 });
+
+// Fullscreen functionality
+function enterFullscreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+}
+
+function startGameFullscreen() {
+    // Hide splash screen
+    document.getElementById('fullscreen-splash').style.display = 'none';
+    
+    // Show exit button (only visible on mobile via CSS)
+    document.getElementById('exit-fullscreen').style.display = 'block';
+    
+    // Enter fullscreen
+    enterFullscreen();
+}
+
+// Handle fullscreen change events
+document.addEventListener('fullscreenchange', handleFullscreenChange);
+document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+function handleFullscreenChange() {
+    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || 
+                            document.mozFullScreenElement || document.msFullscreenElement);
+    
+    const exitBtn = document.getElementById('exit-fullscreen');
+    
+    if (isFullscreen) {
+        // In fullscreen - show exit button on mobile
+        exitBtn.style.display = 'block';
+    } else {
+        // Exited fullscreen - hide exit button
+        exitBtn.style.display = 'none';
+    }
+}
 
 </script>
 </body>
