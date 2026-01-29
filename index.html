@@ -733,7 +733,7 @@
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">This silent monk visited Pavel from the southeastern monasteries, bringing sacred wine as a gift. Having taken a vow of silence, the Mute Monk communicates through gestures and expressions, yet possesses profound wisdom and mental discipline.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
                         <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Inner Peace</p>
-                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Meditating restores +2 to one attribute of your choice (instead of no benefit)</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Meditating restores +4 to one attribute of your choice (instead of no benefit)</p>
                     </div>
                 </div>
                 
@@ -924,13 +924,13 @@ const STAGES = [
 const HEROES = [
     { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:3, spd:5, brn:5, cha:5, wil:4}, passive: 'Shadow Control', passiveDesc: '3 times per game, force another player to meditate (skip their turn)' },
     { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:4, brn:6, cha:1, wil:5}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
-    { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:3, cha:5, wil:6}, passive: 'Stone Skin', passiveDesc: 'When you fail a challenge, keep 1 stat point you spent (returned to that same attribute)' },
+    { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:3, cha:5, wil:6}, passive: 'Stone Skin', passiveDesc: 'For every fail, keep 1 stat point you spent (returned to that same attribute)' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:4, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
     { n: 'Neighboor Mage', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Once per game, borrow stat points from another player to help you in a challenge' },
     { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:2, wil:6}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:2}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll a dice. If 5 or 6, automatically win the challenge' },
-    { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:4, brn:9, cha:2, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +2 to one attribute of your choice (instead of no benefit)' },
+    { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:4, brn:9, cha:2, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice (instead of no benefit)' },
     { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Undead Hunger', passiveDesc: 'Gain +1 to POW every time you complete a challenge' }
 ];
 
@@ -1500,9 +1500,9 @@ function meditateTurn() {
     if(h.skips > 0) {
         h.skips--;
         
-        // Mute Monk passive: Inner Peace - restore +2 to chosen attribute
+        // Mute Monk passive: Inner Peace - restore +4 to chosen attribute
         if(h.n === 'Mute Monk') {
-            showModal("Inner Peace Activated", "Choose an attribute to restore +2", `
+            showModal("Inner Peace Activated", "Choose an attribute to restore +4", `
                 <div style="margin: 15px 0;">
                     <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
                 </div>
@@ -1527,7 +1527,7 @@ function meditateTurn() {
 function finishMonkMeditate() {
     const h = party[activeIdx];
     const chosenStat = document.getElementById('monk-restore-stat').value;
-    h.cur[chosenStat] += 2;
+    h.cur[chosenStat] += 4;
     updatePartyUI();
     rotateCycle();
 }
