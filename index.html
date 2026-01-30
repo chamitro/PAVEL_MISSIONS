@@ -911,16 +911,16 @@ const STAGES = [
     {t: "The Void Whisper", d: "Voices promise power for your soul. Resist?", s: "wil", e: 4, h: 8, a: ['dark','undead']},
     {t: "Monastic Silence", d: "Sit still while insects crawl on your skin.", s: "wil", e: 3, h: 6, a: ['silent','dark','undead']},
     {t: "Eldritch Guilt", d: "A ghost forces you to relive your worst shame.", s: "wil", e: 3, h: 6, a: ['undead','dark']},
-    {t: "Infinite Staircase", d: "Every step feels like a mile. Keep climbing.", s: "wil", e: 4, h: 8, a: 'sky'},
-    {t: "Stone Transformation", d: "Legs are turning to marble. Keep moving.", s: "wil", e: 6, h: 10, a: 'stone'},
-    {t: "The Singer's Halt", d: "The singer capturing your focus. Tell her to stop.", s: "cha", e: 4, h: 8, a: ['crowd','pub']},
+    {t: "Infinite Staircase", d: "Mission to the Lost Dragon Town. You are a dragon you can enter! Or else, enter the town without noticing you!", s: "wil", e: 5, h: 10, a: ['sky','dark']},
+    {t: "Stone Transformation", d: "Follow the king Antony's daughter without notice you", s: "wil", e: 4, h: 7, a: 'stone'},
+    {t: "The Singer's Halt", d: "The singer capturing your focus. Tell her to stop.", s: "cha", e: 4, h: 8, a: 'dark'},
     {t: "The Cursed Ring", d: "King's Antony golden ring glows with mind-corrupting light. Resist not to still it!", s: "wil", e: 4, h: 8, a: ['magic','silent']},
     {t: "Beggar's Test", d: "Old Nick asks for your last money. Resist and go!", s: "wil", e: 2, h: 4, a: 'crowd'},
     {t: "Echoes of Fear", d: "You have an illusion. The room echoes with your personal phobias.", s: "wil", e: 5, h: 8, a: ['dark','magic','crowd']},
-    {t: "Molten Spirit", d: "Pub's floor is collapsing. Calm and cross fast!", s: "wil", e: 5, h: 10, a: ['sky', 'silent']},
+    {t: "Molten Spirit", d: "Pub's floor is collapsing. Calm and cross!", s: "wil", e: 5, h: 10, a: ['sky', 'silent']},
     {t: "The Proxy King", d: "King Antony is drunk. Be the king for a day.", s: "wil", e: 5, h: 9, a: ['crowd', 'magic']},
     {t: "Royal Beer Fight", d: "Win a beer fight against king Antony!", s: "wil", e: 3, h: 6, a: 'pub'},
-    {t: "Hero's Burden", d: "The Devil has arrived. Fight or run!", s: "pow", e: 8, h: 12, a: ['stone', 'shadow', 'undead', 'sky']},
+    {t: "Hero's Burden", d: "The Devil has arrived. Fight, run or hide in the dark!", s: "pow", e: 8, h: 12, a: ['stone', 'shadow', 'undead', 'sky', 'dark']},
     
     // NEW CHALLENGES - SPD focused (11 challenges)
     {t: "Barrel Avalanche", d: "Beer barrels roll down the pub stairs. Dodge them all!", s: "spd", e: 4, h: 8, a: ['magic','shadow']},
@@ -938,10 +938,10 @@ const STAGES = [
     // NEW CHALLENGES - POW focused (7 challenges)
     {t: "Giant's Arm Wrestling", d: "A drunken dragon challenges you. Show your strength!", s: "pow", e: 5, h: 10, a: ['stone','sky','undead']},
     {t: "Troll Gate Breach", d: "We live in war times! Smash through the troll's barricade before they return!", s: "pow", e: 6, h: 11, a: ['sky','stone','undead']},
-    {t: "Frozen Door", d: "Winter and cold. Pub's exit is encased in ice. Break through with force!", s: "pow", e: 4, h: 8, a: ['stone','tech','undead']},
+    {t: "Frozen Door", d: "Winter and cold. Pub's exit is encased in ice. Break through with force!", s: "pow", e: 4, h: 8, a: ['stone','tech','undead', 'sky']},
     {t: "Beast Pit", d: "Fight the swamp beast in King Antony's arena!", s: "pow", e: 6, h: 12, a: ['undead','sky', 'stone']},
     {t: "Chain Breaking", d: "You fought with Orks and lost! They took you chained to the fortress. Break the chains and escape.", s: "pow", e: 6, h: 11, a: ['stone','undead', 'sky', 'tech']},
-    {t: "Fight with Panchonco?", d: "You want another beer, drunk Panchonco blocks your path. FIght or negotiate!", s: "pow", e: 4, h: 8, a: ['stone','crowd']},
+    {t: "Fight with Panchonco?", d: "You want another beer, drunk Panchonco blocks your path. FIght or negotiate!", s: "pow", e: 4, h: 8, a: ['stone','crowd', 'sky']},
     {t: "Barrel Lift Challenge", d: "Impress a dwarf by lifting his heaviest beer barrel!", s: "pow", e: 3, h: 6, a: ['stone','undead']},
     
     // NEW CHALLENGES - CHA focused (6 challenges)
@@ -953,7 +953,7 @@ const STAGES = [
     {t: "Devil's Bargain", d: "Talk to the Devil into sparing Pavel without selling your soul!", s: "cha", e: 7, h: 14, a: ['pub','magic', 'crowd']},
     
     // NEW CHALLENGES - BRN focused (4 challenges)
-    {t: "Drunk Wizard", d: "A drunk wizard did magic to vanish the pub! Decipher the wizard's cryptic spellbook before time runs out!", s: "brn", e: 5, h: 10, a: ['magic','tech']},
+    {t: "Drunk Wizard", d: "A drunk wizard did a magic trick to vanish the pub! Decipher the wizard's cryptic spellbook before time runs out!", s: "brn", e: 5, h: 10, a: ['magic','tech']},
     {t: "Poison Antidote", d: "Something in my beer! You're poisoned! Mix the correct herbs to save yourself!", s: "brn", e: 4, h: 8, a: ['magic','silent']},
     {t: "Traps Mechanism", d: "Analyze the complex traps in the forest and disable them safely!", s: "brn", e: 5, h: 10, a: 'tech'},
     {t: "King's Antony Riddle", d: "Answer king Antony's three riddles or get excluded from Pavel's Town pub forever !", s: "brn", e: 4, h: 7, a: ['tech','magic','silent']},
