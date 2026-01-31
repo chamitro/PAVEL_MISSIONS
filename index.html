@@ -371,7 +371,7 @@
                 <!-- Subtitle -->
                 <div style="text-align: center; margin-top: 12px; font-family: 'Almendra', serif; font-style: italic; 
                            font-size: 10px; letter-spacing: 2px; color: #7a6a4a; opacity: 0.9;">
-                    A Tale of Heroes and Ale
+                    A Tale of Heroes and Beer!
                 </div>
             </div>
             
@@ -465,6 +465,7 @@
             
             <button class="btn btn-main" onclick="showSetup()" style="font-size: 16px; padding: 20px; animation: pulse 2s ease-in-out infinite; position: relative; z-index: 1;">ENTER THE MISSIONS</button>
         </div>
+            <button class="btn btn-danger" onclick="resetHallOfFame()" style="font-size: 10px; margin-top: 40px; opacity: 0.6;">Reset Hall of Fame</button>
 
         <!-- Scroll 1: The World Map -->
         <div id="intro-book-1" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
@@ -551,7 +552,7 @@
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A mysterious figure who finds fascination in observing others. The Dark Stalker's interest lies in following people and learning everything about their lives—their habits, their secrets, their fears. Some say he knows more about the villagers than they know about themselves.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
                         <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Shadow Control</p>
-                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Force the next player to meditate. Max uses: 2 players=1, 3 players=2, 4+ players=3</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Force a player to meditate. Max uses: 2 players=1, 3 players=2, 4+ players=3</p>
                     </div>
                 </div>
                 
@@ -566,7 +567,7 @@
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
                         <div><b>POW:</b> 6</div>
-                        <div><b>SPD:</b> 4</div>
+                        <div><b>SPD:</b> 5</div>
                         <div><b>BRN:</b> 6</div>
                         <div><b>CHA:</b> 1</div>
                         <div><b>WIL:</b> 6</div>
@@ -660,7 +661,7 @@
                         <div><b>POW:</b> 4</div>
                         <div><b>SPD:</b> 7</div>
                         <div><b>BRN:</b> 5</div>
-                        <div><b>CHA:</b> 2</div>
+                        <div><b>CHA:</b> 3</div>
                         <div><b>WIL:</b> 5</div>
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A hired blade who takes on missions for coin. Though they weren't quite good enough to join the elite assassin guilds, the Shadow Ninja's speed and agility still make them a dangerous opponent in the right circumstances.</p>
@@ -758,7 +759,7 @@
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">This undead wanderer roams the realm in an eternal search for true love. Though death has claimed his body, his heart still yearns. Incredibly strong and nearly unstoppable, the Lover Zombie approaches each new encounter with tragic hope that this might be the one.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
                         <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Cursed Embrace</p>
-                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">On victory: Select a stat - all players lose 1, you gain 1</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">On victory: Select a stat - all players lose 1, you gain plus 2</p>
                     </div>
                 </div>
             </div>
@@ -785,7 +786,7 @@
                 <p><b>3. Soul-Type Advantage:</b> If your hero's Soul-Type matches the challenge's affinity, you receive a <b>+3 automatic bonus</b> toward the challenge. Soul-Type advantages are <b>secret</b> for players.</p>
                 
                 <p><b>4. Decision Options:</b> Each turn, you have three choices:</p>
-                <p style="margin-left: 20px;">• <b>Do the Challenge:</b> Spend attribute points to meet the target and claim Glory.</p>
+                <p style="margin-left: 20px;">• <b>Do the Challenge:</b> Spend attribute points to meet the target and claim Glory. If you win you get <b>back 1 point</b> of what you spent!</p>
                 <p style="margin-left: 20px;">• <b>Pass (Meditation):</b> Skip the challenge without penalty. You have exactly <b>3 Meditations</b> for the entire game—use them wisely on impossible or inefficient challenges.</p>
                 <p style="margin-left: 20px;">• <b>Challenge a Friend:</b> Engage in a competitive dual challenge with another player. Both invest attribute points. Outcomes: both succeed (both gain Glory), one succeeds (solo winner gains bonus Glory), or both fail (no Glory). But, after challenge a friend, <b>another challenge opens</b>. Strategic for difficult challenges or when attributes are scarce.</p>
                 
@@ -965,15 +966,15 @@ const STAGES = [
 
 const HEROES = [
     { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:4, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Force a player of your choice to meditate on their next turn. Max uses: 2 players=1, 3 players=2, 4+ players=3' },
-    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:4, brn:6, cha:1, wil:6}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
+    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:1, wil:6}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Force', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
     { n: 'Neighboor Mage', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Once per game, borrow stat points from another player to help you in a challenge' },
-    { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:2, wil:5}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
+    { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll a dice. If 5 or 6, automatically win the challenge' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice (instead of no benefit)' },
-    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select a stat - all players lose 1, you gain 1' }
+    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select a stat - all players lose 1, you gain 2' }
 ];
 
 let party = [], deck = [], round = 0, totalRounds = 0, activeIdx = 0, pTarget = 0, pPts = 0, pStage = null, pCount = 2, regIdx = 0, openerIdx = -1, storePlayerIdx = 0, storePoints = 5, tempStats = {};
@@ -1073,8 +1074,8 @@ function renderDice(number) {
     return `<div class="dice">${dots}</div>`;
 }
 
-function drawCard() {
-    // Check if current player is under Shadow Control (forced meditation)
+// Check for Shadow Control before any hero action
+function checkShadowControl() {
     const currentHero = party[activeIdx];
     if(currentHero.forcedMeditation) {
         currentHero.forcedMeditation = false; // Clear the flag
@@ -1099,11 +1100,20 @@ function drawCard() {
                 <button class="btn btn-main" onclick="rotateCycle()">Skip Turn</button>
             `);
         }
+        return true; // Shadow control was active
+    }
+    return false; // No shadow control
+}
+
+function drawCard() {
+    // Check if current player is under Shadow Control (forced meditation)
+    if(checkShadowControl()) {
         return; // Exit early - don't draw a card
     }
     
     openerIdx = activeIdx; pStage = deck[round];
     const setter = party[(activeIdx + 1) % party.length].pName;
+    const currentHero = party[activeIdx];
     
     // Reset Paladin dice flag for the new challenge
     if(currentHero.n === 'Drunken Paladin') {
@@ -1113,10 +1123,11 @@ function drawCard() {
     showModal(`Shadow Ritual`, `${setter}, manifest the peril:`, `<button class="btn btn-main" onclick="setDiff('e',1)">Minor Encounter (1pt)</button><button class="btn btn-main" style="border-color:var(--blood); color: var(--blood)" onclick="setDiff('h',2)">Deadly Trial (2pt)</button>`);
 }
 
+// Allows Dark Stalker to choose ANY target for forced meditation
 function useShadowControl() {
     const h = party[activeIdx];
     
-    // Filter out the Dark Stalker from the list of targets
+    // Filter out the Dark Stalker so they don't target themselves
     let otherPlayers = party.filter((p, i) => i !== activeIdx);
     let playerOptions = otherPlayers.map((p) => {
         let realIdx = party.indexOf(p);
@@ -1125,13 +1136,13 @@ function useShadowControl() {
 
     showModal("🌑 Shadow Control", "Select your target", `
         <div style="margin: 15px 0;">
-            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+            <img src="${h.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
         </div>
         <p style="font-size:14px; margin-bottom:15px;">Which soul shall be consumed by the shadows?</p>
         <select id="shadow-target-player" class="input-hero" style="width:100%; font-size:16px; padding:10px; margin-bottom:20px;">
             ${playerOptions}
         </select>
-        <button class="btn btn-main" onclick="executeShadowControl()">Cuss the Soul</button>
+        <button class="btn btn-main" onclick="executeShadowControl()">Curse the Soul</button>
     `);
 }
 
@@ -1140,7 +1151,7 @@ function executeShadowControl() {
     const targetIdx = parseInt(document.getElementById('shadow-target-player').value);
     const target = party[targetIdx];
     
-    // Increment usage
+    // Track uses based on player count limits
     h.shadowControlUses = (h.shadowControlUses || 0) + 1;
     
     // Set the forced meditation flag on the target
@@ -1152,6 +1163,8 @@ function executeShadowControl() {
     `);
     updatePartyUI();
 }
+
+
 function shadowControlChangeChallenge() {
     // Draw a new challenge and reset the opener
     drawCard();
@@ -1172,6 +1185,11 @@ function closeModalAndShowControls() {
     closeModal();
 }
 function startFight() {
+    // Check if current player is under Shadow Control before allowing them to fight
+    if(checkShadowControl()) {
+        return; // Shadow control handled, player must meditate instead
+    }
+    
     const h = party[activeIdx];
     
     // Check for Neighbor Mage passive (Arcane Alliance) - can borrow from another player
@@ -1478,19 +1496,19 @@ function applyLoverZombieDebuff() {
     const chosenStat = document.getElementById('zombie-debuff-stat').value;
     const currentPlayer = party[activeIdx];
     
-    // Apply debuff to ALL players (including self)
-    party.forEach(p => {
-        if(p.cur[chosenStat] > 0) {
+    // 1. All OTHER players lose 1 point
+    party.forEach((p, idx) => {
+        if(idx !== activeIdx && p.cur[chosenStat] > 0) {
             p.cur[chosenStat] -= 1;
         }
     });
     
-    // Then give bonus to current player (net effect: others -1, you +0 then +1 = you stay same or +1 if you had points)
-    currentPlayer.cur[chosenStat] += 1;
+    // 2. The Zombie GAINS 1 point
+    currentPlayer.cur[chosenStat] += 2;
     
     updatePartyUI();
-    showModal("💀 Cursed Embrace Activated!", `Drained ${chosenStat.toUpperCase()} from all, empowered yourself!`, `
-        <p style="font-size:14px; margin:20px 0;">All players lose 1 ${chosenStat.toUpperCase()}, and you gain plus one!</p>
+    showModal("💀 Cursed Embrace Activated!", `Drained ${chosenStat.toUpperCase()} from all and gained +1!`, `
+        <p style="font-size:14px; margin:20px 0;">All other players lose 1 ${chosenStat.toUpperCase()}, and you grow stronger!</p>
         <button class="btn btn-main" onclick="checkStore()">Continue</button>
     `);
 }
@@ -1596,7 +1614,12 @@ function resetUI() {
     setTurnLabel(); closeModal(); updatePartyUI();
 }
 
-function meditateTurn() { 
+function meditateTurn() {
+    // Check if current player is under Shadow Control before allowing them to meditate voluntarily
+    if(checkShadowControl()) {
+        return; // Shadow control handled, player is forced to meditate anyway
+    }
+    
     const h = party[activeIdx];
     if(h.skips > 0) {
         h.skips--;
@@ -1662,6 +1685,11 @@ function forcedMeditateExecute() {
 let challengeData = null;
 
 function initiateFriendChallenge() {
+    // Check if current player is under Shadow Control before allowing them to challenge a friend
+    if(checkShadowControl()) {
+        return; // Shadow control handled, player must meditate instead
+    }
+    
     let otherPlayers = party.filter((p, i) => i !== activeIdx);
     let playerOptions = otherPlayers.map((p, i) => {
         let realIdx = party.indexOf(p);
@@ -2119,10 +2147,6 @@ function updatePartyUI() {
     `;
     }).join('');
 }
-function endGame() {
-    const winner = [...party].sort((a,b) => b.score - a.score)[0];
-    showModal("THE DESCENT ENDS", winner.pName + " is the Legend!", `<button class="btn btn-main" onclick="location.reload()">Re-enter the Abyss</button>`);
-}
 function showModal(t, d, c) { document.getElementById('modal').innerHTML = `<h2 class="medieval" style="margin-top:0;">${t}</h2><p style="font-size:16px; font-style:italic;">${d}</p><div style="margin-top:20px">${c}</div>`; document.getElementById('overlay').style.display = 'flex'; }
 function closeModal() { document.getElementById('overlay').style.display = 'none'; }
 
@@ -2208,6 +2232,63 @@ document.addEventListener('fullscreenchange', handleFullscreenChange);
 document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
 document.addEventListener('mozfullscreenchange', handleFullscreenChange);
 document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+// Records the hero type win and updates the persistent total
+// Saves the win to the device's persistent memory
+function recordWin(hero) {
+    let winHistory = JSON.parse(localStorage.getItem('pavel_wins') || '{}');
+    
+    // Track by hero type only
+    const heroKey = hero.n;
+    winHistory[heroKey] = (winHistory[heroKey] || 0) + 1;
+    
+    localStorage.setItem('pavel_wins', JSON.stringify(winHistory));
+}
+
+// Builds the sorted list of total wins per hero
+function getLeaderboardHTML() {
+    let winHistory = JSON.parse(localStorage.getItem('pavel_wins') || '{}');
+    const sortedHeroes = Object.entries(winHistory).sort(([, a], [, b]) => b - a);
+    
+    if (sortedHeroes.length === 0) return "";
+
+    return `
+        <div style="text-align: left; margin-top: 15px; background: rgba(0,0,0,0.1); padding: 10px; border: 1px solid #8e7b55;">
+            <p style="font-weight: bold; border-bottom: 1px solid #8e7b55; margin-bottom: 8px; color: var(--gold-bright); font-family: 'Cinzel Decorative'; font-size: 14px;">📜 HALL OF VICTORS</p>
+            ${sortedHeroes.map(([hero, wins]) => `
+                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; border-bottom: 1px dotted rgba(142, 123, 85, 0.3); padding: 3px 0;">
+                    <span>${hero}</span>
+                    <span style="color: var(--green); font-weight: bold;">${wins} ${wins === 1 ? 'Win' : 'Wins'}</span>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function endGame() {
+    const winner = [...party].sort((a,b) => b.score - a.score)[0];
+    recordWin(winner); // Update persistent history with full hero object
+    
+    const content = `
+        <div style="margin: 20px 0;">
+            <img src="${winner.i}" style="width: 100px; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(0,0,0,0.5);">
+            <p style="font-size: 20px; color: var(--gold); margin-top: 10px; font-family: 'Cinzel Decorative';">${winner.pName} the ${winner.n}</p>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+        ${getLeaderboardHTML()}
+        <button class="btn btn-main" style="margin-top: 25px;" onclick="location.reload()">Return to Tavern</button>
+    `;
+    showModal("THE MISSIONS CONCLUDE", "A Legend is Scribed!", content);
+}
+
+function resetHallOfFame() {
+    if(confirm("Are you sure you want to erase all village history?")) {
+        localStorage.removeItem('pavel_wins');
+        alert("The ledgers have been burned.");
+        location.reload();
+    }
+}
+
 
 function handleFullscreenChange() {
     const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || 
