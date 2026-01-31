@@ -613,7 +613,7 @@
                     <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
                         <div><b>POW:</b> 2</div>
                         <div><b>SPD:</b> 3</div>
-                        <div><b>BRN:</b> 4</div>
+                        <div><b>BRN:</b> 5</div>
                         <div><b>CHA:</b> 8</div>
                         <div><b>WIL:</b> 6</div>
                     </div>
@@ -967,7 +967,7 @@ const HEROES = [
     { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:3, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Force the next player to meditate. Max uses: 2 players=1, 3 players=2, 4+ players=3' },
     { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:4, brn:6, cha:1, wil:5}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:3, cha:5, wil:6}, passive: 'Brute Force', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
-    { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:4, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
+    { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
     { n: 'Neighboor Mage', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Once per game, borrow stat points from another player to help you in a challenge' },
     { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:2, wil:6}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:2}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
@@ -1074,11 +1074,38 @@ function renderDice(number) {
 }
 
 function drawCard() {
+    // Check if current player is under Shadow Control (forced meditation)
+    const currentHero = party[activeIdx];
+    if(currentHero.forcedMeditation) {
+        currentHero.forcedMeditation = false; // Clear the flag
+        
+        // Check if player has meditations left
+        if(currentHero.skips > 0) {
+            showModal("🌑 Shadow Controlled", `${currentHero.pName} must meditate this turn`, `
+                <div style="margin: 15px 0;">
+                    <img src="${currentHero.i}" alt="${currentHero.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+                </div>
+                <p style="font-size:14px; margin:20px 0;">The Dark Stalker's shadows force you to meditate and skip your turn...</p>
+                <p style="font-size:12px; color:var(--blood); margin-top:10px;">Meditation ${currentHero.skips}/3 will be used.</p>
+                <button class="btn btn-main" onclick="forcedMeditateExecute()">Meditate</button>
+            `);
+        } else {
+            // No meditations left - just skip turn
+            showModal("🌑 Shadow Controlled", `${currentHero.pName} is cursed but exhausted!`, `
+                <div style="margin: 15px 0;">
+                    <img src="${currentHero.i}" alt="${currentHero.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+                </div>
+                <p style="font-size:14px; margin:20px 0;">The shadows force meditation, but your spirit is too exhausted! Turn is wasted...</p>
+                <button class="btn btn-main" onclick="rotateCycle()">Skip Turn</button>
+            `);
+        }
+        return; // Exit early - don't draw a card
+    }
+    
     openerIdx = activeIdx; pStage = deck[round];
     const setter = party[(activeIdx + 1) % party.length].pName;
     
     // Reset Paladin dice flag for the new challenge
-    const currentHero = party[activeIdx];
     if(currentHero.n === 'Drunken Paladin') {
         currentHero.paladinDiceUsedThisTurn = false;
     }
@@ -1125,17 +1152,6 @@ function shadowControlChangeChallenge() {
 }
 
 function setDiff(m, pts) {
-    // Check if player is under Shadow Control (forced meditation)
-    const h = party[activeIdx];
-    if(h.forcedMeditation) {
-        h.forcedMeditation = false; // Clear the flag
-        showModal("🌑 Shadow Controlled", "You must meditate this turn", `
-            <p style="font-size:14px; margin:20px 0;">The Dark Stalker's shadows force you to meditate...</p>
-            <button class="btn btn-main" onclick="rotateCycle()">Skip Turn</button>
-        `);
-        return;
-    }
-    
     pTarget = pStage[m]; pPts = pts;
     document.getElementById('st-title').innerText = pStage.t;
     document.getElementById('st-desc').innerText = pStage.d;
@@ -1606,6 +1622,32 @@ function finishMonkMeditate() {
     rotateCycle();
 }
 
+function forcedMeditateExecute() {
+    const h = party[activeIdx];
+    h.skips--;
+    
+    // Mute Monk passive: Inner Peace - restore +4 to chosen attribute even when forced
+    if(h.n === 'Mute Monk') {
+        showModal("Inner Peace Activated", "Choose an attribute to restore +4", `
+            <div style="margin: 15px 0;">
+                <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+            </div>
+            <p style="font-size:14px; margin-bottom:15px;">Even under shadow control, your inner peace prevails. Select attribute to restore:</p>
+            <select id="monk-restore-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+                <option value="pow">POW</option>
+                <option value="spd">SPD</option>
+                <option value="brn">BRN</option>
+                <option value="cha">CHA</option>
+                <option value="wil">WIL</option>
+            </select>
+            <button class="btn btn-main" onclick="finishMonkMeditate()">Restore & Continue</button>
+        `);
+    } else {
+        updatePartyUI();
+        rotateCycle();
+    }
+}
+
 let challengeData = null;
 
 function initiateFriendChallenge() {
@@ -1656,6 +1698,18 @@ function selectChallenger() {
 
 function challengerInvest() {
     const challenger = party[challengeData.challenger];
+    
+    // Check for passives that can be used
+    let canUseArcaneAlliance = (challenger.n === 'Neighboor Mage' && !passiveUsed[challengeData.challenger]);
+    let canUseOverride = (challenger.n === 'Friendly AI' && !passiveUsed[challengeData.challenger]);
+    
+    let passiveOptions = '';
+    if(canUseArcaneAlliance) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('challenger')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
+    } else if(canUseOverride) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('challenger')">⚡ Use System Override (Choose Stat)</button>`;
+    }
+    
     showModal(`${challenger.pName}'s Investment`, "How much will you risk?", `
         <div style="margin: 15px 0;">
             <img src="${challenger.i}" alt="${challenger.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
@@ -1663,6 +1717,7 @@ function challengerInvest() {
         <p style="font-size:14px; margin-bottom:10px;">Current ${pStage.s.toUpperCase()}: ${challenger.cur[pStage.s]}</p>
         <input type="number" id="challenge-amt-1" class="input-hero" value="0" min="0" max="${challenger.cur[pStage.s]}" style="width:100%; font-size:30px; text-align:center; margin:10px 0;">
         <button class="btn btn-main" onclick="setChallengeBet1()">Commit</button>
+        ${passiveOptions}
     `);
 }
 
@@ -1679,6 +1734,18 @@ function setChallengeBet1() {
 
 function opponentInvest() {
     const opponent = party[challengeData.opponent];
+    
+    // Check for passives that can be used
+    let canUseArcaneAlliance = (opponent.n === 'Neighboor Mage' && !passiveUsed[challengeData.opponent]);
+    let canUseOverride = (opponent.n === 'Friendly AI' && !passiveUsed[challengeData.opponent]);
+    
+    let passiveOptions = '';
+    if(canUseArcaneAlliance) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('opponent')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
+    } else if(canUseOverride) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('opponent')">⚡ Use System Override (Choose Stat)</button>`;
+    }
+    
     showModal(`${opponent.pName}'s Investment`, "How much will you risk?", `
         <div style="margin: 15px 0;">
             <img src="${opponent.i}" alt="${opponent.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
@@ -1686,6 +1753,7 @@ function opponentInvest() {
         <p style="font-size:14px; margin-bottom:10px;">Current ${pStage.s.toUpperCase()}: ${opponent.cur[pStage.s]}</p>
         <input type="number" id="challenge-amt-2" class="input-hero" value="0" min="0" max="${opponent.cur[pStage.s]}" style="width:100%; font-size:30px; text-align:center; margin:10px 0;">
         <button class="btn btn-main" onclick="setChallengeBet2()">Commit</button>
+        ${passiveOptions}
     `);
 }
 
@@ -1704,14 +1772,68 @@ function resolveFriendChallenge() {
     const challenger = party[challengeData.challenger];
     const opponent = party[challengeData.opponent];
     
-    challenger.cur[pStage.s] -= challengeData.challengerSpend;
-    opponent.cur[pStage.s] -= challengeData.opponentSpend;
+    // Handle Arcane Alliance for challenger
+    let challengerTotalSpend = challengeData.challengerSpend;
+    let challengerUsedStat = pStage.s;
     
+    if(challengeData.challengerBorrowIdx !== undefined) {
+        const ally = party[challengeData.challengerBorrowIdx];
+        challengerTotalSpend += challengeData.challengerBorrowAmt;
+        ally.cur[pStage.s] -= challengeData.challengerBorrowAmt;
+    }
+    
+    // Handle System Override for challenger
+    if(challengeData.challengerOverrideStat !== undefined) {
+        challengerUsedStat = challengeData.challengerOverrideStat;
+    }
+    
+    // Handle Arcane Alliance for opponent
+    let opponentTotalSpend = challengeData.opponentSpend;
+    let opponentUsedStat = pStage.s;
+    
+    if(challengeData.opponentBorrowIdx !== undefined) {
+        const ally = party[challengeData.opponentBorrowIdx];
+        opponentTotalSpend += challengeData.opponentBorrowAmt;
+        ally.cur[pStage.s] -= challengeData.opponentBorrowAmt;
+    }
+    
+    // Handle System Override for opponent
+    if(challengeData.opponentOverrideStat !== undefined) {
+        opponentUsedStat = challengeData.opponentOverrideStat;
+    }
+    
+    // Deduct spent points
+    challenger.cur[challengerUsedStat] -= challengeData.challengerSpend;
+    opponent.cur[opponentUsedStat] -= challengeData.opponentSpend;
+    
+    // Calculate affinity bonuses
     let challengerBonus = (Array.isArray(pStage.a) ? pStage.a.includes(challenger.a) : challenger.a === pStage.a) ? 3 : 0;
     let opponentBonus = (Array.isArray(pStage.a) ? pStage.a.includes(opponent.a) : opponent.a === pStage.a) ? 3 : 0;
     
-    let challengerTotal = challengeData.challengerSpend + challengerBonus;
-    let opponentTotal = challengeData.opponentSpend + opponentBonus;
+    // Shadow Ninja passive for challenger
+    let challengerEffective = challengerTotalSpend;
+    if(challenger.n === 'Shadow Ninja' && challengerUsedStat === 'spd') {
+        challengerEffective = challengerTotalSpend * 2;
+    }
+    
+    // Shadow Ninja passive for opponent
+    let opponentEffective = opponentTotalSpend;
+    if(opponent.n === 'Shadow Ninja' && opponentUsedStat === 'spd') {
+        opponentEffective = opponentTotalSpend * 2;
+    }
+    
+    // Lost Dragon passive for challenger
+    if(challenger.n === 'Lost Dragon' && challengerTotalSpend >= 5) {
+        challengerBonus += 3;
+    }
+    
+    // Lost Dragon passive for opponent
+    if(opponent.n === 'Lost Dragon' && opponentTotalSpend >= 5) {
+        opponentBonus += 3;
+    }
+    
+    let challengerTotal = challengerEffective + challengerBonus;
+    let opponentTotal = opponentEffective + opponentBonus;
     
     let challengerWin = challengerTotal >= pTarget;
     let opponentWin = opponentTotal >= pTarget;
@@ -1724,14 +1846,33 @@ function resolveFriendChallenge() {
     challengeData.opponentWin = opponentWin;
     
     // Dark Stalker passive: Hide spending amounts
-    let challengerSpendDisplay = challengeData.challengerSpend;
-    let opponentSpendDisplay = challengeData.opponentSpend;
+    let challengerSpendDisplay = challengerTotalSpend;
+    let opponentSpendDisplay = opponentTotalSpend;
     
     if(challenger.n === 'Dark Stalker') {
         challengerSpendDisplay = '???';
     }
     if(opponent.n === 'Dark Stalker') {
         opponentSpendDisplay = '???';
+    }
+    
+    // Build display text for borrowed/override info
+    let challengerInfo = '';
+    if(challengeData.challengerBorrowIdx !== undefined) {
+        const ally = party[challengeData.challengerBorrowIdx];
+        challengerInfo = `<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Borrowed ${challengeData.challengerBorrowAmt} from ${ally.pName}</p>`;
+    }
+    if(challengeData.challengerOverrideStat !== undefined) {
+        challengerInfo += `<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Used ${challengerUsedStat.toUpperCase()} instead</p>`;
+    }
+    
+    let opponentInfo = '';
+    if(challengeData.opponentBorrowIdx !== undefined) {
+        const ally = party[challengeData.opponentBorrowIdx];
+        opponentInfo = `<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Borrowed ${challengeData.opponentBorrowAmt} from ${ally.pName}</p>`;
+    }
+    if(challengeData.opponentOverrideStat !== undefined) {
+        opponentInfo += `<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Used ${opponentUsedStat.toUpperCase()} instead</p>`;
     }
     
     showModal("The Challenge Unfolds...", "Calculating Fates...", `
@@ -1743,6 +1884,7 @@ function resolveFriendChallenge() {
                 <p style="font-size:24px; margin:10px 0; color:var(--gold);">${challengerTotal}</p>
                 <small>${challengerBonus > 0 ? `+${challengerBonus} bonus` : 'No bonus'}</small>
                 ${challenger.n === 'Dark Stalker' ? '<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Hidden by shadows</p>' : ''}
+                ${challengerInfo}
             </div>
             <div style="border:2px solid #8e7b55; padding:15px; border-radius:5px;">
                 <img src="${opponent.i}" alt="${opponent.n}" style="width: 60px; height: 60px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px; margin-bottom: 10px;">
@@ -1751,6 +1893,7 @@ function resolveFriendChallenge() {
                 <p style="font-size:24px; margin:10px 0; color:var(--gold);">${opponentTotal}</p>
                 <small>${opponentBonus > 0 ? `+${opponentBonus} bonus` : 'No bonus'}</small>
                 ${opponent.n === 'Dark Stalker' ? '<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Hidden by shadows</p>' : ''}
+                ${opponentInfo}
             </div>
         </div>
         <p style="font-size:14px; margin-top:10px;">Target: <b style="color:var(--blood);">${pTarget}</b></p>
@@ -1798,6 +1941,140 @@ function showChallengeResult() {
         `);
     }
     updatePartyUI();
+}
+
+function useChallengeArcaneAlliance(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    passiveUsed[playerIdx] = true;
+    
+    // Select another player (excluding the challenger and opponent)
+    let otherPlayers = party.filter((p, i) => i !== challengeData.challenger && i !== challengeData.opponent);
+    
+    if(otherPlayers.length === 0) {
+        alert("No other players available to borrow from!");
+        passiveUsed[playerIdx] = false; // Restore passive
+        return;
+    }
+    
+    let playerOptions = otherPlayers.map((p, i) => {
+        let realIdx = party.indexOf(p);
+        return `<option value="${realIdx}">${p.pName} (${p.n}) - ${pStage.s.toUpperCase()}: ${p.cur[pStage.s]}</option>`;
+    }).join('');
+    
+    showModal(`⚡ Arcane Alliance`, "Borrow power from an ally", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Choose an ally to borrow ${pStage.s.toUpperCase()} points from:</p>
+        <select id="challenge-alliance-player" class="input-hero" style="width:100%; font-size:14px; padding:10px; margin-bottom:15px;">
+            ${playerOptions}
+        </select>
+        <p>Your ${pStage.s.toUpperCase()}: <b>${h.cur[pStage.s]}</b></p>
+        <p style="font-size:14px; margin:10px 0;">How many points to borrow?</p>
+        <input type="number" id="challenge-borrow-amt" value="1" min="0" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <button class="btn btn-main" style="margin-top:15px;" onclick="processChallengeBorrow('${role}')">Continue</button>
+    `);
+}
+
+function processChallengeBorrow(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    const allyIdx = parseInt(document.getElementById('challenge-alliance-player').value);
+    const ally = party[allyIdx];
+    const borrowAmt = parseInt(document.getElementById('challenge-borrow-amt').value) || 0;
+    
+    if(borrowAmt > ally.cur[pStage.s]) {
+        alert(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
+        return;
+    }
+    
+    // Store borrowed info
+    if(role === 'challenger') {
+        challengeData.challengerBorrowIdx = allyIdx;
+        challengeData.challengerBorrowAmt = borrowAmt;
+    } else {
+        challengeData.opponentBorrowIdx = allyIdx;
+        challengeData.opponentBorrowAmt = borrowAmt;
+    }
+    
+    // Ask how many of your own points to spend
+    showModal(`Arcane Alliance: ${ally.pName} lends ${borrowAmt}`, "Now add your own points", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p>Borrowed from ${ally.pName}: <b style="color:var(--gold);">${borrowAmt}</b></p>
+        <p>Your ${pStage.s.toUpperCase()}: <b>${h.cur[pStage.s]}</b></p>
+        <p style="font-size:14px; margin:10px 0;">How many of YOUR points to add?</p>
+        <input type="number" id="challenge-own-amt" value="0" min="0" max="${h.cur[pStage.s]}" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <button class="btn btn-main" style="margin-top:15px;" onclick="finalizeChallengeBorrow('${role}')">Commit Combined Power!</button>
+    `);
+}
+
+function finalizeChallengeBorrow(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    const ownSpend = parseInt(document.getElementById('challenge-own-amt').value) || 0;
+    
+    if(ownSpend > h.cur[pStage.s]) {
+        alert("Not enough points!");
+        return;
+    }
+    
+    // Store the spend
+    if(role === 'challenger') {
+        challengeData.challengerSpend = ownSpend;
+        opponentInvest();
+    } else {
+        challengeData.opponentSpend = ownSpend;
+        resolveFriendChallenge();
+    }
+}
+
+function useChallengeSystemOverride(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    passiveUsed[playerIdx] = true;
+    
+    showModal(`System Override Activated!`, `Choose which stat to use`, `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p>Select attribute to use instead of ${pStage.s.toUpperCase()}:</p>
+        <select id="challenge-override-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin:15px 0;">
+            <option value="pow">POW (${h.cur.pow})</option>
+            <option value="spd">SPD (${h.cur.spd})</option>
+            <option value="brn">BRN (${h.cur.brn})</option>
+            <option value="cha">CHA (${h.cur.cha})</option>
+            <option value="wil">WIL (${h.cur.wil})</option>
+        </select>
+        <p>Invest Points:</p>
+        <input type="number" id="challenge-override-amt" value="1" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <button class="btn btn-main" style="margin-top:20px;" onclick="processChallengeOverride('${role}')">Commit!</button>
+    `);
+}
+
+function processChallengeOverride(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    const overrideStat = document.getElementById('challenge-override-stat').value;
+    const spend = parseInt(document.getElementById('challenge-override-amt').value) || 0;
+    
+    if(spend > h.cur[overrideStat]) {
+        alert("Not enough points!");
+        return;
+    }
+    
+    // Store override info
+    if(role === 'challenger') {
+        challengeData.challengerOverrideStat = overrideStat;
+        challengeData.challengerSpend = spend;
+        opponentInvest();
+    } else {
+        challengeData.opponentOverrideStat = overrideStat;
+        challengeData.opponentSpend = spend;
+        resolveFriendChallenge();
+    }
 }
 
 function refill(idx, stat) { /* Refill disabled - only through Alchemist every 3 turns */ }
