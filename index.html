@@ -1376,7 +1376,7 @@ function processAttempt(overrideStat = null) {
         dragonBonus = 3;
     }
     
-    let bonus = (h.a === pStage.a ? 3 : 0);
+    let bonus = (Array.isArray(pStage.a) ? pStage.a.includes(h.a) : h.a === pStage.a) ? 3 : 0;
     let total = effectiveSpend + bonus + dragonBonus;
     h.cur[useStat] -= spend;
     showResult(spend, bonus + dragonBonus, total, total >= pTarget, useStat, effectiveSpend);
