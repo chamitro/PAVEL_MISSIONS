@@ -964,7 +964,7 @@ const STAGES = [
 ];
 
 const HEROES = [
-    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:4, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Force the next player to meditate. Max uses: 2 players=1, 3 players=2, 4+ players=3' },
+    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:4, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Force a player of your choice to meditate on their next turn. Max uses: 2 players=1, 3 players=2, 4+ players=3' },
     { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:4, brn:6, cha:1, wil:6}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Force', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
@@ -1115,37 +1115,43 @@ function drawCard() {
 
 function useShadowControl() {
     const h = party[activeIdx];
-    h.shadowControlUses = (h.shadowControlUses || 0) + 1;
     
-    // Calculate next player index
-    let nextPlayerIdx = (activeIdx + 1) % party.length;
-    
-    // Check if next player would be the opener (the one who drew the challenge)
-    if(nextPlayerIdx === openerIdx) {
-        // Change the challenge instead
-        showModal("🌑 Shadow Control", "The shadows shift reality...", `
-            <div style="margin: 15px 0;">
-                <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
-            </div>
-            <p style="font-size:14px; margin:20px 0;">The next player would be the challenger! The shadows twist fate and change the challenge instead...</p>
-            <button class="btn btn-main" onclick="shadowControlChangeChallenge()">Continue</button>
-        `);
-    } else {
-        // Force next player to meditate
-        const target = party[nextPlayerIdx];
-        target.forcedMeditation = true;
-        
-        showModal("🌑 Shadow Controlled!", `${target.pName} falls under your control`, `
-            <div style="margin: 15px 0;">
-                <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
-            </div>
-            <p style="font-size:14px; margin:20px 0;">${target.pName} (the next player) will be forced to meditate on their turn!</p>
-            <button class="btn btn-main" onclick="startFight()">Continue to Your Challenge</button>
-        `);
-    }
-    updatePartyUI();
+    // Filter out the Dark Stalker from the list of targets
+    let otherPlayers = party.filter((p, i) => i !== activeIdx);
+    let playerOptions = otherPlayers.map((p) => {
+        let realIdx = party.indexOf(p);
+        return `<option value="${realIdx}">${p.pName} (${p.n})</option>`;
+    }).join('');
+
+    showModal("🌑 Shadow Control", "Select your target", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Which soul shall be consumed by the shadows?</p>
+        <select id="shadow-target-player" class="input-hero" style="width:100%; font-size:16px; padding:10px; margin-bottom:20px;">
+            ${playerOptions}
+        </select>
+        <button class="btn btn-main" onclick="executeShadowControl()">Cuss the Soul</button>
+    `);
 }
 
+function executeShadowControl() {
+    const h = party[activeIdx];
+    const targetIdx = parseInt(document.getElementById('shadow-target-player').value);
+    const target = party[targetIdx];
+    
+    // Increment usage
+    h.shadowControlUses = (h.shadowControlUses || 0) + 1;
+    
+    // Set the forced meditation flag on the target
+    target.forcedMeditation = true;
+    
+    showModal("🌑 Shadow Controlled!", `${target.pName} is cursed`, `
+        <p style="font-size:14px; margin:20px 0;">The shadows have wrapped around ${target.pName}. They will be forced to meditate on their next turn!</p>
+        <button class="btn btn-main" onclick="startFight()">Continue to Your Challenge</button>
+    `);
+    updatePartyUI();
+}
 function shadowControlChangeChallenge() {
     // Draw a new challenge and reset the opener
     drawCard();
