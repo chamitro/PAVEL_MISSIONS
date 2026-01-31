@@ -569,7 +569,7 @@
                         <div><b>SPD:</b> 4</div>
                         <div><b>BRN:</b> 6</div>
                         <div><b>CHA:</b> 1</div>
-                        <div><b>WIL:</b> 5</div>
+                        <div><b>WIL:</b> 6</div>
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">Created by wise mages a century ago, this mechanical marvel was designed to assist with everyday village work. Though lacking in social graces, the Friendly AI's analytical mind and tireless nature make it an invaluable ally in solving complex problems.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
@@ -684,7 +684,7 @@
                         <div><b>SPD:</b> 5</div>
                         <div><b>BRN:</b> 5</div>
                         <div><b>CHA:</b> 3</div>
-                        <div><b>WIL:</b> 2</div>
+                        <div><b>WIL:</b> 3</div>
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">Years ago, this dragon lost its way from the floating Dragon Town and has been trying to find the path back home ever since. Powerful but melancholic, the Lost Dragon carries the weight of displacement and an unrelenting homesickness.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
@@ -758,7 +758,7 @@
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">This undead wanderer roams the realm in an eternal search for true love. Though death has claimed his body, his heart still yearns. Incredibly strong and nearly unstoppable, the Lover Zombie approaches each new encounter with tragic hope that this might be the one.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
                         <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Cursed Embrace</p>
-                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">On victory: Select POW/BRAIN/CHA/WIL/SPEED - all players lose 1 in that stat</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">On victory: Select a stat - all players lose 1, you gain 1</p>
                     </div>
                 </div>
             </div>
@@ -861,7 +861,7 @@ const STAGES = [
     {t: "Dwarven Anvil", d: "Shape the hot metal with physical force.", s: "pow", e: 5, h: 9, a: 'stone'},
     {t: "Wall Crush Trap", d: "Hold back moving stone walls with your bare hands.", s: "pow", e: 6, h: 11, a: ['undead', 'stone']},
     {t: "Nightly Pub Run", d: "Walk fast through the forest to go to the pub at night.", s: "spd", e: 4, h: 7, a: ['dark','shadow']},
-    {t: "Bully Wrestling", d: "Restling match with village bully in a flaming arena.", s: "pow", e: 4, h: 8, a: ['undead','stone','dragon']},
+    {t: "Bully Wrestling", d: "Restling match with village bully in a flaming arena.", s: "pow", e: 4, h: 8, a: ['undead','stone','sky']},
     {t: "The Beer Tribute", d: "Go to pub and bring to king Antony 100 beers.", s: "wil", e: 2, h: 4, a: ['pub','crowd']},
     {t: "Elevator Repair", d: "Fix pub's mechanical elevator.", s: "pow", e: 4, h: 8, a: 'tech'},
     {t: "Excalibur's Lever", d: "Pull king Antony's sword that hasn't moved in centuries.", s: "pow", e: 4, h: 8, a: ['stone','undead']},
@@ -873,11 +873,11 @@ const STAGES = [
     {t: "Counter Coin Catch", d: "Dozens of coins fall from pub's bar. Catch them.", s: "spd", e: 4, h: 6, a: 'shadow'},
     {t: "Village Exodus", d: "FIRE!!!!!! Navigate the villagers to the nearest safe city.", s: "brn", e: 5, h: 10, a: ['magic','tech']},
     {t: "Flooded Commode", d: "Pub's toilet flooded. Find the exit or fix the mechanism.", s: "brn", e: 3, h: 6, a: ['tech','shadow']},
-    {t: "The Racoon Thief", d: "A racoon stole your food. Chase them through the pub.", s: "spd", e: 3, h: 6, a: ['dragon','shadow']},
+    {t: "The Racoon Thief", d: "A racoon stole your food. Chase them through the pub.", s: "spd", e: 3, h: 6, a: ['sky','shadow']},
     {t: "Crowded Waltz", d: "Step through the crowded pub without being touched.", s: "wil", e: 5, h: 9, a: 'silent'},
     {t: "Closing Portcullis", d: "Slide under pub's door as it shut.", s: "spd", e: 3, h: 6, a: 'shadow'},
     {t: "Sticky Floor Escape", d: "Run through the pub's sticky floor without getting stuck.", s: "spd", e: 4, h: 7, a: 'shadow'},
-    {t: "Clockwork Blades", d: "Dodge the rotating axes of the mechanical trap.", s: "spd", e: 5, h: 10, a: ['dragon','tech','stone']},
+    {t: "Clockwork Blades", d: "Dodge the rotating axes of the mechanical trap.", s: "spd", e: 5, h: 10, a: ['sky','tech','stone']},
     {t: "Petting Distraction", d: "Pet Yuumi, while Panchonco fight with an ork.", s: "cha", e: 2, h: 5, a: 'pub'},
     {t: "Antony's Math Cube", d: "King Antony's mystery cube demands a mathematical answer.", s: "brn", e: 5, h: 8, a: ['tech','magic']},
     {t: "Lich's Mirror", d: "Identify the real hero in a room of illusions.", s: "brn", e: 5, h: 10, a: ['magic','tech']},
@@ -905,7 +905,7 @@ const STAGES = [
     {t: "Sky Negotiator", d: "Talk the wind spirits into a calm breeze.", s: "cha", e: 4, h: 7, a: 'sky'},
     {t: "Aristocrat Snare", d: "End the boring conversation without being rude.", s: "cha", e: 3, h: 6, a: 'crowd'},
     {t: "Mechanical Maker", d: "Convince drunk Billy that you are his creator.", s: "cha", e: 4, h: 7, a: ['pub', 'crowd']},
-    {t: "Divine Toast", d: "Scream so loud that gods listen to you.", s: "cha", e: 5, h: 10, a: 'dragon'},
+    {t: "Divine Toast", d: "Scream so loud that gods listen to you.", s: "cha", e: 5, h: 10, a: 'sky'},
     {t: "Bailiff Audit", d: "Convince the guard your stolen loot is a gift.", s: "cha", e: 4, h: 8, a: ['stone', 'crowd']},
     {t: "Tavern Temptation", d: "The beer smells of heaven. Stay focused.", s: "wil", e: 3, h: 6, a: ['undead', 'silent']},
     {t: "The Void Whisper", d: "Voices promise power for your soul. Resist?", s: "wil", e: 4, h: 8, a: ['dark','undead']},
@@ -965,15 +965,15 @@ const STAGES = [
 
 const HEROES = [
     { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:4, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Force the next player to meditate. Max uses: 2 players=1, 3 players=2, 4+ players=3' },
-    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:4, brn:6, cha:1, wil:5}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
+    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:4, brn:6, cha:1, wil:6}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Force', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
     { n: 'Neighboor Mage', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Once per game, borrow stat points from another player to help you in a challenge' },
     { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:2, wil:5}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
-    { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:2}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
+    { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll a dice. If 5 or 6, automatically win the challenge' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice (instead of no benefit)' },
-    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select POW/BRAIN/CHA/WIL/SPEED - all players lose 1 in that stat' }
+    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select a stat - all players lose 1, you gain 1' }
 ];
 
 let party = [], deck = [], round = 0, totalRounds = 0, activeIdx = 0, pTarget = 0, pPts = 0, pStage = null, pCount = 2, regIdx = 0, openerIdx = -1, storePlayerIdx = 0, storePoints = 5, tempStats = {};
@@ -1452,11 +1452,11 @@ function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpen
 }
 
 function selectLoverZombieDebuff() {
-    showModal("💀 Cursed Embrace", "Choose a stat to debuff all players", `
+    showModal("💀 Cursed Embrace", "Choose a stat to steal from all players", `
         <div style="margin: 15px 0;">
             <img src="${party[activeIdx].i}" alt="Lover Zombie" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
         </div>
-        <p style="font-size:14px; margin-bottom:15px;">Select a stat - ALL players will lose 1 point:</p>
+        <p style="font-size:14px; margin-bottom:15px;">Select a stat - ALL players will lose 1 point, and YOU will gain 1 point:</p>
         <select id="zombie-debuff-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
             <option value="pow">POW (Power)</option>
             <option value="spd">SPEED</option>
@@ -1464,26 +1464,31 @@ function selectLoverZombieDebuff() {
             <option value="cha">CHA (Charisma)</option>
             <option value="wil">WIL (Willpower)</option>
         </select>
-        <button class="btn btn-main" onclick="applyLoverZombieDebuff()">Curse All</button>
+        <button class="btn btn-main" onclick="applyLoverZombieDebuff()">Drain All & Empower Self</button>
     `);
 }
 
 function applyLoverZombieDebuff() {
     const chosenStat = document.getElementById('zombie-debuff-stat').value;
+    const currentPlayer = party[activeIdx];
     
-    // Apply debuff to ALL players
+    // Apply debuff to ALL players (including self)
     party.forEach(p => {
         if(p.cur[chosenStat] > 0) {
             p.cur[chosenStat] -= 1;
         }
     });
     
+    // Then give bonus to current player (net effect: others -1, you +0 then +1 = you stay same or +1 if you had points)
+    currentPlayer.cur[chosenStat] += 1;
+    
     updatePartyUI();
-    showModal("💀 Cursed Embrace Activated!", `All players lost 1 ${chosenStat.toUpperCase()}`, `
-        <p style="font-size:14px; margin:20px 0;">The curse spreads to all warriors...</p>
+    showModal("💀 Cursed Embrace Activated!", `Drained ${chosenStat.toUpperCase()} from all, empowered yourself!`, `
+        <p style="font-size:14px; margin:20px 0;">All players lose 1 ${chosenStat.toUpperCase()}, and you gain plus one!</p>
         <button class="btn btn-main" onclick="checkStore()">Continue</button>
     `);
 }
+
 function gamble(cur, usedStat = pStage.s) {
     showModal("🎲 Rolling the Bones...", "Your fate is in the hands of chance", `
         <div id="dice-container" style="margin: 30px 0;"></div>
