@@ -1,1 +1,2339 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
+    <title>Missions in Pavel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=MedievalSharp&family=Almendra:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --gold: #c5a059; --gold-bright: #8b0000; --iron: #2c2c2c;
+            --parchment: #d4c3a3; --blood: #800000; --ink: #1a0f08;
+            --shadow: rgba(0,0,0,0.8);
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            margin:0; font-family: 'Almendra', serif; background: #0a0a0a; color: #d1d1d1;
+            background-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.4) 0%, #000 100%), url('https://www.transparenttextures.com/patterns/dark-stone.png');
+            min-height: 100vh; overflow-x: hidden;
+        }
+        h1, h2, h3, .medieval { font-family: 'Cinzel Decorative', serif; color: var(--gold); text-shadow: 2px 2px 4px #000; }
+        .container { max-width: 480px; margin: 0 auto; padding: 15px; position: relative; }
+        .progress-map { width: 100%; height: 14px; background: #111; border: 2px solid #444; border-radius: 10px; margin-bottom: 25px; overflow: hidden; box-shadow: inset 0 2px 5px #000; }
+        .progress-marker { height: 100%; background: linear-gradient(90deg, #400, var(--gold), #400); width: 0%; transition: 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .stage-frame {
+            background-color: #1a1a1a; background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            border: 8px solid #333; border-radius: 2px; padding: 30px 20px; text-align: center; margin-bottom: 20px; box-shadow: 0 10px 30px #000;
+        }
+        .st-title { font-size: 24px; text-transform: uppercase; margin: 10px 0; color: var(--gold-bright); }
+        .st-desc { font-family: 'MedievalSharp', cursive; color: #aaa; font-size: 16px; line-height: 1.4; }
+        .hero-sheet {
+            background: var(--parchment); color: var(--ink); border-radius: 2px; padding: 15px; margin-bottom: 15px;
+            border: 1px solid #8e7b55; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); position: relative;
+            background-image: url('https://www.transparenttextures.com/patterns/parchment.png'); transition: 0.3s;
+        }
+        .hero-sheet.active-now { transform: scale(1.02); border: 2px solid var(--gold-bright); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+        .wax-seal {
+            position: absolute; top: -10px; right: -5px; width: 45px; height: 45px;
+            background: radial-gradient(#900, #500); border-radius: 50%; color: #f3cf7a;
+            display: flex; align-items: center; justify-content: center; font-weight: 900;
+            font-family: 'Cinzel Decorative'; border: 2px solid #400; box-shadow: 2px 2px 8px #000; font-size: 18px; transform: rotate(5deg);
+        }
+        .meditate-count { position: absolute; top: 5px; left: 10px; font-size: 10px; font-weight: bold; color: #5a4634; font-family: 'MedievalSharp'; }
+        .stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 15px; }
+        .stat-box { background: rgba(0,0,0,0.05); padding: 8px 2px; text-align: center; border: 1px solid rgba(0,0,0,0.1); border-radius: 3px; }
+        .stat-val { display: block; font-family: 'Cinzel Decorative'; font-weight: 900; font-size: 18px; color: #400; }
+        .stat-lbl { font-size: 8px; font-weight: 900; text-transform: uppercase; color: #5a4634; }
+        .btn { border-radius: 0; padding: 16px; border: 2px solid var(--gold); font-weight: 900; font-size: 14px; cursor: pointer; width: 100%; transition: 0.3s; margin-bottom: 10px; text-transform: uppercase; font-family: 'Cinzel Decorative'; letter-spacing: 1px; }
+        .btn-main { background: #1a1a1a; color: var(--gold); box-shadow: 0 4px 0 #000; }
+        .btn-fight { background: #2b1010; color: #9f9; border-color: #8b0000; }
+        .btn-skip { background: #222; color: #888; border-color: #444; }
+        .btn-danger { background: #400; color: #fcc; border-color: #700; }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(5px); }
+        .modal { background: var(--parchment); color: var(--ink); border: 10px solid #2c2c2c; padding: 30px; width: 100%; max-width: 400px; background-image: url('https://www.transparenttextures.com/patterns/parchment.png'); box-shadow: 0 0 50px #000; text-align: center; }
+        .input-hero { background: rgba(0,0,0,0.05); border: none; border-bottom: 2px solid #5a4634; color: var(--ink); font-family: 'MedievalSharp'; padding: 10px; }
+        .instruction-text { text-align: left; font-size: 14px; line-height: 1.4; color: var(--ink); margin-bottom: 15px; }
+        .instruction-text b { color: var(--blood); }
+        
+        /* Subtle Professional Animations */
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold), 2px 2px 4px #000; }
+            50% { text-shadow: 0 0 20px var(--gold-bright), 0 0 30px var(--gold-bright), 2px 2px 4px #000; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        @keyframes diceRoll {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(1); }
+            75% { transform: rotate(270deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        .dice {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #f0f0f0, #c0c0c0);
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.5);
+            animation: diceRoll 0.6s ease-in-out;
+        }
+        
+        .dice-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #333;
+            border-radius: 50%;
+        }
+        
+        /* Subtle button hover effects */
+        .btn {
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 0 #000;
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 0 #000;
+        }
+        
+        /* Hero sheet subtle enhancements */
+        .hero-sheet {
+            transition: all 0.3s ease;
+        }
+        
+        .hero-sheet:hover {
+            transform: translateY(-2px);
+            box-shadow: 5px 8px 20px rgba(0,0,0,0.6);
+        }
+        
+        /* Stat box subtle animations */
+        .stat-box {
+            transition: all 0.2s ease;
+        }
+        
+        .stat-box:hover {
+            transform: scale(1.05);
+            background: rgba(197, 160, 89, 0.1);
+        }
+        
+        /* Progress bar subtle animation */
+        .progress-marker {
+            background: linear-gradient(
+                90deg,
+                #400 0%,
+                var(--gold) 50%,
+                #400 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        /* Book hover subtle enhancements */
+        .book-3d {
+            transition: all 0.3s ease;
+        }
+        
+        /* Fullscreen exit button (mobile only) */
+        #exit-fullscreen {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10000;
+            background: rgba(0,0,0,0.7);
+            border: 2px solid var(--gold);
+            border-radius: 5px;
+            padding: 8px 12px;
+            color: var(--gold);
+            font-family: 'MedievalSharp', cursive;
+            font-size: 11px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        #exit-fullscreen:hover {
+            background: rgba(0,0,0,0.9);
+            transform: scale(1.05);
+        }
+        
+        /* Show button only on mobile devices */
+        @media (max-width: 768px) {
+            #exit-fullscreen {
+                display: block;
+            }
+        }
+        
+        /* Fullscreen splash screen */
+        #fullscreen-splash {
+            position: fixed;
+            inset: 0;
+            background: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.4) 0%, #000 100%), url('https://www.transparenttextures.com/patterns/dark-stone.png');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        #fullscreen-splash h1 {
+            font-family: 'Cinzel Decorative', serif;
+            color: #f3cf7a;
+            font-size: 32px;
+            text-align: center;
+            margin: 0;
+            text-shadow: 2px 2px 4px #000;
+        }
+        
+        #fullscreen-splash p {
+            font-family: 'Almendra', serif;
+            color: #d4c3a3;
+            font-size: 16px;
+            text-align: center;
+            margin: 0;
+            max-width: 400px;
+            padding: 0 20px;
+        }
+        
+        #enter-fullscreen-btn {
+            background: linear-gradient(135deg, #4a3520 0%, #6b5030 50%, #4a3520 100%);
+            border: 3px solid var(--gold);
+            border-radius: 5px;
+            padding: 20px 40px;
+            color: #f3cf7a;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        #enter-fullscreen-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(197,160,89,0.4);
+            background: linear-gradient(135deg, #5a4530 0%, #7b6040 50%, #5a4530 100%);
+        }
+        
+        #enter-fullscreen-btn:active {
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
 
+<!-- Fullscreen splash screen -->
+<div id="fullscreen-splash">
+    <img src="./images/map.png" alt="Pavel Map" style="width: 300px; height: 250px; margin-bottom: 20px; border: 3px solid var(--gold); border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.5);">
+    <h1>Missions in Pavel</h1>
+    <p>For the best experience, this game is designed to be played in fullscreen mode.</p>
+    <button id="enter-fullscreen-btn" onclick="startGameFullscreen()">Enter the Tavern</button>
+</div>
+
+<button id="exit-fullscreen" onclick="exitFullscreen()" style="display: none;">Exit ✕</button>
+
+<div class="container">
+    <div id="view-intro">
+        <!-- Scroll Selection Screen -->
+        <div id="intro-book-select" class="hero-sheet" style="margin-top: 20px; padding: 40px; position: relative; overflow: hidden;">
+            <!-- Animated background particles -->
+            <div style="position: absolute; inset: 0; pointer-events: none; opacity: 0.15;">
+                <div style="position: absolute; width: 2px; height: 2px; background: var(--gold); border-radius: 50%; top: 20%; left: 10%; animation: float 6s infinite ease-in-out;"></div>
+                <div style="position: absolute; width: 2px; height: 2px; background: var(--gold); border-radius: 50%; top: 60%; left: 80%; animation: float 8s infinite ease-in-out 1s;"></div>
+                <div style="position: absolute; width: 2px; height: 2px; background: var(--gold); border-radius: 50%; top: 40%; left: 90%; animation: float 7s infinite ease-in-out 2s;"></div>
+            </div>
+            
+            <!-- Professional Logo Frame - Smaller -->
+            <div style="position: relative; margin: 0 auto 25px; max-width: 420px; padding: 35px 25px;">
+                <!-- Ornate corner decorations -->
+                <div style="position: absolute; top: 0; left: 0; width: 45px; height: 45px; border-top: 2px solid #8e7b55; border-left: 2px solid #8e7b55; opacity: 0.8;">
+                    <div style="position: absolute; top: -2px; left: -2px; width: 15px; height: 15px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold);"></div>
+                </div>
+                <div style="position: absolute; top: 0; right: 0; width: 45px; height: 45px; border-top: 2px solid #8e7b55; border-right: 2px solid #8e7b55; opacity: 0.8;">
+                    <div style="position: absolute; top: -2px; right: -2px; width: 15px; height: 15px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold);"></div>
+                </div>
+                <div style="position: absolute; bottom: 0; left: 0; width: 45px; height: 45px; border-bottom: 2px solid #8e7b55; border-left: 2px solid #8e7b55; opacity: 0.8;">
+                    <div style="position: absolute; bottom: -2px; left: -2px; width: 15px; height: 15px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold);"></div>
+                </div>
+                <div style="position: absolute; bottom: 0; right: 0; width: 45px; height: 45px; border-bottom: 2px solid #8e7b55; border-right: 2px solid #8e7b55; opacity: 0.8;">
+                    <div style="position: absolute; bottom: -2px; right: -2px; width: 15px; height: 15px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold);"></div>
+                </div>
+                
+                <!-- Subtle animated branch accents -->
+                <svg style="position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 150px; height: 25px; opacity: 0.6;" viewBox="0 0 150 25">
+                    <path d="M 15 12 Q 45 8, 75 12 T 135 12" stroke="#5a4a3a" stroke-width="2" fill="none" stroke-linecap="round">
+                        <animate attributeName="d" dur="4s" repeatCount="indefinite" 
+                                 values="M 15 12 Q 45 8, 75 12 T 135 12;
+                                         M 15 12 Q 45 10, 75 12 T 135 12;
+                                         M 15 12 Q 45 8, 75 12 T 135 12"/>
+                    </path>
+                    <circle cx="45" cy="8" r="1.5" fill="#4a5a3a" opacity="0.7">
+                        <animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0.7;0.4;0.7"/>
+                    </circle>
+                    <circle cx="105" cy="10" r="1.5" fill="#4a5a3a" opacity="0.7">
+                        <animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0.7;0.4;0.7"/>
+                    </circle>
+                </svg>
+                
+                <svg style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); width: 150px; height: 25px; opacity: 0.6;" viewBox="0 0 150 25">
+                    <path d="M 15 12 Q 45 16, 75 12 T 135 12" stroke="#5a4a3a" stroke-width="2" fill="none" stroke-linecap="round">
+                        <animate attributeName="d" dur="4.5s" repeatCount="indefinite" 
+                                 values="M 15 12 Q 45 16, 75 12 T 135 12;
+                                         M 15 12 Q 45 14, 75 12 T 135 12;
+                                         M 15 12 Q 45 16, 75 12 T 135 12"/>
+                    </path>
+                    <circle cx="45" cy="16" r="1.5" fill="#4a5a3a" opacity="0.7">
+                        <animate attributeName="opacity" dur="3.2s" repeatCount="indefinite" values="0.7;0.4;0.7"/>
+                    </circle>
+                    <circle cx="105" cy="14" r="1.5" fill="#4a5a3a" opacity="0.7">
+                        <animate attributeName="opacity" dur="3.7s" repeatCount="indefinite" values="0.7;0.4;0.7"/>
+                    </circle>
+                </svg>
+                
+                <!-- Main title -->
+                <div style="text-align: center; position: relative; z-index: 2;">
+                    <div style="font-family: 'MedievalSharp', cursive; font-weight: 700; font-size: 24px; 
+                               letter-spacing: 3px; line-height: 1.2; margin-bottom: 4px;
+                               color: #3a2817;
+                               text-shadow: 
+                                   1px 1px 0px #5a3a1a,
+                                   2px 2px 0px #4a2f15,
+                                   3px 3px 5px rgba(0,0,0,0.5),
+                                   0 0 10px rgba(90,58,26,0.3);
+                               background: linear-gradient(to bottom, #5a3a1a 0%, #3a2817 40%, #2a1a0f 100%);
+                               -webkit-background-clip: text;
+                               -webkit-text-fill-color: transparent;
+                               background-clip: text;">
+                        MISSIONS
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin: 5px 0;">
+                        <div style="width: 40px; height: 1px; background: linear-gradient(to right, transparent, #5a3a1a, transparent);"></div>
+                        <div style="font-family: 'MedievalSharp', cursive; font-size: 10px; letter-spacing: 1px; color: #5a3a1a; font-weight: bold;">IN</div>
+                        <div style="width: 40px; height: 1px; background: linear-gradient(to right, transparent, #5a3a1a, transparent);"></div>
+                    </div>
+                    
+                    <div style="font-family: 'MedievalSharp', cursive; font-weight: 700; font-size: 24px; 
+                               letter-spacing: 3px; line-height: 1.2;
+                               color: #3a2817;
+                               text-shadow: 
+                                   1px 1px 0px #5a3a1a,
+                                   2px 2px 0px #4a2f15,
+                                   3px 3px 5px rgba(0,0,0,0.5),
+                                   0 0 10px rgba(90,58,26,0.3);
+                               background: linear-gradient(to bottom, #5a3a1a 0%, #3a2817 40%, #2a1a0f 100%);
+                               -webkit-background-clip: text;
+                               -webkit-text-fill-color: transparent;
+                               background-clip: text;">
+                        PAVEL
+                    </div>
+                </div>
+                
+                <!-- Subtitle -->
+                <div style="text-align: center; margin-top: 12px; font-family: 'Almendra', serif; font-style: italic; 
+                           font-size: 10px; letter-spacing: 2px; color: #7a6a4a; opacity: 0.9;">
+                    A Tale of Heroes and Beer!
+                </div>
+            </div>
+            
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 14px; margin-bottom: 25px; animation: fadeIn 2s ease-in; position: relative; z-index: 1;">Choose a scroll to begin your journey...</p>
+            
+            <div style="display: grid; gap: 25px; margin-bottom: 30px; position: relative; z-index: 1;">
+                <!-- Scroll 1: The World Map -->
+                <div onclick="showBook(1)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 0.6s ease-out;">
+                    <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
+                        <!-- Scroll spine/side -->
+                        <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #3a2a1a, #5a4a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
+                        <!-- Scroll cover -->
+                        <div style="position: absolute; left: 20px; right: 0; height: 100%; background: linear-gradient(135deg, #4a3520 0%, #6b5030 50%, #4a3520 100%); 
+                                    border: 3px solid #8e7b55; border-radius: 0 5px 5px 0; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.5), inset -2px 0 10px rgba(0,0,0,0.3);
+                                    display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
+                            <!-- Shine effect -->
+                            <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite;"></div>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 The World Map</h3>
+                            <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Explore the lands surrounding Pavel and understand the geography of this realm.</p>
+                        </div>
+                        <!-- Scroll pages effect -->
+                        <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
+                    </div>
+                </div>
+                
+                <!-- Scroll 2: Pavel Town -->
+                <div onclick="showBook(2)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 0.8s ease-out;">
+                    <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
+                        <!-- Scroll spine/side -->
+                        <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #2a1a1a, #4a3a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
+                        <!-- Scroll cover -->
+                        <div style="position: absolute; left: 20px; right: 0; height: 100%; background: linear-gradient(135deg, #3a2020 0%, #5a3030 50%, #3a2020 100%); 
+                                    border: 3px solid #8e7b55; border-radius: 0 5px 5px 0; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.5), inset -2px 0 10px rgba(0,0,0,0.3);
+                                    display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
+                            <!-- Shine effect -->
+                            <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 1s;"></div>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 Pavel Town</h3>
+                            <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Learn about the village, its people, and the legends who call Pavel home.</p>
+                        </div>
+                        <!-- Scroll pages effect -->
+                        <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
+                    </div>
+                </div>
+                
+                <!-- Scroll 3: The Heroes -->
+                <div onclick="showBook(3)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 1s ease-out;">
+                    <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
+                        <!-- Scroll spine/side -->
+                        <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #1a1a2a, #3a3a4a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
+                        <!-- Scroll cover -->
+                        <div style="position: absolute; left: 20px; right: 0; height: 100%; background: linear-gradient(135deg, #2a2040 0%, #3a3060 50%, #2a2040 100%); 
+                                    border: 3px solid #8e7b55; border-radius: 0 5px 5px 0; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.5), inset -2px 0 10px rgba(0,0,0,0.3);
+                                    display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
+                            <!-- Shine effect -->
+                            <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 1.5s;"></div>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 The Heroes</h3>
+                            <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Meet the legendary warriors who gather at Pavel's tavern seeking glory.</p>
+                        </div>
+                        <!-- Scroll pages effect -->
+                        <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
+                    </div>
+                </div>
+                
+                <!-- Scroll 4: Game Rules -->
+                <div onclick="showBook(4)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 1.2s ease-out;">
+                    <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
+                        <!-- Scroll spine/side -->
+                        <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #1a2a1a, #3a4a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
+                        <!-- Scroll cover -->
+                        <div style="position: absolute; left: 20px; right: 0; height: 100%; background: linear-gradient(135deg, #203a20 0%, #305a30 50%, #203a20 100%); 
+                                    border: 3px solid #8e7b55; border-radius: 0 5px 5px 0; padding: 20px; box-shadow: 5px 5px 15px rgba(0,0,0,0.5), inset -2px 0 10px rgba(0,0,0,0.3);
+                                    display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
+                            <!-- Shine effect -->
+                            <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 2s;"></div>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 Game Rules</h3>
+                            <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Understand the mechanics, missions, and how to achieve victory.</p>
+                        </div>
+                        <!-- Scroll pages effect -->
+                        <div style="position: absolute; right: 8px; top: 5px; bottom: 5px; width: 3px; background: repeating-linear-gradient(to bottom, #f4e4c4 0px, #f4e4c4 1px, transparent 1px, transparent 2px); opacity: 0.6;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-main" onclick="showSetup()" style="font-size: 16px; padding: 20px; animation: pulse 2s ease-in-out infinite; position: relative; z-index: 1;">ENTER THE MISSIONS</button>
+        </div>
+            <button class="btn btn-danger" onclick="resetHallOfFame()" style="font-size: 10px; margin-top: 40px; opacity: 0.6;">Reset Hall of Fame</button>
+
+        <!-- Scroll 1: The World Map -->
+        <div id="intro-book-1" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
+            <h1 style="color:var(--gold); text-align: center; font-size: 28px; margin-bottom: 10px;">THE WORLD MAP</h1>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 20px;">The Lands Surrounding Pavel</p>
+            <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
+            
+            <div style="width: 100%; border: 4px solid #8e7b55; padding: 5px; background: #000; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); margin-bottom: 20px;">
+                <img src="./images/map.png" alt="Map of Pavel" style="width: 100%; height: auto; display: block;">
+            </div>
+            
+            <div class="instruction-text" style="text-align: justify;">
+                <p>The village of <b>Pavel Town</b> sits at the heart of a vast and varied realm, surrounded by ancient forests that stretch in every direction. To those who know where to look, pathways wind through these woods to distant lands and settlements.</p>
+
+                <p>Hidden within the <b>Misty Forest</b>, where the trees grow tall and the fog never truly lifts, wander the <b>Nomads of the Ninja and Elven</b>. Living lightly upon the land, these elusive peoples move silently between moss-covered paths. The ninjas guard forkotten routes and secrets, while the elves tend the forest’s magic, ensuring outsiders only pass when deemed worthy.</p>
+                
+                <p><b>To the Northeast</b>, beyond the clouds themselves, floats the mystical <b>Lost Dragon Town</b>. This ethereal city hovers in the sky, home to ancient dragons who have lived for centuries. On clear nights, villagers can sometimes see its lights twinkling among the stars.</p>
+                
+                <p><b>To the West</b> stand the imposing walls of the <b>Ork Fortress</b>, built from dark stone in the <b>Westlands</b>. Though fearsome in appearance, the orks have found common ground with Pavel's people over their mutual appreciation for strong drink and stronger stories.</p>
+                
+                <p><b>To the Southeast</b> lie the <b>Monk Monasteries</b>, peaceful sanctuaries where monks dedicate their lives to meditation, study, and—when the mood strikes—the occasional pilgrimage to Pavel's famous tavern.</p>
+                
+                <p><b>To the Southwest</b>, shrouded in perpetual mist, are the <b>High Dwarvish Mountains</b> and their cloudy forests. The dwarves dwelling here are master craftsmen, and their ales are said to be second only to Pavel's own.</p>
+                
+                <p>But between Pavel and safety lie <b>the Swamps</b>—a treacherous expanse of murky water and twisted trees. Here, trolls lurk in the shadows, emerging to raid the village under cover of darkness. Many heroes have ventured into the swamps seeking to end the threat, but the mist keeps its secrets well.</p>
+            </div>
+            
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
+        </div>
+
+        <!-- Scroll 2: Pavel Town -->
+        <div id="intro-book-2" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
+            <h1 style="color:var(--blood); text-align: center; font-size: 28px;">PAVEL TOWN</h1>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">The Village of Ale and Fellowship</p>
+            <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
+            <div class="instruction-text" style="text-align: justify;">
+                <p>In the heart of a realm where ancient forests whisper forkotten secrets, there lies the village of <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of ale.</p>
+                
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">King Antony - The Peaceful King</b></p>
+                <p>At the center of this peculiar kingdom sits <b>King Antony</b>, a ruler unlike any other. While neighboring monarchs concern themselves with conquest and coin, Antony has but two ambitions: to keep his village peaceful and his tankard full. You'll find him most evenings at the tavern's corner table, laughing heartily and buying rounds for travelers, believing that a kingdom held together by friendship and beer is stronger than any held by the sword. His crown sits askew on his head, and his royal robes are often stained with ale, but his people love him for it. "A happy village is a peaceful village," he often declares, raising his mug high.</p>
+                
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Old Nick the Geezer - Keeper of Tales</b></p>
+                <p>Every night, as the fire crackles and the ale flows, <b>Old Nick the Geezer</b> takes his seat by the hearth. With a voice weathered by a hundred winters, he weaves tales for all who will listen—stories of the days when the forests were deeper and the monsters bolder, when heroes walked among them and magic still lingered in the morning mist. The villagers gather around him like moths to flame, for Nick's stories are the living memory of Pavel itself. Some say he's been telling tales since the village was founded; others claim he's simply too stubborn to let death interrupt a good story.</p>
+                
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Panchonco & Yuumi - The Eternal Patron</b></p>
+                <p>And there, propped against the bar as if he were part of the furniture, you'll always find <b>Panchonco</b>. Day or night, rain or shine, this eternal patron haunts the pub with his faithful cat <b>Yuumi</b> perched on his shoulder, both swaying gently to some unheard rhythm. His coin purse may empty and refill with the seasons, but his stool never stays vacant for long. Yuumi, a gray tabby with knowing eyes, seems to be the only creature who truly understands Panchonco's slurred philosophy. Some say he's been drinking since before King Antony was born; others swear they've never seen him sober enough to confirm. The barkeep simply keeps his tab running and his mug full.</p>
+                
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">The Visitors</b></p>
+                <p>Pavel's fame has spread across the realm, drawing visitors from the strangest corners of the world. <b>Dragons</b> descend from the cloud-wreathed <b>Lost Dragon Town</b>, folding their great wings to squeeze through the pub's door. <b>orks</b> march down from their <b>Fortress</b>, their war cries replaced with drinking songs. <b>Monks</b> journey from their <b>Monasteries</b>, finding that enlightenment tastes remarkably like honey mead. Even the reclusive <b>Dwarves</b> emerge from the misty mountains, drawn by rumors of the finest brews this side of the realm.</p>
+                
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">The Threat</b></p>
+                <p>But not all is merriment in Pavel. Beyond the village, past the protective embrace of the ancient woods, the land grows dark and treacherous. In <b>the Swamps</b> lurk <b>trolls</b>—brutal, cunning creatures who hide in the mire and strike without warning. Their raids are swift and merciless, leaving burning homes and grieving families in their wake. Many brave souls have ventured into those cursed marshes to end the threat, but few return, and those who do speak in whispers of what dwells in the deepest shadows.</p>
+            </div>
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
+        </div>
+
+        <!-- Scroll 3: The Heroes -->
+        <div id="intro-book-3" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none; overflow-y: auto; max-height: 80vh;">
+            <h1 style="color:var(--blood); text-align: center; font-size: 28px;">THE HEROES OF PAVEL</h1>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">Legendary Warriors Seeking Glory</p>
+            <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
+            
+            <div class="instruction-text" style="text-align: justify;">
+                <p style="font-style: italic; margin-bottom: 20px;">Ten legendary heroes have answered King Antony's call. Each possesses unique abilities and carries their own burdens, hopes, and secrets. These are their stories...</p>
+                
+                <!-- Hero 1: Dark Stalker -->
+                <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px; transition: all 0.3s ease; cursor: pointer;" 
+                     onmouseover="this.style.transform='translateX(5px)'; this.style.boxShadow='0 5px 20px rgba(197,160,89,0.3)'; this.style.background='rgba(197,160,89,0.1)';"
+                     onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none'; this.style.background='rgba(0,0,0,0.2)';">
+                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
+                        <img src="./images/dark.png" alt="Dark Stalker" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px; transition: all 0.3s ease;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Dark Stalker</h3>
+                            <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Dark • Affinity: Shadows</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
+                        <div><b>POW:</b> 4</div>
+                        <div><b>SPD:</b> 5</div>
+                        <div><b>BRN:</b> 5</div>
+                        <div><b>CHA:</b> 5</div>
+                        <div><b>WIL:</b> 5</div>
+                    </div>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A mysterious figure who finds fascination in observing others. The Dark Stalker's interest lies in following people and learning everything about their lives—their habits, their secrets, their fears. Some say he knows more about the villagers than they know about themselves.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Shadow Control</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Forke a player to meditate. Max uses: 2 players=1, 3 players=2, 4+ players=3</p>
+                    </div>
+                </div>
+                
+                <!-- Hero 2: Friendly AI -->
+                <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
+                        <img src="./images/ai.png" alt="Friendly AI" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Friendly AI</h3>
+                            <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Tech • Affinity: Machinery</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
+                        <div><b>POW:</b> 6</div>
+                        <div><b>SPD:</b> 5</div>
+                        <div><b>BRN:</b> 6</div>
+                        <div><b>CHA:</b> 1</div>
+                        <div><b>WIL:</b> 6</div>
+                    </div>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">Created by wise mages a century ago, this mechanical marvel was designed to assist with everyday village work. Though lacking in social graces, the Friendly AI's analytical mind and tireless nature make it an invaluable ally in solving complex problems.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: System Override</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Once per game, you can attempt a challenge using a different attribute than required</p>
+                    </div>
+                </div>
+                
+                <!-- Hero 3: Thug Dwarf -->
+                <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
+                        <img src="./images/swag.png" alt="Thug Dwarf" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Thug Dwarf</h3>
+                            <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Stone • Affinity: Mountains</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
+                        <div><b>POW:</b> 7</div>
+                        <div><b>SPD:</b> 2</div>
+                        <div><b>BRN:</b> 2</div>
+                        <div><b>CHA:</b> 5</div>
+                        <div><b>WIL:</b> 6</div>
+                    </div>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A stout warrior from the misty mountains, built like the stone itself. Though slow-moving, his incredible strength and unwavering determination make him a formidable presence in any challenge.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Brute Forke</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Every time you win a challenge, gain +3 to POW</p>
+                    </div>
+                </div>
+                
+                <!-- Hero 4: Babbler Rogue -->
+                <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
+                        <img src="./images/rogue.png" alt="Babbler Rogue" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Babbler Rogue</h3>
+                            <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Crowd • Affinity: Social</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
+                        <div><b>POW:</b> 2</div>
+                        <div><b>SPD:</b> 4</div>
+                        <div><b>BRN:</b> 5</div>
+                        <div><b>CHA:</b> 8</div>
+                        <div><b>WIL:</b> 6</div>
+                    </div>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A silver-tongued charmer who wants nothing more than to befriend everyone and maintain good relations with everybody. The Babbler Rogue can talk their way out of (or into) any situation, making allies wherever they go.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Crowd Favorite</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Gain +1 Glory for every 3 challenges you complete</p>
+                    </div>
+                </div>
+                
+                <!-- Hero 5: Neighbor Witch -->
+                <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
+                        <img src="./images/magic.png" alt="Neighbor Witch" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Neighbor Witch</h3>
+                            <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Magic • Affinity: Mystical</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
+                        <div><b>POW:</b> 2</div>
+                        <div><b>SPD:</b> 3</div>
+                        <div><b>BRN:</b> 8</div>
+                        <div><b>CHA:</b> 4</div>
+                        <div><b>WIL:</b> 7</div>
+                    </div>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">In retirement for the last ten years, this witch seeks only peace and quiet. Though reluctant to return to adventure, their vast magical knowledge and powerful spells remain undiminished by time.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Arcane Alliance</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Once per game, borrow stat points from another player to help you in a challenge</p>
+                    </div>
+                </div>
+                
+                <!-- Hero 6: Shadow Ninja -->
+                <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
+                        <img src="./images/ninja.png" alt="Shadow Ninja" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Shadow Ninja</h3>
+                            <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Shadow • Affinity: Stealth</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
+                        <div><b>POW:</b> 4</div>
+                        <div><b>SPD:</b> 7</div>
+                        <div><b>BRN:</b> 5</div>
+                        <div><b>CHA:</b> 3</div>
+                        <div><b>WIL:</b> 5</div>
+                    </div>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A hired blade who takes on missions for coin. Though they weren't quite good enough to join the elite assassin guilds, the Shadow Ninja's speed and agility still make them a dangerous opponent in the right circumstances.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Double Strike</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Spend SPD twice as effectively (every 1 SPD counts as 2)</p>
+                    </div>
+                </div>
+                
+                <!-- Hero 7: Lost Dragon -->
+                <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
+                        <img src="./images/dragon.png" alt="Lost Dragon" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Lost Dragon</h3>
+                            <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Sky • Affinity: Flight</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
+                        <div><b>POW:</b> 8</div>
+                        <div><b>SPD:</b> 5</div>
+                        <div><b>BRN:</b> 5</div>
+                        <div><b>CHA:</b> 3</div>
+                        <div><b>WIL:</b> 3</div>
+                    </div>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">Years ago, this dragon lost its way from the floating Dragon Town and has been trying to find the path back home ever since. Powerful but melancholic, the Lost Dragon carries the weight of displacement and an unrelenting homesickness.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Dragon Rage</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">When spending 5+ on any stat, gain +3 bonus</p>
+                    </div>
+                </div>
+                
+                <!-- Hero 8: Drunken Paladin -->
+                <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
+                        <img src="./images/paladin.png" alt="Drunken Paladin" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Drunken Paladin</h3>
+                            <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Pub • Affinity: Taverns</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
+                        <div><b>POW:</b> 3</div>
+                        <div><b>SPD:</b> 2</div>
+                        <div><b>BRN:</b> 3</div>
+                        <div><b>CHA:</b> 8</div>
+                        <div><b>WIL:</b> 7</div>
+                    </div>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A veteran warrior who fought orks countless times in brutal campaigns. Now tired of battle, he spends all day drinking, trying to drown the memories of war. Despite his constant inebriation, his combat experience and unwavering resolve occasionally shine through.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Liquid Courage</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Once per turn, roll a dice. If 5 or 6, automatically win the challenge</p>
+                    </div>
+                </div>
+                
+                <!-- Hero 9: Mute Monk -->
+                <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
+                        <img src="./images/monk.png" alt="Mute Monk" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Mute Monk</h3>
+                            <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Silent • Affinity: Meditation</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
+                        <div><b>POW:</b> 3</div>
+                        <div><b>SPD:</b> 3</div>
+                        <div><b>BRN:</b> 9</div>
+                        <div><b>CHA:</b> 6</div>
+                        <div><b>WIL:</b> 7</div>
+                    </div>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">This silent monk visited Pavel from the southeastern monasteries, bringing sacred wine as a gift. Having taken a vow of silence, the Mute Monk communicates through gestures and expressions, yet possesses profound wisdom and mental discipline.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Inner Peace</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Meditating restores +4 to one attribute of your choice (instead of no benefit)</p>
+                    </div>
+                </div>
+                
+                <!-- Hero 10: Lover Zombie -->
+                <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                    <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
+                        <img src="./images/zombie.png" alt="Lover Zombie" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Lover Zombie</h3>
+                            <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Undead • Affinity: Darkness</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
+                        <div><b>POW:</b> 9</div>
+                        <div><b>SPD:</b> 2</div>
+                        <div><b>BRN:</b> 4</div>
+                        <div><b>CHA:</b> 3</div>
+                        <div><b>WIL:</b> 8</div>
+                    </div>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">This undead wanderer roams the realm in an eternal search for true love. Though death has claimed his body, his heart still yearns. Incredibly strong and nearly unstoppable, the Lover Zombie approaches each new encounter with tragic hope that this might be the one.</p>
+                    <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Cursed Embrace</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">On victory: Select a stat - all players lose 1, you gain plus 2</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
+        </div>
+
+        <!-- Scroll 4: Game Rules -->
+        <div id="intro-book-4" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
+            <h1 style="color:var(--blood); text-align: center; font-size: 28px;">GAME RULES</h1>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">How to Claim Victory in the Missions</p>
+            <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 20px 0;">
+            <div class="instruction-text">
+                <p style="font-style: italic; margin-bottom: 15px;"><b>The Setup:</b> As another night falls upon Pavel, ten legendary heroes gather at the tavern—each with their own unique abilities and soul affinities. From these ten, you and your companions will select your champions. Tonight, King Antony has announced a grand competition: a series of challenges, or <b>Missions</b>, with a grand prize awaiting those who prove themselves most worthy. The heroes must pass through these trials, testing their strength, speed, intellect, charisma, and willpower to claim victory and glory.</p>
+                
+                <p><b>Objective:</b> Guide your chosen hero through the Missions, accumulating the highest Glory score by successfully completing challenges. The hero with the most Glory when all Missions are complete wins the grand prize.</p>
+                
+                <p><b>Core Mechanics:</b></p>
+                
+                <p><b>1. Turn Structure:</b> Draw a challenge. The player to your left tells you the difficulty of this challenge (Minor = 1 Glory, Deadly = 2 Glory). Each challenge has a required stat (POW, SPD, BRN, CHA, or WIL). You must decide how to approach this challenge.</p>
+                
+                <p><b>2. Resource Management:</b> You have five attributes (POW, SPD, BRN, CHA, WIL), each starting between 1-9 points depending on your hero. To overcome a challenge, you must spend attribute points matching or exceeding the target number. <b>Spent points are consumed</b> and do not regenerate automatically.</p>
+                
+                <p><b>3. Soul-Type Advantage:</b> If your hero's Soul-Type matches the challenge's affinity, you receive a <b>+3 automatic bonus</b> toward the challenge. Soul-Type advantages are <b>secret</b> for players.</p>
+                
+                <p><b>4. Decision Options:</b> Each turn, you have three choices:</p>
+                <p style="margin-left: 20px;">• <b>Do the Challenge:</b> Spend attribute points to meet the target and claim Glory. If you win you get <b>back 1 point</b> of what you spent!</p>
+                <p style="margin-left: 20px;">• <b>Pass (Meditation):</b> Skip the challenge without penalty. You have exactly <b>3 Meditations</b> for the entire game—use them wisely on impossible or inefficient challenges.</p>
+                <p style="margin-left: 20px;">• <b>Challenge a Friend:</b> Engage in a competitive dual challenge with another player <b>without dice</b> help. Both invest attribute points. Outcomes: both succeed (both gain Glory), one succeeds (solo winner gains bonus Glory), or both fail (no Glory). But, after challenge a friend, <b>another challenge opens</b>. Strategic for difficult challenges or when attributes are scarce.</p>
+                
+                 <p><b>5. Pass and Play:</b> When you finish your turn, pass the mobile to the player next to you.</p>
+                
+                <p><b>6. Recovery System:</b> Every 5 challenges, visit the Alchemist to restore <b>5 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
+                
+                <p><b>7. Victory Condition:</b> After all Missions are completed, the hero with the highest accumulated Glory is declared the victor and claims the prize.</p>
+                
+                <p style="margin-top: 15px; color: var(--blood);"><b>Strategic Considerations:</b> Balance immediate Glory gains against long-term resource sustainability. Identify which challenges favor your Soul-Type. Conserve Meditations for truly impossible trials. Use "Challenge a Friend" to split difficult challenges or eliminate competition.</p>
+            </div>
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
+        </div>
+    </div>
+
+    <div id="view-setup" style="display:none;">
+        <div class="stage-frame" style="margin-top: 60px;">
+            <h1></h1>
+            <p class="medieval" style="font-size: 12px; color: #888; letter-spacing: 4px;">Pavel</p>
+            <div style="margin: 30px 0;">
+                <label class="medieval" style="display:block; font-size: 12px;">Party Size</label>
+                <input type="number" id="p-count-in" value="2" min="2" max="10" class="input-hero" style="width: 80px; font-size:30px; text-align:center; color: var(--gold);">
+            </div>
+            <button class="btn btn-main" onclick="startReg()">Gather Souls</button>
+        </div>
+    </div>
+
+    <div id="view-reg" style="display:none;">
+        <div class="hero-sheet" style="margin-top: 80px; text-align: center; padding: 40px 20px;">
+            <p id="reg-subtitle" class="medieval" style="font-size:14px; text-transform: uppercase;">Scribing the Soul...</p>
+            <input type="text" id="p-name-in" placeholder="Identity" class="input-hero" style="width:100%; font-size:24px; text-align:center; margin: 25px 0;">
+            <button class="btn btn-main" onclick="handleReg()">Confirm Sigil</button>
+        </div>
+    </div>
+
+    <div id="view-deck" style="display:none;">
+        <div class="stage-frame" style="margin-top: 80px;">
+            <h2 class="medieval">Quest Length</h2>
+            <input type="number" id="deck-size-in" value="10" min="5" max="70" class="input-hero" style="width: 100px; color:white; font-size:35px; text-align:center; margin: 20px 0; background: none;">
+            <button class="btn btn-main" onclick="startGame()">Commence Descent</button>
+        </div>
+    </div>
+
+    <div id="view-game" style="display:none;">
+        <div class="progress-map"><div id="prog-bar" class="progress-marker"></div></div>
+        <div class="stage-frame">
+            <span id="turn-label" class="medieval" style="font-size:11px; color:var(--gold-bright); letter-spacing: 2px;"></span>
+            <h2 id="st-title" class="st-title">???</h2>
+            <p id="st-desc" class="st-desc"></p>
+            <div id="st-req" style="color: var(--gold-bright); font-size: 11px; margin-top:15px; font-weight:bold; letter-spacing:1px; border: 1px double var(--gold); display:inline-block; padding: 4px 15px; background: rgba(0,0,0,0.3);"></div>
+        </div>
+        <button id="draw-btn" class="btn btn-main" onclick="drawCard()">Open a Challenge</button>
+        <div id="game-controls" style="display:none;">
+            <button id="btn-fight" class="btn btn-fight" onclick="startFight()">Do the Challenge</button>
+            <button id="btn-skip" class="btn btn-skip" onclick="meditateTurn()">Pass</button>
+            <button id="btn-discard" class="btn btn-danger" onclick="initiateFriendChallenge()">Challenge a Friend</button>
+        </div>
+        <div id="party-list" style="margin-top: 30px;"></div>
+    </div>
+</div>
+
+<div id="overlay" class="overlay"><div class="modal" id="modal"></div></div>
+
+<script>
+const STAGES = [
+    {t: "Iron Portcullis", d: "A heavy gate slams down. Only brute strength can lift it.", s: "pow", e: 4, h: 6, a: 'stone'},
+    {t: "The Pub Haul", d: "Move barrels of beer to pub's storage.", s: "pow", e: 2, h: 4, a: 'pub'},
+    {t: "Missing Feline", d: "Find Yuumi. Drunk Panchoncho's cat.", s: "wil", e: 2, h: 4, a: 'pub'},
+    {t: "Boulder Obstacle", d: "Your path is blocked by a rock. Move it.", s: "pow", e: 4, h: 9, a: 'stone'},
+    {t: "Tavern Brawl", d: "Restrain the drunken ork before it destroys the bar.", s: "pow", e: 3, h: 5, a: 'pub'},
+    {t: "Shattered Manacles", d: "Snap the cursed iron chains binding your wrists.", s: "pow", e: 5, h: 10, a: ['undead','stone']},
+    {t: "The Bell Sprint", d: "Whoever ring the pub's bell faster wins a beer.", s: "spd", e: 4, h: 9, a: 'pub'},
+    {t: "Dwarven Anvil", d: "Shape the hot metal with physical forke.", s: "pow", e: 5, h: 9, a: 'stone'},
+    {t: "Wall Crush Trap", d: "Hold back moving stone walls with your bare hands.", s: "pow", e: 6, h: 11, a: ['undead', 'stone']},
+    {t: "Nightly Pub Run", d: "Walk fast through the forest to go to the pub at night.", s: "spd", e: 4, h: 7, a: ['dark','shadow']},
+    {t: "Bully Wrestling", d: "Restling match with village bully in a flaming arena.", s: "pow", e: 4, h: 8, a: ['undead','stone','sky']},
+    {t: "The Beer Tribute", d: "Go to pub and bring to king Antony 100 beers.", s: "wil", e: 2, h: 4, a: ['pub','crowd']},
+    {t: "Elevator Repair", d: "Fix pub's mechanical elevator.", s: "pow", e: 4, h: 8, a: 'tech'},
+    {t: "Excalibur's Lever", d: "Pull king Antony's sword that hasn't moved in centuries.", s: "pow", e: 4, h: 8, a: ['stone','undead']},
+    {t: "Shadowy Cellar", d: "The darkness is alive. Run before it catches you.", s: "spd", e: 5, h: 9, a: 'dark'},
+    {t: "Skybridge Cross", d: "Cross the thin rope bridge high in the clouds.", s: "wil", e: 5, h: 8, a: 'sky'},
+    {t: "Royal Mediator", d: "King Antony is drunk again. Help him befriend with an ork.", s: "cha", e: 4, h: 8, a: ['pub','crowd']},
+    {t: "The Pub Inferno", d: "Pub is on fire! You must rescure the drunk ones!", s: "brn", e: 5, h: 8, a: 'shadow'},
+    {t: "Rooftop Sprint", d: "A drunk dragon steal a beer from a drunk ork. Calm them down.", s: "wil", e: 6, h: 9, a: ['sky','crowd']},
+    {t: "Counter Coin Catch", d: "Dozens of coins fall from pub's bar. Catch them.", s: "spd", e: 4, h: 6, a: 'shadow'},
+    {t: "Village Exodus", d: "FIRE!!!!!! Navigate the villagers to the nearest safe city.", s: "brn", e: 5, h: 10, a: ['magic','tech']},
+    {t: "Flooded Commode", d: "Pub's toilet flooded. Find the exit or fix the mechanism.", s: "brn", e: 3, h: 6, a: ['tech','shadow']},
+    {t: "The Racoon Thief", d: "A racoon stole your food. Chase them through the pub.", s: "spd", e: 3, h: 6, a: ['sky','shadow']},
+    {t: "Crowded Waltz", d: "Step through the crowded pub without being touched.", s: "wil", e: 5, h: 9, a: 'silent'},
+    {t: "Closing Portcullis", d: "Slide under pub's door as it shut.", s: "spd", e: 3, h: 6, a: 'shadow'},
+    {t: "Sticky Floor Escape", d: "Run through the pub's sticky floor without getting stuck.", s: "spd", e: 4, h: 7, a: 'shadow'},
+    {t: "Clockwork Blades", d: "Dodge the rotating axes of the mechanical trap.", s: "spd", e: 5, h: 10, a: ['sky','tech','stone']},
+    {t: "Petting Distraction", d: "Pet Yuumi, while Panchonco fight with an ork.", s: "cha", e: 2, h: 5, a: 'pub'},
+    {t: "Antony's Math Cube", d: "King Antony's mystery cube demands a mathematical answer.", s: "brn", e: 5, h: 8, a: ['tech','magic']},
+    {t: "Lich's Mirror", d: "Identify the real hero in a room of illusions.", s: "brn", e: 5, h: 10, a: ['magic','tech']},
+    {t: "The Golden Fix", d: "Fix the bar's toilet to drink free beer.", s: "brn", e: 5, h: 8, a: ['tech','pub']},
+    {t: "Panchonco's Riddle", d: "Interpret the slurred riddles of the drunken Panchonco and win 10 beers.", s: "brn", e: 5, h: 11, a: ['magic','tech']},
+    {t: "Crypt Memory", d: "Mist rises. Hide from Trolls in the swamp.", s: "brn", e: 5, h: 8, a: ['shadow', 'silent','dark']},
+    {t: "Drunken Tab", d: "You are drunk! Calculate the pub's bill correct!", s: "wil", e: 2, h: 4, a: 'pub'},
+    {t: "Map Mastery", d: "Find the exit in a shifting, lightless labyrinth.", s: "brn", e: 5, h: 10, a: ['dark', 'shadow']},
+    {t: "Sky Diplomacy", d: "The dragon tribe wants to invade. Negotiate with them.", s: "brn", e: 4, h: 8, a: ['sky', 'crowd']},
+    {t: "The Sleepy Escort", d: "Panchonco is drunk and sleepy. Get him to his home.", s: "wil", e: 3, h: 6, a: ['crowd', 'silent']},
+    {t: "Counterfeit Gold", d: "Spot the one fake coin in a pile of thousands.", s: "brn", e: 5, h: 9, a: ['magic', 'silent','tech']},
+    {t: "Panchonco's Cocktail", d: "Panchonco wants a cocktail. Combine drinks and give him something to drink.", s: "brn", e: 3, h: 6, a: 'pub'},
+    {t: "The Barman's Riddle", d: "Answer the pub's door mystery question to gain free beer for lifetime.", s: "brn", e: 4, h: 7, a: ['magic', 'silent']},
+    {t: "Cipher Lock", d: "Solve quickly the rotating puzzle.", s: "brn", e: 5, h: 10, a: ['tech','silent','magic']},
+    {t: "Dragon Slayer", d: "A dragon entered the village, fight!", s: "pow", e: 5, h: 9, a: ['undead' ,'sky','stone']},
+    {t: "Pub Blend-In", d: "Spies entered the pub searching for you. Blend in with people to hide.", s: "brn", e: 4, h: 8, a: ['shadow', 'dark']},
+    {t: "King's Favor", d: "Impress the drunken King with a fake story.", s: "cha", e: 3, h: 6, a: ['crowd', 'pub']},
+    {t: "Rock Gaslighting", d: "Gashlight old man Nick until he's convinced your rocks are actually coins.", s: "brn", e: 3, h: 6, a: ['crowd', 'magic', 'silent']},
+    {t: "The Nick Flattery", d: "Befriend old man Nick with flattery.", s: "cha", e: 3, h: 6, a: ['pub','crowd']},
+    {t: "Bouncer Talk", d: "Charm the stone golem into letting you pass.", s: "cha", e: 5, h: 10, a: ['crowd','magic']},
+    {t: "Panchonco's Song", d: "Sing a song that brings drunken Panchoncho to tears.", s: "cha", e: 4, h: 8, a: 'pub'},
+    {t: "Ork Swamp Patrol", d: "Stop drinking! King's orders! Go to the swaps and fight the orks.", s: "pow", e: 5, h: 8, a: ['undead','sky', 'stone']},
+    {t: "Shadow Whisper", d: "Convince forest's dark spirits to light the way.", s: "cha", e: 4, h: 7, a: ['crowd']},
+    {t: "Silent Plea", d: "Explain your innocence to the king without using words.", s: "cha", e: 5, h: 8, a: 'silent'},
+    {t: "Sky Negotiator", d: "Talk the wind spirits into a calm breeze.", s: "cha", e: 4, h: 7, a: 'sky'},
+    {t: "Aristocrat Snare", d: "End the boring conversation without being rude.", s: "cha", e: 3, h: 6, a: 'crowd'},
+    {t: "Mechanical Maker", d: "Convince drunk Billy that you are his creator.", s: "cha", e: 4, h: 7, a: ['pub', 'crowd']},
+    {t: "Divine Toast", d: "Scream so loud that gods listen to you.", s: "cha", e: 5, h: 10, a: 'sky'},
+    {t: "Bailiff Audit", d: "Convince the guard your stolen loot is a gift.", s: "cha", e: 4, h: 8, a: ['stone', 'crowd']},
+    {t: "Tavern Temptation", d: "The beer smells of heaven. Stay focused.", s: "wil", e: 3, h: 6, a: ['undead', 'silent']},
+    {t: "The Void Whisper", d: "Voices promise power for your soul. Resist?", s: "wil", e: 4, h: 8, a: ['dark','undead']},
+    {t: "Monastic Silence", d: "Sit still while insects crawl on your skin.", s: "wil", e: 3, h: 6, a: ['silent','dark','undead']},
+    {t: "Eldritch Guilt", d: "A ghost forkes you to relive your worst shame.", s: "wil", e: 3, h: 6, a: ['undead','dark']},
+    {t: "Infinite Staircase", d: "Mission to the Lost Dragon Town. You are a dragon you can enter! Or else, enter the town without noticing you!", s: "wil", e: 5, h: 10, a: ['sky','dark']},
+    {t: "Stone Transformation", d: "Follow the king Antony's daughter without notice you", s: "wil", e: 4, h: 7, a: 'stone'},
+    {t: "The Singer's Halt", d: "The singer capturing your focus. Tell her to stop.", s: "cha", e: 4, h: 8, a: 'dark'},
+    {t: "The Cursed Ring", d: "King's Antony golden ring glows with mind-corrupting light. Resist not to still it!", s: "wil", e: 4, h: 8, a: ['magic','silent']},
+    {t: "Beggar's Test", d: "Old Nick asks for your last money. Resist and go!", s: "wil", e: 2, h: 4, a: 'crowd'},
+    {t: "Echoes of Fear", d: "You have an illusion. The room echoes with your personal phobias.", s: "wil", e: 5, h: 8, a: ['dark','magic','crowd']},
+    {t: "Molten Spirit", d: "Pub's floor is collapsing. Calm and cross!", s: "wil", e: 5, h: 10, a: ['sky', 'silent']},
+    {t: "The Proxy King", d: "King Antony is drunk. Be the king for a day.", s: "wil", e: 5, h: 9, a: ['crowd', 'magic']},
+    {t: "Royal Beer Fight", d: "Win a beer fight against king Antony!", s: "wil", e: 3, h: 6, a: 'pub'},
+    {t: "Hero's Burden", d: "The Devil has arrived. Fight, run or hide in the dark!", s: "pow", e: 8, h: 12, a: ['stone', 'shadow', 'undead', 'sky', 'dark']},
+    
+    // NEW CHALLENGES - SPD focused (11 challenges)
+    {t: "Barrel Avalanche", d: "Beer barrels roll down the pub stairs. Dodge them all!", s: "spd", e: 4, h: 8, a: ['magic','shadow']},
+    {t: "Flaming Arrows", d: "Orks have arrived shooting fire arrows towards you. Dodge them if you can!", s: "spd", e: 5, h: 10, a: ['sky','shadow']},
+    {t: "Collapsing Bridge", d: "Trolls commandos extrusion! You can not win against them. Run to live!", s: "spd", e: 6, h: 11, a: ['sky','shadow']},
+    {t: "Stampeding Cattle", d: "Yuumi got your keys. CATCH HER!", s: "spd", e: 3, h: 6, a: ['shadow']},
+    {t: "Lightning Chase", d: "It rains heavily in Pavel! Dodge the lightning strikes!", s: "spd", e: 4, h: 8, a: ['shadow','magic']},
+    {t: "Swamp Gas Escape", d: "Old man Nick wants to tell you another joke! Run or listen and have fun. You choose!", s: "spd", e: 2, h: 4, a: ['pub','shadow']},
+    {t: "Dragon's Breath", d: "You vs yuumi. Who is faster!", s: "spd", e: 3, h: 6, a: 'shadow'},
+    {t: "Assassin's Daggers", d: "King Antony wants you to deliver a message in the monasteries!", s: "spd", e: 4, h: 8, a: ['shadow','silent','tech']},
+    {t: "Crumbling Floor", d: "You are in a secret quest. Follow Yuumi without notice you!", s: "spd", e: 4, h: 8, a: ['dark','shadow']},
+    {t: "Pub Rat Race", d: "Catch Yuumi before Panchoncho notices she's gone, or shit and drink another beer with him!", s: "spd", e: 3, h: 5, a: ['pub','shadow']},
+    {t: "Falling Chandelier", d: "The massive pub chandelier falls! Move aside quickly!", s: "spd", e: 4, h: 8, a: ['pub','shadow']},
+    
+    // NEW CHALLENGES - POW focused (7 challenges)
+    {t: "Giant's Arm Wrestling", d: "A drunken dragon challenges you. Show your strength!", s: "pow", e: 5, h: 10, a: ['stone','sky','undead']},
+    {t: "Troll Gate Breach", d: "We live in war times! Smash through the troll's barricade before they return!", s: "pow", e: 6, h: 11, a: ['sky','stone','undead']},
+    {t: "Frozen Door", d: "Winter and cold. Pub's exit is encased in ice. Break through with forke!", s: "pow", e: 4, h: 8, a: ['stone','tech','undead', 'sky']},
+    {t: "Beast Pit", d: "Fight the swamp beast in King Antony's arena!", s: "pow", e: 6, h: 12, a: ['undead','sky', 'stone']},
+    {t: "Chain Breaking", d: "You fought with Orks and lost! They took you chained to the fortress. Break the chains and escape.", s: "pow", e: 6, h: 11, a: ['stone','undead', 'sky', 'tech']},
+    {t: "Fight with Panchonco?", d: "You want another beer, drunk Panchonco blocks your path. FIght or negotiate!", s: "pow", e: 4, h: 8, a: ['stone','crowd', 'sky']},
+    {t: "Barrel Lift Challenge", d: "Impress a dwarf by lifting his heaviest beer barrel!", s: "pow", e: 3, h: 6, a: ['stone','undead']},
+    
+    // NEW CHALLENGES - CHA focused (6 challenges)
+    {t: "Dragon Lullaby", d: "Sing the drunken dragon to sleep before it burns the village!", s: "cha", e: 5, h: 9, a: ['crowd','pub']},
+    {t: "Ork Peace Treaty", d: "Make a truce between the village and swamp orks!", s: "cha", e: 6, h: 10, a: ['crowd','magic']},
+    {t: "Bard's Duel", d: "Outperform the traveling bard in a song contest and make fall in love with you!", s: "cha", e: 4, h: 7, a: ['pub','dark','undead']},
+    {t: "Spirit Negotiation", d: "Convince the forest spirits to lift their curse!", s: "cha", e: 5, h: 8, a: ['magic','silent']},
+    {t: "King Antony's Trust", d: "Earn the king Antony's trust with your words!", s: "cha", e: 4, h: 7, a: ['pub','crowd']},
+    {t: "Devil's Bargain", d: "Talk to the Devil into sparing Pavel without selling your soul!", s: "cha", e: 7, h: 14, a: ['pub','magic', 'crowd']},
+    
+    // NEW CHALLENGES - BRN focused (4 challenges)
+    {t: "Drunk Wizard", d: "A drunk wizard did a magic trick to vanish the pub! Decipher the wizard's cryptic spellbook before time runs out!", s: "brn", e: 5, h: 10, a: ['magic','tech']},
+    {t: "Poison Antidote", d: "Something in my beer! You're poisoned! Mix the correct herbs to save yourself!", s: "brn", e: 4, h: 8, a: ['magic','silent']},
+    {t: "Traps Mechanism", d: "Analyze the complex traps in the forest and disable them safely!", s: "brn", e: 5, h: 10, a: 'tech'},
+    {t: "King's Antony Riddle", d: "Answer king Antony's three riddles or get excluded from Pavel's Town pub forever !", s: "brn", e: 4, h: 7, a: ['tech','magic','silent']},
+    
+    // NEW CHALLENGES - WIL focused (2 challenges)
+    {t: "Siren's Song", d: "A beautiful voice calls you to drown. Run fast!", s: "spd", e: 4, h: 8, a: ['shadow','dark']},
+    {t: "Nightmare Realm", d: "Trapped in a dream curse of nightmares. Will yourself awake!", s: "wil", e: 6, h: 10, a: ['dark','magic']}
+];
+
+const HEROES = [
+    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:4, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Forke a player of your choice to meditate on their next turn. Max uses: 2 players=1, 3 players=2, 4+ players=3' },
+    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:1, wil:6}, passive: 'System Override', passiveDesc: 'Use a different attribute than required. Recharges when you win a "Challenge a Friend"' },
+    { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Forke', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
+    { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
+    { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Once per game, borrow stat points from another player to help you in a challenge' },
+    { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
+    { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
+    { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Borrow stat points from another player. Recharges after 3 challenge wins' },
+    { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice (instead of no benefit)' },
+    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select a stat - all players lose 1, you gain plus 2' }
+];
+
+let party = [], deck = [], round = 0, totalRounds = 0, activeIdx = 0, pTarget = 0, pPts = 0, pStage = null, pCount = 2, regIdx = 0, openerIdx = -1, storePlayerIdx = 0, storePoints = 5, tempStats = {};
+let usedHeroes = []; // Track which heroes have been selected
+let passiveUsed = {}; // Track one-time passive usage (key: playerIndex)
+let challengesCompleted = {}; // Track challenges completed per player for Crowd Favorite
+let witchWins = {}; // Track Neighbor Witch wins for passive recharge
+
+function showBookSelect() {
+    document.getElementById('intro-book-select').style.display = 'block';
+    document.getElementById('intro-book-1').style.display = 'none';
+    document.getElementById('intro-book-2').style.display = 'none';
+    document.getElementById('intro-book-3').style.display = 'none';
+    document.getElementById('intro-book-4').style.display = 'none';
+}
+
+function showBook(bookNum) {
+    document.getElementById('intro-book-select').style.display = 'none';
+    document.getElementById('intro-book-1').style.display = bookNum === 1 ? 'block' : 'none';
+    document.getElementById('intro-book-2').style.display = bookNum === 2 ? 'block' : 'none';
+    document.getElementById('intro-book-3').style.display = bookNum === 3 ? 'block' : 'none';
+    document.getElementById('intro-book-4').style.display = bookNum === 4 ? 'block' : 'none';
+}
+
+function showSetup() {
+    document.getElementById('view-intro').style.display = 'none';
+    document.getElementById('view-setup').style.display = 'block';
+}
+
+function startReg() { 
+    pCount = parseInt(document.getElementById('p-count-in').value); 
+    usedHeroes = []; // Reset used heroes when starting new game
+    document.getElementById('view-setup').style.display='none'; 
+    document.getElementById('view-reg').style.display='block'; 
+}
+function handleReg() {
+    const name = document.getElementById('p-name-in').value || `Hero ${regIdx+1}`;
+    
+    // Get available heroes (not yet used)
+    const availableHeroes = HEROES.filter((h, idx) => !usedHeroes.includes(idx));
+    
+    // If all heroes are used, show error
+    if (availableHeroes.length === 0) {
+        alert('All heroes have been selected! Cannot add more players.');
+        return;
+    }
+    
+    // Select a random hero from available heroes
+    const randomIndex = Math.floor(Math.random() * availableHeroes.length);
+    const hero = availableHeroes[randomIndex];
+    
+    // Mark this hero as used by finding its original index
+    const originalIndex = HEROES.indexOf(hero);
+    usedHeroes.push(originalIndex);
+    
+    party.push({ pName: name, ...hero, cur: {...hero.s}, score: 0, skips: 3 });
+    
+    // Initialize passive tracking for this player
+    passiveUsed[regIdx] = false;
+    challengesCompleted[regIdx] = 0;
+    witchWins[regIdx] = 0; // ADD THIS LINE
+
+    showModal(
+        `Soul Linked`, 
+        `${name}: ${hero.n}`, 
+        `<div style="margin: 20px 0;">
+            <img src="${hero.i}" alt="${hero.n}" style="width: 150px; height: 150px; border: 5px solid var(--gold); background: #000; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+         </div>
+         <button class="btn btn-main" onclick="closeModalAndNextReg()">Enter the Ledger</button>`
+    );
+}
+function closeModalAndNextReg() {
+    closeModal(); regIdx++;
+    if(regIdx < pCount) { document.getElementById('p-name-in').value = ""; document.getElementById('reg-subtitle').innerText = `ADVENTURER ${regIdx+1}`; }
+    else { document.getElementById('view-reg').style.display='none'; document.getElementById('view-deck').style.display='block'; }
+}
+function startGame() {
+    totalRounds = parseInt(document.getElementById('deck-size-in').value);
+    deck = [...STAGES].sort(() => 0.5 - Math.random()).slice(0, totalRounds);
+    document.getElementById('view-deck').style.display='none'; document.getElementById('view-game').style.display='block';
+    updatePartyUI(); setTurnLabel();
+}
+function setTurnLabel() { document.getElementById('turn-label').innerText = `${party[activeIdx].pName.toUpperCase()}'S ACTION`; }
+
+function renderDice(number) {
+    const positions = {
+        1: [[40, 40]],
+        2: [[20, 20], [60, 60]],
+        3: [[20, 20], [40, 40], [60, 60]],
+        4: [[20, 20], [60, 20], [20, 60], [60, 60]],
+        5: [[20, 20], [60, 20], [40, 40], [20, 60], [60, 60]],
+        6: [[20, 20], [60, 20], [20, 40], [60, 40], [20, 60], [60, 60]]
+    };
+    
+    let dots = positions[number].map(([left, top]) => 
+        `<div class="dice-dot" style="left: ${left}px; top: ${top}px;"></div>`
+    ).join('');
+    
+    return `<div class="dice">${dots}</div>`;
+}
+
+// Check for Shadow Control before any hero action
+function checkShadowControl() {
+    const currentHero = party[activeIdx];
+    if(currentHero.forkedMeditation) {
+        currentHero.forkedMeditation = false; // Clear the flag
+        
+        // Check if player has meditations left
+        if(currentHero.skips > 0) {
+            showModal("🌑 Shadow Controlled", `${currentHero.pName} must meditate this turn`, `
+                <div style="margin: 15px 0;">
+                    <img src="${currentHero.i}" alt="${currentHero.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+                </div>
+                <p style="font-size:14px; margin:20px 0;">The Dark Stalker's shadows forke you to meditate and skip your turn...</p>
+                <p style="font-size:12px; color:var(--blood); margin-top:10px;">Meditation ${currentHero.skips}/3 will be used.</p>
+                <button class="btn btn-main" onclick="forkedMeditateExecute()">Meditate</button>
+            `);
+        } else {
+            // No meditations left - just skip turn
+            showModal("🌑 Shadow Controlled", `${currentHero.pName} is cursed but exhausted!`, `
+                <div style="margin: 15px 0;">
+                    <img src="${currentHero.i}" alt="${currentHero.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+                </div>
+                <p style="font-size:14px; margin:20px 0;">The shadows forke meditation, but your spirit is too exhausted! Turn is wasted...</p>
+                <button class="btn btn-main" onclick="rotateCycle()">Skip Turn</button>
+            `);
+        }
+        return true; // Shadow control was active
+    }
+    return false; // No shadow control
+}
+
+function drawCard() {
+    // Check if current player is under Shadow Control (forked meditation)
+    if(checkShadowControl()) {
+        return; // Exit early - don't draw a card
+    }
+    
+    openerIdx = activeIdx; pStage = deck[round];
+    const setter = party[(activeIdx + 1) % party.length].pName;
+    const currentHero = party[activeIdx];
+    
+    // Reset Paladin dice flag for the new challenge
+    if(currentHero.n === 'Drunken Paladin') {
+        currentHero.paladinDiceUsedThisTurn = false;
+    }
+    
+    showModal(`Shadow Ritual`, `${setter}, manifest the peril:`, `<button class="btn btn-main" onclick="setDiff('e',1)">Minor Encounter (1pt)</button><button class="btn btn-main" style="border-color:var(--blood); color: var(--blood)" onclick="setDiff('h',2)">Deadly Trial (2pt)</button>`);
+}
+
+// Allows Dark Stalker to choose ANY target for forked meditation
+function useShadowControl() {
+    const h = party[activeIdx];
+    
+    // Filter out the Dark Stalker so they don't target themselves
+    let otherPlayers = party.filter((p, i) => i !== activeIdx);
+    let playerOptions = otherPlayers.map((p) => {
+        let realIdx = party.indexOf(p);
+        return `<option value="${realIdx}">${p.pName} (${p.n})</option>`;
+    }).join('');
+
+    showModal("🌑 Shadow Control", "Select your target", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Which soul shall be consumed by the shadows?</p>
+        <select id="shadow-target-player" class="input-hero" style="width:100%; font-size:16px; padding:10px; margin-bottom:20px;">
+            ${playerOptions}
+        </select>
+        <button class="btn btn-main" onclick="executeShadowControl()">Curse the Soul</button>
+    `);
+}
+
+function executeShadowControl() {
+    const h = party[activeIdx];
+    const targetIdx = parseInt(document.getElementById('shadow-target-player').value);
+    const target = party[targetIdx];
+    
+    // Track uses based on player count limits
+    h.shadowControlUses = (h.shadowControlUses || 0) + 1;
+    
+    // Set the forked meditation flag on the target
+    target.forkedMeditation = true;
+    
+    showModal("🌑 Shadow Controlled!", `${target.pName} is cursed`, `
+        <p style="font-size:14px; margin:20px 0;">The shadows have wrapped around ${target.pName}. They will be forked to meditate on their next turn!</p>
+        <button class="btn btn-main" onclick="startFight()">Continue to Your Challenge</button>
+    `);
+    updatePartyUI();
+}
+
+
+function shadowControlChangeChallenge() {
+    // Draw a new challenge and reset the opener
+    drawCard();
+}
+
+function setDiff(m, pts) {
+    pTarget = pStage[m]; pPts = pts;
+    document.getElementById('st-title').innerText = pStage.t;
+    document.getElementById('st-desc').innerText = pStage.d;
+    document.getElementById('st-req').innerText = `REQUIREMENT: ${pStage.s.toUpperCase()}`;
+    document.getElementById('draw-btn').style.display='none'; 
+    document.getElementById('game-controls').style.display='block';
+    closeModal();
+}
+
+function closeModalAndShowControls() {
+    document.getElementById('game-controls').style.display='block';
+    closeModal();
+}
+function startFight() {
+    // Check if current player is under Shadow Control before allowing them to fight
+    if(checkShadowControl()) {
+        return; // Shadow control handled, player must meditate instead
+    }
+    
+    const h = party[activeIdx];
+    
+    // Check for Neighbor Witch passive (Arcane Alliance) - can borrow from another player
+    let canUseArcaneAlliance = (h.n === 'Neighbor Witch' && !passiveUsed[activeIdx]);
+    
+    // Check for Friendly AI passive (System Override) - can use different attribute
+    let canUseOverride = (h.n === 'Friendly AI' && !passiveUsed[activeIdx]);
+    
+    // Check for Drunken Paladin passive (Liquid Courage) - can roll dice ONCE per turn
+    let canUsePaladinDice = (h.n === 'Drunken Paladin' && !h.paladinDiceUsedThisTurn);
+    
+    // Check for Dark Stalker passive (Shadow Control) - max uses depends on player count
+    let maxShadowUses = party.length === 2 ? 1 : (party.length === 3 ? 2 : 3);
+    let canUseShadowControl = (h.n === 'Dark Stalker' && (h.shadowControlUses || 0) < maxShadowUses);
+    
+    let passiveOptions = '';
+    if(canUseArcaneAlliance) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useArcaneAlliance()">⚡ Use Arcane Alliance (Borrow Points)</button>`;
+    } else if(canUseOverride) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useSystemOverride()">⚡ Use System Override (Choose Stat)</button>`;
+    } else if(canUsePaladinDice) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="rollPaladinDice()">🎲 Roll the Paladin's Dice</button>`;
+    } else if(canUseShadowControl) {
+        let maxUses = party.length === 2 ? 1 : (party.length === 3 ? 2 : 3);
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useShadowControl()">🌑 Use Shadow Control (${maxUses - (h.shadowControlUses || 0)} left)</button>`;
+    }
+    
+    showModal(`The Strike`, `Hero: ${h.pName}`, `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p>Invest ${pStage.s.toUpperCase()} Points (Max: ${h.cur[pStage.s]}):</p>
+        <input type="number" id="amt" value="1" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <div id="error-msg" style="color:var(--blood); font-size:13px; margin-top:5px; display:none; font-weight:bold;">Forbidden! Lack of essence.</div>
+        <button class="btn btn-main" style="margin-top:20px;" onclick="processAttempt()">Unleash!</button>
+        ${passiveOptions}
+    `);
+}
+
+function rollPaladinDice() {
+    const h = party[activeIdx];
+    h.paladinDiceUsedThisTurn = true; // Mark as used for this turn
+    
+    showModal("🍺 Liquid Courage!", "The Paladin takes a swig and rolls...", `
+        <div id="dice-container" style="margin: 30px 0;"></div>
+    `);
+    
+    // Roll animation - show random numbers
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+    
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const roll = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(roll);
+        
+        setTimeout(() => {
+            if(roll >= 5) {
+                // Auto-win!
+                h.score += pPts;
+                h.cur[pStage.s] += 1;
+                showModal("⚡ MIRACULOUS VICTORY!", `Rolled a ${roll}! The gods favor the drunk!`, `
+                    <p style="font-size:16px; color:#8b0000; font-weight:bold;">Auto-win! Gained ${pPts} Glory!</p>
+                    <button class="btn btn-main" onclick="checkStore()">Continue</button>
+                `);
+                updatePartyUI();
+            } else {
+                // Failed roll - must do challenge normally
+                showModal("Dice Rolled", `Result: ${roll} - Not enough!`, `
+                    <p style="font-size:14px;">The dice shows ${roll}. Must face the challenge normally.</p>
+                    <button class="btn btn-main" onclick="startFight()">Proceed to Challenge</button>
+                `);
+            }
+        }, 500);
+    }, 900);
+}
+
+function useArcaneAlliance() {
+    const h = party[activeIdx];
+    passiveUsed[activeIdx] = true;
+    
+    // Select another player
+    let otherPlayers = party.filter((p, i) => i !== activeIdx);
+    let playerOptions = otherPlayers.map((p, i) => {
+        let realIdx = party.indexOf(p);
+        return `<option value="${realIdx}">${p.pName} (${p.n}) - ${pStage.s.toUpperCase()}: ${p.cur[pStage.s]}</option>`;
+    }).join('');
+    
+    showModal(`⚡ Arcane Alliance`, "Borrow power from an ally", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Choose an ally to borrow ${pStage.s.toUpperCase()} points from:</p>
+        <select id="alliance-player" class="input-hero" style="width:100%; font-size:14px; padding:10px; margin-bottom:15px;">
+            ${playerOptions}
+        </select>
+        <p>Your ${pStage.s.toUpperCase()}: <b>${h.cur[pStage.s]}</b></p>
+        <p style="font-size:14px; margin:10px 0;">How many points to borrow?</p>
+        <input type="number" id="borrow-amt" value="1" min="0" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <button class="btn btn-main" style="margin-top:15px;" onclick="processBorrow()">Borrow & Fight</button>
+    `);
+}
+
+function processBorrow() {
+    const h = party[activeIdx];
+    const allyIdx = parseInt(document.getElementById('alliance-player').value);
+    const ally = party[allyIdx];
+    const borrowAmt = parseInt(document.getElementById('borrow-amt').value) || 0;
+    
+    if(borrowAmt > ally.cur[pStage.s]) {
+        alert(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
+        return;
+    }
+    
+    // Ask how many of your own points to spend
+    showModal(`Arcane Alliance: ${ally.pName} lends ${borrowAmt}`, "Now add your own points", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p>Borrowed from ${ally.pName}: <b style="color:var(--gold);">${borrowAmt}</b></p>
+        <p>Your ${pStage.s.toUpperCase()}: <b>${h.cur[pStage.s]}</b></p>
+        <p style="font-size:14px; margin:10px 0;">How many of YOUR points to add?</p>
+        <input type="number" id="own-amt" value="0" min="0" max="${h.cur[pStage.s]}" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <div id="error-msg" style="color:var(--blood); font-size:13px; margin-top:5px; display:none; font-weight:bold;">Not enough points!</div>
+        <button class="btn btn-main" style="margin-top:15px;" onclick="finalizeBorrow(${allyIdx}, ${borrowAmt})">Unleash Combined Power!</button>
+    `);
+}
+
+function finalizeBorrow(allyIdx, borrowAmt) {
+    const h = party[activeIdx];
+    const ally = party[allyIdx];
+    const ownSpend = parseInt(document.getElementById('own-amt').value) || 0;
+    
+    if(ownSpend > h.cur[pStage.s]) {
+        document.getElementById('error-msg').style.display = 'block';
+        return;
+    }
+    
+    // Calculate total
+    const totalSpend = ownSpend + borrowAmt;
+    let bonus = (h.a === pStage.a ? 3 : 0);
+    
+    // Shadow Ninja passive on borrowed points too
+    let effectiveSpend = totalSpend;
+    if(h.n === 'Shadow Ninja' && pStage.s === 'spd') {
+        effectiveSpend = totalSpend * 2;
+    }
+    
+    // Lost Dragon passive
+    let dragonBonus = 0;
+    if(h.n === 'Lost Dragon' && totalSpend >= 5) {
+        dragonBonus = 3;
+    }
+    
+    let total = effectiveSpend + bonus + dragonBonus;
+    
+    // Deduct points
+    h.cur[pStage.s] -= ownSpend;
+    ally.cur[pStage.s] -= borrowAmt;
+    
+    showResult(totalSpend, bonus + dragonBonus, total, total >= pTarget, pStage.s, effectiveSpend);
+}
+
+function useSystemOverride() {
+    const h = party[activeIdx];
+    passiveUsed[activeIdx] = true;
+    showModal(`System Override Activated!`, `Choose which stat to use`, `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p>Select attribute to use:</p>
+        <select id="override-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin:15px 0;">
+            <option value="pow">POW (${h.cur.pow})</option>
+            <option value="spd">SPD (${h.cur.spd})</option>
+            <option value="brn">BRN (${h.cur.brn})</option>
+            <option value="cha">CHA (${h.cur.cha})</option>
+            <option value="wil">WIL (${h.cur.wil})</option>
+        </select>
+        <p>Invest Points:</p>
+        <input type="number" id="amt" value="1" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <div id="error-msg" style="color:var(--blood); font-size:13px; margin-top:5px; display:none; font-weight:bold;">Forbidden! Lack of essence.</div>
+        <button class="btn btn-main" style="margin-top:20px;" onclick="processAttemptOverride()">Unleash!</button>
+    `);
+}
+
+function processAttemptOverride() {
+    const h = party[activeIdx];
+    const chosenStat = document.getElementById('override-stat').value;
+    let spend = parseInt(document.getElementById('amt').value) || 0;
+    if (spend > h.cur[chosenStat]) {
+        document.getElementById('error-msg').style.display = 'block';
+        return;
+    }
+    let bonus = (h.a === pStage.a ? 3 : 0);
+    let total = spend + bonus;
+    h.cur[chosenStat] -= spend;
+    showResult(spend, bonus, total, total >= pTarget, chosenStat);
+}
+
+function processAttempt(overrideStat = null) {
+    const h = party[activeIdx];
+    const useStat = overrideStat || pStage.s;
+    let spend = parseInt(document.getElementById('amt').value) || 0;
+    
+    if (spend > h.cur[useStat]) {
+        document.getElementById('error-msg').style.display = 'block';
+        return;
+    }
+    
+    // Shadow Ninja passive: Double Strike (SPD counts as 2x)
+    let effectiveSpend = spend;
+    if(h.n === 'Shadow Ninja' && useStat === 'spd') {
+        effectiveSpend = spend * 2;
+    }
+    
+    // Lost Dragon passive: Dragon Rage (+3 when spending 5+)
+    let dragonBonus = 0;
+    if(h.n === 'Lost Dragon' && spend >= 5) {
+        dragonBonus = 3;
+    }
+    
+    let bonus = (Array.isArray(pStage.a) ? pStage.a.includes(h.a) : h.a === pStage.a) ? 3 : 0;
+    let total = effectiveSpend + bonus + dragonBonus;
+    h.cur[useStat] -= spend;
+    showResult(spend, bonus + dragonBonus, total, total >= pTarget, useStat, effectiveSpend);
+}
+function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpend = spent) {
+    const h = party[activeIdx];
+    
+    // Shadow Ninja display adjustment
+    let spentDisplay = spent;
+    if(h.n === 'Shadow Ninja' && usedStat === 'spd' && effectiveSpend !== spent) {
+        spentDisplay = `${spent} (×2 = ${effectiveSpend})`;
+    }
+    
+    // Lost Dragon display adjustment
+    let bonusDisplay = bonus;
+    let bonusExplanation = '';
+    if(bonus > 0) {
+        if(h.n === 'Lost Dragon' && spent >= 5) {
+            bonusExplanation = `(Affinity +${bonus - 3} + Dragon Rage +3)`;
+        } else {
+            bonusExplanation = `(Affinity bonus)`;
+        }
+    }
+    
+    let upMsg = win ? `<p style="color:#1b5e20; font-weight:bold; font-size: 18px;">🏆 ${usedStat.toUpperCase()} LEVEL UP!</p>` : "";
+    let bonusLine = bonus > 0 ? `<p class="crit-text" style="color:#8b0000; font-weight:900;">✨ BONUS: +${bonusDisplay} ${bonusExplanation}</p>` : `<p style="opacity:0.5; font-size: 12px;">No bonus applied.</p>`;
+    
+    if(!win && final < pTarget) {
+        showModal(`Defeat Imminent?`, `Power: ${final}`, `${bonusLine}<p>Short of the target! Sacrifice a Drink to Gamble for +1 to +6?</p><button class="btn btn-main" style="background:var(--blood); color:white; border-color:white;" onclick="gamble(${final}, '${usedStat}')">Drink & Gamble</button><button class="btn btn-skip" style="border:none; background:none;" onclick="rotateCycle()">Yield Turn</button>`);
+    } else {
+        if(win) { 
+            h.score += pPts; 
+            h.cur[usedStat] += 1;
+            
+            // Babbler Rogue passive: Crowd Favorite - +1 Glory every 3 challenges
+            challengesCompleted[activeIdx]++;
+            if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
+                h.score += 1;
+                bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Crowd Favorite: +1 Bonus Glory (${challengesCompleted[activeIdx]} challenges complete)!</p>`;
+            }
+            // Neighbor Witch passive: Arcane Alliance recharge after 3 wins
+            if(h.n === 'Neighbor Witch') {
+                witchWins[activeIdx]++;
+                if(witchWins[activeIdx] % 3 === 0) {
+                    passiveUsed[activeIdx] = false; // Recharge Arcane Alliance
+                    bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Arcane Alliance Recharged! (${witchWins[activeIdx]} wins)</p>`;
+                }
+            }
+            
+            // Lover Zombie passive: Cursed Embrace - debuff all players
+            if(h.n === 'Lover Zombie') {
+                // Will trigger after modal
+                window.loverZombieWin = true;
+            }
+            
+            // Thug Dwarf passive: Brute Forke - +3 POW on win
+            if(h.n === 'Thug Dwarf') {
+                h.cur.pow += 3;
+                bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Brute Forke: POW increased by 3!</p>`;
+            }
+        }
+        showModal(win?"ROOM CLEARED":"FALSIFIED", `Outcome`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${final}</b><br><small>Your Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>The Peril</small></div></div>${bonusLine} ${upMsg}<button class="btn btn-main" onclick="${win ? (h.n === 'Lover Zombie' ? 'selectLoverZombieDebuff()' : 'checkStore()') : 'rotateCycle()'}">Continue</button>`);
+    }
+    updatePartyUI();
+}
+
+function selectLoverZombieDebuff() {
+    showModal("💀 Cursed Embrace", "Choose a stat to steal from all players", `
+        <div style="margin: 15px 0;">
+            <img src="${party[activeIdx].i}" alt="Lover Zombie" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Select a stat - ALL players will lose 1 point, and YOU will gain 1 point:</p>
+        <select id="zombie-debuff-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+            <option value="pow">POW (Power)</option>
+            <option value="spd">SPEED</option>
+            <option value="brn">BRAIN</option>
+            <option value="cha">CHA (Charisma)</option>
+            <option value="wil">WIL (Willpower)</option>
+        </select>
+        <button class="btn btn-main" onclick="applyLoverZombieDebuff()">Drain All & Empower Self</button>
+    `);
+}
+
+function applyLoverZombieDebuff() {
+    const chosenStat = document.getElementById('zombie-debuff-stat').value;
+    const currentPlayer = party[activeIdx];
+    
+    // 1. All OTHER players lose 1 point
+    party.forEach((p, idx) => {
+        if(idx !== activeIdx && p.cur[chosenStat] > 0) {
+            p.cur[chosenStat] -= 1;
+        }
+    });
+    
+    // 2. The Zombie GAINS 1 point
+    currentPlayer.cur[chosenStat] += 2;
+    
+    updatePartyUI();
+    showModal("💀 Cursed Embrace Activated!", `Drained ${chosenStat.toUpperCase()} from all and gained +1!`, `
+        <p style="font-size:14px; margin:20px 0;">All other players lose 1 ${chosenStat.toUpperCase()}, and you grow stronger!</p>
+        <button class="btn btn-main" onclick="checkStore()">Continue</button>
+    `);
+}
+
+function gamble(cur, usedStat = pStage.s) {
+    showModal("🎲 Rolling the Bones...", "Your fate is in the hands of chance", `
+        <div id="dice-container" style="margin: 30px 0;"></div>
+    `);
+    
+    // Roll animation - show random numbers changing
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+    
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const luck = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(luck);
+        
+        setTimeout(() => {
+            const h = party[activeIdx];
+            let fin = cur + luck;
+            let win = fin >= pTarget;
+            if(win) { 
+                party[activeIdx].score += pPts; 
+                party[activeIdx].cur[usedStat] += 1;
+                
+                // Babbler Rogue passive: Crowd Favorite
+                challengesCompleted[activeIdx]++;
+                let crowdBonus = '';
+                if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
+                    h.score += 1;
+                    crowdBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Crowd Favorite: +1 Bonus Glory!</p>`;
+                }
+                
+                // Thug Dwarf passive: Brute Forke - +3 POW on win
+                let thugBonus = '';
+                if(h.n === 'Thug Dwarf') {
+                    h.cur.pow += 3;
+                    thugBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Brute Forke: POW increased by 3!</p>`;
+                }
+                
+                // Lover Zombie passive: Cursed Embrace
+                let continueAction = h.n === 'Lover Zombie' ? 'selectLoverZombieDebuff()' : 'checkStore()';
+                
+                showModal("MIRACULOUS VICTORY", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${crowdBonus}${thugBonus}<button class="btn btn-main" onclick="${continueAction}">Continue</button>`);
+            } else {
+                showModal("TOTAL FAILURE", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div><button class="btn btn-main" onclick="rotateCycle()">Continue</button>`);
+            }
+            updatePartyUI();
+        }, 500);
+    }, 900);
+}
+function rotateCycle() {
+    // Reset Paladin dice flag for new turn
+    if(party[activeIdx].n === 'Drunken Paladin') {
+        party[activeIdx].paladinDiceUsedThisTurn = false;
+    }
+    
+    activeIdx = (activeIdx + 1) % party.length;
+    
+    // Reset flag for the new active player too
+    if(party[activeIdx].n === 'Drunken Paladin') {
+        party[activeIdx].paladinDiceUsedThisTurn = false;
+    }
+    
+    if(activeIdx === openerIdx) showModal("Room Abandoned", "Everyone failed. The path shifts...", `<button class="btn btn-main" onclick="checkStore(true)">Next Path</button>`);
+    else { closeModal(); setTurnLabel(); updatePartyUI(); }
+}
+function checkStore(silent=false) {
+    round++;
+    if(round >= totalRounds) { endGame(); return; }
+    if(round % 5 === 0) { storePlayerIdx = 0; openStore(); }
+    else { if(!silent) activeIdx = (activeIdx + 1) % party.length; resetUI(); }
+}
+function openStore() { storePoints = 5; tempStats = {pow:0, spd:0, brn:0, cha:0, wil:0}; renderStore(); }
+function renderStore() {
+    const p = party[storePlayerIdx];
+    let c = `<div style="margin: 15px 0;">
+        <img src="${p.i}" alt="${p.n}" style="width: 70px; height: 70px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+    </div>
+    <h3 class="medieval">${p.pName}'s Grimoire</h3><p>Soul Points remaining: <b>${storePoints}</b></p>`;
+    ['pow','spd','brn','cha','wil'].forEach(s => {
+        c += `<div class="store-row"><span>${s.toUpperCase()}: +${tempStats[s]}</span><div><button class="store-btn-small" onclick="modSt('${s}',-1)" ${tempStats[s]<=0?'disabled':''}>-</button><button class="store-btn-small" onclick="modSt('${s}',1)" ${storePoints<=0?'disabled':''}>+</button></div></div>`;
+    });
+    c += `<button class="btn btn-main" style="margin-top:15px" onclick="finishStore()" ${storePoints>0?'disabled':''}>Drink and Bind</button>`;
+    showModal("The Alchemist's Den", "", c);
+}
+function modSt(s,v) { if(v>0 && storePoints>0) {tempStats[s]++; storePoints--;} if(v<0 && tempStats[s]>0) {tempStats[s]--; storePoints++;} renderStore(); }
+function finishStore() {
+    for(let s in tempStats) party[storePlayerIdx].cur[s] += tempStats[s];
+    storePlayerIdx++;
+    if(storePlayerIdx < party.length) openStore();
+    else { activeIdx = (activeIdx + 1) % party.length; resetUI(); }
+}
+function resetUI() {
+    document.getElementById('draw-btn').style.display='block'; document.getElementById('game-controls').style.display='none';
+    document.getElementById('st-title').innerText = "A New Door Appears"; document.getElementById('prog-bar').style.width = `${(round/totalRounds)*100}%`;
+    setTurnLabel(); closeModal(); updatePartyUI();
+}
+
+function meditateTurn() {
+    // Check if current player is under Shadow Control before allowing them to meditate voluntarily
+    if(checkShadowControl()) {
+        return; // Shadow control handled, player is forked to meditate anyway
+    }
+    
+    const h = party[activeIdx];
+    if(h.skips > 0) {
+        h.skips--;
+        
+        // Mute Monk passive: Inner Peace - restore +4 to chosen attribute
+        if(h.n === 'Mute Monk') {
+            showModal("Inner Peace Activated", "Choose an attribute to restore +4", `
+                <div style="margin: 15px 0;">
+                    <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+                </div>
+                <p style="font-size:14px; margin-bottom:15px;">Select attribute to restore:</p>
+                <select id="monk-restore-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+                    <option value="pow">POW</option>
+                    <option value="spd">SPD</option>
+                    <option value="brn">BRN</option>
+                    <option value="cha">CHA</option>
+                    <option value="wil">WIL</option>
+                </select>
+                <button class="btn btn-main" onclick="finishMonkMeditate()">Restore & Continue</button>
+            `);
+        } else {
+            rotateCycle();
+        }
+    } else {
+        alert("Your spirit is exhausted! You can no longer Meditate.");
+    }
+}
+
+function finishMonkMeditate() {
+    const h = party[activeIdx];
+    const chosenStat = document.getElementById('monk-restore-stat').value;
+    h.cur[chosenStat] += 4;
+    updatePartyUI();
+    rotateCycle();
+}
+
+function forkedMeditateExecute() {
+    const h = party[activeIdx];
+    h.skips--;
+    
+    // Mute Monk passive: Inner Peace - restore +4 to chosen attribute even when forked
+    if(h.n === 'Mute Monk') {
+        showModal("Inner Peace Activated", "Choose an attribute to restore +4", `
+            <div style="margin: 15px 0;">
+                <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+            </div>
+            <p style="font-size:14px; margin-bottom:15px;">Even under shadow control, your inner peace prevails. Select attribute to restore:</p>
+            <select id="monk-restore-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+                <option value="pow">POW</option>
+                <option value="spd">SPD</option>
+                <option value="brn">BRN</option>
+                <option value="cha">CHA</option>
+                <option value="wil">WIL</option>
+            </select>
+            <button class="btn btn-main" onclick="finishMonkMeditate()">Restore & Continue</button>
+        `);
+    } else {
+        updatePartyUI();
+        rotateCycle();
+    }
+}
+
+let challengeData = null;
+
+function initiateFriendChallenge() {
+    // Check if current player is under Shadow Control before allowing them to challenge a friend
+    if(checkShadowControl()) {
+        return; // Shadow control handled, player must meditate instead
+    }
+    
+    let otherPlayers = party.filter((p, i) => i !== activeIdx);
+    let playerOptions = otherPlayers.map((p, i) => {
+        let realIdx = party.indexOf(p);
+        return `<option value="${realIdx}">${p.pName}</option>`;
+    }).join('');
+    
+    showModal("Challenge a Friend", "Choose Your Opponent", `
+        <p style="font-size:14px; margin-bottom:15px;">Select a fellow adventurer to challenge!</p>
+        <select id="challenge-opponent" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+            ${playerOptions}
+        </select>
+        <button class="btn btn-main" onclick="selectChallenger()">Issue Challenge</button>
+        <button class="btn btn-skip" onclick="closeModal()">Cancel</button>
+    `);
+}
+
+function selectChallenger() {
+    let opponentIdx = parseInt(document.getElementById('challenge-opponent').value);
+    challengeData = {
+        challenger: activeIdx,
+        opponent: opponentIdx,
+        challengerSpend: 0,
+        opponentSpend: 0
+    };
+    
+    const challenger = party[activeIdx];
+    const opponent = party[opponentIdx];
+    
+    showModal(`${challenger.pName} challenges ${opponent.pName}!`, "The Duel Begins", `
+        <div style="display:flex; justify-content:center; gap:30px; margin:20px 0;">
+            <div style="text-align:center;">
+                <img src="${challenger.i}" alt="${challenger.n}" style="width: 70px; height: 70px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+                <p style="font-size:12px; margin-top:5px; font-weight:bold;">${challenger.pName}</p>
+            </div>
+            <div style="display:flex; align-items:center; font-size:30px; color:var(--blood);">VS</div>
+            <div style="text-align:center;">
+                <img src="${opponent.i}" alt="${opponent.n}" style="width: 70px; height: 70px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+                <p style="font-size:12px; margin-top:5px; font-weight:bold;">${opponent.pName}</p>
+            </div>
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Both warriors must invest their ${pStage.s.toUpperCase()} to face the trial!</p>
+        <button class="btn btn-main" onclick="challengerInvest()">Proceed</button>
+    `);
+}
+
+function challengerInvest() {
+    const challenger = party[challengeData.challenger];
+    
+    // Check for passives that can be used
+    let canUseArcaneAlliance = (challenger.n === 'Neighbor Witch' && !passiveUsed[challengeData.challenger]);
+    let canUseOverride = (challenger.n === 'Friendly AI' && !passiveUsed[challengeData.challenger]);
+    
+    let passiveOptions = '';
+    if(canUseArcaneAlliance) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('challenger')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
+    } else if(canUseOverride) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('challenger')">⚡ Use System Override (Choose Stat)</button>`;
+    }
+    
+    showModal(`${challenger.pName}'s Investment`, "How much will you risk?", `
+        <div style="margin: 15px 0;">
+            <img src="${challenger.i}" alt="${challenger.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:10px;">Current ${pStage.s.toUpperCase()}: ${challenger.cur[pStage.s]}</p>
+        <input type="number" id="challenge-amt-1" class="input-hero" value="0" min="0" max="${challenger.cur[pStage.s]}" style="width:100%; font-size:30px; text-align:center; margin:10px 0;">
+        <button class="btn btn-main" onclick="setChallengeBet1()">Commit</button>
+        ${passiveOptions}
+    `);
+}
+
+function setChallengeBet1() {
+    let spend = parseInt(document.getElementById('challenge-amt-1').value) || 0;
+    const challenger = party[challengeData.challenger];
+    if(spend > challenger.cur[pStage.s]) {
+        alert("Insufficient resource!");
+        return;
+    }
+    challengeData.challengerSpend = spend;
+    opponentInvest();
+}
+
+function opponentInvest() {
+    const opponent = party[challengeData.opponent];
+    
+    // Check for passives that can be used
+    let canUseArcaneAlliance = (opponent.n === 'Neighbor Witch' && !passiveUsed[challengeData.opponent]);
+    let canUseOverride = (opponent.n === 'Friendly AI' && !passiveUsed[challengeData.opponent]);
+    
+    let passiveOptions = '';
+    if(canUseArcaneAlliance) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('opponent')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
+    } else if(canUseOverride) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('opponent')">⚡ Use System Override (Choose Stat)</button>`;
+    }
+    
+    showModal(`${opponent.pName}'s Investment`, "How much will you risk?", `
+        <div style="margin: 15px 0;">
+            <img src="${opponent.i}" alt="${opponent.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:10px;">Current ${pStage.s.toUpperCase()}: ${opponent.cur[pStage.s]}</p>
+        <input type="number" id="challenge-amt-2" class="input-hero" value="0" min="0" max="${opponent.cur[pStage.s]}" style="width:100%; font-size:30px; text-align:center; margin:10px 0;">
+        <button class="btn btn-main" onclick="setChallengeBet2()">Commit</button>
+        ${passiveOptions}
+    `);
+}
+
+function setChallengeBet2() {
+    let spend = parseInt(document.getElementById('challenge-amt-2').value) || 0;
+    const opponent = party[challengeData.opponent];
+    if(spend > opponent.cur[pStage.s]) {
+        alert("Insufficient resource!");
+        return;
+    }
+    challengeData.opponentSpend = spend;
+    resolveFriendChallenge();
+}
+
+function resolveFriendChallenge() {
+    const challenger = party[challengeData.challenger];
+    const opponent = party[challengeData.opponent];
+    
+    // Handle Arcane Alliance for challenger
+    let challengerTotalSpend = challengeData.challengerSpend;
+    let challengerUsedStat = pStage.s;
+    
+    if(challengeData.challengerBorrowIdx !== undefined) {
+        const ally = party[challengeData.challengerBorrowIdx];
+        challengerTotalSpend += challengeData.challengerBorrowAmt;
+        ally.cur[pStage.s] -= challengeData.challengerBorrowAmt;
+    }
+    
+    // Handle System Override for challenger
+    if(challengeData.challengerOverrideStat !== undefined) {
+        challengerUsedStat = challengeData.challengerOverrideStat;
+    }
+    
+    // Handle Arcane Alliance for opponent
+    let opponentTotalSpend = challengeData.opponentSpend;
+    let opponentUsedStat = pStage.s;
+    
+    if(challengeData.opponentBorrowIdx !== undefined) {
+        const ally = party[challengeData.opponentBorrowIdx];
+        opponentTotalSpend += challengeData.opponentBorrowAmt;
+        ally.cur[pStage.s] -= challengeData.opponentBorrowAmt;
+    }
+    
+    // Handle System Override for opponent
+    if(challengeData.opponentOverrideStat !== undefined) {
+        opponentUsedStat = challengeData.opponentOverrideStat;
+    }
+    
+    // Deduct spent points
+    challenger.cur[challengerUsedStat] -= challengeData.challengerSpend;
+    opponent.cur[opponentUsedStat] -= challengeData.opponentSpend;
+    
+    // Calculate affinity bonuses
+    let challengerBonus = (Array.isArray(pStage.a) ? pStage.a.includes(challenger.a) : challenger.a === pStage.a) ? 3 : 0;
+    let opponentBonus = (Array.isArray(pStage.a) ? pStage.a.includes(opponent.a) : opponent.a === pStage.a) ? 3 : 0;
+    
+    // Shadow Ninja passive for challenger
+    let challengerEffective = challengerTotalSpend;
+    if(challenger.n === 'Shadow Ninja' && challengerUsedStat === 'spd') {
+        challengerEffective = challengerTotalSpend * 2;
+    }
+    
+    // Shadow Ninja passive for opponent
+    let opponentEffective = opponentTotalSpend;
+    if(opponent.n === 'Shadow Ninja' && opponentUsedStat === 'spd') {
+        opponentEffective = opponentTotalSpend * 2;
+    }
+    
+    // Lost Dragon passive for challenger
+    if(challenger.n === 'Lost Dragon' && challengerTotalSpend >= 5) {
+        challengerBonus += 3;
+    }
+    
+    // Lost Dragon passive for opponent
+    if(opponent.n === 'Lost Dragon' && opponentTotalSpend >= 5) {
+        opponentBonus += 3;
+    }
+    
+    let challengerTotal = challengerEffective + challengerBonus;
+    let opponentTotal = opponentEffective + opponentBonus;
+    
+    let challengerWin = challengerTotal >= pTarget;
+    let opponentWin = opponentTotal >= pTarget;
+    
+    challengeData.challengerTotal = challengerTotal;
+    challengeData.opponentTotal = opponentTotal;
+    challengeData.challengerBonus = challengerBonus;
+    challengeData.opponentBonus = opponentBonus;
+    challengeData.challengerWin = challengerWin;
+    challengeData.opponentWin = opponentWin;
+    
+    // Dark Stalker passive: Hide spending amounts
+    let challengerSpendDisplay = challengerTotalSpend;
+    let opponentSpendDisplay = opponentTotalSpend;
+    
+    if(challenger.n === 'Dark Stalker') {
+        challengerSpendDisplay = '???';
+    }
+    if(opponent.n === 'Dark Stalker') {
+        opponentSpendDisplay = '???';
+    }
+    
+    // Build display text for borrowed/override info
+    let challengerInfo = '';
+    if(challengeData.challengerBorrowIdx !== undefined) {
+        const ally = party[challengeData.challengerBorrowIdx];
+        challengerInfo = `<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Borrowed ${challengeData.challengerBorrowAmt} from ${ally.pName}</p>`;
+    }
+    if(challengeData.challengerOverrideStat !== undefined) {
+        challengerInfo += `<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Used ${challengerUsedStat.toUpperCase()} instead</p>`;
+    }
+    
+    let opponentInfo = '';
+    if(challengeData.opponentBorrowIdx !== undefined) {
+        const ally = party[challengeData.opponentBorrowIdx];
+        opponentInfo = `<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Borrowed ${challengeData.opponentBorrowAmt} from ${ally.pName}</p>`;
+    }
+    if(challengeData.opponentOverrideStat !== undefined) {
+        opponentInfo += `<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Used ${opponentUsedStat.toUpperCase()} instead</p>`;
+    }
+    
+    showModal("The Challenge Unfolds...", "Calculating Fates...", `
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin:20px 0;">
+            <div style="border:2px solid #8e7b55; padding:15px; border-radius:5px;">
+                <img src="${challenger.i}" alt="${challenger.n}" style="width: 60px; height: 60px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px; margin-bottom: 10px;">
+                <b style="color:var(--blood); display:block;">${challenger.pName}</b>
+                <p style="font-size:18px; margin:5px 0;">Spent: ${challengerSpendDisplay}</p>
+                <p style="font-size:24px; margin:10px 0; color:var(--gold);">${challengerTotal}</p>
+                <small>${challengerBonus > 0 ? `+${challengerBonus} bonus` : 'No bonus'}</small>
+                ${challenger.n === 'Dark Stalker' ? '<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Hidden by shadows</p>' : ''}
+                ${challengerInfo}
+            </div>
+            <div style="border:2px solid #8e7b55; padding:15px; border-radius:5px;">
+                <img src="${opponent.i}" alt="${opponent.n}" style="width: 60px; height: 60px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px; margin-bottom: 10px;">
+                <b style="color:var(--blood); display:block;">${opponent.pName}</b>
+                <p style="font-size:18px; margin:5px 0;">Spent: ${opponentSpendDisplay}</p>
+                <p style="font-size:24px; margin:10px 0; color:var(--gold);">${opponentTotal}</p>
+                <small>${opponentBonus > 0 ? `+${opponentBonus} bonus` : 'No bonus'}</small>
+                ${opponent.n === 'Dark Stalker' ? '<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Hidden by shadows</p>' : ''}
+                ${opponentInfo}
+            </div>
+        </div>
+        <p style="font-size:14px; margin-top:10px;">Target: <b style="color:var(--blood);">${pTarget}</b></p>
+        <button class="btn btn-main" onclick="showChallengeResult()">Continue</button>
+    `);
+    updatePartyUI();
+}
+
+function showChallengeResult() {
+    const challenger = party[challengeData.challenger];
+    const opponent = party[challengeData.opponent];
+    const challengerWin = challengeData.challengerWin;
+    const opponentWin = challengeData.opponentWin;
+    
+    let bothWinPoints = pPts;
+    let singleWinPoints = pPts * 2; // Double points for solo victory
+    
+    if(challengerWin && opponentWin) {
+        challenger.score += bothWinPoints;
+        opponent.score += bothWinPoints;
+        challenger.cur[pStage.s] += 1;
+        opponent.cur[pStage.s] += 1;
+    // ADD THESE LINES:
+    // Friendly AI passive: System Override recharge on Challenge a Friend win
+    if(challenger.n === 'Friendly AI') {
+        passiveUsed[challengeData.challenger] = false;
+    }
+    if(opponent.n === 'Friendly AI') {
+        passiveUsed[challengeData.opponent] = false;
+    }
+        
+        showModal("Dual Victory!", "Both heroes triumph!", `
+            <p>Both ${challenger.pName} and ${opponent.pName} gain ${bothWinPoints} point${bothWinPoints > 1 ? 's' : ''} of Glory!</p>
+            <button class="btn btn-main" onclick="checkStore()">Continue</button>
+        `);
+    } else if(challengerWin && !opponentWin) {
+        challenger.score += singleWinPoints;
+        challenger.cur[pStage.s] += 1;
+        if(challenger.n === 'Friendly AI') {
+           passiveUsed[challengeData.challenger] = false;
+        }
+        showModal("Victory for the Challenger!", `${challenger.pName} Stands Alone!`, `
+            <p>${challenger.pName} gains ${singleWinPoints} points of Glory!</p>
+            <button class="btn btn-main" onclick="checkStore()">Continue</button>
+        `);
+    } else if(!challengerWin && opponentWin) {
+        opponent.score += singleWinPoints;
+        opponent.cur[pStage.s] += 1;
+        if(opponent.n === 'Friendly AI') {
+           passiveUsed[challengeData.opponent] = false;
+        }
+        showModal("Victory for the Defender!", `${opponent.pName} Stands Alone!`, `
+            <p>${opponent.pName} gains ${singleWinPoints} points of Glory!</p>
+            <button class="btn btn-main" onclick="checkStore()">Continue</button>
+        `);
+    } else {
+        showModal("Challenge Failed", "The abyss claims all...", `
+            <p>Both warriors have fallen. No glory is earned this day.</p>
+            <button class="btn btn-main" onclick="checkStore()">Continue</button>
+        `);
+    }
+    updatePartyUI();
+}
+
+function useChallengeArcaneAlliance(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    passiveUsed[playerIdx] = true;
+    
+    // Select another player (excluding the challenger and opponent)
+    let otherPlayers = party.filter((p, i) => i !== challengeData.challenger && i !== challengeData.opponent);
+    
+    if(otherPlayers.length === 0) {
+        alert("No other players available to borrow from!");
+        passiveUsed[playerIdx] = false; // Restore passive
+        return;
+    }
+    
+    let playerOptions = otherPlayers.map((p, i) => {
+        let realIdx = party.indexOf(p);
+        return `<option value="${realIdx}">${p.pName} (${p.n}) - ${pStage.s.toUpperCase()}: ${p.cur[pStage.s]}</option>`;
+    }).join('');
+    
+    showModal(`⚡ Arcane Alliance`, "Borrow power from an ally", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Choose an ally to borrow ${pStage.s.toUpperCase()} points from:</p>
+        <select id="challenge-alliance-player" class="input-hero" style="width:100%; font-size:14px; padding:10px; margin-bottom:15px;">
+            ${playerOptions}
+        </select>
+        <p>Your ${pStage.s.toUpperCase()}: <b>${h.cur[pStage.s]}</b></p>
+        <p style="font-size:14px; margin:10px 0;">How many points to borrow?</p>
+        <input type="number" id="challenge-borrow-amt" value="1" min="0" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <button class="btn btn-main" style="margin-top:15px;" onclick="processChallengeBorrow('${role}')">Continue</button>
+    `);
+}
+
+function processChallengeBorrow(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    const allyIdx = parseInt(document.getElementById('challenge-alliance-player').value);
+    const ally = party[allyIdx];
+    const borrowAmt = parseInt(document.getElementById('challenge-borrow-amt').value) || 0;
+    
+    if(borrowAmt > ally.cur[pStage.s]) {
+        alert(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
+        return;
+    }
+    
+    // Store borrowed info
+    if(role === 'challenger') {
+        challengeData.challengerBorrowIdx = allyIdx;
+        challengeData.challengerBorrowAmt = borrowAmt;
+    } else {
+        challengeData.opponentBorrowIdx = allyIdx;
+        challengeData.opponentBorrowAmt = borrowAmt;
+    }
+    
+    // Ask how many of your own points to spend
+    showModal(`Arcane Alliance: ${ally.pName} lends ${borrowAmt}`, "Now add your own points", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p>Borrowed from ${ally.pName}: <b style="color:var(--gold);">${borrowAmt}</b></p>
+        <p>Your ${pStage.s.toUpperCase()}: <b>${h.cur[pStage.s]}</b></p>
+        <p style="font-size:14px; margin:10px 0;">How many of YOUR points to add?</p>
+        <input type="number" id="challenge-own-amt" value="0" min="0" max="${h.cur[pStage.s]}" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <button class="btn btn-main" style="margin-top:15px;" onclick="finalizeChallengeBorrow('${role}')">Commit Combined Power!</button>
+    `);
+}
+
+function finalizeChallengeBorrow(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    const ownSpend = parseInt(document.getElementById('challenge-own-amt').value) || 0;
+    
+    if(ownSpend > h.cur[pStage.s]) {
+        alert("Not enough points!");
+        return;
+    }
+    
+    // Store the spend
+    if(role === 'challenger') {
+        challengeData.challengerSpend = ownSpend;
+        opponentInvest();
+    } else {
+        challengeData.opponentSpend = ownSpend;
+        resolveFriendChallenge();
+    }
+}
+
+function useChallengeSystemOverride(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    passiveUsed[playerIdx] = true;
+    
+    showModal(`System Override Activated!`, `Choose which stat to use`, `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p>Select attribute to use instead of ${pStage.s.toUpperCase()}:</p>
+        <select id="challenge-override-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin:15px 0;">
+            <option value="pow">POW (${h.cur.pow})</option>
+            <option value="spd">SPD (${h.cur.spd})</option>
+            <option value="brn">BRN (${h.cur.brn})</option>
+            <option value="cha">CHA (${h.cur.cha})</option>
+            <option value="wil">WIL (${h.cur.wil})</option>
+        </select>
+        <p>Invest Points:</p>
+        <input type="number" id="challenge-override-amt" value="1" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
+        <button class="btn btn-main" style="margin-top:20px;" onclick="processChallengeOverride('${role}')">Commit!</button>
+    `);
+}
+
+function processChallengeOverride(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    const overrideStat = document.getElementById('challenge-override-stat').value;
+    const spend = parseInt(document.getElementById('challenge-override-amt').value) || 0;
+    
+    if(spend > h.cur[overrideStat]) {
+        alert("Not enough points!");
+        return;
+    }
+    
+    // Store override info
+    if(role === 'challenger') {
+        challengeData.challengerOverrideStat = overrideStat;
+        challengeData.challengerSpend = spend;
+        opponentInvest();
+    } else {
+        challengeData.opponentOverrideStat = overrideStat;
+        challengeData.opponentSpend = spend;
+        resolveFriendChallenge();
+    }
+}
+
+function refill(idx, stat) { /* Refill disabled - only through Alchemist every 3 turns */ }
+function updatePartyUI() {
+    document.getElementById('party-list').innerHTML = party.map((p, i) => {
+        let statsDisplay = `<div class="stat-grid">${['pow','spd','brn','cha','wil'].map(s => `
+            <div class="stat-box">
+                <div class="stat-val">${p.cur[s]}</div>
+                <span class="stat-lbl">${s}</span>
+            </div>`).join('')}
+        </div>`;
+        
+        return `
+        <div class="hero-sheet ${i === activeIdx ? 'active-now' : ''}">
+            <div class="meditate-count">Meditates: ${p.skips}</div>
+            <div class="wax-seal">${p.score}</div>
+            <div style="font-size:11px; font-weight:bold; letter-spacing:1px; color:#5a4634;">${p.pName.toUpperCase()}</div>
+            
+            <div class="medieval" style="display: flex; align-items: center; gap: 15px; font-size:20px; margin: 10px 0;">
+                <img src="${p.i}" alt="${p.n}" style="width: 60px; height: 60px; border: 2px solid #8e7b55; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); background: #000; object-fit: cover;">
+                <span>${p.n}</span>
+            </div>
+
+            ${statsDisplay}
+            
+            <div style="background: rgba(197,160,89,0.1); border-left: 3px solid var(--gold); padding: 6px 8px; margin-top: 12px; font-size: 10px;">
+                <div style="color: var(--gold-bright); font-weight: bold; margin-bottom: 2px;">⚡ ${p.passive}${
+    p.n === 'Dark Stalker' ? ` (${p.shadowControlUses || 0}/${party.length === 2 ? 1 : (party.length === 3 ? 2 : 3)} used)` : 
+    p.n === 'Neighbor Witch' ? (passiveUsed[i] ? ` (${3 - (witchWins[i] % 3)} wins to recharge)` : ' (READY)') :
+    passiveUsed[i] ? ' (USED)' : ''
+}</div>
+                <div style="color: var(--blood); line-height: 1.2;">${p.passiveDesc}</div>
+            </div>
+        </div>
+    `;
+    }).join('');
+}
+function showModal(t, d, c) { document.getElementById('modal').innerHTML = `<h2 class="medieval" style="margin-top:0;">${t}</h2><p style="font-size:16px; font-style:italic;">${d}</p><div style="margin-top:20px">${c}</div>`; document.getElementById('overlay').style.display = 'flex'; }
+function closeModal() { document.getElementById('overlay').style.display = 'none'; }
+
+// Simple subtle enhancements
+document.addEventListener('DOMContentLoaded', function() {
+    // Add simple hover effects to hero cards in Heroes book
+    const addHeroCardEffects = () => {
+        const heroCards = document.querySelectorAll('#intro-book-3 > div > div > div[style*="border: 2px solid"]');
+        heroCards.forEach((card) => {
+            if (!card.hasAttribute('data-enhanced')) {
+                card.setAttribute('data-enhanced', 'true');
+                card.style.transition = 'all 0.3s ease';
+                card.style.cursor = 'pointer';
+                
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(3px)';
+                    this.style.boxShadow = '0 3px 15px rgba(197,160,89,0.2)';
+                    this.style.background = 'rgba(197,160,89,0.08)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                    this.style.boxShadow = 'none';
+                    this.style.background = 'rgba(0,0,0,0.2)';
+                });
+            }
+        });
+    };
+    
+    // Apply effects with a slight delay
+    setTimeout(addHeroCardEffects, 100);
+    
+    // Reapply when hero book is opened
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                setTimeout(addHeroCardEffects, 50);
+            }
+        });
+    });
+    
+    const heroBook = document.getElementById('intro-book-3');
+    if (heroBook) {
+        observer.observe(heroBook, { attributes: true });
+    }
+});
+
+// Fullscreen functionality
+function enterFullscreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+}
+
+function startGameFullscreen() {
+    // Hide splash screen
+    document.getElementById('fullscreen-splash').style.display = 'none';
+    
+    // Show exit button (only visible on mobile via CSS)
+    document.getElementById('exit-fullscreen').style.display = 'block';
+    
+    // Enter fullscreen
+    enterFullscreen();
+}
+
+// Handle fullscreen change events
+document.addEventListener('fullscreenchange', handleFullscreenChange);
+document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+// Records the hero type win and updates the persistent total
+// Saves the win to the device's persistent memory
+function recordWin(hero) {
+    let winHistory = JSON.parse(localStorage.getItem('pavel_wins') || '{}');
+    
+    // Track by hero type only
+    const heroKey = hero.n;
+    winHistory[heroKey] = (winHistory[heroKey] || 0) + 1;
+    
+    localStorage.setItem('pavel_wins', JSON.stringify(winHistory));
+}
+
+// Builds the sorted list of total wins per hero
+function getLeaderboardHTML() {
+    let winHistory = JSON.parse(localStorage.getItem('pavel_wins') || '{}');
+    const sortedHeroes = Object.entries(winHistory).sort(([, a], [, b]) => b - a);
+    
+    if (sortedHeroes.length === 0) return "";
+
+    return `
+        <div style="text-align: left; margin-top: 15px; background: rgba(0,0,0,0.1); padding: 10px; border: 1px solid #8e7b55;">
+            <p style="font-weight: bold; border-bottom: 1px solid #8e7b55; margin-bottom: 8px; color: var(--gold-bright); font-family: 'Cinzel Decorative'; font-size: 14px;">📜 HALL OF VICTORS</p>
+            ${sortedHeroes.map(([hero, wins]) => `
+                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; border-bottom: 1px dotted rgba(142, 123, 85, 0.3); padding: 3px 0;">
+                    <span>${hero}</span>
+                    <span style="color: var(--green); font-weight: bold;">${wins} ${wins === 1 ? 'Win' : 'Wins'}</span>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function endGame() {
+    const winner = [...party].sort((a,b) => b.score - a.score)[0];
+    recordWin(winner); // Update persistent history with full hero object
+    
+    const content = `
+        <div style="margin: 20px 0;">
+            <img src="${winner.i}" style="width: 100px; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(0,0,0,0.5);">
+            <p style="font-size: 20px; color: var(--gold); margin-top: 10px; font-family: 'Cinzel Decorative';">${winner.pName} the ${winner.n}</p>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+        ${getLeaderboardHTML()}
+        <button class="btn btn-main" style="margin-top: 25px;" onclick="location.reload()">Return to Tavern</button>
+    `;
+    showModal("THE MISSIONS CONCLUDE", "A Legend is Scribed!", content);
+}
+
+function resetHallOfFame() {
+    if(confirm("Are you sure you want to erase all village history?")) {
+        localStorage.removeItem('pavel_wins');
+        alert("The ledgers have been burned.");
+        location.reload();
+    }
+}
+
+
+function handleFullscreenChange() {
+    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || 
+                            document.mozFullScreenElement || document.msFullscreenElement);
+    
+    const exitBtn = document.getElementById('exit-fullscreen');
+    
+    if (isFullscreen) {
+        // In fullscreen - show exit button on mobile
+        exitBtn.style.display = 'block';
+    } else {
+        // Exited fullscreen - hide exit button
+        exitBtn.style.display = 'none';
+    }
+}
+
+</script>
+</body>
+</html>
