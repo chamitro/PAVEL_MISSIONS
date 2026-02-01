@@ -613,7 +613,7 @@
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
                         <div><b>POW:</b> 2</div>
-                        <div><b>SPD:</b> 3</div>
+                        <div><b>SPD:</b> 4</div>
                         <div><b>BRN:</b> 5</div>
                         <div><b>CHA:</b> 8</div>
                         <div><b>WIL:</b> 6</div>
@@ -966,13 +966,13 @@ const STAGES = [
 
 const HEROES = [
     { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:4, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Forke a player of your choice to meditate on their next turn. Max uses: 2 players=1, 3 players=2, 4+ players=3' },
-    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:1, wil:6}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
+    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:1, wil:6}, passive: 'System Override', passiveDesc: 'Use a different attribute than required. Recharges when you win a "Challenge a Friend"' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Forke', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
-    { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
+    { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
     { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Once per game, borrow stat points from another player to help you in a challenge' },
     { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
-    { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll a dice. If 5 or 6, automatically win the challenge' },
+    { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Borrow stat points from another player. Recharges after 3 challenge wins' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice (instead of no benefit)' },
     { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select a stat - all players lose 1, you gain plus 2' }
 ];
@@ -981,6 +981,7 @@ let party = [], deck = [], round = 0, totalRounds = 0, activeIdx = 0, pTarget = 
 let usedHeroes = []; // Track which heroes have been selected
 let passiveUsed = {}; // Track one-time passive usage (key: playerIndex)
 let challengesCompleted = {}; // Track challenges completed per player for Crowd Favorite
+let witchWins = {}; // Track Neighbor Witch wins for passive recharge
 
 function showBookSelect() {
     document.getElementById('intro-book-select').style.display = 'block';
@@ -1034,6 +1035,7 @@ function handleReg() {
     // Initialize passive tracking for this player
     passiveUsed[regIdx] = false;
     challengesCompleted[regIdx] = 0;
+    witchWins[regIdx] = 0; // ADD THIS LINE
 
     showModal(
         `Soul Linked`, 
@@ -1456,6 +1458,14 @@ function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpen
             if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
                 h.score += 1;
                 bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Crowd Favorite: +1 Bonus Glory (${challengesCompleted[activeIdx]} challenges complete)!</p>`;
+            }
+            // Neighbor Witch passive: Arcane Alliance recharge after 3 wins
+            if(h.n === 'Neighbor Witch') {
+                witchWins[activeIdx]++;
+                if(witchWins[activeIdx] % 3 === 0) {
+                    passiveUsed[activeIdx] = false; // Recharge Arcane Alliance
+                    bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Arcane Alliance Recharged! (${witchWins[activeIdx]} wins)</p>`;
+                }
             }
             
             // Lover Zombie passive: Cursed Embrace - debuff all players
@@ -1955,6 +1965,15 @@ function showChallengeResult() {
         opponent.score += bothWinPoints;
         challenger.cur[pStage.s] += 1;
         opponent.cur[pStage.s] += 1;
+    // ADD THESE LINES:
+    // Friendly AI passive: System Override recharge on Challenge a Friend win
+    if(challenger.n === 'Friendly AI') {
+        passiveUsed[challengeData.challenger] = false;
+    }
+    if(opponent.n === 'Friendly AI') {
+        passiveUsed[challengeData.opponent] = false;
+    }
+        
         showModal("Dual Victory!", "Both heroes triumph!", `
             <p>Both ${challenger.pName} and ${opponent.pName} gain ${bothWinPoints} point${bothWinPoints > 1 ? 's' : ''} of Glory!</p>
             <button class="btn btn-main" onclick="checkStore()">Continue</button>
@@ -1962,6 +1981,9 @@ function showChallengeResult() {
     } else if(challengerWin && !opponentWin) {
         challenger.score += singleWinPoints;
         challenger.cur[pStage.s] += 1;
+        if(challenger.n === 'Friendly AI') {
+           passiveUsed[challengeData.challenger] = false;
+        }
         showModal("Victory for the Challenger!", `${challenger.pName} Stands Alone!`, `
             <p>${challenger.pName} gains ${singleWinPoints} points of Glory!</p>
             <button class="btn btn-main" onclick="checkStore()">Continue</button>
@@ -1969,6 +1991,9 @@ function showChallengeResult() {
     } else if(!challengerWin && opponentWin) {
         opponent.score += singleWinPoints;
         opponent.cur[pStage.s] += 1;
+        if(opponent.n === 'Friendly AI') {
+           passiveUsed[challengeData.opponent] = false;
+        }
         showModal("Victory for the Defender!", `${opponent.pName} Stands Alone!`, `
             <p>${opponent.pName} gains ${singleWinPoints} points of Glory!</p>
             <button class="btn btn-main" onclick="checkStore()">Continue</button>
@@ -2140,7 +2165,11 @@ function updatePartyUI() {
             ${statsDisplay}
             
             <div style="background: rgba(197,160,89,0.1); border-left: 3px solid var(--gold); padding: 6px 8px; margin-top: 12px; font-size: 10px;">
-                <div style="color: var(--gold-bright); font-weight: bold; margin-bottom: 2px;">⚡ ${p.passive}${p.n === 'Dark Stalker' ? ` (${p.shadowControlUses || 0}/${party.length === 2 ? 1 : (party.length === 3 ? 2 : 3)} used)` : passiveUsed[i] ? ' (USED)' : ''}</div>
+                <div style="color: var(--gold-bright); font-weight: bold; margin-bottom: 2px;">⚡ ${p.passive}${
+    p.n === 'Dark Stalker' ? ` (${p.shadowControlUses || 0}/${party.length === 2 ? 1 : (party.length === 3 ? 2 : 3)} used)` : 
+    p.n === 'Neighbor Witch' ? (passiveUsed[i] ? ` (${3 - (witchWins[i] % 3)} wins to recharge)` : ' (READY)') :
+    passiveUsed[i] ? ' (USED)' : ''
+}</div>
                 <div style="color: var(--blood); line-height: 1.2;">${p.passiveDesc}</div>
             </div>
         </div>
