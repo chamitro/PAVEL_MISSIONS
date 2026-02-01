@@ -974,7 +974,7 @@ const HEROES = [
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll a dice. If 5 or 6, automatically win the challenge' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice (instead of no benefit)' },
-    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select a stat - all players lose 1, you gain 2' }
+    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select a stat - all players lose 1, you gain plus 2' }
 ];
 
 let party = [], deck = [], round = 0, totalRounds = 0, activeIdx = 0, pTarget = 0, pPts = 0, pStage = null, pCount = 2, regIdx = 0, openerIdx = -1, storePlayerIdx = 0, storePoints = 5, tempStats = {};
