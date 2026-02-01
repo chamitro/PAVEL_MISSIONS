@@ -1,6 +1,6 @@
 <div align="center">
 
-# Missions of Pavel
+# Missions in Pavel
 
 <img src="./images/map.png" width="500" height="500">
 
