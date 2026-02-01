@@ -625,12 +625,12 @@
                     </div>
                 </div>
                 
-                <!-- Hero 5: Neighbor Mage -->
+                <!-- Hero 5: Neighbor Witch -->
                 <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
-                        <img src="./images/magic.png" alt="Neighbor Mage" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <img src="./images/magic.png" alt="Neighbor Witch" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Neighbor Mage</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Neighbor Witch</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Magic • Affinity: Mystical</p>
                         </div>
                     </div>
@@ -969,7 +969,7 @@ const HEROES = [
     { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:1, wil:6}, passive: 'System Override', passiveDesc: 'Once per game, you can attempt a challenge using a different attribute than required' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Force', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:3, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
-    { n: 'Neighboor Mage', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Once per game, borrow stat points from another player to help you in a challenge' },
+    { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:2, brn:8, cha:3, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Once per game, borrow stat points from another player to help you in a challenge' },
     { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll a dice. If 5 or 6, automatically win the challenge' },
@@ -1192,8 +1192,8 @@ function startFight() {
     
     const h = party[activeIdx];
     
-    // Check for Neighbor Mage passive (Arcane Alliance) - can borrow from another player
-    let canUseArcaneAlliance = (h.n === 'Neighboor Mage' && !passiveUsed[activeIdx]);
+    // Check for Neighbor Witch passive (Arcane Alliance) - can borrow from another player
+    let canUseArcaneAlliance = (h.n === 'Neighbor Witch' && !passiveUsed[activeIdx]);
     
     // Check for Friendly AI passive (System Override) - can use different attribute
     let canUseOverride = (h.n === 'Friendly AI' && !passiveUsed[activeIdx]);
@@ -1739,7 +1739,7 @@ function challengerInvest() {
     const challenger = party[challengeData.challenger];
     
     // Check for passives that can be used
-    let canUseArcaneAlliance = (challenger.n === 'Neighboor Mage' && !passiveUsed[challengeData.challenger]);
+    let canUseArcaneAlliance = (challenger.n === 'Neighbor Witch' && !passiveUsed[challengeData.challenger]);
     let canUseOverride = (challenger.n === 'Friendly AI' && !passiveUsed[challengeData.challenger]);
     
     let passiveOptions = '';
@@ -1775,7 +1775,7 @@ function opponentInvest() {
     const opponent = party[challengeData.opponent];
     
     // Check for passives that can be used
-    let canUseArcaneAlliance = (opponent.n === 'Neighboor Mage' && !passiveUsed[challengeData.opponent]);
+    let canUseArcaneAlliance = (opponent.n === 'Neighbor Witch' && !passiveUsed[challengeData.opponent]);
     let canUseOverride = (opponent.n === 'Friendly AI' && !passiveUsed[challengeData.opponent]);
     
     let passiveOptions = '';
