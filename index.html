@@ -759,7 +759,7 @@
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">This undead wanderer roams the realm in an eternal search for true love. Though death has claimed his body, his heart still yearns. Incredibly strong and nearly unstoppable, the Lover Zombie approaches each new encounter with tragic hope that this might be the one.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
                         <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Cursed Embrace</p>
-                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">On victory: Select a stat - all players lose 1, you gain plus 2</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">On victory: Select a stat - all players lose 2, you gain plus 1</p>
                     </div>
                 </div>
             </div>
@@ -781,18 +781,18 @@
                 
                 <p><b>1. Turn Structure:</b> Draw a challenge. The player to your left tells you the difficulty of this challenge (Minor = 1 Glory, Deadly = 2 Glory). Each challenge has a required stat (POW, SPD, BRN, CHA, or WIL). You must decide how to approach this challenge.</p>
                 
-                <p><b>2. Resource Management:</b> You have five attributes (POW, SPD, BRN, CHA, WIL), each starting between 1-9 points depending on your hero. To overcome a challenge, you must spend attribute points matching or exceeding the target number. <b>Spent points are consumed</b> and do not regenerate automatically.</p>
+                <p><b>2. Resource Management:</b> You have five attributes (POW, SPD, BRN, CHA, WIL), each starting between 1-9 points depending on your hero. To overcome a challenge, you must spend attribute points matching or exceeding the target number.</p>
                 
                 <p><b>3. Soul-Type Advantage:</b> If your hero's Soul-Type matches the challenge's affinity, you receive a <b>+3 automatic bonus</b> toward the challenge. Soul-Type advantages are <b>secret</b> for players.</p>
                 
                 <p><b>4. Decision Options:</b> Each turn, you have three choices:</p>
-                <p style="margin-left: 20px;">• <b>Do the Challenge:</b> Spend attribute points to meet the target and claim Glory. If you win you get <b>back 1 point</b> of what you spent!</p>
+                <p style="margin-left: 20px;">• <b>Do the Challenge:</b> Spend attribute points to meet the target and claim Glory. If you win you get <b>back 2 points</b> of what you spent!</p>
                 <p style="margin-left: 20px;">• <b>Pass (Meditation):</b> Skip the challenge without penalty. You have exactly <b>3 Meditations</b> for the entire game—use them wisely on impossible or inefficient challenges.</p>
-                <p style="margin-left: 20px;">• <b>Challenge a Friend:</b> Engage in a competitive dual challenge with another player <b>without dice</b> help. Both invest attribute points. Outcomes: both succeed (both gain Glory), one succeeds (solo winner gains bonus Glory), or both fail (no Glory). But, after challenge a friend, <b>another challenge opens</b>. Strategic for difficult challenges or when attributes are scarce.</p>
+                <p style="margin-left: 20px;">• <b>Challenge a Friend:</b> Engage in a competitive dual challenge with another player <b>without dice</b> help, but the one who make the challenge take <b>+2 bonus</b> in the fight for his courage! Both invest attribute points. Outcomes: both succeed (both gain Glory), one succeeds (solo winner gains <b>bonus</b> Glory), or both fail (no Glory). But, after challenge a friend, <b>another challenge opens</b>. Strategic for difficult challenges or when attributes are scarce.</p>
                 
                  <p><b>5. Pass and Play:</b> When you finish your turn, pass the mobile to the player next to you.</p>
                 
-                <p><b>6. Recovery System:</b> The Alchemist appears periodically (frequency depends on party size) to restore <b>5 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
+                <p><b>6. Recovery System:</b> The Alchemist appears periodically (frequency depends on party size) to restore <b>10 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
                 
                 <p><b>7. Victory Condition:</b> After all Missions are completed, the hero with the highest accumulated Glory is declared the victor and claims the prize.</p>
                 
@@ -971,10 +971,10 @@ const HEROES = [
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
     { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Borrow stat points from another player. Recharges after 3 challenge wins.' },
     { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
-    { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 5+ on any stat, gain +3 bonus' },
+    { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 4+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll a dice. If 5 or 6, automatically win the challenge' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice (instead of no benefit)' },
-    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select a stat - all players lose 1, you gain plus 2' }
+    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select a stat - all players lose 2, you gain plus 1' }
 ];
 
 let party = [], deck = [], round = 0, totalRounds = 0, activeIdx = 0, pTarget = 0, pPts = 0, pStage = null, pCount = 2, regIdx = 0, openerIdx = -1, storePlayerIdx = 0, storePoints = 5, tempStats = {};
@@ -982,6 +982,8 @@ let usedHeroes = []; // Track which heroes have been selected
 let passiveUsed = {}; // Track one-time passive usage (key: playerIndex)
 let challengesCompleted = {}; // Track challenges completed per player for Crowd Favorite
 let witchWins = {}; // Track Neighbor Witch wins for passive recharge
+let nextShopRound = -1; 
+let shopCount = 0;
 
 function showBookSelect() {
     document.getElementById('intro-book-select').style.display = 'block';
@@ -1257,7 +1259,7 @@ function rollPaladinDice() {
             if(roll >= 5) {
                 // Auto-win!
                 h.score += pPts;
-                h.cur[pStage.s] += 1;
+                h.cur[pStage.s] += 2;
                 showModal("⚡ MIRACULOUS VICTORY!", `Rolled a ${roll}! The gods favor the drunk!`, `
                     <p style="font-size:16px; color:#8b0000; font-weight:bold;">Auto-win! Gained ${pPts} Glory!</p>
                     <button class="btn btn-main" onclick="checkStore()">Continue</button>
@@ -1436,7 +1438,7 @@ function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpen
     let bonusDisplay = bonus;
     let bonusExplanation = '';
     if(bonus > 0) {
-        if(h.n === 'Lost Dragon' && spent >= 5) {
+        if(h.n === 'Lost Dragon' && spent >= 4) {
             bonusExplanation = `(Affinity +${bonus - 3} + Dragon Rage +3)`;
         } else {
             bonusExplanation = `(Affinity bonus)`;
@@ -1451,7 +1453,7 @@ function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpen
     } else {
         if(win) { 
             h.score += pPts; 
-            h.cur[usedStat] += 1;
+            h.cur[usedStat] += 2;
             
             // Babbler Rogue passive: Crowd Favorite - +1 Glory every 3 challenges
             challengesCompleted[activeIdx]++;
@@ -1490,7 +1492,7 @@ function selectLoverZombieDebuff() {
         <div style="margin: 15px 0;">
             <img src="${party[activeIdx].i}" alt="Lover Zombie" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
         </div>
-        <p style="font-size:14px; margin-bottom:15px;">Select a stat - ALL players will lose 1 point, and YOU will gain 1 point:</p>
+        <p style="font-size:14px; margin-bottom:15px;">Select a stat - ALL players will lose 2 point, and YOU will gain + 1 point:</p>
         <select id="zombie-debuff-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
             <option value="pow">POW (Power)</option>
             <option value="spd">SPEED</option>
@@ -1506,19 +1508,19 @@ function applyLoverZombieDebuff() {
     const chosenStat = document.getElementById('zombie-debuff-stat').value;
     const currentPlayer = party[activeIdx];
     
-    // 1. All OTHER players lose 1 point
+    // 1. All OTHER players lose 2 point
     party.forEach((p, idx) => {
         if(idx !== activeIdx && p.cur[chosenStat] > 0) {
-            p.cur[chosenStat] -= 1;
+            p.cur[chosenStat] -= 2;
         }
     });
     
     // 2. The Zombie GAINS 1 point
-    currentPlayer.cur[chosenStat] += 2;
+    currentPlayer.cur[chosenStat] += 1;
     
     updatePartyUI();
-    showModal("💀 Cursed Embrace Activated!", `Drained ${chosenStat.toUpperCase()} from all and gained +1!`, `
-        <p style="font-size:14px; margin:20px 0;">All other players lose 1 ${chosenStat.toUpperCase()}, and you grow stronger!</p>
+    showModal("💀 Cursed Embrace Activated!", `Drained ${chosenStat.toUpperCase()} from all and gained +2!`, `
+        <p style="font-size:14px; margin:20px 0;">All other players lose 2 ${chosenStat.toUpperCase()}, and you grow stronger!</p>
         <button class="btn btn-main" onclick="checkStore()">Continue</button>
     `);
 }
@@ -1548,7 +1550,7 @@ function gamble(cur, usedStat = pStage.s) {
             let win = fin >= pTarget;
             if(win) { 
                 party[activeIdx].score += pPts; 
-                party[activeIdx].cur[usedStat] += 1;
+                party[activeIdx].cur[usedStat] += 2;
                 
                 // Babbler Rogue passive: Crowd Favorite
                 challengesCompleted[activeIdx]++;
@@ -1592,29 +1594,41 @@ function rotateCycle() {
     if(activeIdx === openerIdx) showModal("Room Abandoned", "Everyone failed. The path shifts...", `<button class="btn btn-main" onclick="checkStore(true)">Next Path</button>`);
     else { closeModal(); setTurnLabel(); updatePartyUI(); }
 }
+
 function checkStore(silent=false) {
     round++;
-    if(round >= totalRounds) { endGame(); return; }
-    
-    // Progressive Alchemist visits: Early game = frequent, Late game = rare
-    let alchemistInterval;
-    
-    if(round <= totalRounds * 0.33) {
-        // EARLY GAME (first third): Visit every (players × 2) challenges
-        alchemistInterval = party.length * 3;
-    } else if(round <= totalRounds * 0.66) {
-        // MID GAME (middle third): Visit every (players × 3) challenges
-        alchemistInterval = party.length * 4;
-    } else {
-        // LATE GAME (final third): Visit every (players × 4) challenges
-        alchemistInterval = party.length * 5;
+
+    // Calculate the FIRST appearance if it's the start of the game
+    if (nextShopRound === -1) {
+        nextShopRound = party.length + 3;
     }
-    
-    if(round % alchemistInterval === 0) { storePlayerIdx = 0; openStore(); }
-    else { if(!silent) activeIdx = (activeIdx + 1) % party.length; resetUI(); }
+
+    // Check if we hit the scheduled round
+    if (round === nextShopRound) {
+        shopCount++; // Move from 'first' to 'second', etc.
+        
+        // Calculate the NEXT interval based on your formula
+        // second = base + (base * 0.33), third = base + (base * 0.66), etc.
+        const base = party.length + 3;
+        const multiplier = shopCount * 0.33;
+        const nextInterval = Math.round(base + (base * multiplier));
+        
+        // Schedule the next appearance by adding the interval to current round
+        nextShopRound = round + nextInterval;
+
+        storePlayerIdx = 0;
+        openStore();
+    } 
+    else if (round >= totalRounds) {
+        endGame();
+    } 
+    else {
+        if (!silent) activeIdx = (activeIdx + 1) % party.length;
+        resetUI();
+    }
 }
 
-function openStore() { storePoints = 5; tempStats = {pow:0, spd:0, brn:0, cha:0, wil:0}; renderStore(); }
+function openStore() { storePoints = 10; tempStats = {pow:0, spd:0, brn:0, cha:0, wil:0}; renderStore(); }
 function renderStore() {
     const p = party[storePlayerIdx];
     let c = `<div style="margin: 15px 0;">
@@ -1877,6 +1891,7 @@ function resolveFriendChallenge() {
     challenger.cur[challengerUsedStat] -= challengeData.challengerSpend;
     opponent.cur[opponentUsedStat] -= challengeData.opponentSpend;
     
+    let initiatorBonus = 2;
     // Calculate affinity bonuses
     let challengerBonus = (Array.isArray(pStage.a) ? pStage.a.includes(challenger.a) : challenger.a === pStage.a) ? 3 : 0;
     let opponentBonus = (Array.isArray(pStage.a) ? pStage.a.includes(opponent.a) : opponent.a === pStage.a) ? 3 : 0;
@@ -1894,16 +1909,16 @@ function resolveFriendChallenge() {
     }
     
     // Lost Dragon passive for challenger
-    if(challenger.n === 'Lost Dragon' && challengerTotalSpend >= 5) {
+    if(challenger.n === 'Lost Dragon' && challengerTotalSpend >= 4) {
         challengerBonus += 3;
     }
     
     // Lost Dragon passive for opponent
-    if(opponent.n === 'Lost Dragon' && opponentTotalSpend >= 5) {
+    if(opponent.n === 'Lost Dragon' && opponentTotalSpend >= 4) {
         opponentBonus += 3;
     }
     
-    let challengerTotal = challengerEffective + challengerBonus;
+    let challengerTotal = challengerEffective + challengerBonus + initiatorBonus;
     let opponentTotal = opponentEffective + opponentBonus;
     
     let challengerWin = challengeData.challengerAutoWin || (challengerTotal >= pTarget);
@@ -1948,23 +1963,17 @@ let opponentWin = challengeData.opponentAutoWin || (opponentTotal >= pTarget);
     
     showModal("The Challenge Unfolds...", "Calculating Fates...", `
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin:20px 0;">
-            <div style="border:2px solid #8e7b55; padding:15px; border-radius:5px;">
-                <img src="${challenger.i}" alt="${challenger.n}" style="width: 60px; height: 60px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px; margin-bottom: 10px;">
-                <b style="color:var(--blood); display:block;">${challenger.pName}</b>
+            <div style="border:2px solid var(--gold); padding:15px; border-radius:5px; background: rgba(197, 160, 89, 0.1);">
+                <b style="color:var(--blood); display:block;">${challenger.pName} (Initiator)</b>
                 <p style="font-size:18px; margin:5px 0;">Spent: ${challengerSpendDisplay}</p>
                 <p style="font-size:24px; margin:10px 0; color:var(--gold);">${challengerTotal}</p>
-                <small>${challengerBonus > 0 ? `+${challengerBonus} bonus` : 'No bonus'}</small>
-                ${challenger.n === 'Dark Stalker' ? '<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Hidden by shadows</p>' : ''}
-                ${challengerInfo}
+                <small>Affinity: +${challengerBonus} <br> <b>Courage: +2</b></small>
             </div>
             <div style="border:2px solid #8e7b55; padding:15px; border-radius:5px;">
-                <img src="${opponent.i}" alt="${opponent.n}" style="width: 60px; height: 60px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px; margin-bottom: 10px;">
                 <b style="color:var(--blood); display:block;">${opponent.pName}</b>
                 <p style="font-size:18px; margin:5px 0;">Spent: ${opponentSpendDisplay}</p>
                 <p style="font-size:24px; margin:10px 0; color:var(--gold);">${opponentTotal}</p>
-                <small>${opponentBonus > 0 ? `+${opponentBonus} bonus` : 'No bonus'}</small>
-                ${opponent.n === 'Dark Stalker' ? '<p style="font-size:10px; margin-top:5px; color:#666;">⚡ Hidden by shadows</p>' : ''}
-                ${opponentInfo}
+                <small>Affinity: +${opponentBonus}</small>
             </div>
         </div>
         <p style="font-size:14px; margin-top:10px;">Target: <b style="color:var(--blood);">${pTarget}</b></p>
@@ -1985,8 +1994,8 @@ function showChallengeResult() {
     if(challengerWin && opponentWin) {
         challenger.score += bothWinPoints;
         opponent.score += bothWinPoints;
-        challenger.cur[pStage.s] += 1;
-        opponent.cur[pStage.s] += 1;
+        challenger.cur[pStage.s] += 2;
+        opponent.cur[pStage.s] += 2;
     // ADD THESE LINES:
     // Friendly AI passive: System Override recharge on Challenge a Friend win
     if(challenger.n === 'Friendly AI') {
@@ -2002,7 +2011,7 @@ function showChallengeResult() {
         `);
     } else if(challengerWin && !opponentWin) {
         challenger.score += singleWinPoints;
-        challenger.cur[pStage.s] += 1;
+        challenger.cur[pStage.s] += 2;
         if(challenger.n === 'Friendly AI') {
            passiveUsed[challengeData.challenger] = false;
         }
@@ -2012,7 +2021,7 @@ function showChallengeResult() {
         `);
     } else if(!challengerWin && opponentWin) {
         opponent.score += singleWinPoints;
-        opponent.cur[pStage.s] += 1;
+        opponent.cur[pStage.s] += 2;
         if(opponent.n === 'Friendly AI') {
            passiveUsed[challengeData.opponent] = false;
         }
