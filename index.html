@@ -794,9 +794,11 @@
                 
                 <p><b>6. Recovery System:</b> The Alchemist appears periodically (frequency depends on party size) to restore <b>10 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
                 
-                <p><b>7. Victory Condition:</b> After all Missions are completed, the hero with the highest accumulated Glory is declared the victor and claims the prize.</p>
+                <p><b>7. Group Missions:</b> Sometimes the entire party faces a <b>Group Mission</b> marked with 🤝. In these challenges, <b>ALL heroes must contribute together</b>. Each player contributes stat points, and all contributions are combined (including affinity bonuses). If the total meets the target: everyone gains <b>+2 Glory (Easy) or +4 Glory (Hard)</b>. If the party fails: <b>everyone loses -3 to ALL stats</b>! Cooperation is key!</p>
                 
-                <p style="margin-top: 15px; color: var(--blood);"><b>Strategic Considerations:</b> Balance immediate Glory gains against long-term resource sustainability. Identify which challenges favor your Soul-Type. Conserve Meditations for truly impossible trials. Use "Challenge a Friend" to split difficult challenges or eliminate competition.</p>
+                <p><b>8. Victory Condition:</b> After all Missions are completed, the hero with the highest accumulated Glory is declared the victor and claims the prize.</p>
+                
+                <p style="margin-top: 15px; color: var(--blood);"><b>Strategic Considerations:</b> Balance immediate Glory gains against long-term resource sustainability. Identify which challenges favor your Soul-Type. Conserve Meditations for truly impossible trials. Use "Challenge a Friend" to split difficult challenges or eliminate competition. In Group Missions, coordinate with your party—failure means everyone suffers!</p>
             </div>
             <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
         </div>
@@ -963,6 +965,33 @@ const STAGES = [
     {t: "Siren's Song", d: "A beautiful voice calls you to drown. Run fast!", s: "spd", e: 4, h: 8, a: ['shadow','dark']},
     {t: "Nightmare Realm", d: "Trapped in a dream curse of nightmares. Will yourself awake!", s: "wil", e: 6, h: 10, a: ['dark','magic']}
 ];
+
+// Group Missions - Everyone must work together!
+const GROUP_STAGES = [
+    {t: "The Great Swamp Flood", d: "Pavel town is sinking! Everyone must grab a bucket and bail water.", s: "pow", e: 10, h: 15, isGroup: true},
+    {t: "Dragon's Siege", d: "A dragon is breathing fire on the pub's roof. Fight him!", s: "spd", e: 10, h: 22, isGroup: true},
+    {t: "The King's Banquet", d: "King Antony needs 5000 beers immediately. Form a group and gather the beers!", s: "wil", e: 8, h: 13, isGroup: true},
+    {t: "Ork Horde Stand", d: "A group of Orks is trying to break the pub's door. Push back together!", s: "pow", e: 12, h: 16, isGroup: true},
+    {t: "The Silent Vigil", d: "A forest spirit demands absolute silence for all the people in town, or else he will kill all people!", s: "wil", e: 14, h: 20, isGroup: true},
+    {t: "Tavern Clean-up", d: "Panchoncho threw a party. The mess is legendary. Scrub, heroes!", s: "wil", e: 8, h: 13, isGroup: true},
+    {t: "Lost Children Hunt", d: "Search the Misty Forest together before the Trolls find the kids.", s: "brn", e: 14, h: 20, isGroup: true},
+    {t: "The Giant's Rock", d: "A giant rock blocks the road. Pull it away as a team.", s: "pow", e: 10, h: 15, isGroup: true},
+    {t: "Monastic Choir", d: "To pass the monastery, you must all sing in perfect harmony.", s: "cha", e: 7, h: 13, isGroup: true},
+    {t: "Swamp Bridge Build", d: "The main bridge is out. Carry the logs and lash them tight!", s: "brn", e: 10, h: 15, isGroup: true},
+    {t: "The Drunken Parade", d: "Escort the King through the village without anyone falling over.", s: "wil", e: 8, h: 13, isGroup: true},
+    {t: "Magic Barrier Repair", d: "The village shield is flickering. Everyone contribute your essence!", s: "brn", e: 10, h: 15, isGroup: true},
+    {t: "Moving Walls", d: "Drunk wizards made the walls are moving. Help him reverse the curse!", s: "spd", e: 10, h: 15, isGroup: true},
+    {t: "Misty Ambush", d: "Ninjas are everywhere! Watch each other's backs and run!", s: "spd", e: 10, h: 14, isGroup: true},
+    {t: "Dwarven Forge Pump", d: "The beers are poisoned! Gather all beers so nobody drink!", s: "spd", e: 8, h: 12, isGroup: true},
+    {t: "Ghostly Trial", d: "Ancient spirits demand a tribute of willpower from every soul.", s: "wil", e: 8, h: 13, isGroup: true},
+    {t: "The Beer Barrel Race", d: "The brewery is empty! Roll the barrels from the Westlands!", s: "pow", e: 11, h: 15, isGroup: true},
+    {t: "Riddle of the Sphinx", d: "A strange creature blocks the path. You must solve its 5-part riddle.", s: "brn", e: 10, h: 15, isGroup: true},
+    {t: "Village Fire Brigade", d: "The pub is on fire! Pass the water bags quickly!", s: "spd", e: 9, h: 13, isGroup: true},
+    {t: "The Final Toast", d: "King Antony demands the most epic drinking song ever recorded.", s: "cha", e: 9, h: 13, isGroup: true}
+];
+
+// Combine group missions into main deck
+STAGES.push(...GROUP_STAGES);
 
 const HEROES = [
     { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:4, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Forke a player of your choice to meditate on their next turn. Max uses: 2 players=1, 3 players=2, 4+ players=3' },
@@ -1176,12 +1205,28 @@ function shadowControlChangeChallenge() {
 
 function setDiff(m, pts) {
     pTarget = pStage[m]; pPts = pts;
-    document.getElementById('st-title').innerText = pStage.t;
-    document.getElementById('st-desc').innerText = pStage.d;
-    document.getElementById('st-req').innerText = `REQUIREMENT: ${pStage.s.toUpperCase()}`;
-    document.getElementById('draw-btn').style.display='none'; 
-    document.getElementById('game-controls').style.display='block';
-    closeModal();
+    
+    // Check if this is a group challenge
+    if(pStage.isGroup) {
+        // Group challenge - display special UI
+        document.getElementById('st-title').innerText = "🤝 GROUP MISSION: " + pStage.t;
+        document.getElementById('st-desc').innerText = pStage.d;
+        document.getElementById('st-req').innerText = `ALL HEROES MUST CONTRIBUTE: ${pStage.s.toUpperCase()}`;
+        document.getElementById('draw-btn').style.display='none'; 
+        document.getElementById('game-controls').style.display='none';
+        closeModal();
+        
+        // Show group challenge modal
+        showGroupChallengeStart();
+    } else {
+        // Normal challenge
+        document.getElementById('st-title').innerText = pStage.t;
+        document.getElementById('st-desc').innerText = pStage.d;
+        document.getElementById('st-req').innerText = `REQUIREMENT: ${pStage.s.toUpperCase()}`;
+        document.getElementById('draw-btn').style.display='none'; 
+        document.getElementById('game-controls').style.display='block';
+        closeModal();
+    }
 }
 
 function closeModalAndShowControls() {
@@ -1578,6 +1623,466 @@ function gamble(cur, usedStat = pStage.s) {
         }, 500);
     }, 900);
 }
+
+// ========== GROUP CHALLENGE SYSTEM ==========
+let groupChallengeContributions = []; // Track each player's contribution
+let groupChallengePlayerIndex = 0; // Current player contributing
+
+function showGroupChallengeStart() {
+    // Initialize group challenge
+    groupChallengeContributions = [];
+    groupChallengePlayerIndex = 0;
+    
+    showModal("🤝 GROUP MISSION BEGINS!", pStage.t, `
+        <div style="margin: 20px 0; font-size: 14px; line-height: 1.6;">
+            <p><strong>${pStage.d}</strong></p>
+            <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+            <p style="color: var(--blood); font-weight: bold;">Target: ${pTarget} ${pStage.s.toUpperCase()}</p>
+            <p>Difficulty: ${pPts === 1 ? 'Easy (+2 Glory)' : 'Hard (+4 Glory)'}</p>
+            <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+            <p style="font-size: 12px; color: #5a4634;">Everyone must contribute! If the party succeeds, all get <b>+${pPts === 1 ? '2' : '4'} Glory</b>. If the party fails, <b>everyone loses -3 to ALL stats</b>!</p>
+        </div>
+        <button class="btn btn-main" onclick="startGroupChallenge()">Begin the Mission!</button>
+    `);
+}
+
+function startGroupChallenge() {
+    // Start with first player
+    collectGroupContribution();
+}
+
+function collectGroupContribution() {
+    if(groupChallengePlayerIndex >= party.length) {
+        // All players have contributed, resolve the challenge
+        resolveGroupChallenge();
+        return;
+    }
+    
+    const currentHero = party[groupChallengePlayerIndex];
+    const requiredStat = pStage.s;
+    const currentStatValue = currentHero.cur[requiredStat];
+    
+    // Check for affinity bonus
+    let affinityBonus = 0;
+    if(currentHero.a === pStage.a || (Array.isArray(pStage.a) && pStage.a.includes(currentHero.a))) {
+        affinityBonus = 3;
+    }
+    
+    // Check for passive abilities (NO PALADIN DICE IN GROUP MISSIONS)
+    let canUseOverride = (currentHero.n === 'Friendly AI' && !passiveUsed[groupChallengePlayerIndex]);
+    let canUseArcaneAlliance = (currentHero.n === 'Neighbor Witch' && !passiveUsed[groupChallengePlayerIndex]);
+    
+    let passiveOptions = '';
+    if(canUseOverride) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useSystemOverrideGroup()">⚡ Use System Override (Choose Different Stat)</button>`;
+    } else if(canUseArcaneAlliance) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useArcaneAllianceGroup()">⚡ Use Arcane Alliance (Borrow Points)</button>`;
+    }
+    
+    // Special note for Shadow Ninja
+    let ninjaNote = '';
+    if(currentHero.n === 'Shadow Ninja' && requiredStat === 'spd') {
+        ninjaNote = `<p style="font-size: 12px; color: #9370DB; margin-top: 8px;">⚡ Double Strike: Your SPD counts as 2x!</p>`;
+    }
+    
+    // Special note for Lost Dragon
+    let dragonNote = '';
+    if(currentHero.n === 'Lost Dragon') {
+        dragonNote = `<p style="font-size: 12px; color: #FF6347; margin-top: 8px;">⚡ Dragon Rage: Spend 4+ for +3 bonus!</p>`;
+    }
+    
+    showModal(
+        `${currentHero.pName}'s Contribution`,
+        `How much ${requiredStat.toUpperCase()} will you spend?`,
+        `
+        <div style="margin: 15px 0;">
+            <img src="${currentHero.i}" alt="${currentHero.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size: 14px; margin: 10px 0;">Available ${requiredStat.toUpperCase()}: <b style="color: var(--gold);">${currentStatValue}</b></p>
+        ${affinityBonus > 0 ? `<p style="font-size: 12px; color: var(--gold);">⚡ Affinity Bonus: +${affinityBonus}</p>` : ''}
+        ${ninjaNote}
+        ${dragonNote}
+        <input type="number" id="group-contribution" class="input-hero" min="0" max="${currentStatValue}" value="0" style="width:100%; font-size:18px; padding:10px; margin:15px 0;">
+        <button class="btn btn-main" onclick="submitGroupContribution()">Contribute to the Mission</button>
+        ${passiveOptions}
+        <button class="btn btn-skip" onclick="skipGroupContribution()">Contribute Nothing</button>
+        `
+    );
+}
+
+function submitGroupContribution() {
+    const currentHero = party[groupChallengePlayerIndex];
+    const requiredStat = pStage.s;
+    const contribution = parseInt(document.getElementById('group-contribution').value) || 0;
+    
+    if(contribution < 0 || contribution > currentHero.cur[requiredStat]) {
+        alert("Invalid contribution amount!");
+        return;
+    }
+    
+    // Check for affinity bonus
+    let affinityBonus = 0;
+    if(currentHero.a === pStage.a || (Array.isArray(pStage.a) && pStage.a.includes(currentHero.a))) {
+        affinityBonus = 3;
+    }
+    
+    // Shadow Ninja passive: Double Strike (SPD counts as 2x)
+    let effectiveContribution = contribution;
+    let ninjaBonus = 0;
+    if(currentHero.n === 'Shadow Ninja' && requiredStat === 'spd' && contribution > 0) {
+        effectiveContribution = contribution * 2;
+        ninjaBonus = contribution; // The extra amount from doubling
+    }
+    
+    // Lost Dragon passive: Dragon Rage (+3 when spending 4+)
+    let dragonBonus = 0;
+    if(currentHero.n === 'Lost Dragon' && contribution >= 4) {
+        dragonBonus = 3;
+    }
+    
+    // Deduct stats
+    currentHero.cur[requiredStat] -= contribution;
+    
+    // Calculate total contribution
+    let totalContribution = effectiveContribution + affinityBonus + dragonBonus;
+    
+    // Record contribution with details
+    groupChallengeContributions.push({
+        playerIndex: groupChallengePlayerIndex,
+        playerName: currentHero.pName,
+        heroName: currentHero.n,
+        contribution: contribution,
+        effectiveContribution: effectiveContribution,
+        affinityBonus: affinityBonus,
+        ninjaBonus: ninjaBonus,
+        dragonBonus: dragonBonus,
+        total: totalContribution,
+        usedStat: requiredStat
+    });
+    
+    updatePartyUI();
+    groupChallengePlayerIndex++;
+    collectGroupContribution();
+}
+
+function skipGroupContribution() {
+    const currentHero = party[groupChallengePlayerIndex];
+    
+    // Record zero contribution
+    groupChallengeContributions.push({
+        playerIndex: groupChallengePlayerIndex,
+        playerName: currentHero.pName,
+        heroName: currentHero.n,
+        contribution: 0,
+        effectiveContribution: 0,
+        affinityBonus: 0,
+        ninjaBonus: 0,
+        dragonBonus: 0,
+        total: 0,
+        usedStat: pStage.s
+    });
+    
+    groupChallengePlayerIndex++;
+    collectGroupContribution();
+}
+
+function resolveGroupChallenge() {
+    // Calculate total contribution
+    const totalContribution = groupChallengeContributions.reduce((sum, c) => sum + c.total, 0);
+    const success = totalContribution >= pTarget;
+    
+    // Build contribution summary with detailed bonuses
+    let contributionSummary = groupChallengeContributions.map(c => {
+        let bonusDetails = [];
+        if(c.affinityBonus > 0) bonusDetails.push(`Affinity +${c.affinityBonus}`);
+        if(c.ninjaBonus > 0) bonusDetails.push(`Double Strike +${c.ninjaBonus}`);
+        if(c.dragonBonus > 0) bonusDetails.push(`Dragon Rage +${c.dragonBonus}`);
+        
+        let bonusText = bonusDetails.length > 0 ? ` (${bonusDetails.join(', ')})` : '';
+        
+        return `<div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; border-bottom: 1px dotted rgba(142, 123, 85, 0.3); padding: 3px 0;">
+            <span>${c.playerName}</span>
+            <span>${c.contribution}${bonusText} = <b>${c.total}</b></span>
+        </div>`;
+    }).join('');
+    
+    if(success) {
+        // SUCCESS - All players get glory points
+        party.forEach((p, idx) => {
+            p.score += (pPts === 1 ? 2 : 4);
+            
+            // Babbler Rogue passive: Crowd Favorite - track group missions
+            if(!challengesCompleted[idx]) challengesCompleted[idx] = 0;
+            challengesCompleted[idx]++;
+            if(p.n === 'Babbler Rogue' && challengesCompleted[idx] % 3 === 0) {
+                p.score += 1;
+            }
+            
+            // Thug Dwarf passive: Brute Force - +3 POW on group mission success
+            if(p.n === 'Thug Dwarf') {
+                p.cur.pow += 3;
+            }
+        });
+        
+        // Build passive trigger messages
+        let passiveTriggers = '';
+        party.forEach((p, idx) => {
+            if(p.n === 'Babbler Rogue' && challengesCompleted[idx] % 3 === 0) {
+                passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${p.pName}: Crowd Favorite +1 Glory! (${challengesCompleted[idx]} challenges)</p>`;
+            }
+            if(p.n === 'Thug Dwarf') {
+                passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${p.pName}: Brute Force +3 POW!</p>`;
+            }
+        });
+        
+        // Check for Lover Zombie passive trigger
+        let zombieWarning = '';
+        let zombieExists = party.some(p => p.n === 'Lover Zombie');
+        if(zombieExists) {
+            zombieWarning = `<p style="font-size: 12px; color: var(--blood); margin-top: 10px; padding: 10px; background: rgba(128,0,0,0.1); border-left: 3px solid var(--blood);">💀 <b>Cursed Embrace:</b> Lover Zombie's victory curse will activate after this screen!</p>`;
+        }
+        
+        showModal(
+            "🏆 GROUP MISSION SUCCESS!",
+            pStage.t + " - COMPLETED",
+            `
+            <div style="margin: 20px 0;">
+                <p style="font-size: 18px; color: var(--gold); font-weight: bold;">VICTORY FOR THE PARTY!</p>
+                <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+                <div style="text-align: left; background: rgba(0,0,0,0.1); padding: 10px; margin: 15px 0;">
+                    <p style="font-weight: bold; font-size: 12px; margin-bottom: 8px;">CONTRIBUTIONS:</p>
+                    ${contributionSummary}
+                    <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 10px 0;">
+                    <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                        <span>TOTAL:</span>
+                        <span style="color: var(--gold);">${totalContribution} / ${pTarget}</span>
+                    </div>
+                </div>
+                <p style="color: #1b5e20; font-weight: bold; margin-top: 15px;">Everyone gains +${pPts === 1 ? 2 : 4} Glory!</p>
+                ${passiveTriggers}
+                ${zombieWarning}
+            </div>
+            <button class="btn btn-main" onclick="${zombieExists ? 'selectLoverZombieDebuffGroup()' : 'finishGroupChallenge()'}">Continue the Journey</button>
+            `
+        );
+    } else {
+        // FAILURE - All players lose -3 to all stats
+        party.forEach((p) => {
+            p.cur.pow = Math.max(0, p.cur.pow - 3);
+            p.cur.spd = Math.max(0, p.cur.spd - 3);
+            p.cur.brn = Math.max(0, p.cur.brn - 3);
+            p.cur.cha = Math.max(0, p.cur.cha - 3);
+            p.cur.wil = Math.max(0, p.cur.wil - 3);
+        });
+        
+        showModal(
+            "💀 GROUP MISSION FAILED!",
+            pStage.t + " - DEFEATED",
+            `
+            <div style="margin: 20px 0;">
+                <p style="font-size: 18px; color: var(--blood); font-weight: bold;">THE PARTY HAS FAILED!</p>
+                <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+                <div style="text-align: left; background: rgba(0,0,0,0.1); padding: 10px; margin: 15px 0;">
+                    <p style="font-weight: bold; font-size: 12px; margin-bottom: 8px;">CONTRIBUTIONS:</p>
+                    ${contributionSummary}
+                    <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 10px 0;">
+                    <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                        <span>TOTAL:</span>
+                        <span style="color: var(--blood);">${totalContribution} / ${pTarget}</span>
+                    </div>
+                </div>
+                <p style="color: var(--blood); font-weight: bold; margin-top: 15px;">Everyone loses -3 to ALL stats!</p>
+            </div>
+            <button class="btn btn-main" onclick="finishGroupChallenge()">Accept Defeat...</button>
+            `
+        );
+    }
+    
+    updatePartyUI();
+}
+
+function finishGroupChallenge() {
+    // Clean up group challenge state
+    groupChallengeContributions = [];
+    groupChallengePlayerIndex = 0;
+    
+    // Continue to next round
+    checkStore();
+}
+
+// Lover Zombie handler for group challenges
+function selectLoverZombieDebuffGroup() {
+    // Find which Lover Zombie(s) exist
+    let zombies = party.filter(p => p.n === 'Lover Zombie');
+    
+    if(zombies.length === 0) {
+        finishGroupChallenge();
+        return;
+    }
+    
+    // If multiple zombies, just use the first one
+    let zombieHero = zombies[0];
+    let zombieIndex = party.indexOf(zombieHero);
+    
+    showModal("💀 Cursed Embrace", "Choose a stat to steal from all players", `
+        <div style="margin: 15px 0;">
+            <img src="${zombieHero.i}" alt="Lover Zombie" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Select a stat - ALL players will lose 2 points, and YOU will gain +1 point:</p>
+        <select id="zombie-debuff-stat-group" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+            <option value="pow">POW (Power)</option>
+            <option value="spd">SPEED</option>
+            <option value="brn">BRAIN</option>
+            <option value="cha">CHA (Charisma)</option>
+            <option value="wil">WIL (Willpower)</option>
+        </select>
+        <button class="btn btn-main" onclick="applyLoverZombieDebuffGroup(${zombieIndex})">Drain All & Empower Self</button>
+    `);
+}
+
+function applyLoverZombieDebuffGroup(zombieIndex) {
+    const chosenStat = document.getElementById('zombie-debuff-stat-group').value;
+    const zombieHero = party[zombieIndex];
+    
+    // All OTHER players lose 2 points
+    party.forEach((p, idx) => {
+        if(idx !== zombieIndex && p.cur[chosenStat] > 0) {
+            p.cur[chosenStat] -= 2;
+        }
+    });
+    
+    // The Zombie GAINS 1 point
+    zombieHero.cur[chosenStat] += 1;
+    
+    updatePartyUI();
+    showModal("💀 Cursed Embrace Activated!", `Drained ${chosenStat.toUpperCase()} from all!`, `
+        <p style="font-size:14px; margin:20px 0;">All other players lose 2 ${chosenStat.toUpperCase()}, and the zombie grows stronger!</p>
+        <button class="btn btn-main" onclick="finishGroupChallenge()">Continue</button>
+    `);
+}
+
+// Friendly AI: System Override for group challenges
+function useSystemOverrideGroup() {
+    const currentHero = party[groupChallengePlayerIndex];
+    
+    showModal("⚡ System Override", "Choose which stat to use instead", `
+        <div style="margin: 15px 0;">
+            <img src="${currentHero.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Override the system and use a different attribute:</p>
+        <select id="override-stat-group" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+            <option value="pow">POW: ${currentHero.cur.pow}</option>
+            <option value="spd">SPD: ${currentHero.cur.spd}</option>
+            <option value="brn">BRN: ${currentHero.cur.brn}</option>
+            <option value="cha">CHA: ${currentHero.cur.cha}</option>
+            <option value="wil">WIL: ${currentHero.cur.wil}</option>
+        </select>
+        <button class="btn btn-main" onclick="executeSystemOverrideGroup()">Use This Stat</button>
+    `);
+}
+
+function executeSystemOverrideGroup() {
+    const currentHero = party[groupChallengePlayerIndex];
+    const chosenStat = document.getElementById('override-stat-group').value;
+    const contribution = currentHero.cur[chosenStat];
+    
+    // Mark passive as used
+    passiveUsed[groupChallengePlayerIndex] = true;
+    
+    // Deduct the chosen stat
+    currentHero.cur[chosenStat] -= contribution;
+    
+    // Check for affinity bonus (still based on original challenge requirement)
+    let affinityBonus = 0;
+    if(currentHero.a === pStage.a || (Array.isArray(pStage.a) && pStage.a.includes(currentHero.a))) {
+        affinityBonus = 3;
+    }
+    
+    // Record contribution
+    groupChallengeContributions.push({
+        playerIndex: groupChallengePlayerIndex,
+        playerName: currentHero.pName,
+        heroName: currentHero.n,
+        contribution: contribution,
+        effectiveContribution: contribution,
+        affinityBonus: affinityBonus,
+        ninjaBonus: 0,
+        dragonBonus: 0,
+        total: contribution + affinityBonus,
+        usedStat: chosenStat,
+        overrideUsed: true
+    });
+    
+    updatePartyUI();
+    groupChallengePlayerIndex++;
+    collectGroupContribution();
+}
+
+// Neighbor Witch: Arcane Alliance for group challenges
+function useArcaneAllianceGroup() {
+    const currentHero = party[groupChallengePlayerIndex];
+    
+    // Filter out the witch
+    let otherPlayers = party.filter((p, i) => i !== groupChallengePlayerIndex);
+    let playerOptions = otherPlayers.map((p) => {
+        let realIdx = party.indexOf(p);
+        return `<option value="${realIdx}">${p.pName} (${p.n})</option>`;
+    }).join('');
+    
+    showModal("⚡ Arcane Alliance", "Borrow power from an ally", `
+        <div style="margin: 15px 0;">
+            <img src="${currentHero.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Channel an ally's power for this mission:</p>
+        <select id="witch-target-group" class="input-hero" style="width:100%; font-size:16px; padding:10px; margin-bottom:20px;">
+            ${playerOptions}
+        </select>
+        <button class="btn btn-main" onclick="executeArcaneAllianceGroup()">Channel Their Power</button>
+    `);
+}
+
+function executeArcaneAllianceGroup() {
+    const currentHero = party[groupChallengePlayerIndex];
+    const targetIdx = parseInt(document.getElementById('witch-target-group').value);
+    const targetHero = party[targetIdx];
+    const requiredStat = pStage.s;
+    
+    // Borrow all of target's stat
+    const borrowedAmount = targetHero.cur[requiredStat];
+    
+    // Mark passive as used
+    passiveUsed[groupChallengePlayerIndex] = true;
+    
+    // Deduct from target
+    targetHero.cur[requiredStat] = 0;
+    
+    // Check for affinity bonus
+    let affinityBonus = 0;
+    if(currentHero.a === pStage.a || (Array.isArray(pStage.a) && pStage.a.includes(currentHero.a))) {
+        affinityBonus = 3;
+    }
+    
+    // Record contribution
+    groupChallengeContributions.push({
+        playerIndex: groupChallengePlayerIndex,
+        playerName: currentHero.pName,
+        heroName: currentHero.n,
+        contribution: borrowedAmount,
+        effectiveContribution: borrowedAmount,
+        affinityBonus: affinityBonus,
+        ninjaBonus: 0,
+        dragonBonus: 0,
+        total: borrowedAmount + affinityBonus,
+        usedStat: requiredStat,
+        borrowedFrom: targetHero.pName
+    });
+    
+    updatePartyUI();
+    groupChallengePlayerIndex++;
+    collectGroupContribution();
+}
+// ========== END GROUP CHALLENGE SYSTEM ==========
+
 function rotateCycle() {
     // Reset Paladin dice flag for new turn
     if(party[activeIdx].n === 'Drunken Paladin') {
