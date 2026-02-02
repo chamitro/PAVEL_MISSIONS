@@ -969,25 +969,25 @@ const STAGES = [
 // Group Missions - Everyone must work together!
 const GROUP_STAGES = [
     {t: "The Great Swamp Flood", d: "Pavel town is sinking! Everyone must grab a bucket and bail water.", s: "pow", e: 10, h: 15, isGroup: true},
-    {t: "Dragon's Siege", d: "A dragon is breathing fire on the pub's roof. Fight him!", s: "spd", e: 10, h: 22, isGroup: true},
-    {t: "The King's Banquet", d: "King Antony needs 5000 beers immediately. Form a group and gather the beers!", s: "wil", e: 8, h: 13, isGroup: true},
-    {t: "Ork Horde Stand", d: "A group of Orks is trying to break the pub's door. Push back together!", s: "pow", e: 12, h: 16, isGroup: true},
-    {t: "The Silent Vigil", d: "A forest spirit demands absolute silence for all the people in town, or else he will kill all people!", s: "wil", e: 14, h: 20, isGroup: true},
-    {t: "Tavern Clean-up", d: "Panchoncho threw a party. The mess is legendary. Scrub, heroes!", s: "wil", e: 8, h: 13, isGroup: true},
-    {t: "Lost Children Hunt", d: "Search the Misty Forest together before the Trolls find the kids.", s: "brn", e: 14, h: 20, isGroup: true},
-    {t: "The Giant's Rock", d: "A giant rock blocks the road. Pull it away as a team.", s: "pow", e: 10, h: 15, isGroup: true},
-    {t: "Monastic Choir", d: "To pass the monastery, you must all sing in perfect harmony.", s: "cha", e: 7, h: 13, isGroup: true},
-    {t: "Swamp Bridge Build", d: "The main bridge is out. Carry the logs and lash them tight!", s: "brn", e: 10, h: 15, isGroup: true},
+    {t: "Dragon's Siege", d: "A dragon is breathing fire on the pub's roof. Fight him!", s: "spd", e: 10, h: 15, isGroup: true},
+    {t: "The King's Banquet", d: "King Antony needs 5000 beers immediately. Form a group and gather the beers!", s: "wil", e: 8, h: 11, isGroup: true},
+    {t: "Ork Horde Stand", d: "A group of Orks is trying to break the pub's door. Push back together!", s: "pow", e: 9, h: 15, isGroup: true},
+    {t: "The Silent Vigil", d: "A forest spirit demands absolute silence for all the people in town, or else he will kill all people!", s: "wil", e: 9, h: 14, isGroup: true},
+    {t: "Tavern Clean-up", d: "Panchoncho threw a party. The mess is legendary. Scrub, heroes!", s: "wil", e: 7, h: 10, isGroup: true},
+    {t: "Lost Children Hunt", d: "Search the Misty Forest together before the Trolls find the kids.", s: "brn", e: 11, h: 20, isGroup: true},
+    {t: "The Giant's Rock", d: "A giant rock blocks the road. Pull it away as a team.", s: "pow", e: 10, h: 12, isGroup: true},
+    {t: "Monastic Choir", d: "To pass the monastery, you must all sing in perfect harmony.", s: "cha", e: 7, h: 11, isGroup: true},
+    {t: "Swamp Bridge Build", d: "The main bridge is out. Carry the logs and lash them tight!", s: "brn", e: 9, h: 13, isGroup: true},
     {t: "The Drunken Parade", d: "Escort the King through the village without anyone falling over.", s: "wil", e: 8, h: 13, isGroup: true},
     {t: "Magic Barrier Repair", d: "The village shield is flickering. Everyone contribute your essence!", s: "brn", e: 10, h: 15, isGroup: true},
     {t: "Moving Walls", d: "Drunk wizards made the walls are moving. Help him reverse the curse!", s: "spd", e: 10, h: 15, isGroup: true},
-    {t: "Misty Ambush", d: "Ninjas are everywhere! Watch each other's backs and run!", s: "spd", e: 10, h: 14, isGroup: true},
+    {t: "Misty Ambush", d: "Ninjas are everywhere! Watch each other's backs and run!", s: "spd", e: 9, h: 14, isGroup: true},
     {t: "Dwarven Forge Pump", d: "The beers are poisoned! Gather all beers so nobody drink!", s: "spd", e: 8, h: 12, isGroup: true},
     {t: "Ghostly Trial", d: "Ancient spirits demand a tribute of willpower from every soul.", s: "wil", e: 8, h: 13, isGroup: true},
-    {t: "The Beer Barrel Race", d: "The brewery is empty! Roll the barrels from the Westlands!", s: "pow", e: 11, h: 15, isGroup: true},
+    {t: "The Beer Barrel Race", d: "The brewery is empty! Roll the barrels from the Westlands!", s: "pow", e: 7, h: 14, isGroup: true},
     {t: "Riddle of the Sphinx", d: "A strange creature blocks the path. You must solve its 5-part riddle.", s: "brn", e: 10, h: 15, isGroup: true},
     {t: "Village Fire Brigade", d: "The pub is on fire! Pass the water bags quickly!", s: "spd", e: 9, h: 13, isGroup: true},
-    {t: "The Final Toast", d: "King Antony demands the most epic drinking song ever recorded.", s: "cha", e: 9, h: 13, isGroup: true}
+    {t: "The Final Toast", d: "King Antony demands the most epic drinking song ever recorded.", s: "cha", e: 9, h: 14, isGroup: true}
 ];
 
 // Combine group missions into main deck
@@ -1637,10 +1637,11 @@ function showGroupChallengeStart() {
         <div style="margin: 20px 0; font-size: 14px; line-height: 1.6;">
             <p><strong>${pStage.d}</strong></p>
             <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
-            <p style="color: var(--blood); font-weight: bold;">Target: ${pTarget} ${pStage.s.toUpperCase()}</p>
+            <p style="color: var(--blood); font-weight: bold;">Required Stat: ${pStage.s.toUpperCase()}</p>
             <p>Difficulty: ${pPts === 1 ? 'Easy (+2 Glory)' : 'Hard (+4 Glory)'}</p>
             <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
             <p style="font-size: 12px; color: #5a4634;">Everyone must contribute! If the party succeeds, all get <b>+${pPts === 1 ? '2' : '4'} Glory</b>. If the party fails, <b>everyone loses -3 to ALL stats</b>!</p>
+            <p style="font-size: 11px; color: var(--blood); font-style: italic; margin-top: 10px;">⚠️ The exact target is secret - contribute wisely!</p>
         </div>
         <button class="btn btn-main" onclick="startGroupChallenge()">Begin the Mission!</button>
     `);
