@@ -6,7 +6,7 @@
 
 </div>
 
-**A medieval tavern card game where heroes compete for glory through strategic resource management, unique passive abilities, and tactical decisions. Visit at: https://chamitro.github.io/PAVEL_MISSIONS/**
+**A medieval tavern card game where heroes compete for glory through strategic resource management, unique passive abilities, tactical decisions, and cooperative group missions. Visit at: https://chamitro.github.io/PAVEL_MISSIONS/**
 
 ![Game Type](https://img.shields.io/badge/Type-Party%20Game-gold)
 ![Players](https://img.shields.io/badge/Players-2--10-blue)
@@ -20,7 +20,7 @@
 
 ## 📖 Overview
 
-**Missions of Pavel** is a **local multiplayer** challenge game designed for 2-10 players sharing the same device. Set in the whimsical village of Pavel, where King Antony's greatest concern is keeping the ale flowing and the peace intact, players take turns selecting from 10 unique heroes—each with their own **special passive ability**—and navigating through a series of trials, managing limited resources to accumulate the most Glory points.
+**Missions in Pavel** is a **local multiplayer** challenge game designed for 2-10 players sharing the same device. Set in the whimsical village of Pavel, where King Antony's greatest concern is keeping the ale flowing and the peace intact, players take turns selecting from 10 unique heroes—each with their own **special passive ability**—and navigating through a series of trials, managing limited resources to accumulate the most Glory points.
 
 **Perfect for game nights, parties, or gatherings** - just pass the phone, tablet, or laptop around!
 
@@ -32,9 +32,11 @@
 - 🗺️ **Rich World Lore** - Explore Pavel and its surrounding lands through interactive scrolls
 - ⚔️ **Strategic Gameplay** - Manage 5 attributes (POW, SPD, BRN, CHA, WIL) across multiple challenges
 - 🤝 **Friend Challenges** - Competitive dual-challenge system for tactical gameplay
-- 🎲 **Animated Dice Rolls** - Watch the dice roll with realistic animations
+- 👥 **Group Missions** - Cooperative challenges where the entire party must work together
+- 🎲 **Dice Gambling** - Risk drinks to roll for bonus points on failed challenges
 - 🎨 **Medieval Aesthetic** - Immersive parchment design with animated elements and scroll motifs
 - 📱 **Fully Responsive** - Play on desktop, tablet, or mobile - works on any screen size
+- 🏆 **Hall of Victors** - Persistent leaderboard tracking all hero victories across games
 
 ---
 
@@ -48,7 +50,7 @@
 2. **Explore the Scrolls** - Read about the world, heroes, and rules through interactive parchment scrolls
 3. **Choose Party Size** - Select how many players are joining
 4. **Register Players** - Each player enters their name and receives a unique hero (no duplicates!)
-5. **Set Quest Length** - Decide on 5-70 challenges
+5. **Set Quest Length** - Decide on 5-70 challenges (includes 20 group missions in the pool)
 6. **Pass the Device** - Players take turns as indicated by the game
 
 ### Core Mechanics
@@ -63,9 +65,10 @@
 - 5 Attributes: POW (Power), SPD (Speed), BRN (Brain), CHA (Charisma), WIL (Willpower)
 - Spend attribute points to meet challenge requirements
 - **Spent points are consumed** and don't regenerate automatically
+- Winning a challenge grants **+2 points back** to the stat you used!
 
 **Soul-Type Advantage:**
-- If your hero's Soul-Type matches the challenge affinity, receive +3 automatic bonus
+- If your hero's Soul-Type matches the challenge affinity, receive **+3 automatic bonus**
 - 10 Different affinities: Dark, Tech, Stone, Crowd, Magic, Shadow, Sky, Pub, Silent, Undead
 
 **Decision Options Each Turn:**
@@ -73,20 +76,69 @@
 1. **Do the Challenge** - Spend attribute points to overcome and gain Glory
 2. **Pass (Meditation)** - Skip the challenge (limited to 3 per game)
 3. **Challenge a Friend** - Engage another player in competitive dual challenge
+   - Challenger gets **+2 courage bonus** for initiating
    - Both succeed → Both gain Glory
    - One succeeds → Solo winner gets bonus Glory
    - Both fail → No Glory earned
+   - **No dice gambling** in friend challenges - pure skill!
 
 **Drink & Gamble:**
-- If you fail a challenge, sacrifice a drink to roll the dice (1-6) for bonus points
-- Watch the dice roll with animated 3D dice visualization!
+- If you fail a regular challenge, sacrifice a drink to roll the dice (1-6) for bonus points
+- Can turn defeat into victory with a lucky roll!
+- **Not available in Friend Challenges or Group Missions**
 
 **Recovery System:**
-- Every 3 challenges, visit the Alchemist to restore 5 total points across your attributes
+- The Alchemist appears periodically based on party size and progression
+- Restore **10 total points** distributed across your attributes as you choose
+- Visit frequency increases as the game progresses
 - Plan your resource usage carefully!
 
 **Victory Condition:**
 - Player with the highest Glory score when all challenges are complete wins
+- Ties are broken by total remaining stat points
+
+---
+
+## 👥 Group Missions - NEW!
+
+Sometimes the entire party faces a **Group Mission** (marked with 🤝). These cooperative challenges require **ALL heroes to work together**!
+
+### How Group Missions Work
+
+1. **Everyone Contributes** - Each player decides how many stat points to contribute (in turn order)
+2. **Affinity Bonuses Apply** - Players still get +3 if their soul-type matches
+3. **Passive Abilities Work** - Shadow Ninja's Double Strike, Lost Dragon's Dragon Rage, and more!
+4. **Combined Total** - All contributions are added together (including bonuses)
+
+### Rewards & Penalties
+
+**If the party succeeds:**
+- ✅ **Easy Mode:** Everyone gains **+2 Glory**
+- ✅ **Hard Mode:** Everyone gains **+4 Glory**
+- ✅ **Thug Dwarf:** Gains +3 POW (Brute Force passive)
+- ✅ **Babbler Rogue:** Counts toward Crowd Favorite bonus
+- ✅ **Lover Zombie:** Cursed Embrace triggers (if in party)
+
+**If the party fails:**
+- ❌ **Everyone loses -3 to ALL stats** (POW, SPD, BRN, CHA, WIL)
+- ❌ No Glory for anyone
+- ❌ No gambling - failure is absolute
+
+### Special Rules for Group Missions
+
+- **No Dice Rolls** - Drunken Paladin cannot use Liquid Courage
+- **No Skipping** - Everyone must participate (no meditation)
+- **Friendly AI** - Can use System Override to contribute a different stat
+- **Neighbor Witch** - Can borrow from another player's required stat
+- **Coordination is Key** - Discuss strategy with your party!
+
+### Example Group Missions
+
+- 🌊 **The Great Swamp Flood** - Pavel is sinking! Bail water together!
+- 🐉 **Dragon's Siege** - A dragon attacks the pub! Fight as one!
+- 🍺 **The King's Banquet** - King Antony needs 5000 beers NOW!
+- 👹 **Ork Horde Stand** - Push back the invaders at the pub door!
+- 🔥 **Village Fire Brigade** - The pub is burning! Pass water bags quickly!
 
 ---
 
@@ -96,70 +148,73 @@ Each hero has a **unique passive ability** that creates distinct playstyles!
 
 ### Dark Stalker
 *Soul: Dark • Affinity: Shadows*  
-**Stats:** POW 3 | SPD 5 | BRN 5 | CHA 5 | WIL 4  
-**⚡ Passive: Hunt from the Shadows**  
-3 times per game, force another player to meditate (skip their turn)
+**Stats:** POW 4 | SPD 5 | BRN 5 | CHA 5 | WIL 5  
+**⚡ Passive: Shadow Control**  
+Force another player to meditate on their next turn. Max uses: 2 players=1, 3 players=2, 4+ players=3.  
+*Silent assassin who manipulates shadows to curse enemies.*
 
 ### Friendly AI
 *Soul: Tech • Affinity: Machinery*  
-**Stats:** POW 6 | SPD 4 | BRN 6 | CHA 1 | WIL 5  
+**Stats:** POW 6 | SPD 5 | BRN 6 | CHA 1 | WIL 6  
 **⚡ Passive: System Override**  
-Once per game, you can attempt a challenge using a different attribute than required.  
-*Magical construct created by wise mages 100 years ago.*
+Use a different attribute than required for a challenge. Recharges when you win a "Challenge a Friend".  
+*Magical construct created by wise mages 100 years ago. Works in Group Missions!*
 
 ### Thug Dwarf
 *Soul: Stone • Affinity: Mountains*  
-**Stats:** POW 7 | SPD 2 | BRN 3 | CHA 5 | WIL 6  
-**⚡ Passive: Stone Skin**  
-When you fail a challenge (including gambles), keep 1 stat point you spent.  
-*Stout mountain warrior with incredible strength and endurance.*
+**Stats:** POW 7 | SPD 2 | BRN 2 | CHA 5 | WIL 6  
+**⚡ Passive: Brute Force**  
+Every time you win a challenge (including Group Missions), gain +3 to POW.  
+*Stout mountain warrior who grows stronger with each victory.*
 
 ### Babbler Rogue
 *Soul: Crowd • Affinity: Social*  
-**Stats:** POW 2 | SPD 3 | BRN 4 | CHA 8 | WIL 6  
+**Stats:** POW 2 | SPD 4 | BRN 5 | CHA 8 | WIL 6  
 **⚡ Passive: Crowd Favorite**  
-Gain +1 Glory for every 3 challenges you complete.  
+Gain +1 Glory for every 3 challenges you complete (includes Group Missions).  
 *Silver-tongued charmer who befriends everyone.*
 
-### Neighbor Mage
+### Neighbor Witch
 *Soul: Magic • Affinity: Mystical*  
-**Stats:** POW 2 | SPD 2 | BRN 8 | CHA 3 | WIL 7  
-**⚡ Passive: Ritual Circle**  
-Once per game, borrow stat points from another player to help you in a challenge.
+**Stats:** POW 2 | SPD 3 | BRN 8 | CHA 4 | WIL 7  
+**⚡ Passive: Arcane Alliance**  
+Borrow stat points from another player. Recharges after 3 challenge wins. Works in Group Missions!  
+*Mysterious witch who channels power from allies.*
 
 ### Shadow Ninja
 *Soul: Shadow • Affinity: Stealth*  
-**Stats:** POW 4 | SPD 7 | BRN 5 | CHA 2 | WIL 6  
+**Stats:** POW 4 | SPD 7 | BRN 5 | CHA 3 | WIL 5  
 **⚡ Passive: Double Strike**  
-Spend SPD twice as effectively (every 1 SPD counts as 2).  
-*Swift mercenary paid to complete missions.*
+Spend SPD twice as effectively (every 1 SPD counts as 2). Works in Group Missions!  
+*Swift mercenary with unmatched speed.*
 
 ### Lost Dragon
 *Soul: Sky • Affinity: Flight*  
-**Stats:** POW 8 | SPD 5 | BRN 5 | CHA 3 | WIL 2  
+**Stats:** POW 8 | SPD 5 | BRN 5 | CHA 3 | WIL 3  
 **⚡ Passive: Dragon Rage**  
-When spending 5+ on any stat, gain +3 bonus.  
+When spending 4+ on any stat, gain +3 bonus. Works in Group Missions!  
 *Ancient dragon searching for the way home.*
 
 ### Drunken Paladin
 *Soul: Pub • Affinity: Taverns*  
 **Stats:** POW 3 | SPD 2 | BRN 3 | CHA 8 | WIL 7  
 **⚡ Passive: Liquid Courage**  
-Once per turn, roll a dice. If 5 or 6, automatically win the challenge.
+Once per turn, roll a dice. If 5 or 6, automatically win the challenge. **Does NOT work in Group Missions or Friend Challenges.**  
+*Brave warrior fueled by liquid courage.*
 
 ### Mute Monk
 *Soul: Silent • Affinity: Meditation*  
-**Stats:** POW 3 | SPD 4 | BRN 9 | CHA 2 | WIL 7  
+**Stats:** POW 3 | SPD 3 | BRN 9 | CHA 6 | WIL 7  
 **⚡ Passive: Inner Peace**  
-Meditating restores +2 to one attribute of your choice (instead of no benefit).  
+Meditating restores +4 to one attribute of your choice (instead of no benefit).  
 *Silent monk with profound wisdom.*
 
 ### Lover Zombie
 *Soul: Undead • Affinity: Darkness*  
 **Stats:** POW 9 | SPD 2 | BRN 4 | CHA 3 | WIL 8  
-**⚡ Passive: Undead Hunger**  
-Gain +1 to POW every time you complete a challenge.  
-*Undead wanderer eternally searching for true love, growing stronger with each trial.*
+**⚡ Passive: Cursed Embrace**  
+On victory (including Group Missions): Select a stat - all players lose 2, you gain +1.  
+*Undead wanderer who drains life from allies to grow stronger.*
 
 ---
 
@@ -169,17 +224,19 @@ Gain +1 to POW every time you complete a challenge.
 
 ### Notable Locations
 
-- **Lost Dragon Town** (Northeast) - Mystical floating city in the clouds
-- **Ork Fortress** (West) - Imposing stronghold where war cries become drinking songs
-- **Monk Monasteries** (Southeast) - Peaceful sanctuaries of meditation
-- **High Dwarvish Mountains** (Southwest) - Misty peaks home to master craftsmen
-- **The Swamps** - Treacherous marshes where trolls lurk
+- **Lost Dragon Town** (Northeast) - Mystical floating city in the clouds, home to ancient dragons
+- **Ork Fortress** (West, Westlands) - Imposing stronghold where war cries become drinking songs
+- **Monk Monasteries** (Southeast) - Peaceful sanctuaries of meditation and enlightenment
+- **High Dwarvish Mountains** (Southwest) - Misty peaks home to master craftsmen and legendary ales
+- **The Swamps** - Treacherous marshes where trolls lurk and mist conceals secrets
+- **Misty Forest** - Ancient woods where Ninjas and Elves guard forgotten paths
 
 ### Key Characters
 
 - **King Antony** - The jovial monarch who prefers taverns to thrones
-- **Old Nick the Geezer** - Ancient storyteller and keeper of Pavel's history
-- **Panchonco & Yuumi** - The eternal patron and his cat, always at the bar
+- **Panchoncho** - The eternal patron, always at the bar with a story to tell
+- **Yuumi the Cat** - Panchoncho's feline companion, often causing mischief
+- **Old Man Nick** - Ancient geezer with endless (terrible) jokes
 
 ---
 
@@ -187,10 +244,11 @@ Gain +1 to POW every time you complete a challenge.
 
 ### Technologies Used
 
-- **Pure HTML5/CSS3/JavaScript** - No frameworks required
+- **Pure HTML5/CSS3/JavaScript** - No frameworks required, single self-contained file
 - **Local Multiplayer** - Pass-and-play on a single shared device
 - **Google Fonts** - Cinzel Decorative, MedievalSharp, Almendra
 - **CSS Animations** - Smooth transitions, dice rolling, and subtle effects
+- **LocalStorage** - Persistent Hall of Victors leaderboard
 - **Responsive Design** - Works perfectly on phones, tablets, and desktops
 
 ### Multiplayer Design
@@ -205,20 +263,20 @@ This game is specifically designed for **local pass-and-play multiplayer**:
 ### File Structure
 
 ```
-missions-of-pavel/
+missions-in-pavel/
 ├── index.html        # Main game file (self-contained)
 ├── images/           # Game assets
 │   ├── map.png      # World map image
-│   ├── dark.png
-│   ├── ai.png
-│   ├── swag.png
-│   ├── rogue.png
-│   ├── magic.png
-│   ├── ninja.png
-│   ├── dragon.png
-│   ├── paladin.png
-│   ├── monk.png
-│   └── zombie.png
+│   ├── dark.png     # Dark Stalker
+│   ├── ai.png       # Friendly AI
+│   ├── swag.png     # Thug Dwarf
+│   ├── rogue.png    # Babbler Rogue
+│   ├── magic.png    # Neighbor Witch
+│   ├── ninja.png    # Shadow Ninja
+│   ├── dragon.png   # Lost Dragon
+│   ├── paladin.png  # Drunken Paladin
+│   ├── monk.png     # Mute Monk
+│   └── zombie.png   # Lover Zombie
 └── README.md         # This file
 ```
 
@@ -228,6 +286,7 @@ missions-of-pavel/
 - ✅ Firefox 88+
 - ✅ Safari 14+
 - ✅ Edge 90+
+- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
 
 ---
 
@@ -237,12 +296,12 @@ missions-of-pavel/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/missions-of-pavel.git
+git clone https://github.com/chamitro/PAVEL_MISSIONS.git
 ```
 
 2. Navigate to the directory:
 ```bash
-cd missions-of-pavel
+cd PAVEL_MISSIONS
 ```
 
 3. Open `index.html` in your browser:
@@ -263,10 +322,12 @@ start index.html
 
 Deploy to any static hosting service:
 
-- **GitHub Pages**: Push to `gh-pages` branch
+- **GitHub Pages**: Push to `gh-pages` branch (currently live!)
 - **Netlify**: Drag and drop the folder
 - **Vercel**: Import the repository
 - **Any web server**: Upload the files
+
+**Live Demo:** https://chamitro.github.io/PAVEL_MISSIONS/
 
 ---
 
@@ -275,54 +336,76 @@ Deploy to any static hosting service:
 ### General Strategy
 
 1. **Master Your Passive** - Each hero's passive ability can turn the tide; learn to leverage it effectively
-2. **Resource Conservation** - Remember, you only get 5 points back every 3 turns
+2. **Resource Conservation** - You get +2 back on wins, but losses hurt. Plan ahead for the Alchemist visits
 3. **Use Meditations Wisely** - You only have 3 for the entire game
-4. **Friend Challenges** - Great for difficult challenges when resources are low
+4. **Friend Challenges** - Great for difficult challenges when resources are low (no dice gambling though!)
 5. **Soul-Type Matching** - The +3 bonus can make impossible challenges achievable
-6. **Plan Ahead** - Think about the Alchemist visits when managing resources
+6. **Group Mission Coordination** - Don't let the party down! Communicate strategy
+7. **Watch the Alchemist Schedule** - Visits become more frequent as the game progresses
 
 ### Hero-Specific Tips
 
-- **Dark Stalker**: Use hidden spending to bluff opponents in friend challenges
-- **Friendly AI**: Save System Override for impossible challenges
-- **Thug Dwarf**: Take risks knowing you'll recover 1 point even on failures
-- **Babbler Rogue**: Complete as many challenges as possible for bonus Glory
-- **Neighbor Mage**: Save Ritual Circle for when BRN is high but required stat is low
-- **Shadow Ninja**: Dominate SPD challenges with double effectiveness
-- **Lost Dragon**: Go all-in with 5+ points for massive bonuses
-- **Drunken Paladin**: Rely on luck - you have a 33% chance to auto-win each challenge!
-- **Mute Monk**: Use all 4 meditations strategically to restore key stats
-- **Lover Zombie**: Complete challenges early and often to snowball POW
+- **Dark Stalker**: Use Shadow Control strategically to skip strong opponents or force meditation before big challenges
+- **Friendly AI**: Save System Override for impossible challenges or group missions
+- **Thug Dwarf**: Snowballs hard - prioritize winning early to maximize POW gains
+- **Babbler Rogue**: Complete as many challenges as possible (including group missions) for bonus Glory
+- **Neighbor Witch**: Save Arcane Alliance for critical moments or group missions
+- **Shadow Ninja**: Dominate SPD challenges with double effectiveness - incredible in SPD group missions!
+- **Lost Dragon**: Go all-in with 4+ points for massive bonuses (works in group missions too!)
+- **Drunken Paladin**: High risk, high reward - but remember, no dice in friend or group challenges
+- **Mute Monk**: Use all 3 meditations strategically to restore key stats when needed
+- **Lover Zombie**: Complete challenges to trigger Cursed Embrace and weaken rivals
+
+### Group Mission Strategy
+
+1. **Check Soul Types** - Players with matching affinity should contribute more
+2. **Use Passives Wisely** - Shadow Ninja and Lost Dragon shine in group missions
+3. **Don't Be Greedy** - A -3 penalty to all stats hurts everyone badly
+4. **Coordinate Resources** - Make sure someone can contribute meaningfully
+5. **Consider Difficulty** - Hard mode gives +4 Glory but is much riskier
 
 ---
 
 ## 🎨 Design Philosophy
 
-**Missions of Pavel** embraces a medieval tavern aesthetic with:
+**Missions in Pavel** embraces a medieval tavern aesthetic with:
 
 - **Parchment textures** for an authentic feel
 - **Ancient scrolls** instead of books for that extra medieval touch
 - **Ornate borders and decorations** inspired by illuminated manuscripts  
-- **Animated 3D dice** for gambling mechanics
+- **Animated dice** for gambling mechanics
 - **Subtle animations** that enhance without overwhelming
-- **Warm color palette** of golds, browns, deep reds, and yellows
+- **Warm color palette** of golds, browns, deep reds, and blacks
 - **Medieval typography** for immersion
-- **Wood-carved title styling** reminiscent of tavern signs
+- **Wax seals** for Glory counters
 
-The game balances **tactical depth** with **accessibility**, making it easy to learn but rewarding to master. Each hero's passive ability adds a layer of strategic variety that keeps every playthrough fresh.
+The game balances **tactical depth** with **accessibility**, making it easy to learn but rewarding to master. Each hero's passive ability adds a layer of strategic variety, and group missions create moments of cooperation that keep every playthrough fresh and exciting.
 
 ---
 
-## 🎲 New Features
+## 🎲 Version History
 
-### Version 2.0 Updates
+### Version 3.0 - Group Missions Update (Latest)
+- 👥 **Group Missions System** - 20 cooperative challenges where everyone must work together
+- 🤝 **Cooperative Rewards** - Success grants glory to all, failure penalizes everyone
+- ⚡ **Passive Integration** - All relevant passives work in group missions
+- 🏆 **Enhanced Balance** - Thug Dwarf and Babbler Rogue now benefit from group missions
+- 🎲 **No Dice in Groups** - Like friend challenges, group missions require pure strategy
+- 📜 **Updated Rules** - Game rules scroll expanded with group mission mechanics
 
-- ⚡ **10 Unique Hero Passives** - Each hero now has a special ability that creates distinct playstyles
-- 🎲 **Animated Dice Rolls** - 3D dice with rolling animation for Paladin passive and Drink & Gamble
-- 📜 **Scroll Interface** - Changed from books to ancient scrolls for enhanced medieval theme
-- 🎨 **Refined Color Palette** - Dark red accents and bright gold highlights for better readability
-- 🎭 **Hidden Stats (Dark Stalker)** - Stats are concealed from other players except on your turn
-- 🔄 **Dynamic Gameplay** - Passives trigger automatically based on game state
+### Version 2.0 - Passive Abilities Update
+- ⚡ **10 Unique Hero Passives** - Each hero now has a special ability
+- 🎲 **Dice Roll Animations** - 3D dice for Paladin passive and gambling
+- 📜 **Scroll Interface** - Changed from books to ancient scrolls
+- 🎨 **Refined Color Palette** - Improved readability and medieval aesthetic
+- 🏆 **Hall of Victors** - Persistent leaderboard across games
+- 🔄 **Dynamic Alchemist** - Progressive visit frequency based on party size
+
+### Version 1.0 - Initial Release
+- ⚔️ **Core Gameplay** - 10 heroes, 100 challenges
+- 🤝 **Friend Challenges** - Competitive dual system
+- 📱 **Responsive Design** - Works on all devices
+- 🗺️ **World Building** - Rich lore and character backgrounds
 
 ---
 
@@ -330,15 +413,15 @@ The game balances **tactical depth** with **accessibility**, making it easy to l
 
 Potential additions being considered:
 
-- **Ork Fortress Campaign** - New challenges and heroes from the western fortress
-- **Dragon Town Missions** - Sky-based challenges in the floating city
-- **Monk Monastery Trials** - Wisdom and meditation-focused gameplay
-- **More Passive Abilities** - Additional heroes with unique mechanics
-- **Achievement System** - Track player accomplishments across games
-- **Online Multiplayer** - Network play to connect with friends remotely (currently local-only)
-- **Custom Hero Creator** - Design your own heroes with custom passives
+- **More Group Missions** - Expand the cooperative challenge pool
+- **Hero Balancing** - Fine-tune stats and passives based on playtesting
+- **New Heroes** - Additional characters from Pavel's world
 - **Campaign Mode** - Story-driven single-player experience
-- **AI Opponents** - Play solo against computer-controlled heroes
+- **Custom Game Modes** - All-group-missions, no-passives, hardcore, etc.
+- **Achievement System** - Track accomplishments across games
+- **Soundtrack** - Medieval tavern music and sound effects
+- **Animated Hero Portraits** - Subtle animations on hero cards
+- **Online Multiplayer** - Network play to connect remotely (future consideration)
 
 ---
 
@@ -347,11 +430,12 @@ Potential additions being considered:
 Contributions are welcome! Whether it's:
 
 - 🐛 Bug reports
-- 💡 Feature suggestions
+- 💡 Feature suggestions (especially new group missions!)
 - 🎨 Art contributions
 - 📝 Documentation improvements
 - 🌍 Translations
 - ⚡ New passive ability ideas
+- 👥 Group mission concepts
 
 Please open an issue or submit a pull request.
 
@@ -363,6 +447,7 @@ Please open an issue or submit a pull request.
 - Follow existing code style
 - Add comments for complex logic
 - Ensure new passives are balanced and fun
+- Group missions should encourage cooperation, not just be harder challenges
 
 ---
 
@@ -378,13 +463,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Font families from Google Fonts
 - Texture patterns from transparenttextures.com
 - Special thanks to the open-source community
-- Dice rolling mechanics inspired by classic board games
+- Cooperative game design inspired by Pandemic and Forbidden Island
 
 ---
 
 ## 📧 Contact
 
-**Project Link:** [https://github.com/yourusername/missions-of-pavel](https://github.com/yourusername/missions-of-pavel)
+**Project Link:** [https://github.com/chamitro/PAVEL_MISSIONS](https://github.com/chamitro/PAVEL_MISSIONS)
+
+**Live Game:** [https://chamitro.github.io/PAVEL_MISSIONS/](https://chamitro.github.io/PAVEL_MISSIONS/)
 
 ---
 
@@ -392,8 +479,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ Star this repository if you enjoyed the game! ⭐**
 
-Made with 🍺 and ❤️
+Made with 🍺 and ❤️ in the taverns of Pavel
 
-[Play Now](https://chamitro.github.io/PAVEL_MISSIONS/) | [Report Bug](https://github.com/yourusername/missions-of-pavel/issues) | [Request Feature](https://github.com/yourusername/missions-of-pavel/issues)
+[Play Now](https://chamitro.github.io/PAVEL_MISSIONS/) | [Report Bug](https://github.com/chamitro/PAVEL_MISSIONS/issues) | [Request Feature](https://github.com/chamitro/PAVEL_MISSIONS/issues)
 
 </div>
