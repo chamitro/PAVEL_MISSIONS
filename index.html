@@ -792,7 +792,7 @@
                 
                  <p><b>5. Pass and Play:</b> When you finish your turn, pass the mobile to the player next to you.</p>
                 
-                <p><b>6. Recovery System:</b> Every 5 challenges, visit the Alchemist to restore <b>5 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
+                <p><b>6. Recovery System:</b> The Alchemist appears periodically (frequency depends on party size) to restore <b>5 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
                 
                 <p><b>7. Victory Condition:</b> After all Missions are completed, the hero with the highest accumulated Glory is declared the victor and claims the prize.</p>
                 
@@ -1595,9 +1595,25 @@ function rotateCycle() {
 function checkStore(silent=false) {
     round++;
     if(round >= totalRounds) { endGame(); return; }
-    if(round % 5 === 0) { storePlayerIdx = 0; openStore(); }
+    
+    // Progressive Alchemist visits: Early game = frequent, Late game = rare
+    let alchemistInterval;
+    
+    if(round <= totalRounds * 0.33) {
+        // EARLY GAME (first third): Visit every (players × 2) challenges
+        alchemistInterval = party.length * 3;
+    } else if(round <= totalRounds * 0.66) {
+        // MID GAME (middle third): Visit every (players × 3) challenges
+        alchemistInterval = party.length * 4;
+    } else {
+        // LATE GAME (final third): Visit every (players × 4) challenges
+        alchemistInterval = party.length * 5;
+    }
+    
+    if(round % alchemistInterval === 0) { storePlayerIdx = 0; openStore(); }
     else { if(!silent) activeIdx = (activeIdx + 1) % party.length; resetUI(); }
 }
+
 function openStore() { storePoints = 5; tempStats = {pow:0, spd:0, brn:0, cha:0, wil:0}; renderStore(); }
 function renderStore() {
     const p = party[storePlayerIdx];
@@ -1750,14 +1766,17 @@ function challengerInvest() {
     
     // Check for passives that can be used
     let canUseArcaneAlliance = (challenger.n === 'Neighbor Witch' && !passiveUsed[challengeData.challenger]);
-    let canUseOverride = (challenger.n === 'Friendly AI' && !passiveUsed[challengeData.challenger]);
-    
-    let passiveOptions = '';
-    if(canUseArcaneAlliance) {
-        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('challenger')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
-    } else if(canUseOverride) {
-        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('challenger')">⚡ Use System Override (Choose Stat)</button>`;
-    }
+let canUseOverride = (challenger.n === 'Friendly AI' && !passiveUsed[challengeData.challenger]);
+let canUsePaladinDice = (challenger.n === 'Drunken Paladin' && !challenger.paladinDiceUsedThisTurn);
+
+let passiveOptions = '';
+if(canUseArcaneAlliance) {
+    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('challenger')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
+} else if(canUseOverride) {
+    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('challenger')">⚡ Use System Override (Choose Stat)</button>`;
+} else if(canUsePaladinDice) {
+    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="rollChallengePaladinDice('challenger')">🎲 Roll the Paladin's Dice</button>`;
+}
     
     showModal(`${challenger.pName}'s Investment`, "How much will you risk?", `
         <div style="margin: 15px 0;">
@@ -1786,14 +1805,17 @@ function opponentInvest() {
     
     // Check for passives that can be used
     let canUseArcaneAlliance = (opponent.n === 'Neighbor Witch' && !passiveUsed[challengeData.opponent]);
-    let canUseOverride = (opponent.n === 'Friendly AI' && !passiveUsed[challengeData.opponent]);
-    
-    let passiveOptions = '';
-    if(canUseArcaneAlliance) {
-        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('opponent')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
-    } else if(canUseOverride) {
-        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('opponent')">⚡ Use System Override (Choose Stat)</button>`;
-    }
+let canUseOverride = (opponent.n === 'Friendly AI' && !passiveUsed[challengeData.opponent]);
+let canUsePaladinDice = (opponent.n === 'Drunken Paladin' && !opponent.paladinDiceUsedThisTurn);
+
+let passiveOptions = '';
+if(canUseArcaneAlliance) {
+    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('opponent')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
+} else if(canUseOverride) {
+    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('opponent')">⚡ Use System Override (Choose Stat)</button>`;
+} else if(canUsePaladinDice) {
+    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="rollChallengePaladinDice('opponent')">🎲 Roll the Paladin's Dice</button>`;
+}
     
     showModal(`${opponent.pName}'s Investment`, "How much will you risk?", `
         <div style="margin: 15px 0;">
@@ -1884,8 +1906,8 @@ function resolveFriendChallenge() {
     let challengerTotal = challengerEffective + challengerBonus;
     let opponentTotal = opponentEffective + opponentBonus;
     
-    let challengerWin = challengerTotal >= pTarget;
-    let opponentWin = opponentTotal >= pTarget;
+    let challengerWin = challengeData.challengerAutoWin || (challengerTotal >= pTarget);
+let opponentWin = challengeData.opponentAutoWin || (opponentTotal >= pTarget);
     
     challengeData.challengerTotal = challengerTotal;
     challengeData.opponentTotal = opponentTotal;
@@ -2140,6 +2162,76 @@ function processChallengeOverride(role) {
         resolveFriendChallenge();
     }
 }
+
+function processChallengeOverride(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    const overrideStat = document.getElementById('challenge-override-stat').value;
+    const spend = parseInt(document.getElementById('challenge-override-amt').value) || 0;
+    
+    if(spend > h.cur[overrideStat]) {
+        alert("Not enough points!");
+        return;
+    }
+    
+    // Store override info
+    if(role === 'challenger') {
+        challengeData.challengerOverrideStat = overrideStat;
+        challengeData.challengerSpend = spend;
+        opponentInvest();
+    } else {
+        challengeData.opponentOverrideStat = overrideStat;
+        challengeData.opponentSpend = spend;
+        resolveFriendChallenge();
+    }
+}
+
+// ADD THE NEW FUNCTION HERE:
+function rollChallengePaladinDice(role) {
+    const playerIdx = role === 'challenger' ? challengeData.challenger : challengeData.opponent;
+    const h = party[playerIdx];
+    h.paladinDiceUsedThisTurn = true;
+    
+    showModal("🍺 Liquid Courage!", "The Paladin takes a swig and rolls...", `
+        <div id="dice-container" style="margin: 30px 0;"></div>
+    `);
+    
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+    
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const roll = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(roll);
+        
+        setTimeout(() => {
+            if(roll >= 5) {
+                // Auto-win! Set spend to meet target automatically
+                if(role === 'challenger') {
+                    challengeData.challengerSpend = 0; // Doesn't matter, will auto-win
+                    challengeData.challengerAutoWin = true;
+                    opponentInvest();
+                } else {
+                    challengeData.opponentSpend = 0;
+                    challengeData.opponentAutoWin = true;
+                    resolveFriendChallenge();
+                }
+            } else {
+                showModal("Dice Rolled", `Result: ${roll} - Not enough!`, `
+                    <p style="font-size:14px;">The dice shows ${roll}. Must invest points normally.</p>
+                    <button class="btn btn-main" onclick="${role === 'challenger' ? 'challengerInvest()' : 'opponentInvest()'}">Continue</button>
+                `);
+            }
+        }, 500);
+    }, 900);
+}
+
+function refill(idx, stat) { /* Refill disabled - only through Alchemist every 3 turns */ }
 
 function refill(idx, stat) { /* Refill disabled - only through Alchemist every 3 turns */ }
 function updatePartyUI() {
