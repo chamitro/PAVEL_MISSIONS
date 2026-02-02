@@ -1394,7 +1394,7 @@ function finalizeBorrow(allyIdx, borrowAmt) {
     
     // Lost Dragon passive
     let dragonBonus = 0;
-    if(h.n === 'Lost Dragon' && totalSpend >= 5) {
+    if(h.n === 'Lost Dragon' && totalSpend >= 4) {
         dragonBonus = 3;
     }
     
@@ -1459,9 +1459,9 @@ function processAttempt(overrideStat = null) {
         effectiveSpend = spend * 2;
     }
     
-    // Lost Dragon passive: Dragon Rage (+3 when spending 5+)
+    // Lost Dragon passive: Dragon Rage (+3 when spending 4+)
     let dragonBonus = 0;
-    if(h.n === 'Lost Dragon' && spend >= 5) {
+    if(h.n === 'Lost Dragon' && spend >= 4) {
         dragonBonus = 3;
     }
     
