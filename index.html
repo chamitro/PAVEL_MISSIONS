@@ -1735,14 +1735,47 @@ function showVotingSummary() {
 }
 
 function discardGroupChallenge() {
-    // Clean up and draw next challenge
+    // 1. Clean up group state
     groupChallengeContributions = [];
     groupChallengePlayerIndex = 0;
     groupChallengeVotes = [];
     groupChallengeVotingIndex = 0;
     
     closeModal();
-    drawCard();
+
+    // 2. Perform the Random Swap
+    if (round < totalRounds - 1) {
+        // Find all indices that haven't been played yet
+        const remainingIndices = [];
+        for (let i = round + 1; i < totalRounds; i++) {
+            remainingIndices.push(i);
+        }
+        
+        // Pick a random future card (could be group OR individual)
+        const randomIndex = remainingIndices[Math.floor(Math.random() * remainingIndices.length)];
+        
+        // Swap current card with the random future card
+        const temp = deck[round];
+        deck[round] = deck[randomIndex];
+        deck[randomIndex] = temp;
+
+        // 3. Trigger Shuffling Animation
+        const stageFrame = document.querySelector('.stage-frame');
+        stageFrame.classList.add('shuffling');
+        document.getElementById('st-title').innerText = "Shuffling the Deck...";
+        document.getElementById('st-desc').innerText = "The path shifts as the heroes decline the trial...";
+        document.getElementById('st-req').innerText = "";
+
+        // Wait 800ms for the animation before drawing the new random card
+        setTimeout(() => {
+            stageFrame.classList.remove('shuffling');
+            drawCard();
+        }, 800);
+
+    } else {
+        // If it was the last card, just end the game or move to store
+        checkStore(true);
+    }
 }
 
 function startGroupChallenge() {
