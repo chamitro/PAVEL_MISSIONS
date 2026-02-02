@@ -2304,25 +2304,35 @@ function selectChallenger() {
 function challengerInvest() {
     const challenger = party[challengeData.challenger];
     
-    // Check for passives that can be used
+    // Check for passives that can be used (NO PALADIN DICE IN FRIEND CHALLENGES)
     let canUseArcaneAlliance = (challenger.n === 'Neighbor Witch' && !passiveUsed[challengeData.challenger]);
-let canUseOverride = (challenger.n === 'Friendly AI' && !passiveUsed[challengeData.challenger]);
-let canUsePaladinDice = (challenger.n === 'Drunken Paladin' && !challenger.paladinDiceUsedThisTurn);
+    let canUseOverride = (challenger.n === 'Friendly AI' && !passiveUsed[challengeData.challenger]);
 
-let passiveOptions = '';
-if(canUseArcaneAlliance) {
-    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('challenger')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
-} else if(canUseOverride) {
-    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('challenger')">⚡ Use System Override (Choose Stat)</button>`;
-} else if(canUsePaladinDice) {
-    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="rollChallengePaladinDice('challenger')">🎲 Roll the Paladin's Dice</button>`;
-}
+    let passiveOptions = '';
+    if(canUseArcaneAlliance) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('challenger')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
+    } else if(canUseOverride) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('challenger')">⚡ Use System Override (Choose Stat)</button>`;
+    }
+    
+    // Special notes for Shadow Ninja and Lost Dragon
+    let ninjaNote = '';
+    if(challenger.n === 'Shadow Ninja' && pStage.s === 'spd') {
+        ninjaNote = `<p style="font-size: 12px; color: #9370DB; margin-top: 8px;">⚡ Double Strike: Your SPD counts as 2x!</p>`;
+    }
+    
+    let dragonNote = '';
+    if(challenger.n === 'Lost Dragon') {
+        dragonNote = `<p style="font-size: 12px; color: #FF6347; margin-top: 8px;">⚡ Dragon Rage: Spend 4+ for +3 bonus!</p>`;
+    }
     
     showModal(`${challenger.pName}'s Investment`, "How much will you risk?", `
         <div style="margin: 15px 0;">
             <img src="${challenger.i}" alt="${challenger.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
         </div>
         <p style="font-size:14px; margin-bottom:10px;">Current ${pStage.s.toUpperCase()}: ${challenger.cur[pStage.s]}</p>
+        ${ninjaNote}
+        ${dragonNote}
         <input type="number" id="challenge-amt-1" class="input-hero" value="0" min="0" max="${challenger.cur[pStage.s]}" style="width:100%; font-size:30px; text-align:center; margin:10px 0;">
         <button class="btn btn-main" onclick="setChallengeBet1()">Commit</button>
         ${passiveOptions}
@@ -2343,25 +2353,35 @@ function setChallengeBet1() {
 function opponentInvest() {
     const opponent = party[challengeData.opponent];
     
-    // Check for passives that can be used
+    // Check for passives that can be used (NO PALADIN DICE IN FRIEND CHALLENGES)
     let canUseArcaneAlliance = (opponent.n === 'Neighbor Witch' && !passiveUsed[challengeData.opponent]);
-let canUseOverride = (opponent.n === 'Friendly AI' && !passiveUsed[challengeData.opponent]);
-let canUsePaladinDice = (opponent.n === 'Drunken Paladin' && !opponent.paladinDiceUsedThisTurn);
+    let canUseOverride = (opponent.n === 'Friendly AI' && !passiveUsed[challengeData.opponent]);
 
-let passiveOptions = '';
-if(canUseArcaneAlliance) {
-    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('opponent')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
-} else if(canUseOverride) {
-    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('opponent')">⚡ Use System Override (Choose Stat)</button>`;
-} else if(canUsePaladinDice) {
-    passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="rollChallengePaladinDice('opponent')">🎲 Roll the Paladin's Dice</button>`;
-}
+    let passiveOptions = '';
+    if(canUseArcaneAlliance) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeArcaneAlliance('opponent')">⚡ Use Arcane Alliance (Borrow Points)</button>`;
+    } else if(canUseOverride) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('opponent')">⚡ Use System Override (Choose Stat)</button>`;
+    }
+    
+    // Special notes for Shadow Ninja and Lost Dragon
+    let ninjaNote = '';
+    if(opponent.n === 'Shadow Ninja' && pStage.s === 'spd') {
+        ninjaNote = `<p style="font-size: 12px; color: #9370DB; margin-top: 8px;">⚡ Double Strike: Your SPD counts as 2x!</p>`;
+    }
+    
+    let dragonNote = '';
+    if(opponent.n === 'Lost Dragon') {
+        dragonNote = `<p style="font-size: 12px; color: #FF6347; margin-top: 8px;">⚡ Dragon Rage: Spend 4+ for +3 bonus!</p>`;
+    }
     
     showModal(`${opponent.pName}'s Investment`, "How much will you risk?", `
         <div style="margin: 15px 0;">
             <img src="${opponent.i}" alt="${opponent.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
         </div>
         <p style="font-size:14px; margin-bottom:10px;">Current ${pStage.s.toUpperCase()}: ${opponent.cur[pStage.s]}</p>
+        ${ninjaNote}
+        ${dragonNote}
         <input type="number" id="challenge-amt-2" class="input-hero" value="0" min="0" max="${opponent.cur[pStage.s]}" style="width:100%; font-size:30px; text-align:center; margin:10px 0;">
         <button class="btn btn-main" onclick="setChallengeBet2()">Commit</button>
         ${passiveOptions}
@@ -2522,38 +2542,172 @@ function showChallengeResult() {
         opponent.score += bothWinPoints;
         challenger.cur[pStage.s] += 2;
         opponent.cur[pStage.s] += 2;
-    // ADD THESE LINES:
-    // Friendly AI passive: System Override recharge on Challenge a Friend win
-    if(challenger.n === 'Friendly AI') {
-        passiveUsed[challengeData.challenger] = false;
-    }
-    if(opponent.n === 'Friendly AI') {
-        passiveUsed[challengeData.opponent] = false;
-    }
+        
+        // Track passive triggers
+        let passiveTriggers = '';
+        
+        // Friendly AI passive: System Override recharge on Challenge a Friend win
+        if(challenger.n === 'Friendly AI') {
+            passiveUsed[challengeData.challenger] = false;
+        }
+        if(opponent.n === 'Friendly AI') {
+            passiveUsed[challengeData.opponent] = false;
+        }
+        
+        // Thug Dwarf passive: Brute Force - +3 POW on win
+        if(challenger.n === 'Thug Dwarf') {
+            challenger.cur.pow += 3;
+            passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${challenger.pName}: Brute Force +3 POW!</p>`;
+        }
+        if(opponent.n === 'Thug Dwarf') {
+            opponent.cur.pow += 3;
+            passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${opponent.pName}: Brute Force +3 POW!</p>`;
+        }
+        
+        // Babbler Rogue passive: Crowd Favorite
+        if(!challengesCompleted[challengeData.challenger]) challengesCompleted[challengeData.challenger] = 0;
+        challengesCompleted[challengeData.challenger]++;
+        if(challenger.n === 'Babbler Rogue' && challengesCompleted[challengeData.challenger] % 3 === 0) {
+            challenger.score += 1;
+            passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${challenger.pName}: Crowd Favorite +1 Glory! (${challengesCompleted[challengeData.challenger]} challenges)</p>`;
+        }
+        
+        if(!challengesCompleted[challengeData.opponent]) challengesCompleted[challengeData.opponent] = 0;
+        challengesCompleted[challengeData.opponent]++;
+        if(opponent.n === 'Babbler Rogue' && challengesCompleted[challengeData.opponent] % 3 === 0) {
+            opponent.score += 1;
+            passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${opponent.pName}: Crowd Favorite +1 Glory! (${challengesCompleted[challengeData.opponent]} challenges)</p>`;
+        }
+        
+        // Neighbor Witch passive: Track wins for recharge
+        if(challenger.n === 'Neighbor Witch') {
+            if(!witchWins[challengeData.challenger]) witchWins[challengeData.challenger] = 0;
+            witchWins[challengeData.challenger]++;
+            if(witchWins[challengeData.challenger] % 3 === 0) {
+                passiveUsed[challengeData.challenger] = false;
+                passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${challenger.pName}: Arcane Alliance Recharged! (${witchWins[challengeData.challenger]} wins)</p>`;
+            }
+        }
+        if(opponent.n === 'Neighbor Witch') {
+            if(!witchWins[challengeData.opponent]) witchWins[challengeData.opponent] = 0;
+            witchWins[challengeData.opponent]++;
+            if(witchWins[challengeData.opponent] % 3 === 0) {
+                passiveUsed[challengeData.opponent] = false;
+                passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${opponent.pName}: Arcane Alliance Recharged! (${witchWins[challengeData.opponent]} wins)</p>`;
+            }
+        }
+        
+        // Check for Lover Zombie
+        let zombieWarning = '';
+        let zombieWinners = [];
+        if(challenger.n === 'Lover Zombie') zombieWinners.push(challengeData.challenger);
+        if(opponent.n === 'Lover Zombie') zombieWinners.push(challengeData.opponent);
+        
+        if(zombieWinners.length > 0) {
+            zombieWarning = `<p style="font-size: 12px; color: var(--blood); margin-top: 10px; padding: 10px; background: rgba(128,0,0,0.1); border-left: 3px solid var(--blood);">💀 <b>Cursed Embrace:</b> Lover Zombie's victory curse will activate!</p>`;
+        }
         
         showModal("Dual Victory!", "Both heroes triumph!", `
             <p>Both ${challenger.pName} and ${opponent.pName} gain ${bothWinPoints} point${bothWinPoints > 1 ? 's' : ''} of Glory!</p>
-            <button class="btn btn-main" onclick="checkStore()">Continue</button>
+            ${passiveTriggers}
+            ${zombieWarning}
+            <button class="btn btn-main" onclick="${zombieWinners.length > 0 ? `triggerLoverZombieFriend([${zombieWinners.join(',')}])` : 'checkStore()'}">Continue</button>
         `);
     } else if(challengerWin && !opponentWin) {
         challenger.score += singleWinPoints;
         challenger.cur[pStage.s] += 2;
+        
+        // Track passive triggers
+        let passiveTriggers = '';
+        
+        // Friendly AI recharge
         if(challenger.n === 'Friendly AI') {
            passiveUsed[challengeData.challenger] = false;
         }
+        
+        // Thug Dwarf passive
+        if(challenger.n === 'Thug Dwarf') {
+            challenger.cur.pow += 3;
+            passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${challenger.pName}: Brute Force +3 POW!</p>`;
+        }
+        
+        // Babbler Rogue passive
+        if(!challengesCompleted[challengeData.challenger]) challengesCompleted[challengeData.challenger] = 0;
+        challengesCompleted[challengeData.challenger]++;
+        if(challenger.n === 'Babbler Rogue' && challengesCompleted[challengeData.challenger] % 3 === 0) {
+            challenger.score += 1;
+            passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${challenger.pName}: Crowd Favorite +1 Glory! (${challengesCompleted[challengeData.challenger]} challenges)</p>`;
+        }
+        
+        // Neighbor Witch passive
+        if(challenger.n === 'Neighbor Witch') {
+            if(!witchWins[challengeData.challenger]) witchWins[challengeData.challenger] = 0;
+            witchWins[challengeData.challenger]++;
+            if(witchWins[challengeData.challenger] % 3 === 0) {
+                passiveUsed[challengeData.challenger] = false;
+                passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${challenger.pName}: Arcane Alliance Recharged! (${witchWins[challengeData.challenger]} wins)</p>`;
+            }
+        }
+        
+        // Check for Lover Zombie
+        let zombieWarning = '';
+        if(challenger.n === 'Lover Zombie') {
+            zombieWarning = `<p style="font-size: 12px; color: var(--blood); margin-top: 10px; padding: 10px; background: rgba(128,0,0,0.1); border-left: 3px solid var(--blood);">💀 <b>Cursed Embrace:</b> Lover Zombie's victory curse will activate!</p>`;
+        }
+        
         showModal("Victory for the Challenger!", `${challenger.pName} Stands Alone!`, `
             <p>${challenger.pName} gains ${singleWinPoints} points of Glory!</p>
-            <button class="btn btn-main" onclick="checkStore()">Continue</button>
+            ${passiveTriggers}
+            ${zombieWarning}
+            <button class="btn btn-main" onclick="${challenger.n === 'Lover Zombie' ? `triggerLoverZombieFriend([${challengeData.challenger}])` : 'checkStore()'}">Continue</button>
         `);
     } else if(!challengerWin && opponentWin) {
         opponent.score += singleWinPoints;
         opponent.cur[pStage.s] += 2;
+        
+        // Track passive triggers
+        let passiveTriggers = '';
+        
+        // Friendly AI recharge
         if(opponent.n === 'Friendly AI') {
            passiveUsed[challengeData.opponent] = false;
         }
+        
+        // Thug Dwarf passive
+        if(opponent.n === 'Thug Dwarf') {
+            opponent.cur.pow += 3;
+            passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${opponent.pName}: Brute Force +3 POW!</p>`;
+        }
+        
+        // Babbler Rogue passive
+        if(!challengesCompleted[challengeData.opponent]) challengesCompleted[challengeData.opponent] = 0;
+        challengesCompleted[challengeData.opponent]++;
+        if(opponent.n === 'Babbler Rogue' && challengesCompleted[challengeData.opponent] % 3 === 0) {
+            opponent.score += 1;
+            passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${opponent.pName}: Crowd Favorite +1 Glory! (${challengesCompleted[challengeData.opponent]} challenges)</p>`;
+        }
+        
+        // Neighbor Witch passive
+        if(opponent.n === 'Neighbor Witch') {
+            if(!witchWins[challengeData.opponent]) witchWins[challengeData.opponent] = 0;
+            witchWins[challengeData.opponent]++;
+            if(witchWins[challengeData.opponent] % 3 === 0) {
+                passiveUsed[challengeData.opponent] = false;
+                passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${opponent.pName}: Arcane Alliance Recharged! (${witchWins[challengeData.opponent]} wins)</p>`;
+            }
+        }
+        
+        // Check for Lover Zombie
+        let zombieWarning = '';
+        if(opponent.n === 'Lover Zombie') {
+            zombieWarning = `<p style="font-size: 12px; color: var(--blood); margin-top: 10px; padding: 10px; background: rgba(128,0,0,0.1); border-left: 3px solid var(--blood);">💀 <b>Cursed Embrace:</b> Lover Zombie's victory curse will activate!</p>`;
+        }
+        
         showModal("Victory for the Defender!", `${opponent.pName} Stands Alone!`, `
             <p>${opponent.pName} gains ${singleWinPoints} points of Glory!</p>
-            <button class="btn btn-main" onclick="checkStore()">Continue</button>
+            ${passiveTriggers}
+            ${zombieWarning}
+            <button class="btn btn-main" onclick="${opponent.n === 'Lover Zombie' ? `triggerLoverZombieFriend([${challengeData.opponent}])` : 'checkStore()'}">Continue</button>
         `);
     } else {
         showModal("Challenge Failed", "The abyss claims all...", `
@@ -2562,6 +2716,57 @@ function showChallengeResult() {
         `);
     }
     updatePartyUI();
+}
+
+// Lover Zombie handler for friend challenges
+function triggerLoverZombieFriend(zombieIndices) {
+    if(zombieIndices.length === 0) {
+        checkStore();
+        return;
+    }
+    
+    // Process first zombie in the list
+    const zombieIdx = zombieIndices[0];
+    const zombieHero = party[zombieIdx];
+    
+    showModal("💀 Cursed Embrace", `${zombieHero.pName} drains life from all`, `
+        <div style="margin: 15px 0;">
+            <img src="${zombieHero.i}" alt="Lover Zombie" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size:14px; margin-bottom:15px;">Select a stat - ALL players will lose 2 points, and YOU will gain +1 point:</p>
+        <select id="zombie-debuff-stat-friend" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+            <option value="pow">POW (Power)</option>
+            <option value="spd">SPEED</option>
+            <option value="brn">BRAIN</option>
+            <option value="cha">CHA (Charisma)</option>
+            <option value="wil">WIL (Willpower)</option>
+        </select>
+        <button class="btn btn-main" onclick="applyLoverZombieFriend(${zombieIdx}, [${zombieIndices.slice(1).join(',')}])">Drain All & Empower Self</button>
+    `);
+}
+
+function applyLoverZombieFriend(zombieIdx, remainingZombies) {
+    const chosenStat = document.getElementById('zombie-debuff-stat-friend').value;
+    const zombieHero = party[zombieIdx];
+    
+    // All OTHER players lose 2 points
+    party.forEach((p, idx) => {
+        if(idx !== zombieIdx && p.cur[chosenStat] > 0) {
+            p.cur[chosenStat] -= 2;
+        }
+    });
+    
+    // The Zombie GAINS 1 point
+    zombieHero.cur[chosenStat] += 1;
+    
+    updatePartyUI();
+    
+    // If there are more zombies, trigger the next one
+    if(remainingZombies.length > 0) {
+        triggerLoverZombieFriend(remainingZombies);
+    } else {
+        checkStore();
+    }
 }
 
 function useChallengeArcaneAlliance(role) {
