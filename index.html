@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
+    <meta name="viewport" content="width=device-width,initial-scbeer=1,maximum-scbeer=1,user-scalable=0" />
     <title>Missions in Pavel</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=MedievalSharp&family=Almendra:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
@@ -32,7 +32,7 @@
             border: 1px solid #8e7b55; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); position: relative;
             background-image: url('https://www.transparenttextures.com/patterns/parchment.png'); transition: 0.3s;
         }
-        .hero-sheet.active-now { transform: scale(1.02); border: 2px solid var(--gold-bright); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+        .hero-sheet.active-now { transform: scbeer(1.02); border: 2px solid var(--gold-bright); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
         .wax-seal {
             position: absolute; top: -10px; right: -5px; width: 45px; height: 45px;
             background: radial-gradient(#900, #500); border-radius: 50%; color: #f3cf7a;
@@ -77,8 +77,8 @@
         }
         
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+            0%, 100% { transform: scbeer(1); }
+            50% { transform: scbeer(1.03); }
         }
         
         @keyframes shine {
@@ -92,11 +92,11 @@
         }
         
         @keyframes diceRoll {
-            0% { transform: rotate(0deg) scale(1); }
-            25% { transform: rotate(90deg) scale(1.2); }
-            50% { transform: rotate(180deg) scale(1); }
-            75% { transform: rotate(270deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1); }
+            0% { transform: rotate(0deg) scbeer(1); }
+            25% { transform: rotate(90deg) scbeer(1.2); }
+            50% { transform: rotate(180deg) scbeer(1); }
+            75% { transform: rotate(270deg) scbeer(1.2); }
+            100% { transform: rotate(360deg) scbeer(1); }
         }
         
         .dice {
@@ -149,7 +149,7 @@
         }
         
         .stat-box:hover {
-            transform: scale(1.05);
+            transform: scbeer(1.05);
             background: rgba(197, 160, 89, 0.1);
         }
         
@@ -190,7 +190,7 @@
         
         #exit-fullscreen:hover {
             background: rgba(0,0,0,0.9);
-            transform: scale(1.05);
+            transform: scbeer(1.05);
         }
         
         /* Show button only on mobile devices */
@@ -371,7 +371,7 @@
                 <!-- Subtitle -->
                 <div style="text-align: center; margin-top: 12px; font-family: 'Almendra', serif; font-style: italic; 
                            font-size: 10px; letter-spacing: 2px; color: #7a6a4a; opacity: 0.9;">
-                    A Tale of Heroes and Beer!
+                    A Tbeer of Heroes and Beer!
                 </div>
             </div>
             
@@ -381,8 +381,8 @@
                 <!-- Scroll 1: The World Map -->
                 <div onclick="showBook(1)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 0.6s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
-                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
-                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scbeer(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scbeer(1)'">
                         <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #3a2a1a, #5a4a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
                         <!-- Scroll cover -->
@@ -402,8 +402,8 @@
                 <!-- Scroll 2: Pavel Town -->
                 <div onclick="showBook(2)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 0.8s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
-                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
-                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scbeer(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scbeer(1)'">
                         <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #2a1a1a, #4a3a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
                         <!-- Scroll cover -->
@@ -423,8 +423,8 @@
                 <!-- Scroll 3: The Heroes -->
                 <div onclick="showBook(3)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 1s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
-                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
-                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scbeer(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scbeer(1)'">
                         <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #1a1a2a, #3a3a4a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
                         <!-- Scroll cover -->
@@ -444,8 +444,8 @@
                 <!-- Scroll 4: Game Rules -->
                 <div onclick="showBook(4)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 1.2s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
-                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
-                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scbeer(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scbeer(1)'">
                         <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #1a2a1a, #3a4a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
                         <!-- Scroll cover -->
@@ -488,7 +488,7 @@
                 
                 <p><b>To the Southeast</b> lie the <b>Monk Monasteries</b>, peaceful sanctuaries where monks dedicate their lives to meditation, study, and—when the mood strikes—the occasional pilgrimage to Pavel's famous tavern.</p>
                 
-                <p><b>To the Southwest</b>, shrouded in perpetual mist, are the <b>High Dwarvish Mountains</b> and their cloudy forests. The dwarves dwelling here are master craftsmen, and their ales are said to be second only to Pavel's own.</p>
+                <p><b>To the Southwest</b>, shrouded in perpetual mist, are the <b>High Dwarvish Mountains</b> and their cloudy forests. The dwarves dwelling here are master craftsmen, and their beers are said to be second only to Pavel's own.</p>
                 
                 <p>But between Pavel and safety lie <b>the Swamps</b>—a treacherous expanse of murky water and twisted trees. Here, trolls lurk in the shadows, emerging to raid the village under cover of darkness. Many heroes have ventured into the swamps seeking to end the threat, but the mist keeps its secrets well.</p>
             </div>
@@ -499,16 +499,16 @@
         <!-- Scroll 2: Pavel Town -->
         <div id="intro-book-2" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
             <h1 style="color:var(--blood); text-align: center; font-size: 28px;">PAVEL TOWN</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">The Village of Ale and Fellowship</p>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">The Town of Beer and Fellowship</p>
             <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
             <div class="instruction-text" style="text-align: justify;">
-                <p>In the heart of a realm where ancient forests whisper forkotten secrets, there lies the village of <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of ale.</p>
+                <p>In the heart of a realm where ancient forests whisper forkotten secrets, there lies the town of <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of beer.</p>
                 
                 <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">King Antony - The Peaceful King</b></p>
-                <p>At the center of this peculiar kingdom sits <b>King Antony</b>, a ruler unlike any other. While neighboring monarchs concern themselves with conquest and coin, Antony has but two ambitions: to keep his village peaceful and his tankard full. You'll find him most evenings at the tavern's corner table, laughing heartily and buying rounds for travelers, believing that a kingdom held together by friendship and beer is stronger than any held by the sword. His crown sits askew on his head, and his royal robes are often stained with ale, but his people love him for it. "A happy village is a peaceful village," he often declares, raising his mug high.</p>
+                <p>At the center of this peculiar kingdom sits <b>King Antony</b>, a ruler unlike any other. While neighboring monarchs concern themselves with conquest and coin, Antony has but two ambitions: to keep his village peaceful and his tankard full. You'll find him most evenings at the tavern's corner table, laughing heartily and buying rounds for travelers, believing that a kingdom held together by friendship and beer is stronger than any held by the sword. His crown sits askew on his head, and his royal robes are often stained with beer, but his people love him for it. "A happy village is a peaceful village," he often declares, raising his mug high.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Old Nick the Geezer - Keeper of Tales</b></p>
-                <p>Every night, as the fire crackles and the ale flows, <b>Old Nick the Geezer</b> takes his seat by the hearth. With a voice weathered by a hundred winters, he weaves tales for all who will listen—stories of the days when the forests were deeper and the monsters bolder, when heroes walked among them and magic still lingered in the morning mist. The villagers gather around him like moths to flame, for Nick's stories are the living memory of Pavel itself. Some say he's been telling tales since the village was founded; others claim he's simply too stubborn to let death interrupt a good story.</p>
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Old Nick the Geezer - Keeper of Tbeers</b></p>
+                <p>Every night, as the fire crackles and the beer flows, <b>Old Nick the Geezer</b> takes his seat by the hearth. With a voice weathered by a hundred winters, he weaves tbeers for all who will listen—stories of the days when the forests were deeper and the monsters bolder, when heroes walked among them and magic still lingered in the morning mist. The villagers gather around him like moths to flame, for Nick's stories are the living memory of Pavel itself. Some say he's been telling tbeers since the village was founded; others claim he's simply too stubborn to let death interrupt a good story.</p>
                 
                 <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Panchonco & Yuumi - The Eternal Patron</b></p>
                 <p>And there, propped against the bar as if he were part of the furniture, you'll always find <b>Panchonco</b>. Day or night, rain or shine, this eternal patron haunts the pub with his faithful cat <b>Yuumi</b> perched on his shoulder, both swaying gently to some unheard rhythm. His coin purse may empty and refill with the seasons, but his stool never stays vacant for long. Yuumi, a gray tabby with knowing eyes, seems to be the only creature who truly understands Panchonco's slurred philosophy. Some say he's been drinking since before King Antony was born; others swear they've never seen him sober enough to confirm. The barkeep simply keeps his tab running and his mug full.</p>
@@ -1049,7 +1049,7 @@ function handleReg() {
     
     // If all heroes are used, show error
     if (availableHeroes.length === 0) {
-        alert('All heroes have been selected! Cannot add more players.');
+        beerrt('All heroes have been selected! Cannot add more players.');
         return;
     }
     
@@ -1354,7 +1354,7 @@ function processBorrow() {
     const borrowAmt = parseInt(document.getElementById('borrow-amt').value) || 0;
     
     if(borrowAmt > ally.cur[pStage.s]) {
-        alert(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
+        beerrt(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
         return;
     }
     
@@ -1717,7 +1717,7 @@ function submitGroupContribution() {
     const contribution = parseInt(document.getElementById('group-contribution').value) || 0;
     
     if(contribution < 0 || contribution > currentHero.cur[requiredStat]) {
-        alert("Invalid contribution amount!");
+        beerrt("Invalid contribution amount!");
         return;
     }
     
@@ -2210,7 +2210,7 @@ function meditateTurn() {
             rotateCycle();
         }
     } else {
-        alert("Your spirit is exhausted! You can no longer Meditate.");
+        beerrt("Your spirit is exhausted! You can no longer Meditate.");
     }
 }
 
@@ -2343,7 +2343,7 @@ function setChallengeBet1() {
     let spend = parseInt(document.getElementById('challenge-amt-1').value) || 0;
     const challenger = party[challengeData.challenger];
     if(spend > challenger.cur[pStage.s]) {
-        alert("Insufficient resource!");
+        beerrt("Insufficient resource!");
         return;
     }
     challengeData.challengerSpend = spend;
@@ -2392,7 +2392,7 @@ function setChallengeBet2() {
     let spend = parseInt(document.getElementById('challenge-amt-2').value) || 0;
     const opponent = party[challengeData.opponent];
     if(spend > opponent.cur[pStage.s]) {
-        alert("Insufficient resource!");
+        beerrt("Insufficient resource!");
         return;
     }
     challengeData.opponentSpend = spend;
@@ -2778,7 +2778,7 @@ function useChallengeArcaneAlliance(role) {
     let otherPlayers = party.filter((p, i) => i !== challengeData.challenger && i !== challengeData.opponent);
     
     if(otherPlayers.length === 0) {
-        alert("No other players available to borrow from!");
+        beerrt("No other players available to borrow from!");
         passiveUsed[playerIdx] = false; // Restore passive
         return;
     }
@@ -2811,7 +2811,7 @@ function processChallengeBorrow(role) {
     const borrowAmt = parseInt(document.getElementById('challenge-borrow-amt').value) || 0;
     
     if(borrowAmt > ally.cur[pStage.s]) {
-        alert(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
+        beerrt(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
         return;
     }
     
@@ -2843,7 +2843,7 @@ function finalizeChallengeBorrow(role) {
     const ownSpend = parseInt(document.getElementById('challenge-own-amt').value) || 0;
     
     if(ownSpend > h.cur[pStage.s]) {
-        alert("Not enough points!");
+        beerrt("Not enough points!");
         return;
     }
     
@@ -2887,7 +2887,7 @@ function processChallengeOverride(role) {
     const spend = parseInt(document.getElementById('challenge-override-amt').value) || 0;
     
     if(spend > h.cur[overrideStat]) {
-        alert("Not enough points!");
+        beerrt("Not enough points!");
         return;
     }
     
@@ -2910,7 +2910,7 @@ function processChallengeOverride(role) {
     const spend = parseInt(document.getElementById('challenge-override-amt').value) || 0;
     
     if(spend > h.cur[overrideStat]) {
-        alert("Not enough points!");
+        beerrt("Not enough points!");
         return;
     }
     
@@ -3145,7 +3145,7 @@ function endGame() {
 function resetHallOfFame() {
     if(confirm("Are you sure you want to erase all village history?")) {
         localStorage.removeItem('pavel_wins');
-        alert("The ledgers have been burned.");
+        beerrt("The ledgers have been burned.");
         location.reload();
     }
 }
