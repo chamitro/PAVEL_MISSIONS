@@ -969,25 +969,25 @@ const STAGES = [
 // Group Missions - Everyone must work together!
 const GROUP_STAGES = [
     {t: "The Great Swamp Flood", d: "Pavel town is sinking! Everyone must grab a bucket and bail water.", s: "pow", e: 10, h: 15, isGroup: true},
-    {t: "Dragon's Siege", d: "A dragon is breathing fire on the pub's roof. Fight him!", s: "spd", e: 10, h: 15, isGroup: true},
-    {t: "The King's Banquet", d: "King Antony needs 5000 beers immediately. Form a group and gather the beers!", s: "wil", e: 8, h: 11, isGroup: true},
-    {t: "Ork Horde Stand", d: "A group of Orks is trying to break the pub's door. Push back together!", s: "pow", e: 9, h: 15, isGroup: true},
-    {t: "The Silent Vigil", d: "A forest spirit demands absolute silence for all the people in town, or else he will kill all people!", s: "wil", e: 9, h: 14, isGroup: true},
-    {t: "Tavern Clean-up", d: "Panchoncho threw a party. The mess is legendary. Scrub, heroes!", s: "wil", e: 7, h: 10, isGroup: true},
-    {t: "Lost Children Hunt", d: "Search the Misty Forest together before the Trolls find the kids.", s: "brn", e: 11, h: 20, isGroup: true},
-    {t: "The Giant's Rock", d: "A giant rock blocks the road. Pull it away as a team.", s: "pow", e: 10, h: 12, isGroup: true},
-    {t: "Monastic Choir", d: "To pass the monastery, you must all sing in perfect harmony.", s: "cha", e: 7, h: 11, isGroup: true},
-    {t: "Swamp Bridge Build", d: "The main bridge is out. Carry the logs and lash them tight!", s: "brn", e: 9, h: 13, isGroup: true},
+    {t: "Dragon's Siege", d: "A dragon is breathing fire on the pub's roof. Fight him!", s: "spd", e: 10, h: 22, isGroup: true},
+    {t: "The King's Banquet", d: "King Antony needs 5000 beers immediately. Form a group and gather the beers!", s: "wil", e: 8, h: 13, isGroup: true},
+    {t: "Ork Horde Stand", d: "A group of Orks is trying to break the pub's door. Push back together!", s: "pow", e: 12, h: 16, isGroup: true},
+    {t: "The Silent Vigil", d: "A forest spirit demands absolute silence for all the people in town, or else he will kill all people!", s: "wil", e: 14, h: 20, isGroup: true},
+    {t: "Tavern Clean-up", d: "Panchoncho threw a party. The mess is legendary. Scrub, heroes!", s: "wil", e: 8, h: 13, isGroup: true},
+    {t: "Lost Children Hunt", d: "Search the Misty Forest together before the Trolls find the kids.", s: "brn", e: 14, h: 20, isGroup: true},
+    {t: "The Giant's Rock", d: "A giant rock blocks the road. Pull it away as a team.", s: "pow", e: 10, h: 15, isGroup: true},
+    {t: "Monastic Choir", d: "To pass the monastery, you must all sing in perfect harmony.", s: "cha", e: 7, h: 13, isGroup: true},
+    {t: "Swamp Bridge Build", d: "The main bridge is out. Carry the logs and lash them tight!", s: "brn", e: 10, h: 15, isGroup: true},
     {t: "The Drunken Parade", d: "Escort the King through the village without anyone falling over.", s: "wil", e: 8, h: 13, isGroup: true},
     {t: "Magic Barrier Repair", d: "The village shield is flickering. Everyone contribute your essence!", s: "brn", e: 10, h: 15, isGroup: true},
     {t: "Moving Walls", d: "Drunk wizards made the walls are moving. Help him reverse the curse!", s: "spd", e: 10, h: 15, isGroup: true},
-    {t: "Misty Ambush", d: "Ninjas are everywhere! Watch each other's backs and run!", s: "spd", e: 9, h: 14, isGroup: true},
+    {t: "Misty Ambush", d: "Ninjas are everywhere! Watch each other's backs and run!", s: "spd", e: 10, h: 14, isGroup: true},
     {t: "Dwarven Forge Pump", d: "The beers are poisoned! Gather all beers so nobody drink!", s: "spd", e: 8, h: 12, isGroup: true},
     {t: "Ghostly Trial", d: "Ancient spirits demand a tribute of willpower from every soul.", s: "wil", e: 8, h: 13, isGroup: true},
-    {t: "The Beer Barrel Race", d: "The brewery is empty! Roll the barrels from the Westlands!", s: "pow", e: 7, h: 14, isGroup: true},
+    {t: "The Beer Barrel Race", d: "The brewery is empty! Roll the barrels from the Westlands!", s: "pow", e: 11, h: 15, isGroup: true},
     {t: "Riddle of the Sphinx", d: "A strange creature blocks the path. You must solve its 5-part riddle.", s: "brn", e: 10, h: 15, isGroup: true},
     {t: "Village Fire Brigade", d: "The pub is on fire! Pass the water bags quickly!", s: "spd", e: 9, h: 13, isGroup: true},
-    {t: "The Final Toast", d: "King Antony demands the most epic drinking song ever recorded.", s: "cha", e: 9, h: 14, isGroup: true}
+    {t: "The Final Toast", d: "King Antony demands the most epic drinking song ever recorded.", s: "cha", e: 9, h: 13, isGroup: true}
 ];
 
 // Combine group missions into main deck
@@ -1808,9 +1808,17 @@ function resolveGroupChallenge() {
     }).join('');
     
     if(success) {
-        // SUCCESS - All players get glory points
+        // SUCCESS - All players get glory points and stat refunds
         party.forEach((p, idx) => {
             p.score += (pPts === 1 ? 2 : 4);
+            
+            // Find this player's contribution
+            const playerContribution = groupChallengeContributions.find(c => c.playerIndex === idx);
+            
+            // +2 stat refund for the stat they contributed (if they contributed)
+            if(playerContribution && playerContribution.contribution > 0) {
+                p.cur[playerContribution.usedStat] += 2;
+            }
             
             // Babbler Rogue passive: Crowd Favorite - track group missions
             if(!challengesCompleted[idx]) challengesCompleted[idx] = 0;
@@ -1823,6 +1831,15 @@ function resolveGroupChallenge() {
             if(p.n === 'Thug Dwarf') {
                 p.cur.pow += 3;
             }
+            
+            // Neighbor Witch passive: Track wins for recharge
+            if(p.n === 'Neighbor Witch') {
+                if(!witchWins[idx]) witchWins[idx] = 0;
+                witchWins[idx]++;
+                if(witchWins[idx] % 3 === 0) {
+                    passiveUsed[idx] = false; // Recharge Arcane Alliance
+                }
+            }
         });
         
         // Build passive trigger messages
@@ -1833,6 +1850,9 @@ function resolveGroupChallenge() {
             }
             if(p.n === 'Thug Dwarf') {
                 passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${p.pName}: Brute Force +3 POW!</p>`;
+            }
+            if(p.n === 'Neighbor Witch' && witchWins[idx] && witchWins[idx] % 3 === 0) {
+                passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${p.pName}: Arcane Alliance Recharged! (${witchWins[idx]} wins)</p>`;
             }
         });
         
