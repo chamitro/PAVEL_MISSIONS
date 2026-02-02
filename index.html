@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scbeer=1,maximum-scbeer=1,user-scalable=0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
     <title>Missions in Pavel</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=MedievalSharp&family=Almendra:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
@@ -32,7 +32,7 @@
             border: 1px solid #8e7b55; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); position: relative;
             background-image: url('https://www.transparenttextures.com/patterns/parchment.png'); transition: 0.3s;
         }
-        .hero-sheet.active-now { transform: scbeer(1.02); border: 2px solid var(--gold-bright); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+        .hero-sheet.active-now { transform: scale(1.02); border: 2px solid var(--gold-bright); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
         .wax-seal {
             position: absolute; top: -10px; right: -5px; width: 45px; height: 45px;
             background: radial-gradient(#900, #500); border-radius: 50%; color: #f3cf7a;
@@ -77,8 +77,8 @@
         }
         
         @keyframes pulse {
-            0%, 100% { transform: scbeer(1); }
-            50% { transform: scbeer(1.03); }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
         }
         
         @keyframes shine {
@@ -92,11 +92,11 @@
         }
         
         @keyframes diceRoll {
-            0% { transform: rotate(0deg) scbeer(1); }
-            25% { transform: rotate(90deg) scbeer(1.2); }
-            50% { transform: rotate(180deg) scbeer(1); }
-            75% { transform: rotate(270deg) scbeer(1.2); }
-            100% { transform: rotate(360deg) scbeer(1); }
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(1); }
+            75% { transform: rotate(270deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
         }
         
         .dice {
@@ -149,7 +149,7 @@
         }
         
         .stat-box:hover {
-            transform: scbeer(1.05);
+            transform: scale(1.05);
             background: rgba(197, 160, 89, 0.1);
         }
         
@@ -190,7 +190,7 @@
         
         #exit-fullscreen:hover {
             background: rgba(0,0,0,0.9);
-            transform: scbeer(1.05);
+            transform: scale(1.05);
         }
         
         /* Show button only on mobile devices */
@@ -371,7 +371,7 @@
                 <!-- Subtitle -->
                 <div style="text-align: center; margin-top: 12px; font-family: 'Almendra', serif; font-style: italic; 
                            font-size: 10px; letter-spacing: 2px; color: #7a6a4a; opacity: 0.9;">
-                    A Tbeer of Heroes and Beer!
+                    A Tale of Heroes and Beer!
                 </div>
             </div>
             
@@ -381,8 +381,8 @@
                 <!-- Scroll 1: The World Map -->
                 <div onclick="showBook(1)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 0.6s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
-                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scbeer(1.02)'" 
-                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scbeer(1)'">
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
                         <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #3a2a1a, #5a4a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
                         <!-- Scroll cover -->
@@ -402,8 +402,8 @@
                 <!-- Scroll 2: Pavel Town -->
                 <div onclick="showBook(2)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 0.8s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
-                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scbeer(1.02)'" 
-                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scbeer(1)'">
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
                         <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #2a1a1a, #4a3a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
                         <!-- Scroll cover -->
@@ -423,8 +423,8 @@
                 <!-- Scroll 3: The Heroes -->
                 <div onclick="showBook(3)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 1s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
-                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scbeer(1.02)'" 
-                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scbeer(1)'">
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
                         <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #1a1a2a, #3a3a4a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
                         <!-- Scroll cover -->
@@ -444,8 +444,8 @@
                 <!-- Scroll 4: Game Rules -->
                 <div onclick="showBook(4)" style="cursor: pointer; position: relative; height: 120px; perspective: 1000px; animation: slideInLeft 1.2s ease-out;">
                     <div class="book-3d" style="position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s;"
-                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scbeer(1.02)'" 
-                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scbeer(1)'">
+                         onmouseover="this.style.transform='rotateY(-5deg) translateZ(10px) scale(1.02)'" 
+                         onmouseout="this.style.transform='rotateY(0deg) translateZ(0px) scale(1)'">
                         <!-- Scroll spine/side -->
                         <div style="position: absolute; left: 0; width: 20px; height: 100%; background: linear-gradient(to right, #1a2a1a, #3a4a3a); border-radius: 3px 0 0 3px; transform: translateZ(-10px);"></div>
                         <!-- Scroll cover -->
@@ -488,7 +488,7 @@
                 
                 <p><b>To the Southeast</b> lie the <b>Monk Monasteries</b>, peaceful sanctuaries where monks dedicate their lives to meditation, study, and—when the mood strikes—the occasional pilgrimage to Pavel's famous tavern.</p>
                 
-                <p><b>To the Southwest</b>, shrouded in perpetual mist, are the <b>High Dwarvish Mountains</b> and their cloudy forests. The dwarves dwelling here are master craftsmen, and their beers are said to be second only to Pavel's own.</p>
+                <p><b>To the Southwest</b>, shrouded in perpetual mist, are the <b>High Dwarvish Mountains</b> and their cloudy forests. The dwarves dwelling here are master craftsmen, and their ales are said to be second only to Pavel's own.</p>
                 
                 <p>But between Pavel and safety lie <b>the Swamps</b>—a treacherous expanse of murky water and twisted trees. Here, trolls lurk in the shadows, emerging to raid the village under cover of darkness. Many heroes have ventured into the swamps seeking to end the threat, but the mist keeps its secrets well.</p>
             </div>
@@ -499,16 +499,16 @@
         <!-- Scroll 2: Pavel Town -->
         <div id="intro-book-2" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
             <h1 style="color:var(--blood); text-align: center; font-size: 28px;">PAVEL TOWN</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">The Town of Beer and Fellowship</p>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">The Village of Ale and Fellowship</p>
             <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
             <div class="instruction-text" style="text-align: justify;">
-                <p>In the heart of a realm where ancient forests whisper forkotten secrets, there lies the town of <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of beer.</p>
+                <p>In the heart of a realm where ancient forests whisper forkotten secrets, there lies the village of <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of ale.</p>
                 
                 <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">King Antony - The Peaceful King</b></p>
-                <p>At the center of this peculiar kingdom sits <b>King Antony</b>, a ruler unlike any other. While neighboring monarchs concern themselves with conquest and coin, Antony has but two ambitions: to keep his village peaceful and his tankard full. You'll find him most evenings at the tavern's corner table, laughing heartily and buying rounds for travelers, believing that a kingdom held together by friendship and beer is stronger than any held by the sword. His crown sits askew on his head, and his royal robes are often stained with beer, but his people love him for it. "A happy village is a peaceful village," he often declares, raising his mug high.</p>
+                <p>At the center of this peculiar kingdom sits <b>King Antony</b>, a ruler unlike any other. While neighboring monarchs concern themselves with conquest and coin, Antony has but two ambitions: to keep his village peaceful and his tankard full. You'll find him most evenings at the tavern's corner table, laughing heartily and buying rounds for travelers, believing that a kingdom held together by friendship and beer is stronger than any held by the sword. His crown sits askew on his head, and his royal robes are often stained with ale, but his people love him for it. "A happy village is a peaceful village," he often declares, raising his mug high.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Old Nick the Geezer - Keeper of Tbeers</b></p>
-                <p>Every night, as the fire crackles and the beer flows, <b>Old Nick the Geezer</b> takes his seat by the hearth. With a voice weathered by a hundred winters, he weaves tbeers for all who will listen—stories of the days when the forests were deeper and the monsters bolder, when heroes walked among them and magic still lingered in the morning mist. The villagers gather around him like moths to flame, for Nick's stories are the living memory of Pavel itself. Some say he's been telling tbeers since the village was founded; others claim he's simply too stubborn to let death interrupt a good story.</p>
+                <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Old Nick the Geezer - Keeper of Tales</b></p>
+                <p>Every night, as the fire crackles and the ale flows, <b>Old Nick the Geezer</b> takes his seat by the hearth. With a voice weathered by a hundred winters, he weaves tales for all who will listen—stories of the days when the forests were deeper and the monsters bolder, when heroes walked among them and magic still lingered in the morning mist. The villagers gather around him like moths to flame, for Nick's stories are the living memory of Pavel itself. Some say he's been telling tales since the village was founded; others claim he's simply too stubborn to let death interrupt a good story.</p>
                 
                 <p style="margin-top: 15px;"><b style="color: #8b0000; font-size: 16px;">Panchonco & Yuumi - The Eternal Patron</b></p>
                 <p>And there, propped against the bar as if he were part of the furniture, you'll always find <b>Panchonco</b>. Day or night, rain or shine, this eternal patron haunts the pub with his faithful cat <b>Yuumi</b> perched on his shoulder, both swaying gently to some unheard rhythm. His coin purse may empty and refill with the seasons, but his stool never stays vacant for long. Yuumi, a gray tabby with knowing eyes, seems to be the only creature who truly understands Panchonco's slurred philosophy. Some say he's been drinking since before King Antony was born; others swear they've never seen him sober enough to confirm. The barkeep simply keeps his tab running and his mug full.</p>
@@ -1049,7 +1049,7 @@ function handleReg() {
     
     // If all heroes are used, show error
     if (availableHeroes.length === 0) {
-        beerrt('All heroes have been selected! Cannot add more players.');
+        alert('All heroes have been selected! Cannot add more players.');
         return;
     }
     
@@ -1354,7 +1354,7 @@ function processBorrow() {
     const borrowAmt = parseInt(document.getElementById('borrow-amt').value) || 0;
     
     if(borrowAmt > ally.cur[pStage.s]) {
-        beerrt(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
+        alert(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
         return;
     }
     
@@ -1627,39 +1627,142 @@ function gamble(cur, usedStat = pStage.s) {
 // ========== GROUP CHALLENGE SYSTEM ==========
 let groupChallengeContributions = []; // Track each player's contribution
 let groupChallengePlayerIndex = 0; // Current player contributing
+let groupChallengeVotes = []; // Track who voted yes/no
+let groupChallengeVotingIndex = 0; // Current player voting
 
 function showGroupChallengeStart() {
     // Initialize group challenge
     groupChallengeContributions = [];
     groupChallengePlayerIndex = 0;
+    groupChallengeVotes = [];
+    groupChallengeVotingIndex = 0;
     
-    showModal("🤝 GROUP MISSION BEGINS!", pStage.t, `
+    showModal("🤝 GROUP MISSION APPEARS!", pStage.t, `
         <div style="margin: 20px 0; font-size: 14px; line-height: 1.6;">
             <p><strong>${pStage.d}</strong></p>
             <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
             <p style="color: var(--blood); font-weight: bold;">Required Stat: ${pStage.s.toUpperCase()}</p>
             <p>Difficulty: ${pPts === 1 ? 'Easy (+2 Glory)' : 'Hard (+4 Glory)'}</p>
             <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
-            <p style="font-size: 12px; color: #5a4634;">Everyone must contribute! If the party succeeds, all get <b>+${pPts === 1 ? '2' : '4'} Glory</b>. If the party fails, <b>everyone loses -3 to ALL stats</b>!</p>
-            <p style="font-size: 11px; color: var(--blood); font-style: italic; margin-top: 10px;">⚠️ The exact target is secret - contribute wisely!</p>
+            <p style="font-size: 12px; color: #5a4634;">Each hero must decide: <b>participate or pass?</b></p>
+            <p style="font-size: 12px; color: #5a4634;">If the party succeeds, <b>participants</b> get <b>+${pPts === 1 ? '2' : '4'} Glory</b>.</p>
+            <p style="font-size: 12px; color: #5a4634;">If the party fails, <b>participants lose -3 to ALL stats</b>!</p>
+            <p style="font-size: 11px; color: var(--blood); font-style: italic; margin-top: 10px;">⚠️ The exact target is secret - decide wisely!</p>
+            <p style="font-size: 11px; color: var(--gold); font-style: italic; margin-top: 5px;">💡 If everyone passes, the challenge is discarded.</p>
         </div>
-        <button class="btn btn-main" onclick="startGroupChallenge()">Begin the Mission!</button>
+        <button class="btn btn-main" onclick="startGroupVoting()">Begin Voting</button>
     `);
 }
 
+function startGroupVoting() {
+    groupChallengeVotingIndex = 0;
+    collectGroupVote();
+}
+
+function collectGroupVote() {
+    if(groupChallengeVotingIndex >= party.length) {
+        // All votes collected, check results
+        const yesVotes = groupChallengeVotes.filter(v => v.vote === 'yes');
+        
+        if(yesVotes.length === 0) {
+            // Everyone passed - discard challenge
+            showModal("🤝 GROUP MISSION DECLINED", "Nobody wants to participate!", `
+                <p style="font-size: 14px; margin: 20px 0;">All heroes have chosen to pass on this challenge.</p>
+                <p style="font-size: 12px; color: var(--gold);">The group mission is discarded. A new challenge will be drawn.</p>
+                <button class="btn btn-main" onclick="discardGroupChallenge()">Draw Next Challenge</button>
+            `);
+        } else {
+            // At least one person voted yes - show summary and start contributions
+            showVotingSummary();
+        }
+        return;
+    }
+    
+    const currentHero = party[groupChallengeVotingIndex];
+    
+    showModal(
+        `${currentHero.pName}'s Decision`,
+        `Will you participate in this group mission?`,
+        `
+        <div style="margin: 15px 0;">
+            <img src="${currentHero.i}" alt="${currentHero.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size: 14px; margin: 15px 0; color: var(--blood);">Mission: ${pStage.t}</p>
+        <p style="font-size: 12px; margin: 10px 0;">Required: ${pStage.s.toUpperCase()}</p>
+        <p style="font-size: 12px; margin: 10px 0;">Your ${pStage.s.toUpperCase()}: <b style="color: var(--gold);">${currentHero.cur[pStage.s]}</b></p>
+        <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+        <p style="font-size: 11px; color: #5a4634;">Success: You get +${pPts === 1 ? '2' : '4'} Glory + 2 stat points back</p>
+        <p style="font-size: 11px; color: var(--blood);">Failure: You lose -3 to ALL stats</p>
+        <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <button class="btn btn-main" style="background: #1b5e20; border-color: #4caf50;" onclick="voteGroupChallenge('yes')">✓ YES - Participate</button>
+            <button class="btn btn-skip" style="background: #5a4634; border-color: #8e7b55;" onclick="voteGroupChallenge('no')">✗ NO - Pass</button>
+        </div>
+        `
+    );
+}
+
+function voteGroupChallenge(vote) {
+    const currentHero = party[groupChallengeVotingIndex];
+    
+    groupChallengeVotes.push({
+        playerIndex: groupChallengeVotingIndex,
+        playerName: currentHero.pName,
+        vote: vote
+    });
+    
+    groupChallengeVotingIndex++;
+    collectGroupVote();
+}
+
+function showVotingSummary() {
+    const yesVotes = groupChallengeVotes.filter(v => v.vote === 'yes');
+    const noVotes = groupChallengeVotes.filter(v => v.vote === 'no');
+    
+    let voteSummary = `
+        <div style="text-align: left; margin: 15px 0;">
+            <p style="font-weight: bold; margin-bottom: 10px; color: var(--gold);">VOTING RESULTS:</p>
+            ${yesVotes.length > 0 ? `<p style="color: #4caf50; margin-bottom: 5px;"><b>Participating (${yesVotes.length}):</b> ${yesVotes.map(v => v.playerName).join(', ')}</p>` : ''}
+            ${noVotes.length > 0 ? `<p style="color: #888; margin-bottom: 5px;"><b>Passing (${noVotes.length}):</b> ${noVotes.map(v => v.playerName).join(', ')}</p>` : ''}
+        </div>
+    `;
+    
+    showModal("🤝 VOTING COMPLETE", "The mission begins!", `
+        ${voteSummary}
+        <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+        <p style="font-size: 12px; color: #5a4634;">Only participating heroes will contribute and face the consequences!</p>
+        <button class="btn btn-main" onclick="startGroupChallenge()">Begin Contributions</button>
+    `);
+}
+
+function discardGroupChallenge() {
+    // Clean up and draw next challenge
+    groupChallengeContributions = [];
+    groupChallengePlayerIndex = 0;
+    groupChallengeVotes = [];
+    groupChallengeVotingIndex = 0;
+    
+    closeModal();
+    drawCard();
+}
+
 function startGroupChallenge() {
-    // Start with first player
+    // Start with first participating player
+    groupChallengePlayerIndex = 0;
     collectGroupContribution();
 }
 
 function collectGroupContribution() {
-    if(groupChallengePlayerIndex >= party.length) {
-        // All players have contributed, resolve the challenge
+    // Find next player who voted YES
+    const yesVoters = groupChallengeVotes.filter(v => v.vote === 'yes');
+    
+    if(groupChallengePlayerIndex >= yesVoters.length) {
+        // All participating players have contributed, resolve the challenge
         resolveGroupChallenge();
         return;
     }
     
-    const currentHero = party[groupChallengePlayerIndex];
+    const voterData = yesVoters[groupChallengePlayerIndex];
+    const currentHero = party[voterData.playerIndex];
     const requiredStat = pStage.s;
     const currentStatValue = currentHero.cur[requiredStat];
     
@@ -1670,8 +1773,8 @@ function collectGroupContribution() {
     }
     
     // Check for passive abilities (NO PALADIN DICE IN GROUP MISSIONS)
-    let canUseOverride = (currentHero.n === 'Friendly AI' && !passiveUsed[groupChallengePlayerIndex]);
-    let canUseArcaneAlliance = (currentHero.n === 'Neighbor Witch' && !passiveUsed[groupChallengePlayerIndex]);
+    let canUseOverride = (currentHero.n === 'Friendly AI' && !passiveUsed[voterData.playerIndex]);
+    let canUseArcaneAlliance = (currentHero.n === 'Neighbor Witch' && !passiveUsed[voterData.playerIndex]);
     
     let passiveOptions = '';
     if(canUseOverride) {
@@ -1712,12 +1815,14 @@ function collectGroupContribution() {
 }
 
 function submitGroupContribution() {
-    const currentHero = party[groupChallengePlayerIndex];
+    const yesVoters = groupChallengeVotes.filter(v => v.vote === 'yes');
+    const voterData = yesVoters[groupChallengePlayerIndex];
+    const currentHero = party[voterData.playerIndex];
     const requiredStat = pStage.s;
     const contribution = parseInt(document.getElementById('group-contribution').value) || 0;
     
     if(contribution < 0 || contribution > currentHero.cur[requiredStat]) {
-        beerrt("Invalid contribution amount!");
+        alert("Invalid contribution amount!");
         return;
     }
     
@@ -1749,7 +1854,7 @@ function submitGroupContribution() {
     
     // Record contribution with details
     groupChallengeContributions.push({
-        playerIndex: groupChallengePlayerIndex,
+        playerIndex: voterData.playerIndex,
         playerName: currentHero.pName,
         heroName: currentHero.n,
         contribution: contribution,
@@ -1767,11 +1872,13 @@ function submitGroupContribution() {
 }
 
 function skipGroupContribution() {
-    const currentHero = party[groupChallengePlayerIndex];
+    const yesVoters = groupChallengeVotes.filter(v => v.vote === 'yes');
+    const voterData = yesVoters[groupChallengePlayerIndex];
+    const currentHero = party[voterData.playerIndex];
     
     // Record zero contribution
     groupChallengeContributions.push({
-        playerIndex: groupChallengePlayerIndex,
+        playerIndex: voterData.playerIndex,
         playerName: currentHero.pName,
         heroName: currentHero.n,
         contribution: 0,
@@ -1792,6 +1899,9 @@ function resolveGroupChallenge() {
     const totalContribution = groupChallengeContributions.reduce((sum, c) => sum + c.total, 0);
     const success = totalContribution >= pTarget;
     
+    // Get list of participating player indices
+    const participantIndices = groupChallengeContributions.map(c => c.playerIndex);
+    
     // Build contribution summary with detailed bonuses
     let contributionSummary = groupChallengeContributions.map(c => {
         let bonusDetails = [];
@@ -1808,8 +1918,9 @@ function resolveGroupChallenge() {
     }).join('');
     
     if(success) {
-        // SUCCESS - All players get glory points and stat refunds
-        party.forEach((p, idx) => {
+        // SUCCESS - Only participating players get glory points and stat refunds
+        participantIndices.forEach(idx => {
+            const p = party[idx];
             p.score += (pPts === 1 ? 2 : 4);
             
             // Find this player's contribution
@@ -1842,9 +1953,10 @@ function resolveGroupChallenge() {
             }
         });
         
-        // Build passive trigger messages
+        // Build passive trigger messages (only for participants)
         let passiveTriggers = '';
-        party.forEach((p, idx) => {
+        participantIndices.forEach(idx => {
+            const p = party[idx];
             if(p.n === 'Babbler Rogue' && challengesCompleted[idx] % 3 === 0) {
                 passiveTriggers += `<p style="font-size: 12px; color: #f3cf7a; margin-top: 5px;">⚡ ${p.pName}: Crowd Favorite +1 Glory! (${challengesCompleted[idx]} challenges)</p>`;
             }
@@ -1856,9 +1968,9 @@ function resolveGroupChallenge() {
             }
         });
         
-        // Check for Lover Zombie passive trigger
+        // Check for Lover Zombie passive trigger (only among participants)
         let zombieWarning = '';
-        let zombieExists = party.some(p => p.n === 'Lover Zombie');
+        let zombieExists = participantIndices.some(idx => party[idx].n === 'Lover Zombie');
         if(zombieExists) {
             zombieWarning = `<p style="font-size: 12px; color: var(--blood); margin-top: 10px; padding: 10px; background: rgba(128,0,0,0.1); border-left: 3px solid var(--blood);">💀 <b>Cursed Embrace:</b> Lover Zombie's victory curse will activate after this screen!</p>`;
         }
@@ -1868,7 +1980,7 @@ function resolveGroupChallenge() {
             pStage.t + " - COMPLETED",
             `
             <div style="margin: 20px 0;">
-                <p style="font-size: 18px; color: var(--gold); font-weight: bold;">VICTORY FOR THE PARTY!</p>
+                <p style="font-size: 18px; color: var(--gold); font-weight: bold;">VICTORY FOR THE PARTICIPANTS!</p>
                 <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
                 <div style="text-align: left; background: rgba(0,0,0,0.1); padding: 10px; margin: 15px 0;">
                     <p style="font-weight: bold; font-size: 12px; margin-bottom: 8px;">CONTRIBUTIONS:</p>
@@ -1879,7 +1991,7 @@ function resolveGroupChallenge() {
                         <span style="color: var(--gold);">${totalContribution} / ${pTarget}</span>
                     </div>
                 </div>
-                <p style="color: #1b5e20; font-weight: bold; margin-top: 15px;">Everyone gains +${pPts === 1 ? 2 : 4} Glory!</p>
+                <p style="color: #1b5e20; font-weight: bold; margin-top: 15px;">All participants gain +${pPts === 1 ? 2 : 4} Glory!</p>
                 ${passiveTriggers}
                 ${zombieWarning}
             </div>
@@ -1887,8 +1999,9 @@ function resolveGroupChallenge() {
             `
         );
     } else {
-        // FAILURE - All players lose -3 to all stats
-        party.forEach((p) => {
+        // FAILURE - Only participating players lose -3 to all stats
+        participantIndices.forEach(idx => {
+            const p = party[idx];
             p.cur.pow = Math.max(0, p.cur.pow - 3);
             p.cur.spd = Math.max(0, p.cur.spd - 3);
             p.cur.brn = Math.max(0, p.cur.brn - 3);
@@ -1901,7 +2014,7 @@ function resolveGroupChallenge() {
             pStage.t + " - DEFEATED",
             `
             <div style="margin: 20px 0;">
-                <p style="font-size: 18px; color: var(--blood); font-weight: bold;">THE PARTY HAS FAILED!</p>
+                <p style="font-size: 18px; color: var(--blood); font-weight: bold;">THE PARTICIPANTS HAVE FAILED!</p>
                 <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
                 <div style="text-align: left; background: rgba(0,0,0,0.1); padding: 10px; margin: 15px 0;">
                     <p style="font-weight: bold; font-size: 12px; margin-bottom: 8px;">CONTRIBUTIONS:</p>
@@ -1912,7 +2025,7 @@ function resolveGroupChallenge() {
                         <span style="color: var(--blood);">${totalContribution} / ${pTarget}</span>
                     </div>
                 </div>
-                <p style="color: var(--blood); font-weight: bold; margin-top: 15px;">Everyone loses -3 to ALL stats!</p>
+                <p style="color: var(--blood); font-weight: bold; margin-top: 15px;">All participants lose -3 to ALL stats!</p>
             </div>
             <button class="btn btn-main" onclick="finishGroupChallenge()">Accept Defeat...</button>
             `
@@ -1926,6 +2039,8 @@ function finishGroupChallenge() {
     // Clean up group challenge state
     groupChallengeContributions = [];
     groupChallengePlayerIndex = 0;
+    groupChallengeVotes = [];
+    groupChallengeVotingIndex = 0;
     
     // Continue to next round
     checkStore();
@@ -1984,7 +2099,9 @@ function applyLoverZombieDebuffGroup(zombieIndex) {
 
 // Friendly AI: System Override for group challenges
 function useSystemOverrideGroup() {
-    const currentHero = party[groupChallengePlayerIndex];
+    const yesVoters = groupChallengeVotes.filter(v => v.vote === 'yes');
+    const voterData = yesVoters[groupChallengePlayerIndex];
+    const currentHero = party[voterData.playerIndex];
     
     showModal("⚡ System Override", "Choose which stat to use instead", `
         <div style="margin: 15px 0;">
@@ -2003,12 +2120,14 @@ function useSystemOverrideGroup() {
 }
 
 function executeSystemOverrideGroup() {
-    const currentHero = party[groupChallengePlayerIndex];
+    const yesVoters = groupChallengeVotes.filter(v => v.vote === 'yes');
+    const voterData = yesVoters[groupChallengePlayerIndex];
+    const currentHero = party[voterData.playerIndex];
     const chosenStat = document.getElementById('override-stat-group').value;
     const contribution = currentHero.cur[chosenStat];
     
     // Mark passive as used
-    passiveUsed[groupChallengePlayerIndex] = true;
+    passiveUsed[voterData.playerIndex] = true;
     
     // Deduct the chosen stat
     currentHero.cur[chosenStat] -= contribution;
@@ -2021,7 +2140,7 @@ function executeSystemOverrideGroup() {
     
     // Record contribution
     groupChallengeContributions.push({
-        playerIndex: groupChallengePlayerIndex,
+        playerIndex: voterData.playerIndex,
         playerName: currentHero.pName,
         heroName: currentHero.n,
         contribution: contribution,
@@ -2041,10 +2160,12 @@ function executeSystemOverrideGroup() {
 
 // Neighbor Witch: Arcane Alliance for group challenges
 function useArcaneAllianceGroup() {
-    const currentHero = party[groupChallengePlayerIndex];
+    const yesVoters = groupChallengeVotes.filter(v => v.vote === 'yes');
+    const voterData = yesVoters[groupChallengePlayerIndex];
+    const currentHero = party[voterData.playerIndex];
     
     // Filter out the witch
-    let otherPlayers = party.filter((p, i) => i !== groupChallengePlayerIndex);
+    let otherPlayers = party.filter((p, i) => i !== voterData.playerIndex);
     let playerOptions = otherPlayers.map((p) => {
         let realIdx = party.indexOf(p);
         return `<option value="${realIdx}">${p.pName} (${p.n})</option>`;
@@ -2063,7 +2184,9 @@ function useArcaneAllianceGroup() {
 }
 
 function executeArcaneAllianceGroup() {
-    const currentHero = party[groupChallengePlayerIndex];
+    const yesVoters = groupChallengeVotes.filter(v => v.vote === 'yes');
+    const voterData = yesVoters[groupChallengePlayerIndex];
+    const currentHero = party[voterData.playerIndex];
     const targetIdx = parseInt(document.getElementById('witch-target-group').value);
     const targetHero = party[targetIdx];
     const requiredStat = pStage.s;
@@ -2072,7 +2195,7 @@ function executeArcaneAllianceGroup() {
     const borrowedAmount = targetHero.cur[requiredStat];
     
     // Mark passive as used
-    passiveUsed[groupChallengePlayerIndex] = true;
+    passiveUsed[voterData.playerIndex] = true;
     
     // Deduct from target
     targetHero.cur[requiredStat] = 0;
@@ -2085,7 +2208,7 @@ function executeArcaneAllianceGroup() {
     
     // Record contribution
     groupChallengeContributions.push({
-        playerIndex: groupChallengePlayerIndex,
+        playerIndex: voterData.playerIndex,
         playerName: currentHero.pName,
         heroName: currentHero.n,
         contribution: borrowedAmount,
@@ -2210,7 +2333,7 @@ function meditateTurn() {
             rotateCycle();
         }
     } else {
-        beerrt("Your spirit is exhausted! You can no longer Meditate.");
+        alert("Your spirit is exhausted! You can no longer Meditate.");
     }
 }
 
@@ -2343,7 +2466,7 @@ function setChallengeBet1() {
     let spend = parseInt(document.getElementById('challenge-amt-1').value) || 0;
     const challenger = party[challengeData.challenger];
     if(spend > challenger.cur[pStage.s]) {
-        beerrt("Insufficient resource!");
+        alert("Insufficient resource!");
         return;
     }
     challengeData.challengerSpend = spend;
@@ -2392,7 +2515,7 @@ function setChallengeBet2() {
     let spend = parseInt(document.getElementById('challenge-amt-2').value) || 0;
     const opponent = party[challengeData.opponent];
     if(spend > opponent.cur[pStage.s]) {
-        beerrt("Insufficient resource!");
+        alert("Insufficient resource!");
         return;
     }
     challengeData.opponentSpend = spend;
@@ -2778,7 +2901,7 @@ function useChallengeArcaneAlliance(role) {
     let otherPlayers = party.filter((p, i) => i !== challengeData.challenger && i !== challengeData.opponent);
     
     if(otherPlayers.length === 0) {
-        beerrt("No other players available to borrow from!");
+        alert("No other players available to borrow from!");
         passiveUsed[playerIdx] = false; // Restore passive
         return;
     }
@@ -2811,7 +2934,7 @@ function processChallengeBorrow(role) {
     const borrowAmt = parseInt(document.getElementById('challenge-borrow-amt').value) || 0;
     
     if(borrowAmt > ally.cur[pStage.s]) {
-        beerrt(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
+        alert(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
         return;
     }
     
@@ -2843,7 +2966,7 @@ function finalizeChallengeBorrow(role) {
     const ownSpend = parseInt(document.getElementById('challenge-own-amt').value) || 0;
     
     if(ownSpend > h.cur[pStage.s]) {
-        beerrt("Not enough points!");
+        alert("Not enough points!");
         return;
     }
     
@@ -2887,7 +3010,7 @@ function processChallengeOverride(role) {
     const spend = parseInt(document.getElementById('challenge-override-amt').value) || 0;
     
     if(spend > h.cur[overrideStat]) {
-        beerrt("Not enough points!");
+        alert("Not enough points!");
         return;
     }
     
@@ -2910,7 +3033,7 @@ function processChallengeOverride(role) {
     const spend = parseInt(document.getElementById('challenge-override-amt').value) || 0;
     
     if(spend > h.cur[overrideStat]) {
-        beerrt("Not enough points!");
+        alert("Not enough points!");
         return;
     }
     
@@ -3145,7 +3268,7 @@ function endGame() {
 function resetHallOfFame() {
     if(confirm("Are you sure you want to erase all village history?")) {
         localStorage.removeItem('pavel_wins');
-        beerrt("The ledgers have been burned.");
+        alert("The ledgers have been burned.");
         location.reload();
     }
 }
