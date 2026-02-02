@@ -32,7 +32,15 @@
             border: 1px solid #8e7b55; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); position: relative;
             background-image: url('https://www.transparenttextures.com/patterns/parchment.png'); transition: 0.3s;
         }
-        .hero-sheet.active-now { transform: scale(1.02); border: 2px solid var(--gold-bright); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+        .hero-sheet.active-now { 
+    transform: scale(1.02); 
+    border: 2px solid var(--gold); 
+    /* Magical golden-red glow */
+    box-shadow: 0 0 20px rgba(197, 160, 89, 0.6), 0 0 40px rgba(139, 0, 0, 0.4); 
+    animation: magic-pulse 2s infinite ease-in-out;
+    position: relative;
+    z-index: 10;
+}
         .wax-seal {
             position: absolute; top: -10px; right: -5px; width: 45px; height: 45px;
             background: radial-gradient(#900, #500); border-radius: 50%; color: #f3cf7a;
@@ -98,6 +106,20 @@
             75% { transform: rotate(270deg) scale(1.2); }
             100% { transform: rotate(360deg) scale(1); }
         }
+        @keyframes magic-pulse {
+    0% { 
+        box-shadow: 0 0 15px rgba(197, 160, 89, 0.5), 0 0 30px rgba(139, 0, 0, 0.3);
+        border-color: var(--gold);
+    }
+    50% { 
+        box-shadow: 0 0 30px rgba(197, 160, 89, 0.9), 0 0 60px rgba(139, 0, 0, 0.6);
+        border-color: #fff; /* White flash at the peak of the magic */
+    }
+    100% { 
+        box-shadow: 0 0 15px rgba(197, 160, 89, 0.5), 0 0 30px rgba(139, 0, 0, 0.3);
+        border-color: var(--gold);
+    }
+}
         
         .dice {
             display: inline-block;
@@ -155,15 +177,24 @@
         
         /* Progress bar subtle animation */
         .progress-marker {
-            background: linear-gradient(
-                90deg,
-                #400 0%,
-                var(--gold) 50%,
-                #400 100%
-            );
-            background-size: 200% 100%;
-            animation: shimmer 3s linear infinite;
-        }
+    height: 100%;
+    background: linear-gradient(90deg, #400, var(--gold), #400);
+    background-size: 200% 100%;
+    width: 0%;
+    transition: 1s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+/* Add a "Torch" light at the tip of the progress bar */
+.progress-marker::after {
+    content: '🔥';
+    position: absolute;
+    right: -10px;
+    top: -5px;
+    font-size: 14px;
+    text-shadow: 0 0 10px orange;
+    animation: float 2s infinite ease-in-out;
+}
         
         /* Book hover subtle enhancements */
         .book-3d {
@@ -1084,9 +1115,15 @@ function closeModalAndNextReg() {
 }
 function startGame() {
     totalRounds = parseInt(document.getElementById('deck-size-in').value);
-    deck = [...STAGES].sort(() => 0.5 - Math.random()).slice(0, totalRounds);
-    document.getElementById('view-deck').style.display='none'; document.getElementById('view-game').style.display='block';
-    updatePartyUI(); setTurnLabel();
+    const masterPool = [...STAGES]; 
+    
+    // Shuffle the master pool and take the number of cards requested
+    deck = masterPool.sort(() => 0.5 - Math.random()).slice(0, totalRounds);
+    
+    document.getElementById('view-deck').style.display='none'; 
+    document.getElementById('view-game').style.display='block';
+    updatePartyUI(); 
+    setTurnLabel();
 }
 function setTurnLabel() { document.getElementById('turn-label').innerText = `${party[activeIdx].pName.toUpperCase()}'S ACTION`; }
 
@@ -1744,26 +1781,28 @@ function discardGroupChallenge() {
     closeModal();
 
     // 2. Perform the Random Swap
-    if (round < totalRounds - 1) {
-        // Find all indices that haven't been played yet
+    // We check if there's at least one more card left to swap with
+    if (round < deck.length - 1) {
+        // Get all possible future indices in your 120-card deck
         const remainingIndices = [];
-        for (let i = round + 1; i < totalRounds; i++) {
+        for (let i = round + 1; i < deck.length; i++) {
             remainingIndices.push(i);
         }
         
-        // Pick a random future card (could be group OR individual)
+        // Pick one completely at random
         const randomIndex = remainingIndices[Math.floor(Math.random() * remainingIndices.length)];
         
-        // Swap current card with the random future card to keep deck size consistent
+        // Swap: Move the "No" card to the future, bring the random card to the present
         const temp = deck[round];
         deck[round] = deck[randomIndex];
         deck[randomIndex] = temp;
 
         // 3. Draw the new card immediately
+        // This will be a group mission or a common mission based purely on the deck's remaining contents
         drawCard();
 
     } else {
-        // If it was the last card, move to store or end game
+        // If it was the last card in the 120-card deck, finish the game
         checkStore(true);
     }
 }
