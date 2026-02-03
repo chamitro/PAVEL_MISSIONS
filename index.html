@@ -2658,11 +2658,11 @@ function renderStore() {
         <img src="${p.i}" alt="${p.n}" style="width: 70px; height: 70px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
     </div>
     <h3 class="medieval">${p.pName}'s Grimoire</h3>
-    <p style="font-size: 14px; margin-bottom: 5px;">Hero: <b style="color: var(--gold);">${p.n}</b></p>
+    <p style="font-size: 14px; margin-bottom: 5px;">Hero: <b style="color: var(--red);">${p.n}</b></p>
     <p style="font-size: 16px; margin-bottom: 20px;">Soul Points remaining: <b style="color: var(--gold-bright);">${storePoints}</b></p>
     
     <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; margin-bottom: 15px;">
-        <p style="font-size: 11px; color: var(--gold); margin-bottom: 8px; font-weight: bold;">📊 CURRENT STATS</p>`;
+        <p style="font-size: 11px; color: var(--coral); margin-bottom: 8px; font-weight: bold;"> CURRENT STATS</p>`;
     
     ['pow','spd','brn','cha','wil'].forEach(s => {
         const currentStat = p.cur[s];
@@ -2674,7 +2674,7 @@ function renderStore() {
                 <span style="font-weight: bold; color: var(--ink);">${s.toUpperCase()}</span>
                 <span style="font-size: 13px; color: #5a4634;">
                     Current: <b style="color: var(--blood);">${currentStat}</b> 
-                    ${adding > 0 ? `<span style="color: #2ecc71;"> +${adding}</span> → <b style="color: var(--gold);">${newTotal}</b>` : ''}
+                    ${adding > 0 ? `<span style="color: #2ecc71;"> +${adding}</span> → <b style="color: var(--purple);">${newTotal}</b>` : ''}
                 </span>
             </div>
             <div style="display: flex; gap: 5px; justify-content: flex-end;">
