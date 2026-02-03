@@ -18,14 +18,29 @@
             min-height: 100vh; overflow-x: hidden;
         }
         h1, h2, h3, .medieval { font-family: 'Cinzel Decorative', serif; color: var(--gold); text-shadow: 2px 2px 4px #000; }
-        .container { max-width: 480px; margin: 0 auto; padding: 15px; position: relative; }
+        .container { max-width: 480px; margin: 0 auto; padding: 15px; position: relative; animation: fadeIn 0.4s ease-in-out; }
         .progress-map { width: 100%; height: 14px; background: #111; border: 2px solid #444; border-radius: 10px; margin-bottom: 25px; overflow: hidden; box-shadow: inset 0 2px 5px #000; }
-        .progress-marker { height: 100%; background: linear-gradient(90deg, #400, var(--gold), #400); width: 0%; transition: 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .progress-marker { 
+            height: 100%; 
+            background: linear-gradient(90deg, #400, var(--gold), #fff, var(--gold), #400);
+            background-size: 200% 100%;
+            width: 0%; 
+            transition: 1s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: shimmer 3s linear infinite;
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.6);
+        }
         .stage-frame {
             background-color: #1a1a1a; background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
             border: 8px solid #333; border-radius: 2px; padding: 30px 20px; text-align: center; margin-bottom: 20px; box-shadow: 0 10px 30px #000;
+            animation: dealCard 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .st-title { font-size: 24px; text-transform: uppercase; margin: 10px 0; color: var(--gold-bright); }
+        .st-title { 
+            font-size: 24px; 
+            text-transform: uppercase; 
+            margin: 10px 0; 
+            color: var(--gold-bright);
+            animation: glow 3s ease-in-out infinite;
+        }
         .st-desc { font-family: 'MedievalSharp', cursive; color: #aaa; font-size: 16px; line-height: 1.4; }
         .hero-sheet {
             background: var(--parchment); color: var(--ink); border-radius: 2px; padding: 15px; margin-bottom: 15px;
@@ -46,19 +61,76 @@
             background: radial-gradient(#900, #500); border-radius: 50%; color: #f3cf7a;
             display: flex; align-items: center; justify-content: center; font-weight: 900;
             font-family: 'Cinzel Decorative'; border: 2px solid #400; box-shadow: 2px 2px 8px #000; font-size: 18px; transform: rotate(5deg);
+            transition: transform 0.6s ease;
         }
-        .meditate-count { position: absolute; top: 5px; left: 10px; font-size: 10px; font-weight: bold; color: #5a4634; font-family: 'MedievalSharp'; }
+        .wax-seal:hover {
+            transform: rotate(360deg) scale(1.1);
+        }
+        .meditate-count { 
+            position: absolute; 
+            top: 5px; 
+            left: 10px; 
+            font-size: 11px; 
+            font-weight: bold; 
+            color: var(--gold-bright); 
+            font-family: 'MedievalSharp';
+            background: rgba(0,0,0,0.7);
+            padding: 3px 8px;
+            border-radius: 12px;
+            border: 1px solid var(--gold);
+            box-shadow: 0 0 8px rgba(197, 160, 89, 0.4);
+        }
         .stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 15px; }
         .stat-box { background: rgba(0,0,0,0.05); padding: 8px 2px; text-align: center; border: 1px solid rgba(0,0,0,0.1); border-radius: 3px; }
         .stat-val { display: block; font-family: 'Cinzel Decorative'; font-weight: 900; font-size: 18px; color: #400; }
         .stat-lbl { font-size: 8px; font-weight: 900; text-transform: uppercase; color: #5a4634; }
         .btn { border-radius: 0; padding: 16px; border: 2px solid var(--gold); font-weight: 900; font-size: 14px; cursor: pointer; width: 100%; transition: 0.3s; margin-bottom: 10px; text-transform: uppercase; font-family: 'Cinzel Decorative'; letter-spacing: 1px; }
-        .btn-main { background: #1a1a1a; color: var(--gold); box-shadow: 0 4px 0 #000; }
+        .btn-main { 
+            background: linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+            background-size: 200% 100%;
+            color: var(--gold); 
+            box-shadow: 0 4px 0 #000;
+            animation: shimmer 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
         .btn-fight { background: #2b1010; color: #9f9; border-color: #8b0000; }
         .btn-skip { background: #222; color: #888; border-color: #444; }
         .btn-danger { background: #400; color: #fcc; border-color: #700; }
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(5px); }
-        .modal { background: var(--parchment); color: var(--ink); border: 10px solid #2c2c2c; padding: 30px; width: 100%; max-width: 400px; background-image: url('https://www.transparenttextures.com/patterns/parchment.png'); box-shadow: 0 0 50px #000; text-align: center; }
+        .overlay { 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.95); 
+            display: none; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 1000; 
+            padding: 20px; 
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+        .modal { 
+            background: var(--parchment); 
+            color: var(--ink); 
+            border: 10px solid #2c2c2c; 
+            padding: 30px; 
+            width: 100%; 
+            max-width: 400px; 
+            background-image: url('https://www.transparenttextures.com/patterns/parchment.png'); 
+            box-shadow: 0 0 50px #000; 
+            text-align: center;
+            animation: float 0.5s ease-out;
+        }
         .input-hero { background: rgba(0,0,0,0.05); border: none; border-bottom: 2px solid #5a4634; color: var(--ink); font-family: 'MedievalSharp'; padding: 10px; }
         .instruction-text { text-align: left; font-size: 14px; line-height: 1.4; color: var(--ink); margin-bottom: 15px; }
         .instruction-text b { color: var(--blood); }
@@ -120,24 +192,65 @@
         border-color: var(--gold);
     }
 }
+
+@keyframes dealCard {
+    from {
+        transform: translateY(-100px) rotate(-5deg);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes ping {
+    0% {
+        box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(197, 160, 89, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
+    }
+}
         
         .dice {
             display: inline-block;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(145deg, #f0f0f0, #c0c0c0);
-            border-radius: 12px;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(145deg, #ffffff, #e8e8e8);
+            border-radius: 15px;
             position: relative;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.5);
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.4),
+                inset 0 3px 6px rgba(255,255,255,0.9),
+                inset 0 -3px 6px rgba(0,0,0,0.1);
             animation: diceRoll 0.6s ease-in-out;
+            filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.7));
+            border: 3px solid #d4d4d4;
+        }
+        
+        .dice::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            background: linear-gradient(145deg, #fafafa, #f0f0f0);
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .dice-dot {
             position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #333;
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle, #1a1a1a, #000);
             border-radius: 50%;
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.5),
+                inset 0 1px 2px rgba(0, 0, 0, 0.3);
+            z-index: 10;
         }
         
         /* Subtle button hover effects */
@@ -153,6 +266,12 @@
         .btn:active {
             transform: translateY(1px);
             box-shadow: 0 3px 0 #000;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
         }
         
         /* Hero sheet subtle enhancements */
@@ -173,6 +292,159 @@
         .stat-box:hover {
             transform: scale(1.05);
             background: rgba(197, 160, 89, 0.1);
+        }
+        
+        /* Active hero stat boxes glow */
+        .active-now .stat-box {
+            background: rgba(197, 160, 89, 0.15);
+            border-color: var(--gold);
+            box-shadow: 0 0 5px rgba(197, 160, 89, 0.3);
+        }
+
+        .active-now .stat-val {
+            color: var(--gold-bright);
+            text-shadow: 0 0 8px rgba(139, 0, 0, 0.5);
+        }
+        
+        /* Passive ability box highlight for active hero */
+        .hero-sheet > div[style*="border-left: 3px solid var(--gold)"] {
+            transition: all 0.3s ease;
+        }
+        
+        /* Professional Enhancement #3: Hero card hover during selection */
+        .hero-card-selectable {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero-card-selectable:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 20px rgba(197, 160, 89, 0.4);
+            border-color: var(--gold) !important;
+        }
+
+        .hero-card-selectable:active {
+            transform: scale(0.98);
+        }
+        
+        /* Professional Enhancement #4: Score display enhancement */
+        .score-display {
+            font-family: 'Cinzel Decorative';
+            font-size: 20px;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        /* Professional Enhancement #5: Challenge result feedback */
+        .result-success {
+            color: #2ecc71;
+            font-weight: bold;
+            animation: float 1s ease-in-out;
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+        }
+
+        .result-failure {
+            color: #e74c3c;
+            font-weight: bold;
+            animation: pulse 0.5s ease-in-out;
+            text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+        }
+        
+        /* Professional Enhancement #6: Info icons */
+        .info-icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: rgba(197, 160, 89, 0.3);
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            font-size: 11px;
+            cursor: help;
+            margin-left: 4px;
+            transition: all 0.2s;
+        }
+
+        .info-icon:hover {
+            background: var(--gold);
+            color: var(--ink);
+            transform: scale(1.2);
+        }
+        
+        /* Professional Enhancement #8: Turn banner */
+        .turn-banner {
+            background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            font-family: 'Cinzel Decorative';
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px #000;
+            margin-bottom: 15px;
+            animation: glow 2s infinite;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.6);
+        }
+        
+        /* Professional Enhancement #9: Ping effect */
+        .ping-effect {
+            animation: ping 1s cubic-bezier(0, 0, 0.2, 1);
+        }
+        
+        /* Professional Enhancement #10: Affinity bonus indicator */
+        .affinity-bonus-active {
+            position: relative;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.2), rgba(39, 174, 96, 0.3));
+            border: 2px solid #2ecc71 !important;
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .affinity-bonus-active::after {
+            content: "⚡ AFFINITY BONUS +3";
+            position: absolute;
+            top: -12px;
+            right: 10px;
+            background: #2ecc71;
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: bold;
+            font-family: 'Cinzel Decorative';
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        /* Enhanced text animations for books */
+        .book-text-alive {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .book-text-alive b {
+            display: inline-block;
+            transition: all 0.3s ease;
+            color: var(--blood);
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(139, 0, 0, 0.3);
+        }
+        
+        .book-text-alive b:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
+            color: var(--gold);
+        }
+        
+        .book-intro-text {
+            animation: fadeIn 1.5s ease-in;
+            line-height: 1.8;
+            letter-spacing: 0.3px;
+        }
+        
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 5px rgba(139, 0, 0, 0.3); }
+            50% { text-shadow: 0 0 15px rgba(139, 0, 0, 0.6); }
         }
         
         /* Progress bar subtle animation */
@@ -406,7 +678,7 @@
                 </div>
             </div>
             
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 14px; margin-bottom: 25px; animation: fadeIn 2s ease-in; position: relative; z-index: 1;">Choose a scroll to begin your journey...</p>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 14px; margin-bottom: 25px; animation: fadeIn 2s ease-in, float 4s ease-in-out infinite; position: relative; z-index: 1; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">Choose a scroll to begin your journey...</p>
             
             <div style="display: grid; gap: 25px; margin-bottom: 30px; position: relative; z-index: 1;">
                 <!-- Scroll 1: The World Map -->
@@ -422,7 +694,7 @@
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite;"></div>
-                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 The World Map</h3>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000, 0 0 10px rgba(243, 207, 122, 0.5); position: relative; animation: glow 3s ease-in-out infinite;">📜 The World Map</h3>
                             <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Explore the lands surrounding Pavel and understand the geography of this realm.</p>
                         </div>
                         <!-- Scroll pages effect -->
@@ -443,7 +715,7 @@
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 1s;"></div>
-                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 Pavel Town</h3>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000, 0 0 10px rgba(243, 207, 122, 0.5); position: relative; animation: glow 3s ease-in-out infinite;">📜 Pavel Town</h3>
                             <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Learn about the village, its people, and the legends who call Pavel home.</p>
                         </div>
                         <!-- Scroll pages effect -->
@@ -464,7 +736,7 @@
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 1.5s;"></div>
-                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 The Heroes</h3>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000, 0 0 10px rgba(243, 207, 122, 0.5); position: relative; animation: glow 3s ease-in-out infinite;">📜 The Heroes</h3>
                             <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Meet the legendary warriors who gather at Pavel's tavern seeking glory.</p>
                         </div>
                         <!-- Scroll pages effect -->
@@ -485,7 +757,7 @@
                                     display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;">
                             <!-- Shine effect -->
                             <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); animation: shine 3s infinite 2s;"></div>
-                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000; position: relative;">📜 Game Rules</h3>
+                            <h3 style="color: #f3cf7a; margin: 0 0 8px 0; font-size: 20px; text-shadow: 2px 2px 4px #000, 0 0 10px rgba(243, 207, 122, 0.5); position: relative; animation: glow 3s ease-in-out infinite;">📜 Game Rules</h3>
                             <p style="font-size: 12px; margin: 0; color: #d4c3a3; line-height: 1.3; position: relative;">Understand the mechanics, missions, and how to achieve victory.</p>
                         </div>
                         <!-- Scroll pages effect -->
@@ -500,8 +772,8 @@
 
         <!-- Scroll 1: The World Map -->
         <div id="intro-book-1" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
-            <h1 style="color:var(--gold); text-align: center; font-size: 28px; margin-bottom: 10px;">THE WORLD MAP</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 20px;">The Lands Surrounding Pavel</p>
+            <h1 style="color:var(--gold); text-align: center; font-size: 28px; margin-bottom: 10px; animation: glow 3s ease-in-out infinite; text-shadow: 2px 2px 4px #000, 0 0 15px rgba(197, 160, 89, 0.6);">THE WORLD MAP</h1>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 20px; animation: float 4s ease-in-out infinite;">The Lands Surrounding Pavel</p>
             <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
             
             <div style="width: 100%; border: 4px solid #8e7b55; padding: 5px; background: #000; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); margin-bottom: 20px;">
@@ -529,8 +801,8 @@
 
         <!-- Scroll 2: Pavel Town -->
         <div id="intro-book-2" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
-            <h1 style="color:var(--blood); text-align: center; font-size: 28px;">PAVEL TOWN</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">The Village of Ale and Fellowship</p>
+            <h1 style="color:var(--blood); text-align: center; font-size: 28px; animation: glow 3s ease-in-out infinite; text-shadow: 2px 2px 4px #000, 0 0 15px rgba(139, 0, 0, 0.6);">PAVEL TOWN</h1>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px; animation: float 4s ease-in-out infinite;">The Village of Ale and Fellowship</p>
             <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
             <div class="instruction-text" style="text-align: justify;">
                 <p>In the heart of a realm where ancient forests whisper forkotten secrets, there lies the village of <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of ale.</p>
@@ -555,8 +827,8 @@
 
         <!-- Scroll 3: The Heroes -->
         <div id="intro-book-3" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none; overflow-y: auto; max-height: 80vh;">
-            <h1 style="color:var(--blood); text-align: center; font-size: 28px;">THE HEROES OF PAVEL</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">Legendary Warriors Seeking Glory</p>
+            <h1 style="color:var(--blood); text-align: center; font-size: 28px; animation: glow 3s ease-in-out infinite; text-shadow: 2px 2px 4px #000, 0 0 15px rgba(139, 0, 0, 0.6);">THE HEROES OF PAVEL</h1>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px; animation: float 4s ease-in-out infinite;">Legendary Warriors Seeking Glory</p>
             <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
             
             <div class="instruction-text" style="text-align: justify;">
@@ -800,8 +1072,8 @@
 
         <!-- Scroll 4: Game Rules -->
         <div id="intro-book-4" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
-            <h1 style="color:var(--blood); text-align: center; font-size: 28px;">GAME RULES</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">How to Claim Victory in the Missions</p>
+            <h1 style="color:var(--blood); text-align: center; font-size: 28px; animation: glow 3s ease-in-out infinite; text-shadow: 2px 2px 4px #000, 0 0 15px rgba(139, 0, 0, 0.6);">GAME RULES</h1>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px; animation: float 4s ease-in-out infinite;">How to Claim Victory in the Missions</p>
             <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 20px 0;">
             <div class="instruction-text">
                 <p style="font-style: italic; margin-bottom: 15px;"><b>The Setup:</b> As another night falls upon Pavel, ten legendary heroes gather at the tavern—each with their own unique abilities and soul affinities. From these ten, you and your companions will select your champions. Tonight, King Antony has announced a grand competition: a series of challenges, or <b>Missions</b>, with a grand prize awaiting those who prove themselves most worthy. The heroes must pass through these trials, testing their strength, speed, intellect, charisma, and willpower to claim victory and glory.</p>
@@ -999,26 +1271,40 @@ const STAGES = [
 
 // Group Missions - Everyone must work together!
 const GROUP_STAGES = [
-    {t: "The Great Swamp Flood", d: "Pavel town is sinking! Everyone must grab a bucket and bail water.", s: "pow", e: 10, h: 15, isGroup: true},
-    {t: "Dragon's Siege", d: "A dragon is breathing fire on the pub's roof. Fight him!", s: "spd", e: 10, h: 22, isGroup: true},
-    {t: "The King's Banquet", d: "King Antony needs 5000 beers immediately. Form a group and gather the beers!", s: "wil", e: 8, h: 13, isGroup: true},
-    {t: "Ork Horde Stand", d: "A group of Orks is trying to break the pub's door. Push back together!", s: "pow", e: 12, h: 16, isGroup: true},
-    {t: "The Silent Vigil", d: "A forest spirit demands absolute silence for all the people in town, or else he will kill all people!", s: "wil", e: 14, h: 20, isGroup: true},
-    {t: "Tavern Clean-up", d: "Panchoncho threw a party. The mess is legendary. Scrub, heroes!", s: "wil", e: 8, h: 13, isGroup: true},
-    {t: "Lost Children Hunt", d: "Search the Misty Forest together before the Trolls find the kids.", s: "brn", e: 14, h: 20, isGroup: true},
-    {t: "The Giant's Rock", d: "A giant rock blocks the road. Pull it away as a team.", s: "pow", e: 10, h: 15, isGroup: true},
-    {t: "Monastic Choir", d: "To pass the monastery, you must all sing in perfect harmony.", s: "cha", e: 7, h: 13, isGroup: true},
-    {t: "Swamp Bridge Build", d: "The main bridge is out. Carry the logs and lash them tight!", s: "brn", e: 10, h: 15, isGroup: true},
-    {t: "The Drunken Parade", d: "Escort the King through the village without anyone falling over.", s: "wil", e: 8, h: 13, isGroup: true},
-    {t: "Magic Barrier Repair", d: "The village shield is flickering. Everyone contribute your essence!", s: "brn", e: 10, h: 15, isGroup: true},
-    {t: "Moving Walls", d: "Drunk wizards made the walls are moving. Help him reverse the curse!", s: "spd", e: 10, h: 15, isGroup: true},
-    {t: "Misty Ambush", d: "Ninjas are everywhere! Watch each other's backs and run!", s: "spd", e: 10, h: 14, isGroup: true},
-    {t: "Dwarven Forge Pump", d: "The beers are poisoned! Gather all beers so nobody drink!", s: "spd", e: 8, h: 12, isGroup: true},
-    {t: "Ghostly Trial", d: "Ancient spirits demand a tribute of willpower from every soul.", s: "wil", e: 8, h: 13, isGroup: true},
-    {t: "The Beer Barrel Race", d: "The brewery is empty! Roll the barrels from the Westlands!", s: "pow", e: 11, h: 15, isGroup: true},
-    {t: "Riddle of the Sphinx", d: "A strange creature blocks the path. You must solve its 5-part riddle.", s: "brn", e: 10, h: 15, isGroup: true},
-    {t: "Village Fire Brigade", d: "The pub is on fire! Pass the water bags quickly!", s: "spd", e: 9, h: 13, isGroup: true},
-    {t: "The Final Toast", d: "King Antony demands the most epic drinking song ever recorded.", s: "cha", e: 9, h: 13, isGroup: true}
+    // POW (5)
+    {t: "The Great Swamp Flood", d: "Pavel is sinking! Everyone bail water.", s: "pow", e: 10, h: 15, isGroup: true},
+    {t: "Ork Horde Stand", d: "Push back the charging ork vanguard together!", s: "pow", e: 12, h: 16, isGroup: true},
+    {t: "The Giant's Rock", d: "A mountain giant blocks the path. Pull it away.", s: "pow", e: 10, h: 18, isGroup: true},
+    {t: "The Beer Barrel Race", d: "Roll heavy barrels from the Westlands as a team.", s: "pow", e: 11, h: 13, isGroup: true},
+    {t: "Castle Gate Breach", d: "The fortress gate is stuck. Heave together!", s: "pow", e: 13, h: 17, isGroup: true},
+    
+    // SPD (5)
+    {t: "Dragon's Siege", d: "Dodge the falling fireballs from the druken dragon!", s: "spd", e: 12, h: 17, isGroup: true},
+    {t: "Moving Walls", d: "A wizard's curse moves the hallways. Run through!", s: "spd", e: 8, h: 13, isGroup: true},
+    {t: "Misty Ambush", d: "Ninjas are everywhere! Escape the forest quickly.", s: "spd", e: 9, h: 14, isGroup: true},
+    {t: "Village Fire Brigade", d: "The pub is on fire! Pass water bags at high speed.", s: "spd", e: 8, h: 13, isGroup: true},
+    {t: "Lightning Storm Run", d: "Cross the mist forest while lightning strikes the earth.", s: "spd", e: 8, h: 16, isGroup: true},
+
+    // BRN (5)
+    {t: "Lost Children Hunt", d: "Navigate the shifting mists using pure logic.", s: "brn", e: 10, h: 15, isGroup: true},
+    {t: "Magic Barrier Repair", d: "Recalibrate the village shield. Focus!", s: "brn", e: 9, h: 14, isGroup: true},
+    {t: "Bridge Build", d: "Engineer a stable crossing from village to the monasteries.", s: "brn", e: 13, h: 17, isGroup: true},
+    {t: "Riddle of the Sphinx", d: "A mistic creature demands an answer to its questions.", s: "brn", e:11, h: 16, isGroup: true},
+    {t: "Alchemist's Crisis", d: "Sort the volatile potions before they explode.", s: "brn", e: 12, h: 17, isGroup: true},
+
+    // CHA (5)
+    {t: "Monastic Choir", d: "Sing in perfect harmony to enter the holy city.", s: "cha", e: 7, h: 12, isGroup: true},
+    {t: "The Final Toast", d: "Lead the tavern in the most epic song ever heard.", s: "cha", e: 7, h: 12, isGroup: true},
+    {t: "Dragon Negotiation", d: "Convince the dragon tribe to sign a peace treaty.", s: "cha", e: 10, h: 15, isGroup: true},
+    {t: "King's Pardon", d: "Convince King Antony to spare a falsely accused thief, who stole beers.", s: "cha", e: 8, h: 13, isGroup: true},
+    {t: "Village Festival", d: "Entertain Pavel visitors to bring more people to town.", s: "cha", e: 7, h: 13, isGroup: true},
+
+    // WIL (5)
+    {t: "The King's Banquet", d: "Resist the urge to drink all 5000 beers!", s: "wil", e: 8, h: 13, isGroup: true},
+    {t: "The Silent Vigil", d: "Remain perfectly still against the forest spirits.", s: "wil", e: 10, h: 15, isGroup: true},
+    {t: "Tavern Clean-up", d: "Today's is no mission day. Face the boredom and do nothing at all.", s: "wil", e: 5, h: 10, isGroup: true},
+    {t: "The Drunken Parade", d: "Walk the drunk King home without losing your patience.", s: "wil", e: 6, h: 12, isGroup: true},
+    {t: "Nick Stories", d: "Stand your ground with old geezer Nick so he doesn’t tell you another story", s: "wil", e: 8, h: 13, isGroup: true}
 ];
 
 // Combine group missions into main deck
@@ -1129,12 +1415,12 @@ function setTurnLabel() { document.getElementById('turn-label').innerText = `${p
 
 function renderDice(number) {
     const positions = {
-        1: [[40, 40]],
-        2: [[20, 20], [60, 60]],
-        3: [[20, 20], [40, 40], [60, 60]],
-        4: [[20, 20], [60, 20], [20, 60], [60, 60]],
-        5: [[20, 20], [60, 20], [40, 40], [20, 60], [60, 60]],
-        6: [[20, 20], [60, 20], [20, 40], [60, 40], [20, 60], [60, 60]]
+        1: [[42, 42]],
+        2: [[22, 22], [68, 68]],
+        3: [[22, 22], [42, 42], [68, 68]],
+        4: [[22, 22], [68, 22], [22, 68], [68, 68]],
+        5: [[22, 22], [68, 22], [42, 42], [22, 68], [68, 68]],
+        6: [[22, 22], [68, 22], [22, 42], [68, 42], [22, 68], [68, 68]]
     };
     
     let dots = positions[number].map(([left, top]) => 
@@ -1564,7 +1850,7 @@ function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpen
                 bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Brute Forke: POW increased by 3!</p>`;
             }
         }
-        showModal(win?"ROOM CLEARED":"FALSIFIED", `Outcome`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${final}</b><br><small>Your Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>The Peril</small></div></div>${bonusLine} ${upMsg}<button class="btn btn-main" onclick="${win ? (h.n === 'Lover Zombie' ? 'selectLoverZombieDebuff()' : 'checkStore()') : 'rotateCycle()'}">Continue</button>`);
+        showModal(win?"<span class='result-success'>ROOM CLEARED</span>":"<span class='result-failure'>FALSIFIED</span>", `Outcome`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${final}</b><br><small>Your Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>The Peril</small></div></div>${bonusLine} ${upMsg}<button class="btn btn-main" onclick="${win ? (h.n === 'Lover Zombie' ? 'selectLoverZombieDebuff()' : 'checkStore()') : 'rotateCycle()'}">Continue</button>`);
     }
     updatePartyUI();
 }
@@ -1652,9 +1938,9 @@ function gamble(cur, usedStat = pStage.s) {
                 // Lover Zombie passive: Cursed Embrace
                 let continueAction = h.n === 'Lover Zombie' ? 'selectLoverZombieDebuff()' : 'checkStore()';
                 
-                showModal("MIRACULOUS VICTORY", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${crowdBonus}${thugBonus}<button class="btn btn-main" onclick="${continueAction}">Continue</button>`);
+                showModal("<span class='result-success'>MIRACULOUS VICTORY</span>", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${crowdBonus}${thugBonus}<button class="btn btn-main" onclick="${continueAction}">Continue</button>`);
             } else {
-                showModal("TOTAL FAILURE", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b style="font-size:30px;">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div><button class="btn btn-main" onclick="rotateCycle()">Continue</button>`);
+                showModal("<span class='result-failure'>TOTAL FAILURE</span>", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div><button class="btn btn-main" onclick="rotateCycle()">Continue</button>`);
             }
             updatePartyUI();
         }, 500);
@@ -1783,7 +2069,7 @@ function discardGroupChallenge() {
     // 2. Perform the Random Swap
     // We check if there's at least one more card left to swap with
     if (round < deck.length - 1) {
-        // Get all possible future indices in your 120-card deck
+        // Get all possible future indices in your 125-card deck
         const remainingIndices = [];
         for (let i = round + 1; i < deck.length; i++) {
             remainingIndices.push(i);
@@ -3168,10 +3454,17 @@ function updatePartyUI() {
             </div>`).join('')}
         </div>`;
         
+        // Check if this hero has affinity bonus for current challenge
+        let hasAffinity = false;
+        if(pStage && pStage.req && i === activeIdx) {
+            hasAffinity = pStage.req.includes(p.aff);
+        }
+        
         return `
-        <div class="hero-sheet ${i === activeIdx ? 'active-now' : ''}">
+        ${i === activeIdx ? '<div class="turn-banner">⚔️ YOUR TURN ⚔️</div>' : ''}
+        <div class="hero-sheet ${i === activeIdx ? 'active-now' : ''} ${hasAffinity ? 'affinity-bonus-active' : ''}">
             <div class="meditate-count">Meditates: ${p.skips}</div>
-            <div class="wax-seal">${p.score}</div>
+            <div class="wax-seal"><span class="score-display">${p.score}</span></div>
             <div style="font-size:11px; font-weight:bold; letter-spacing:1px; color:#5a4634;">${p.pName.toUpperCase()}</div>
             
             <div class="medieval" style="display: flex; align-items: center; gap: 15px; font-size:20px; margin: 10px 0;">
