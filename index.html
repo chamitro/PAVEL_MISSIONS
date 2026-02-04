@@ -1476,6 +1476,11 @@ function closeModalAndNextReg() {
     else { document.getElementById('view-reg').style.display='none'; document.getElementById('view-deck').style.display='block'; }
 }
 function startGame() {
+    // Reset game state variables
+    round = 0;
+    nextShopRound = -1;
+    shopCount = 0;
+    
     totalRounds = parseInt(document.getElementById('deck-size-in').value);
     const masterPool = [...STAGES]; 
     
@@ -1486,6 +1491,9 @@ function startGame() {
     document.getElementById('view-game').style.display='block';
     updatePartyUI(); 
     setTurnLabel();
+    
+    console.log(`%c🎮 GAME STARTED: ${party.length} players, ${totalRounds} rounds`, 'background: #4caf50; color: #fff; font-size: 14px; font-weight: bold; padding: 5px;');
+    console.log(`Shop will appear at round: ${party.length + 3}`);
 }
 function setTurnLabel() { 
     document.getElementById('turn-label').innerText = `${party[activeIdx].pName.toUpperCase()}'S ACTION`; 
@@ -2495,12 +2503,16 @@ function resolveGroupChallenge() {
 }
 
 function finishGroupChallenge() {
+    console.log('finishGroupChallenge: Starting cleanup...');
+    console.log(`finishGroupChallenge: Current round BEFORE checkStore = ${round}`);
+    
     // Clean up group challenge state
     groupChallengeContributions = [];
     groupChallengePlayerIndex = 0;
     groupChallengeVotes = [];
     groupChallengeVotingIndex = 0;
     
+    console.log('finishGroupChallenge: Calling checkStore()...');
     // Continue to next round
     checkStore();
 }
@@ -2715,26 +2727,29 @@ function rotateCycle() {
 }
 
 function checkStore(silent=false) {
+    console.log(`%c=== checkStore CALLED ===`, 'background: #222; color: #bada55; font-size: 14px; font-weight: bold;');
+    console.log(`checkStore: ENTRY - round=${round}, nextShopRound=${nextShopRound}, isProcessing=${isProcessing}`);
+    
     if (isProcessing) {
-        console.warn('checkStore: isProcessing was true, resetting...');
+        console.warn('checkStore: isProcessing was TRUE! Resetting and continuing...');
         isProcessing = false;
     }
     isProcessing = true;
     
     round++;
     
-    console.log(`checkStore: round=${round}, nextShopRound=${nextShopRound}, shopCount=${shopCount}`);
+    console.log(`checkStore: AFTER round++ → round=${round}, nextShopRound=${nextShopRound}, shopCount=${shopCount}`);
 
     // Calculate the FIRST appearance if it's the start of the game
     if (nextShopRound === -1) {
         nextShopRound = party.length + 3;
-        console.log(`checkStore: First shop scheduled at round ${nextShopRound}`);
+        console.log(`%ccheckStore: First shop scheduled at round ${nextShopRound}`, 'color: #ff9800; font-weight: bold;');
     }
 
     setTimeout(() => {
         // Check if we hit the scheduled round
         if (round === nextShopRound) {
-            console.log(`checkStore: SHOP TIME! Opening store...`);
+            console.log(`%ccheckStore: 🧪 SHOP TIME! Opening store...`, 'background: #2ecc71; color: #000; font-size: 16px; font-weight: bold; padding: 5px;');
             shopCount++; // Move from 'first' to 'second', etc.
             
             // Calculate the NEXT interval based on your formula
@@ -2752,12 +2767,12 @@ function checkStore(silent=false) {
             openStore();
         } 
         else if (round >= totalRounds) {
-            console.log(`checkStore: Game over (round ${round} >= ${totalRounds})`);
+            console.log(`%ccheckStore: 🏁 Game over (round ${round} >= ${totalRounds})`, 'color: #f44336; font-weight: bold;');
             isProcessing = false;
             endGame();
         } 
         else {
-            console.log(`checkStore: Continue playing (shop at round ${nextShopRound})`);
+            console.log(`checkStore: ➡️  Continue playing (shop scheduled at round ${nextShopRound})`);
             if (!silent) activeIdx = (activeIdx + 1) % party.length;
             isProcessing = false;
             resetUI();
