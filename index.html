@@ -13,9 +13,68 @@
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
-            margin:0; font-family: 'Almendra', serif; background: #0a0a0a; color: #d1d1d1;
-            background-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.4) 0%, #000 100%), url('https://www.transparenttextures.com/patterns/dark-stone.png');
+            margin:0; font-family: 'Almendra', serif; 
+            background: radial-gradient(ellipse at center, #1a1520 0%, #0d0a15 50%, #000000 100%);
+            color: #d1d1d1;
             min-height: 100vh; overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(197, 160, 89, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(90, 58, 26, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Animated green aura moving in background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(46, 255, 87, 0.25) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(76, 255, 120, 0.2) 0%, transparent 35%),
+                radial-gradient(circle at 50% 80%, rgba(106, 255, 150, 0.18) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+            animation: auraFloat 15s ease-in-out infinite;
+            mix-blend-mode: screen;
+        }
+        
+        @keyframes auraFloat {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.7;
+            }
+            25% {
+                transform: translate(-5%, 3%) rotate(3deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(4%, -4%) rotate(-3deg);
+                opacity: 0.8;
+            }
+            75% {
+                transform: translate(-3%, 5%) rotate(2deg);
+                opacity: 0.95;
+            }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
         }
         h1, h2, h3, .medieval { font-family: 'Cinzel Decorative', serif; color: var(--gold); text-shadow: 2px 2px 4px #000; }
         .container { max-width: 480px; margin: 0 auto; padding: 15px; position: relative; animation: fadeIn 0.4s ease-in-out; }
@@ -69,16 +128,18 @@
         .meditate-count { 
             position: absolute; 
             top: 5px; 
-            left: 10px; 
-            font-size: 11px; 
+            right: 60px; 
+            font-size: 10px; 
             font-weight: bold; 
-            color: var(--gold-bright); 
-            font-family: 'MedievalSharp';
-            background: rgba(0,0,0,0.7);
-            padding: 3px 8px;
-            border-radius: 12px;
-            border: 1px solid var(--gold);
-            box-shadow: 0 0 8px rgba(197, 160, 89, 0.4);
+            color: #fff; 
+            font-family: 'Cinzel Decorative';
+            background: linear-gradient(135deg, #6a1b9a 0%, #8e24aa 100%);
+            padding: 4px 10px;
+            border-radius: 15px;
+            border: 2px solid #9c27b0;
+            box-shadow: 0 2px 8px rgba(156, 39, 176, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+            letter-spacing: 0.5px;
+            z-index: 5;
         }
         .stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 15px; }
         .stat-box { background: rgba(0,0,0,0.05); padding: 8px 2px; text-align: center; border: 1px solid rgba(0,0,0,0.1); border-radius: 3px; }
@@ -1136,6 +1197,20 @@
     </div>
 
     <div id="view-game" style="display:none;">
+        <!-- Round Counter and Shop Countdown -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 8px 12px; background: rgba(0,0,0,0.4); border: 1px solid #444; border-radius: 5px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 11px; color: #888; font-family: 'Cinzel Decorative'; letter-spacing: 1px;">ROUND</span>
+                <span id="round-counter" style="font-size: 18px; color: var(--gold); font-family: 'Cinzel Decorative'; font-weight: bold;">0/10</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 20px;">🧪</span>
+                <div style="text-align: right;">
+                    <div style="font-size: 9px; color: #888; font-family: 'MedievalSharp'; letter-spacing: 0.5px;">ALCHEMIST IN</div>
+                    <div id="shop-countdown-number" style="font-size: 16px; color: var(--gold); font-family: 'Cinzel Decorative'; font-weight: bold;">?</div>
+                </div>
+            </div>
+        </div>
         <div class="progress-map"><div id="prog-bar" class="progress-marker"></div></div>
         <div class="stage-frame">
             <span id="turn-label" class="medieval" style="font-size:11px; color:var(--gold-bright); letter-spacing: 2px;"></span>
@@ -1412,7 +1487,41 @@ function startGame() {
     updatePartyUI(); 
     setTurnLabel();
 }
-function setTurnLabel() { document.getElementById('turn-label').innerText = `${party[activeIdx].pName.toUpperCase()}'S ACTION`; }
+function setTurnLabel() { 
+    document.getElementById('turn-label').innerText = `${party[activeIdx].pName.toUpperCase()}'S ACTION`; 
+    updateCounters();
+}
+
+function updateCounters() {
+    const roundDisplay = document.getElementById('round-counter');
+    if (roundDisplay) {
+        // Show round as 1-based for players (round 0 = "Round 1" for display)
+        roundDisplay.innerText = `${round + 1}/${totalRounds}`;
+    }
+    
+    const shopCountdownNumber = document.getElementById('shop-countdown-number');
+    if (shopCountdownNumber) {
+        if (nextShopRound === -1) {
+            // Calculate initial shop appearance
+            const firstShop = party.length + 3;
+            const turnsUntil = firstShop - round;
+            shopCountdownNumber.innerText = turnsUntil;
+            shopCountdownNumber.style.color = 'var(--gold)';
+        } else {
+            const turnsUntilShop = nextShopRound - round;
+            if (turnsUntilShop <= 0) {
+                shopCountdownNumber.innerText = 'NOW';
+                shopCountdownNumber.style.color = '#2ecc71';
+            } else if (turnsUntilShop <= 2) {
+                shopCountdownNumber.innerText = turnsUntilShop;
+                shopCountdownNumber.style.color = '#ff9800';
+            } else {
+                shopCountdownNumber.innerText = turnsUntilShop;
+                shopCountdownNumber.style.color = 'var(--gold)';
+            }
+        }
+    }
+}
 
 function renderDice(number) {
     const positions = {
@@ -2606,19 +2715,26 @@ function rotateCycle() {
 }
 
 function checkStore(silent=false) {
-    if (isProcessing) return; // Prevent race conditions
+    if (isProcessing) {
+        console.warn('checkStore: isProcessing was true, resetting...');
+        isProcessing = false;
+    }
     isProcessing = true;
     
     round++;
+    
+    console.log(`checkStore: round=${round}, nextShopRound=${nextShopRound}, shopCount=${shopCount}`);
 
     // Calculate the FIRST appearance if it's the start of the game
     if (nextShopRound === -1) {
         nextShopRound = party.length + 3;
+        console.log(`checkStore: First shop scheduled at round ${nextShopRound}`);
     }
 
     setTimeout(() => {
         // Check if we hit the scheduled round
         if (round === nextShopRound) {
+            console.log(`checkStore: SHOP TIME! Opening store...`);
             shopCount++; // Move from 'first' to 'second', etc.
             
             // Calculate the NEXT interval based on your formula
@@ -2629,16 +2745,19 @@ function checkStore(silent=false) {
             
             // Schedule the next appearance by adding the interval to current round
             nextShopRound = round + nextInterval;
+            console.log(`checkStore: Next shop scheduled at round ${nextShopRound}`);
 
             storePlayerIdx = 0;
             isProcessing = false;
             openStore();
         } 
         else if (round >= totalRounds) {
+            console.log(`checkStore: Game over (round ${round} >= ${totalRounds})`);
             isProcessing = false;
             endGame();
         } 
         else {
+            console.log(`checkStore: Continue playing (shop at round ${nextShopRound})`);
             if (!silent) activeIdx = (activeIdx + 1) % party.length;
             isProcessing = false;
             resetUI();
@@ -3546,9 +3665,9 @@ function updatePartyUI() {
         return `
         ${i === activeIdx ? '<div class="turn-banner">⚔️ YOUR TURN ⚔️</div>' : ''}
         <div class="hero-sheet ${i === activeIdx ? 'active-now' : ''} ${hasAffinity ? 'affinity-bonus-active' : ''}">
-            <div class="meditate-count">Meditates: ${p.skips}</div>
+            <div class="meditate-count">🧘 ${p.skips} left</div>
             <div class="wax-seal"><span class="score-display">${p.score}</span></div>
-            <div style="font-size:11px; font-weight:bold; letter-spacing:1px; color:#5a4634;">${p.pName.toUpperCase()}</div>
+            <div style="font-size:13px; font-weight:bold; letter-spacing:1px; color:#5a4634; margin-top: 2px;">${p.pName.toUpperCase()}</div>
             
             <div class="medieval" style="display: flex; align-items: center; gap: 15px; font-size:20px; margin: 10px 0;">
                 <img src="${p.i}" alt="${p.n}" style="width: 60px; height: 60px; border: 2px solid #8e7b55; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); background: #000; object-fit: cover;">
@@ -3703,19 +3822,54 @@ function getLeaderboardHTML() {
 }
 
 function endGame() {
-    const winner = [...party].sort((a,b) => b.score - a.score)[0];
-    recordWin(winner); // Update persistent history with full hero object
+    // Find the highest score
+    const maxScore = Math.max(...party.map(p => p.score));
     
-    const content = `
-        <div style="margin: 20px 0;">
-            <img src="${winner.i}" style="width: 100px; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(0,0,0,0.5);">
-            <p style="font-size: 20px; color: var(--gold); margin-top: 10px; font-family: 'Cinzel Decorative';">${winner.pName} the ${winner.n}</p>
-        </div>
-        <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
-        ${getLeaderboardHTML()}
-        <button class="btn btn-main" style="margin-top: 25px;" onclick="location.reload()">Return to Tavern</button>
-    `;
-    showModal("THE MISSIONS CONCLUDE", "A Legend is Scribed!", content);
+    // Find all players with the max score (handles ties)
+    const winners = party.filter(p => p.score === maxScore);
+    
+    // Record wins for all winners
+    winners.forEach(winner => recordWin(winner));
+    
+    let content = '';
+    
+    if (winners.length === 1) {
+        // Single winner
+        const winner = winners[0];
+        content = `
+            <div style="margin: 20px 0;">
+                <img src="${winner.i}" style="width: 100px; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(0,0,0,0.5);">
+                <p style="font-size: 20px; color: var(--gold); margin-top: 10px; font-family: 'Cinzel Decorative';">${winner.pName} the ${winner.n}</p>
+            </div>
+            <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+            ${getLeaderboardHTML()}
+            <button class="btn btn-main" style="margin-top: 25px;" onclick="location.reload()">Return to Tavern</button>
+        `;
+        showModal("THE MISSIONS CONCLUDE", "A Legend is Scribed!", content);
+    } else {
+        // Multiple winners - IT'S A DRAW!
+        const winnerImages = winners.map(w => `
+            <div style="display: inline-block; margin: 10px;">
+                <img src="${w.i}" style="width: 80px; border: 3px solid var(--gold); box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+                <p style="font-size: 14px; color: var(--gold); margin-top: 5px; font-family: 'Cinzel Decorative';">${w.pName}</p>
+            </div>
+        `).join('');
+        
+        const winnerNames = winners.map(w => w.pName).join(' & ');
+        
+        content = `
+            <p style="font-size: 28px; color: var(--gold); margin: 20px 0; font-family: 'Cinzel Decorative'; animation: glow 2s ease-in-out infinite;">🤝 DRAW! 🤝</p>
+            <p style="font-size: 16px; color: #d1d1d1; margin-bottom: 20px;">All with <b style="color: var(--gold);">${maxScore} Glory</b> share the victory!</p>
+            <div style="margin: 20px 0;">
+                ${winnerImages}
+            </div>
+            <p style="font-size: 18px; color: var(--gold); margin: 20px 0; font-family: 'Cinzel Decorative';">${winnerNames}</p>
+            <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+            ${getLeaderboardHTML()}
+            <button class="btn btn-main" style="margin-top: 25px;" onclick="location.reload()">Return to Tavern</button>
+        `;
+        showModal("THE MISSIONS CONCLUDE", "Legends Are Scribed!", content);
+    }
 }
 
 function resetHallOfFame() {
