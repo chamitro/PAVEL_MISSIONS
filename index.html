@@ -2815,7 +2815,7 @@ function checkAssassinationContract(targetWon) {
         target.cur[targetStat.name] = Math.max(0, target.cur[targetStat.name] - 1);
         ninja.cur[targetStat.name] += 1;
         
-        message = `<p style="font-size: 14px; color: var(--gold); margin-top: 15px; padding: 12px; background: rgba(197,160,89,0.15); border: 2px solid var(--gold); border-radius: 5px;">
+        message = `<p style="font-size: 14px; color: var(--purple); margin-top: 15px; padding: 12px; background: rgba(197,160,89,0.15); border: 2px solid var(--red); border-radius: 5px;">
             🗡️ <b>Assassination Complete!</b><br>
             <small>${ninja.pName} steals +1 ${targetStat.name.toUpperCase()} from ${target.pName}</small>
         </p>`;
