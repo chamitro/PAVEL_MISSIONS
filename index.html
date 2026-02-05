@@ -908,7 +908,7 @@
                         </div>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
-                        <div><b>POW:</b> 4</div>
+                        <div><b>POW:</b> 5</div>
                         <div><b>SPD:</b> 5</div>
                         <div><b>BRN:</b> 5</div>
                         <div><b>CHA:</b> 5</div>
@@ -934,7 +934,7 @@
                         <div><b>POW:</b> 6</div>
                         <div><b>SPD:</b> 5</div>
                         <div><b>BRN:</b> 6</div>
-                        <div><b>CHA:</b> 1</div>
+                        <div><b>CHA:</b> 2</div>
                         <div><b>WIL:</b> 6</div>
                     </div>
                     <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">Created by wise mages a century ago, this mechanical marvel was designed to assist with everyday village work. Though lacking in social graces, the Friendly AI's analytical mind and tireless nature make it an invaluable ally in solving complex problems.</p>
@@ -1013,12 +1013,12 @@
                     </div>
                 </div>
                 
-                <!-- Hero 6: Shadow Ninja -->
+                <!-- Hero 6: Fancy Ninja -->
                 <div style="border: 2px solid #8e7b55; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.2); border-radius: 5px;">
                     <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 10px;">
-                        <img src="./images/ninja.png" alt="Shadow Ninja" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
+                        <img src="./images/ninja.png" alt="Fancy Ninja" style="width: 70px; height: 70px; border: 2px solid var(--gold); background: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 3px;">
                         <div style="flex: 1;">
-                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Shadow Ninja</h3>
+                            <h3 style="color: var(--gold-bright); margin: 0 0 5px 0; font-size: 18px;">Fancy Ninja</h3>
                             <p style="font-size: 11px; color: #7a6a4a; margin: 0; font-style: italic;">Soul: Shadow • Affinity: Stealth</p>
                         </div>
                     </div>
@@ -1029,10 +1029,10 @@
                         <div><b>CHA:</b> 3</div>
                         <div><b>WIL:</b> 5</div>
                     </div>
-                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A hired blade who takes on missions for coin. Though they weren't quite good enough to join the elite assassin guilds, the Shadow Ninja's speed and agility still make them a dangerous opponent in the right circumstances.</p>
+                    <p style="font-size: 13px; margin: 0 0 10px 0; line-height: 1.4;">A hired blade who takes on missions for coin. Though they weren't quite good enough to join the elite assassin guilds, the Fancy Ninja's speed and agility still make them a dangerous opponent in the right circumstances.</p>
                     <div style="background: rgba(197,160,89,0.15); border-left: 3px solid var(--gold); padding: 8px 10px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Double Strike</p>
-                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">Spend SPD twice as effectively (every 1 SPD counts as 2)</p>
+                        <p style="margin: 0; font-size: 11px; color: var(--gold-bright); font-weight: bold;">⚡ PASSIVE: Assassination Contract</p>
+                        <p style="margin: 3px 0 0 0; font-size: 11px; color: var(--blood); line-height: 1.3;">At start of your turn, secretly pick a target. If they fail, steal +1 from their highest stat. If they succeed, lose -1 from your highest stat</p>
                     </div>
                 </div>
                 
@@ -1048,7 +1048,7 @@
                     <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; font-size: 11px; text-align: center;">
                         <div><b>POW:</b> 8</div>
                         <div><b>SPD:</b> 5</div>
-                        <div><b>BRN:</b> 5</div>
+                        <div><b>BRN:</b> 4</div>
                         <div><b>CHA:</b> 3</div>
                         <div><b>WIL:</b> 3</div>
                     </div>
@@ -1387,13 +1387,13 @@ const GROUP_STAGES = [
 STAGES.push(...GROUP_STAGES);
 
 const HEROES = [
-    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:4, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Forke a player of your choice to meditate on their next turn. Max uses: 2 players=1, 3 players=2, 4+ players=3' },
-    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:1, wil:6}, passive: 'System Override', passiveDesc: 'Use a different attribute than required. Recharges when you win a "Challenge a Friend"' },
+    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:5, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Forke a player of your choice to meditate on their next turn. Max uses: 2 players=1, 3 players=2, 4+ players=3' },
+    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:2, wil:6}, passive: 'System Override', passiveDesc: 'Use a different attribute than required. Recharges when you win a "Challenge a Friend"' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Forke', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
     { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Borrow stat points from another player. Recharges after 3 challenge wins.' },
-    { n: 'Shadow Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Double Strike', passiveDesc: 'Spend SPD twice as effectively (every 1 SPD counts as 2)' },
-    { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:5, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 4+ on any stat, gain +3 bonus' },
+    { n: 'Fancy Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Assassination Contract', passiveDesc: 'At start of your turn, secretly pick a target. If they fail their next challenge, steal +1 from their highest stat. If they succeed, lose -1 from your highest stat' },
+    { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:4, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 4+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll a dice. If 5 or 6, automatically win the challenge' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice (instead of no benefit)' },
     { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: Select a stat - all players lose 2, you gain plus 1' }
@@ -1404,6 +1404,8 @@ let usedHeroes = []; // Track which heroes have been selected
 let passiveUsed = {}; // Track one-time passive usage (key: playerIndex)
 let challengesCompleted = {}; // Track challenges completed per player for Crowd Favorite
 let witchWins = {}; // Track Neighbor Witch wins for passive recharge
+let assassinationTarget = -1; // Fancy Ninja's assassination contract target (player index, -1 = none)
+let ninjaPlayerIndex = -1; // Track which player is the Fancy Ninja
 let nextShopRound = -1; 
 let shopCount = 0;
 let isProcessing = false; // Prevent race conditions
@@ -1481,6 +1483,10 @@ function startGame() {
     round = 0;
     nextShopRound = -1;
     shopCount = 0;
+    assassinationTarget = -1;
+    
+    // Find Fancy Ninja player index
+    ninjaPlayerIndex = party.findIndex(p => p.n === 'Fancy Ninja');
     
     totalRounds = parseInt(document.getElementById('deck-size-in').value);
     const masterPool = [...STAGES]; 
@@ -1588,6 +1594,13 @@ function drawCard() {
     if(checkShadowControl()) {
         isProcessing = false;
         return; // Exit early - don't draw a card
+    }
+    
+    // Fancy Ninja: Assassination Contract - Select target at start of turn
+    if(activeIdx === ninjaPlayerIndex && ninjaPlayerIndex !== -1) {
+        isProcessing = false;
+        showAssassinationTargetSelection();
+        return;
     }
     
     openerIdx = activeIdx; pStage = deck[round];
@@ -1835,9 +1848,9 @@ function finalizeBorrow(allyIdx, borrowAmt) {
     const totalSpend = ownSpend + borrowAmt;
     let bonus = (h.a === pStage.a ? 3 : 0);
     
-    // Shadow Ninja passive on borrowed points too
+    // Fancy Ninja passive on borrowed points too
     let effectiveSpend = totalSpend;
-    if(h.n === 'Shadow Ninja' && pStage.s === 'spd') {
+    if(h.n === 'Fancy Ninja' && pStage.s === 'spd') {
         effectiveSpend = totalSpend * 2;
     }
     
@@ -1902,11 +1915,7 @@ function processAttempt(overrideStat = null) {
         return;
     }
     
-    // Shadow Ninja passive: Double Strike (SPD counts as 2x)
     let effectiveSpend = spend;
-    if(h.n === 'Shadow Ninja' && useStat === 'spd') {
-        effectiveSpend = spend * 2;
-    }
     
     // Lost Dragon passive: Dragon Rage (+3 when spending 4+)
     let dragonBonus = 0;
@@ -1922,9 +1931,9 @@ function processAttempt(overrideStat = null) {
 function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpend = spent) {
     const h = party[activeIdx];
     
-    // Shadow Ninja display adjustment
+    // Fancy Ninja display adjustment
     let spentDisplay = spent;
-    if(h.n === 'Shadow Ninja' && usedStat === 'spd' && effectiveSpend !== spent) {
+    if(h.n === 'Fancy Ninja' && usedStat === 'spd' && effectiveSpend !== spent) {
         spentDisplay = `${spent} (×2 = ${effectiveSpend})`;
     }
     
@@ -1976,7 +1985,11 @@ function showResult(spent, bonus, final, win, usedStat = pStage.s, effectiveSpen
                 bonusLine += `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Brute Forke: POW increased by 3!</p>`;
             }
         }
-        showModal(win?"<span class='result-success'>ROOM CLEARED</span>":"<span class='result-failure'>FALSIFIED</span>", `Outcome`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${final}</b><br><small>Your Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>The Peril</small></div></div>${bonusLine} ${upMsg}<button class="btn btn-main" onclick="${win ? (h.n === 'Lover Zombie' ? 'selectLoverZombieDebuff()' : 'checkStore()') : 'rotateCycle()'}">Continue</button>`);
+        
+        // Fancy Ninja: Assassination Contract check
+        const assassinationMessage = checkAssassinationContract(win);
+        
+        showModal(win?"<span class='result-success'>ROOM CLEARED</span>":"<span class='result-failure'>FALSIFIED</span>", `Outcome`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${final}</b><br><small>Your Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>The Peril</small></div></div>${bonusLine} ${upMsg}${assassinationMessage}<button class="btn btn-main" onclick="${win ? (h.n === 'Lover Zombie' ? 'selectLoverZombieDebuff()' : 'checkStore()') : 'rotateCycle()'}">Continue</button>`);
     }
     updatePartyUI();
 }
@@ -2064,9 +2077,15 @@ function gamble(cur, usedStat = pStage.s) {
                 // Lover Zombie passive: Cursed Embrace
                 let continueAction = h.n === 'Lover Zombie' ? 'selectLoverZombieDebuff()' : 'checkStore()';
                 
-                showModal("<span class='result-success'>MIRACULOUS VICTORY</span>", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${crowdBonus}${thugBonus}<button class="btn btn-main" onclick="${continueAction}">Continue</button>`);
+                // Fancy Ninja: Assassination Contract check
+                const assassinationMessage = checkAssassinationContract(true);
+                
+                showModal("<span class='result-success'>MIRACULOUS VICTORY</span>", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${crowdBonus}${thugBonus}${assassinationMessage}<button class="btn btn-main" onclick="${continueAction}">Continue</button>`);
             } else {
-                showModal("<span class='result-failure'>TOTAL FAILURE</span>", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div><button class="btn btn-main" onclick="rotateCycle()">Continue</button>`);
+                // Fancy Ninja: Assassination Contract check
+                const assassinationMessage = checkAssassinationContract(false);
+                
+                showModal("<span class='result-failure'>TOTAL FAILURE</span>", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${assassinationMessage}<button class="btn btn-main" onclick="rotateCycle()">Continue</button>`);
             }
             updatePartyUI();
         }, 500);
@@ -2243,9 +2262,9 @@ function collectGroupContribution() {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useArcaneAllianceGroup()">⚡ Use Arcane Alliance (Borrow Points)</button>`;
     }
     
-    // Special note for Shadow Ninja
+    // Special note for Fancy Ninja
     let ninjaNote = '';
-    if(currentHero.n === 'Shadow Ninja' && requiredStat === 'spd') {
+    if(currentHero.n === 'Fancy Ninja' && requiredStat === 'spd') {
         ninjaNote = `<p style="font-size: 12px; color: #9370DB; margin-top: 8px;">⚡ Double Strike: Your SPD counts as 2x!</p>`;
     }
     
@@ -2292,10 +2311,10 @@ function submitGroupContribution() {
         affinityBonus = 3;
     }
     
-    // Shadow Ninja passive: Double Strike (SPD counts as 2x)
+    // Fancy Ninja passive: Double Strike (SPD counts as 2x)
     let effectiveContribution = contribution;
     let ninjaBonus = 0;
-    if(currentHero.n === 'Shadow Ninja' && requiredStat === 'spd' && contribution > 0) {
+    if(currentHero.n === 'Fancy Ninja' && requiredStat === 'spd' && contribution > 0) {
         effectiveContribution = contribution * 2;
         ninjaBonus = contribution; // The extra amount from doubling
     }
@@ -2691,6 +2710,126 @@ function executeArcaneAllianceGroup() {
 }
 // ========== END GROUP CHALLENGE SYSTEM ==========
 
+// Fancy Ninja: Assassination Contract
+function showAssassinationTargetSelection() {
+    const ninja = party[ninjaPlayerIndex];
+    
+    // Build list of other players
+    let targetOptions = party
+        .map((p, idx) => {
+            if(idx === ninjaPlayerIndex) return ''; // Skip self
+            return `<option value="${idx}">${p.pName} (${p.n})</option>`;
+        })
+        .filter(opt => opt !== '')
+        .join('');
+    
+    showModal(
+        "🗡️ Assassination Contract",
+        "Select your target...",
+        `
+        <div style="margin: 15px 0;">
+            <img src="${ninja.i}" alt="Fancy Ninja" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+        </div>
+        <p style="font-size: 14px; color: #d1d1d1; margin: 15px 0; line-height: 1.5;">
+            Choose a target. If they <b style="color: var(--blood);">fail</b> their next challenge, steal <b style="color: var(--gold);">+2</b> from their highest stat.<br>
+            If they <b style="color: #1b5e20;">succeed</b>, you lose <b style="color: var(--blood);">-2</b> from your highest stat.
+        </p>
+        <select id="assassination-target" class="input-hero" style="width: 100%; font-size: 16px; padding: 10px; margin: 15px 0;">
+            ${targetOptions}
+        </select>
+        <button class="btn btn-main" onclick="confirmAssassinationTarget()">🗡️ Mark Target</button>
+        `
+    );
+}
+
+function confirmAssassinationTarget() {
+    assassinationTarget = parseInt(document.getElementById('assassination-target').value);
+    const target = party[assassinationTarget];
+    
+    console.log(`🗡️ Assassination Contract: ${party[ninjaPlayerIndex].pName} targets ${target.pName}`);
+    
+    closeModal();
+    
+    // Now proceed with normal card drawing
+    openerIdx = activeIdx;
+    pStage = deck[round];
+    const setter = party[(activeIdx + 1) % party.length].pName;
+    const currentHero = party[activeIdx];
+    
+    // Reset Paladin dice flag for the new challenge
+    if(currentHero.n === 'Drunken Paladin') {
+        currentHero.paladinDiceUsedThisTurn = false;
+    }
+    
+    setTimeout(() => {
+        showModal(`Shadow Ritual`, `${setter}, manifest the peril:`, `<button class="btn btn-main" onclick="setDiff('e',1)">Minor Encounter (1pt)</button><button class="btn btn-main" style="border-color:var(--blood); color: var(--blood)" onclick="setDiff('h',2)">Deadly Trial (2pt)</button>`);
+    }, 100);
+}
+
+// Helper: Get highest stat name and value for a player
+function getHighestStat(player) {
+    const stats = [
+        { name: 'pow', value: player.cur.pow },
+        { name: 'spd', value: player.cur.spd },
+        { name: 'brn', value: player.cur.brn },
+        { name: 'cha', value: player.cur.cha },
+        { name: 'wil', value: player.cur.wil }
+    ];
+    
+    // Find max value
+    const maxValue = Math.max(...stats.map(s => s.value));
+    
+    // Get all stats with that value
+    const highest = stats.filter(s => s.value === maxValue);
+    
+    // Randomly pick one if tied
+    const selected = highest[Math.floor(Math.random() * highest.length)];
+    
+    return selected;
+}
+
+// Check and resolve assassination contract
+function checkAssassinationContract(targetWon) {
+    if(assassinationTarget === -1 || ninjaPlayerIndex === -1) return '';
+    if(activeIdx !== assassinationTarget) return '';
+    
+    const ninja = party[ninjaPlayerIndex];
+    const target = party[assassinationTarget];
+    
+    let message = '';
+    
+    if(targetWon) {
+        // Target succeeded - Ninja loses -1 from highest stat
+        const ninjaStat = getHighestStat(ninja);
+        ninja.cur[ninjaStat.name] = Math.max(0, ninja.cur[ninjaStat.name] - 1);
+        
+        message = `<p style="font-size: 14px; color: var(--blood); margin-top: 15px; padding: 12px; background: rgba(128,0,0,0.15); border: 2px solid var(--blood); border-radius: 5px;">
+            🗡️ <b>Assassination Failed!</b><br>
+            <small>${ninja.pName} loses -1 ${ninjaStat.name.toUpperCase()} (contract backfired)</small>
+        </p>`;
+        
+        console.log(`🗡️ Assassination Contract FAILED: ${ninja.pName} loses -1 ${ninjaStat.name.toUpperCase()}`);
+    } else {
+        // Target failed - Ninja steals +1 from target's highest stat
+        const targetStat = getHighestStat(target);
+        target.cur[targetStat.name] = Math.max(0, target.cur[targetStat.name] - 1);
+        ninja.cur[targetStat.name] += 1;
+        
+        message = `<p style="font-size: 14px; color: var(--gold); margin-top: 15px; padding: 12px; background: rgba(197,160,89,0.15); border: 2px solid var(--gold); border-radius: 5px;">
+            🗡️ <b>Assassination Complete!</b><br>
+            <small>${ninja.pName} steals +1 ${targetStat.name.toUpperCase()} from ${target.pName}</small>
+        </p>`;
+        
+        console.log(`🗡️ Assassination Contract SUCCESS: ${ninja.pName} steals +1 ${targetStat.name.toUpperCase()} from ${target.pName}`);
+    }
+    
+    // Clear the contract
+    assassinationTarget = -1;
+    updatePartyUI();
+    
+    return message;
+}
+
 function rotateCycle() {
     if (isProcessing) return; // Prevent race conditions
     isProcessing = true;
@@ -2996,9 +3135,9 @@ function challengerInvest() {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('challenger')">⚡ Use System Override (Choose Stat)</button>`;
     }
     
-    // Special notes for Shadow Ninja and Lost Dragon
+    // Special notes for Fancy Ninja and Lost Dragon
     let ninjaNote = '';
-    if(challenger.n === 'Shadow Ninja' && pStage.s === 'spd') {
+    if(challenger.n === 'Fancy Ninja' && pStage.s === 'spd') {
         ninjaNote = `<p style="font-size: 12px; color: #9370DB; margin-top: 8px;">⚡ Double Strike: Your SPD counts as 2x!</p>`;
     }
     
@@ -3045,9 +3184,9 @@ function opponentInvest() {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useChallengeSystemOverride('opponent')">⚡ Use System Override (Choose Stat)</button>`;
     }
     
-    // Special notes for Shadow Ninja and Lost Dragon
+    // Special notes for Fancy Ninja and Lost Dragon
     let ninjaNote = '';
-    if(opponent.n === 'Shadow Ninja' && pStage.s === 'spd') {
+    if(opponent.n === 'Fancy Ninja' && pStage.s === 'spd') {
         ninjaNote = `<p style="font-size: 12px; color: #9370DB; margin-top: 8px;">⚡ Double Strike: Your SPD counts as 2x!</p>`;
     }
     
@@ -3123,15 +3262,15 @@ function resolveFriendChallenge() {
     let challengerBonus = (Array.isArray(pStage.a) ? pStage.a.includes(challenger.a) : challenger.a === pStage.a) ? 3 : 0;
     let opponentBonus = (Array.isArray(pStage.a) ? pStage.a.includes(opponent.a) : opponent.a === pStage.a) ? 3 : 0;
     
-    // Shadow Ninja passive for challenger
+    // Fancy Ninja passive for challenger
     let challengerEffective = challengerTotalSpend;
-    if(challenger.n === 'Shadow Ninja' && challengerUsedStat === 'spd') {
+    if(challenger.n === 'Fancy Ninja' && challengerUsedStat === 'spd') {
         challengerEffective = challengerTotalSpend * 2;
     }
     
-    // Shadow Ninja passive for opponent
+    // Fancy Ninja passive for opponent
     let opponentEffective = opponentTotalSpend;
-    if(opponent.n === 'Shadow Ninja' && opponentUsedStat === 'spd') {
+    if(opponent.n === 'Fancy Ninja' && opponentUsedStat === 'spd') {
         opponentEffective = opponentTotalSpend * 2;
     }
     
