@@ -2199,18 +2199,10 @@ function discardGroupChallenge() {
     
     closeModal();
 
-    // 2. Simply move to next card without any manipulation
-    // The deck is already shuffled, so the next card has natural equal probability
-    // of being a group challenge or regular challenge
-    round++; // Move to next card
-    
-    if (round < deck.length) {
-        // Draw the next card naturally from the shuffled deck
-        drawCard();
-    } else {
-        // If we've run out of cards, end the game
-        endGame();
-    }
+    // 2. Use checkStore() to properly advance round and player
+    // This ensures: round increments, shop timing is checked, 
+    // game end is detected, and next player opens the card
+    checkStore();
 }
 
 function startGroupChallenge() {
