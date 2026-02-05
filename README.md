@@ -198,7 +198,7 @@ Borrow stat points from another player. Recharges after 3 challenge wins. Works 
 
 ---
 
-### Shadow Ninja 🗡️
+### Fancy Ninja 🗡️
 *Soul: Shadow • Affinity: Stealth*  
 **Stats:** POW 4 | SPD 7 | BRN 5 | CHA 3 | WIL 5  
 **⚡ Passive: Assassination Contract**  
