@@ -1406,6 +1406,7 @@ let challengesCompleted = {}; // Track challenges completed per player for Crowd
 let witchWins = {}; // Track Neighbor Witch wins for passive recharge
 let assassinationTarget = -1; // Fancy Ninja's assassination contract target (player index, -1 = none)
 let ninjaPlayerIndex = -1; // Track which player is the Fancy Ninja
+let ninjaNextAction = null; // Track what to do after assassination target selection ('draw', 'meditate', 'friend', 'group')
 let nextShopRound = -1; 
 let shopCount = 0;
 let isProcessing = false; // Prevent race conditions
@@ -1599,6 +1600,7 @@ function drawCard() {
     // Fancy Ninja: Assassination Contract - Select target at start of turn
     if(activeIdx === ninjaPlayerIndex && ninjaPlayerIndex !== -1) {
         isProcessing = false;
+        ninjaNextAction = 'draw'; // After assassination, continue with drawing card
         showAssassinationTargetSelection();
         return;
     }
@@ -2731,8 +2733,8 @@ function showAssassinationTargetSelection() {
             <img src="${ninja.i}" alt="Fancy Ninja" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
         </div>
         <p style="font-size: 14px; color: #222222; margin: 15px 0; line-height: 1.5;">
-            Choose a target. If they <b style="color: var(--blood);">fail</b> their next challenge, steal <b style="color: var(--gold);">+2</b> from their highest stat.<br>
-            If they <b style="color: #1b5e20;">succeed</b>, you lose <b style="color: var(--blood);">-2</b> from your highest stat.
+            Choose a target. If they <b style="color: var(--blood);">fail</b> their next challenge, steal <b style="color: var(--gold);">+1</b> from their highest stat.<br>
+            If they <b style="color: #1b5e20;">succeed</b>, you lose <b style="color: var(--blood);">-1</b> from your highest stat.
         </p>
         <select id="assassination-target" class="input-hero" style="width: 100%; font-size: 16px; padding: 10px; margin: 15px 0;">
             ${targetOptions}
@@ -2750,20 +2752,70 @@ function confirmAssassinationTarget() {
     
     closeModal();
     
-    // Now proceed with normal card drawing
-    openerIdx = activeIdx;
-    pStage = deck[round];
-    const setter = party[(activeIdx + 1) % party.length].pName;
-    const currentHero = party[activeIdx];
-    
-    // Reset Paladin dice flag for the new challenge
-    if(currentHero.n === 'Drunken Paladin') {
-        currentHero.paladinDiceUsedThisTurn = false;
+    // Continue based on what action triggered the assassination selection
+    if(ninjaNextAction === 'meditate') {
+        // Continue with meditation
+        ninjaNextAction = null; // Reset
+        const h = party[activeIdx];
+        if(h.skips > 0) {
+            h.skips--;
+            
+            // Mute Monk passive: Inner Peace - restore +4 to chosen attribute
+            if(h.n === 'Mute Monk') {
+                showModal("Inner Peace Activated", "Choose an attribute to restore +4", `
+                    <div style="margin: 15px 0;">
+                        <img src="${h.i}" alt="${h.n}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 5px;">
+                    </div>
+                    <p style="font-size:14px; margin-bottom:15px;">Select attribute to restore:</p>
+                    <select id="monk-restore-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+                        <option value="pow">POW</option>
+                        <option value="spd">SPD</option>
+                        <option value="brn">BRN</option>
+                        <option value="cha">CHA</option>
+                        <option value="wil">WIL</option>
+                    </select>
+                    <button class="btn btn-main" onclick="finishMonkMeditate()">Restore & Continue</button>
+                `);
+            } else {
+                rotateCycle();
+            }
+        } else {
+            alert("Your spirit is exhausted! You can no longer Meditate.");
+        }
+    } else if(ninjaNextAction === 'friend') {
+        // Continue with friend challenge
+        ninjaNextAction = null; // Reset
+        let otherPlayers = party.filter((p, i) => i !== activeIdx);
+        let playerOptions = otherPlayers.map((p, i) => {
+            let realIdx = party.indexOf(p);
+            return `<option value="${realIdx}">${p.pName}</option>`;
+        }).join('');
+        
+        showModal("Challenge a Friend", "Choose Your Opponent", `
+            <p style="font-size:14px; margin-bottom:15px;">Select a fellow adventurer to challenge!</p>
+            <select id="challenge-opponent" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin-bottom:20px;">
+                ${playerOptions}
+            </select>
+            <button class="btn btn-main" onclick="selectChallenger()">Issue Challenge</button>
+            <button class="btn btn-skip" onclick="closeModal()">Cancel</button>
+        `);
+    } else {
+        // Default: Continue with normal card drawing
+        ninjaNextAction = null; // Reset
+        openerIdx = activeIdx;
+        pStage = deck[round];
+        const setter = party[(activeIdx + 1) % party.length].pName;
+        const currentHero = party[activeIdx];
+        
+        // Reset Paladin dice flag for the new challenge
+        if(currentHero.n === 'Drunken Paladin') {
+            currentHero.paladinDiceUsedThisTurn = false;
+        }
+        
+        setTimeout(() => {
+            showModal(`Shadow Ritual`, `${setter}, manifest the peril:`, `<button class="btn btn-main" onclick="setDiff('e',1)">Minor Encounter (1pt)</button><button class="btn btn-main" style="border-color:var(--blood); color: var(--blood)" onclick="setDiff('h',2)">Deadly Trial (2pt)</button>`);
+        }, 100);
     }
-    
-    setTimeout(() => {
-        showModal(`Shadow Ritual`, `${setter}, manifest the peril:`, `<button class="btn btn-main" onclick="setDiff('e',1)">Minor Encounter (1pt)</button><button class="btn btn-main" style="border-color:var(--blood); color: var(--blood)" onclick="setDiff('h',2)">Deadly Trial (2pt)</button>`);
-    }, 100);
 }
 
 // Helper: Get highest stat name and value for a player
@@ -2950,8 +3002,20 @@ function renderStore() {
         </div>`;
     });
     
-    c += `</div>
-    <button class="btn btn-main" style="margin-top:15px" onclick="finishStore()" ${storePoints>0?'disabled':''}>Drink and Bind</button>`;
+    c += `</div>`;
+    
+    // Add helpful message based on points remaining
+    if(storePoints > 0) {
+        c += `<p style="font-size: 12px; color: #ff9800; text-align: center; margin: 15px 0; font-weight: bold;">⚠️ Spend all ${storePoints} Soul Points to continue</p>`;
+    } else {
+        c += `<p style="font-size: 12px; color: #2ecc71; text-align: center; margin: 15px 0; font-weight: bold;">✓ Ready to proceed!</p>`;
+    }
+    
+    const buttonText = storePoints > 0 ? '🔒 Spend All Points First' : '✓ Continue to Next Hero';
+    const buttonStyle = storePoints > 0 ? 'opacity: 0.5; cursor: not-allowed;' : 'opacity: 1; cursor: pointer; box-shadow: 0 0 15px rgba(197,160,89,0.6);';
+    const buttonDisabled = storePoints > 0 ? 'disabled' : '';
+    
+    c += `<button class="btn btn-main" style="margin-top:15px; ${buttonStyle}" onclick="finishStore()" ${buttonDisabled}>${buttonText}</button>`;
     showModal("The Alchemist's Den", "", c);
     
     // Ensure processing flag is reset when store UI is ready
@@ -3004,6 +3068,13 @@ function meditateTurn() {
     // Check if current player is under Shadow Control before allowing them to meditate voluntarily
     if(checkShadowControl()) {
         return; // Shadow control handled, player is forked to meditate anyway
+    }
+    
+    // Fancy Ninja: Assassination Contract - Select target even when meditating
+    if(activeIdx === ninjaPlayerIndex && ninjaPlayerIndex !== -1) {
+        ninjaNextAction = 'meditate'; // After assassination, continue with meditation
+        showAssassinationTargetSelection();
+        return;
     }
     
     const h = party[activeIdx];
@@ -3074,6 +3145,13 @@ function initiateFriendChallenge() {
     // Check if current player is under Shadow Control before allowing them to challenge a friend
     if(checkShadowControl()) {
         return; // Shadow control handled, player must meditate instead
+    }
+    
+    // Fancy Ninja: Assassination Contract - Select target even when challenging a friend
+    if(activeIdx === ninjaPlayerIndex && ninjaPlayerIndex !== -1) {
+        ninjaNextAction = 'friend'; // After assassination, continue with friend challenge
+        showAssassinationTargetSelection();
+        return;
     }
     
     let otherPlayers = party.filter((p, i) => i !== activeIdx);
@@ -3427,9 +3505,28 @@ function showChallengeResult() {
             zombieWarning = `<p style="font-size: 12px; color: var(--blood); margin-top: 10px; padding: 10px; background: rgba(128,0,0,0.1); border-left: 3px solid var(--blood);">💀 <b>Cursed Embrace:</b> Lover Zombie's victory curse will activate!</p>`;
         }
         
+        // Fancy Ninja: Check assassination contract for both players
+        let assassinationMessage = '';
+        // Save current activeIdx, check both players, restore it
+        const savedActiveIdx = activeIdx;
+        
+        // Check challenger
+        activeIdx = challengeData.challenger;
+        const challengerAssassination = checkAssassinationContract(challengerWin);
+        if(challengerAssassination) assassinationMessage += challengerAssassination;
+        
+        // Check opponent
+        activeIdx = challengeData.opponent;
+        const opponentAssassination = checkAssassinationContract(opponentWin);
+        if(opponentAssassination) assassinationMessage += opponentAssassination;
+        
+        // Restore activeIdx
+        activeIdx = savedActiveIdx;
+        
         showModal("Dual Victory!", "Both heroes triumph!", `
             <p>Both ${challenger.pName} and ${opponent.pName} gain ${bothWinPoints} point${bothWinPoints > 1 ? 's' : ''} of Glory!</p>
             ${passiveTriggers}
+            ${assassinationMessage}
             ${zombieWarning}
             <button class="btn btn-main" onclick="${zombieWinners.length > 0 ? `triggerLoverZombieFriend([${zombieWinners.join(',')}])` : 'checkStore()'}">Continue</button>
         `);
@@ -3475,9 +3572,27 @@ function showChallengeResult() {
             zombieWarning = `<p style="font-size: 12px; color: var(--blood); margin-top: 10px; padding: 10px; background: rgba(128,0,0,0.1); border-left: 3px solid var(--blood);">💀 <b>Cursed Embrace:</b> Lover Zombie's victory curse will activate!</p>`;
         }
         
+        // Fancy Ninja: Check assassination contract for both players
+        let assassinationMessage = '';
+        const savedActiveIdx = activeIdx;
+        
+        // Check challenger (won)
+        activeIdx = challengeData.challenger;
+        const challengerAssassination = checkAssassinationContract(true);
+        if(challengerAssassination) assassinationMessage += challengerAssassination;
+        
+        // Check opponent (lost)
+        activeIdx = challengeData.opponent;
+        const opponentAssassination = checkAssassinationContract(false);
+        if(opponentAssassination) assassinationMessage += opponentAssassination;
+        
+        // Restore activeIdx
+        activeIdx = savedActiveIdx;
+        
         showModal("Victory for the Challenger!", `${challenger.pName} Stands Alone!`, `
             <p>${challenger.pName} gains ${singleWinPoints} points of Glory!</p>
             ${passiveTriggers}
+            ${assassinationMessage}
             ${zombieWarning}
             <button class="btn btn-main" onclick="${challenger.n === 'Lover Zombie' ? `triggerLoverZombieFriend([${challengeData.challenger}])` : 'checkStore()'}">Continue</button>
         `);
@@ -3523,15 +3638,52 @@ function showChallengeResult() {
             zombieWarning = `<p style="font-size: 12px; color: var(--blood); margin-top: 10px; padding: 10px; background: rgba(128,0,0,0.1); border-left: 3px solid var(--blood);">💀 <b>Cursed Embrace:</b> Lover Zombie's victory curse will activate!</p>`;
         }
         
+        // Fancy Ninja: Check assassination contract for both players
+        let assassinationMessage = '';
+        const savedActiveIdx = activeIdx;
+        
+        // Check challenger (lost)
+        activeIdx = challengeData.challenger;
+        const challengerAssassination = checkAssassinationContract(false);
+        if(challengerAssassination) assassinationMessage += challengerAssassination;
+        
+        // Check opponent (won)
+        activeIdx = challengeData.opponent;
+        const opponentAssassination = checkAssassinationContract(true);
+        if(opponentAssassination) assassinationMessage += opponentAssassination;
+        
+        // Restore activeIdx
+        activeIdx = savedActiveIdx;
+        
         showModal("Victory for the Defender!", `${opponent.pName} Stands Alone!`, `
             <p>${opponent.pName} gains ${singleWinPoints} points of Glory!</p>
             ${passiveTriggers}
+            ${assassinationMessage}
             ${zombieWarning}
             <button class="btn btn-main" onclick="${opponent.n === 'Lover Zombie' ? `triggerLoverZombieFriend([${challengeData.opponent}])` : 'checkStore()'}">Continue</button>
         `);
     } else {
+        // Both failed
+        // Fancy Ninja: Check assassination contract for both players
+        let assassinationMessage = '';
+        const savedActiveIdx = activeIdx;
+        
+        // Check challenger (lost)
+        activeIdx = challengeData.challenger;
+        const challengerAssassination = checkAssassinationContract(false);
+        if(challengerAssassination) assassinationMessage += challengerAssassination;
+        
+        // Check opponent (lost)
+        activeIdx = challengeData.opponent;
+        const opponentAssassination = checkAssassinationContract(false);
+        if(opponentAssassination) assassinationMessage += opponentAssassination;
+        
+        // Restore activeIdx
+        activeIdx = savedActiveIdx;
+        
         showModal("Challenge Failed", "The abyss claims all...", `
             <p>Both warriors have fallen. No glory is earned this day.</p>
+            ${assassinationMessage}
             <button class="btn btn-main" onclick="checkStore()">Continue</button>
         `);
     }
