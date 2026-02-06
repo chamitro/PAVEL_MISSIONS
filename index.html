@@ -35,41 +35,26 @@
             z-index: 0;
         }
         
-        /* Animated green aura moving in background */
+        /* Animated green aura moving in background - OPTIMIZED */
         body::after {
             content: '';
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: 
-                radial-gradient(circle at 30% 40%, rgba(46, 255, 87, 0.25) 0%, transparent 30%),
-                radial-gradient(circle at 70% 60%, rgba(76, 255, 120, 0.2) 0%, transparent 35%),
-                radial-gradient(circle at 50% 80%, rgba(106, 255, 150, 0.18) 0%, transparent 40%);
+                radial-gradient(circle at 30% 40%, rgba(46, 255, 87, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(76, 255, 120, 0.12) 0%, transparent 35%);
             pointer-events: none;
             z-index: 0;
             animation: auraFloat 15s ease-in-out infinite;
-            mix-blend-mode: screen;
+            will-change: opacity;
         }
         
         @keyframes auraFloat {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0.7;
-            }
-            25% {
-                transform: translate(-5%, 3%) rotate(3deg);
-                opacity: 1;
-            }
-            50% {
-                transform: translate(4%, -4%) rotate(-3deg);
-                opacity: 0.8;
-            }
-            75% {
-                transform: translate(-3%, 5%) rotate(2deg);
-                opacity: 0.95;
-            }
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
         
         .container {
@@ -114,6 +99,7 @@
     animation: magic-pulse 2s infinite ease-in-out;
     position: relative;
     z-index: 10;
+    will-change: opacity;
 }
         .wax-seal {
             position: absolute; top: -10px; right: -5px; width: 45px; height: 45px;
@@ -178,7 +164,6 @@
             justify-content: center; 
             z-index: 1000; 
             padding: 20px; 
-            backdrop-filter: blur(8px);
             animation: fadeIn 0.3s ease;
         }
         .modal { 
@@ -241,17 +226,13 @@
             100% { transform: rotate(360deg) scale(1); }
         }
         @keyframes magic-pulse {
-    0% { 
-        box-shadow: 0 0 15px rgba(197, 160, 89, 0.5), 0 0 30px rgba(139, 0, 0, 0.3);
-        border-color: var(--gold);
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(197, 160, 89, 0.6), 0 0 40px rgba(139, 0, 0, 0.4);
+        opacity: 1;
     }
     50% { 
-        box-shadow: 0 0 30px rgba(197, 160, 89, 0.9), 0 0 60px rgba(139, 0, 0, 0.6);
-        border-color: #fff; /* White flash at the peak of the magic */
-    }
-    100% { 
-        box-shadow: 0 0 15px rgba(197, 160, 89, 0.5), 0 0 30px rgba(139, 0, 0, 0.3);
-        border-color: var(--gold);
+        box-shadow: 0 0 20px rgba(197, 160, 89, 0.6), 0 0 40px rgba(139, 0, 0, 0.4);
+        opacity: 0.85;
     }
 }
 
