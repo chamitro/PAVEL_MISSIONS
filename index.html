@@ -1134,7 +1134,7 @@
                 <p><b>4. Decision Options:</b> Each turn, you have three choices:</p>
                 <p style="margin-left: 20px;">• <b>Do the Challenge:</b> Spend attribute points to meet the target and claim Glory. If you win you get <b>back 2 points</b> of what you spent!</p>
                 <p style="margin-left: 20px;">• <b>Pass (Meditation):</b> Skip the challenge without penalty. You have exactly <b>3 Meditations</b> for the entire game—use them wisely on impossible or inefficient challenges.</p>
-                <p style="margin-left: 20px;">• <b>Challenge a Friend:</b> Engage in a competitive dual challenge with another player <b>without dice</b> help, but the one who make the challenge take <b>+2 bonus</b> in the fight for his courage! Both invest attribute points. Outcomes: both succeed (both gain Glory), one succeeds (solo winner gains <b>bonus</b> Glory), or both fail (no Glory). But, after challenge a friend, <b>another challenge opens</b>. Strategic for difficult challenges or when attributes are scarce.</p>
+                <p style="margin-left: 20px;">• <b>Challenge a Friend:</b> Engage in a competitive dual challenge with another player <b>without dice</b> help, but the one who make the challenge take <b>+3 bonus</b> in the fight for his courage! Both invest attribute points. Outcomes: both succeed (both gain Glory), one succeeds (solo winner gains <b>bonus</b> Glory), or both fail (no Glory). But, after challenge a friend, <b>another challenge opens</b>. Strategic for difficult challenges or when attributes are scarce.</p>
                 
                  <p><b>5. Pass and Play:</b> When you finish your turn, pass the mobile to the player next to you.</p>
                 
@@ -2057,13 +2057,23 @@ function gamble(cur, usedStat = pStage.s) {
                     thugBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Brute Forke: POW increased by 3!</p>`;
                 }
                 
+                // Neighbor Witch passive: Arcane Alliance recharge after 3 wins
+                let witchBonus = '';
+                if(h.n === 'Neighbor Witch') {
+                    witchWins[activeIdx]++;
+                    if(witchWins[activeIdx] % 3 === 0) {
+                        passiveUsed[activeIdx] = false;
+                        witchBonus = `<p style="color:#f3cf7a; font-size:12px; margin-top:8px;">⚡ Arcane Alliance Recharged! (${witchWins[activeIdx]} wins)</p>`;
+                    }
+                }
+                
                 // Lover Zombie passive: Cursed Embrace
                 let continueAction = h.n === 'Lover Zombie' ? 'selectLoverZombieDebuff()' : 'checkStore()';
                 
                 // Fancy Ninja: Assassination Contract check
                 const assassinationMessage = checkAssassinationContract(true);
                 
-                showModal("<span class='result-success'>MIRACULOUS VICTORY</span>", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${crowdBonus}${thugBonus}${assassinationMessage}<button class="btn btn-main" onclick="${continueAction}">Continue</button>`);
+                showModal("<span class='result-success'>MIRACULOUS VICTORY</span>", `The Fates Have Spoken`, `<div style="display:flex; justify-content:space-around; margin:20px 0; font-family:'Cinzel Decorative'"><div><b class="score-display">${fin}</b><br><small>Final Power</small></div><div style="opacity:0.2; font-size:30px;">VS</div><div><b style="color:var(--blood); font-size:30px;">${pTarget}</b><br><small>Requirement</small></div></div>${crowdBonus}${thugBonus}${witchBonus}${assassinationMessage}<button class="btn btn-main" onclick="${continueAction}">Continue</button>`);
             } else {
                 // Fancy Ninja: Assassination Contract check
                 const assassinationMessage = checkAssassinationContract(false);
@@ -3316,7 +3326,7 @@ function resolveFriendChallenge() {
     challenger.cur[challengerUsedStat] -= challengeData.challengerSpend;
     opponent.cur[opponentUsedStat] -= challengeData.opponentSpend;
     
-    let initiatorBonus = 2;
+    let initiatorBonus = 3;
     // Calculate affinity bonuses
     let challengerBonus = (Array.isArray(pStage.a) ? pStage.a.includes(challenger.a) : challenger.a === pStage.a) ? 3 : 0;
     let opponentBonus = (Array.isArray(pStage.a) ? pStage.a.includes(opponent.a) : opponent.a === pStage.a) ? 3 : 0;
@@ -3392,7 +3402,7 @@ let opponentWin = challengeData.opponentAutoWin || (opponentTotal >= pTarget);
                 <b style="color:var(--blood); display:block;">${challenger.pName} (Initiator)</b>
                 <p style="font-size:18px; margin:5px 0;">Spent: ${challengerSpendDisplay}</p>
                 <p style="font-size:24px; margin:10px 0; color:var(--gold);">${challengerTotal}</p>
-                <small>Affinity: +${challengerBonus} <br> <b>Courage: +2</b></small>
+                <small>Affinity: +${challengerBonus} <br> <b>Courage: +3</b></small>
             </div>
             <div style="border:2px solid #8e7b55; padding:15px; border-radius:5px;">
                 <b style="color:var(--blood); display:block;">${opponent.pName}</b>
