@@ -791,9 +791,11 @@
                 gap: 12px !important;
             }
             
-            .hero-sheet img {
-                width: 45px !important;
-                height: 45px !important;
+            /* Book hero images should be LARGER on mobile for readability */
+            .hero-card-img {
+                width: 55px !important;
+                height: 55px !important;
+                min-width: 55px !important;
             }
             
             .hero-sheet .medieval {
@@ -1100,135 +1102,135 @@
             <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 11px; margin-bottom: 15px;">Legendary Warriors Seeking Glory</p>
             <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
             
-            <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; flex-direction: column; gap: 10px;">
                 
                 <!-- Dark Stalker -->
-                <div style="display: flex; gap: 8px; padding: 8px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
-                    <img src="./images/dark.png" style="width: 45px; height: 45px; min-width: 45px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
+                <div style="display: flex; gap: 10px; padding: 10px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
+                    <img src="./images/dark.png" class="hero-card-img" style="width: 60px; height: 60px; min-width: 60px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
                     <div style="flex: 1; font-size: 11px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <b style="color: #2a2a2a;">Dark Stalker</b>
-                            <span style="font-size: 9px; color: #666; background: #fff; padding: 1px 4px; border-radius: 3px;">5/5/5/5/5</span>
+                            <span style="font-size: 10px; color: #666; background: #fff; padding: 2px 6px; border-radius: 3px;">5/5/5/5/5</span>
                         </div>
-                        <p style="margin: 2px 0; color: #555; font-size: 10px;">Perfectly balanced assassin. No one knows their true face or purpose.</p>
-                        <p style="margin: 0; font-size: 10px;"><b style="color: var(--blood);">⚡ Shadow Control:</b> Force a player to use a meditation. Uses: 1-3 based on party size.</p>
+                        <p style="margin: 4px 0; color: #555; font-size: 11px;">Perfectly balanced assassin. No one knows their true face or purpose.</p>
+                        <p style="margin: 0; font-size: 11px;"><b style="color: var(--blood);">⚡ Shadow Control:</b> Force a player to use a meditation. Uses: 1-3 based on party size.</p>
                     </div>
                 </div>
                 
                 <!-- Friendly AI -->
-                <div style="display: flex; gap: 8px; padding: 8px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
-                    <img src="./images/ai.png" style="width: 45px; height: 45px; min-width: 45px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
+                <div style="display: flex; gap: 10px; padding: 10px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
+                    <img src="./images/ai.png" class="hero-card-img" style="width: 60px; height: 60px; min-width: 60px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
                     <div style="flex: 1; font-size: 11px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <b style="color: #2a2a2a;">Friendly AI</b>
-                            <span style="font-size: 9px; color: #666; background: #fff; padding: 1px 4px; border-radius: 3px;">6/5/6/2/6</span>
+                            <span style="font-size: 10px; color: #666; background: #fff; padding: 2px 6px; border-radius: 3px;">6/5/6/2/6</span>
                         </div>
-                        <p style="margin: 2px 0; color: #555; font-size: 10px;">Sentient construct from a forgotten age. Analyzes problems with inhuman precision.</p>
-                        <p style="margin: 0; font-size: 10px;"><b style="color: var(--blood);">⚡ System Override:</b> Use ANY stat for a challenge. Recharges on friend challenge win.</p>
+                        <p style="margin: 4px 0; color: #555; font-size: 11px;">Sentient construct from a forgotten age. Analyzes problems with inhuman precision.</p>
+                        <p style="margin: 0; font-size: 11px;"><b style="color: var(--blood);">⚡ System Override:</b> Use ANY stat for a challenge. Recharges on friend challenge win.</p>
                     </div>
                 </div>
                 
                 <!-- Thug Dwarf -->
-                <div style="display: flex; gap: 8px; padding: 8px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
-                    <img src="./images/swag.png" style="width: 45px; height: 45px; min-width: 45px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
+                <div style="display: flex; gap: 10px; padding: 10px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
+                    <img src="./images/swag.png" class="hero-card-img" style="width: 60px; height: 60px; min-width: 60px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
                     <div style="flex: 1; font-size: 11px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <b style="color: #2a2a2a;">Thug Dwarf</b>
-                            <span style="font-size: 9px; color: #666; background: #fff; padding: 1px 4px; border-radius: 3px;">7/2/2/5/6</span>
+                            <span style="font-size: 10px; color: #666; background: #fff; padding: 2px 6px; border-radius: 3px;">7/2/2/5/6</span>
                         </div>
-                        <p style="margin: 2px 0; color: #555; font-size: 10px;">Exiled from Ironpeak clans. Hit first, hit hard, never apologize.</p>
-                        <p style="margin: 0; font-size: 10px;"><b style="color: var(--blood);">⚡ Brute Force:</b> Gain +3 POW permanently every time you win. Always active.</p>
+                        <p style="margin: 4px 0; color: #555; font-size: 11px;">Exiled from Ironpeak clans. Hit first, hit hard, never apologize.</p>
+                        <p style="margin: 0; font-size: 11px;"><b style="color: var(--blood);">⚡ Brute Force:</b> Gain +3 POW permanently every time you win. Always active.</p>
                     </div>
                 </div>
                 
                 <!-- Babbler Rogue -->
-                <div style="display: flex; gap: 8px; padding: 8px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
-                    <img src="./images/rogue.png" style="width: 45px; height: 45px; min-width: 45px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
+                <div style="display: flex; gap: 10px; padding: 10px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
+                    <img src="./images/rogue.png" class="hero-card-img" style="width: 60px; height: 60px; min-width: 60px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
                     <div style="flex: 1; font-size: 11px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <b style="color: #2a2a2a;">Babbler Rogue</b>
-                            <span style="font-size: 9px; color: #666; background: #fff; padding: 1px 4px; border-radius: 3px;">2/4/5/8/6</span>
+                            <span style="font-size: 10px; color: #666; background: #fff; padding: 2px 6px; border-radius: 3px;">2/4/5/8/6</span>
                         </div>
-                        <p style="margin: 2px 0; color: #555; font-size: 10px;">Silver-tongued trickster who can talk their way out of anything.</p>
-                        <p style="margin: 0; font-size: 10px;"><b style="color: var(--blood);">⚡ Crowd Favorite:</b> +1 bonus Glory for every 3 challenges completed. Always active.</p>
+                        <p style="margin: 4px 0; color: #555; font-size: 11px;">Silver-tongued trickster who can talk their way out of anything.</p>
+                        <p style="margin: 0; font-size: 11px;"><b style="color: var(--blood);">⚡ Crowd Favorite:</b> +1 bonus Glory for every 3 challenges completed. Always active.</p>
                     </div>
                 </div>
                 
                 <!-- Neighbor Witch -->
-                <div style="display: flex; gap: 8px; padding: 8px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
-                    <img src="./images/magic.png" style="width: 45px; height: 45px; min-width: 45px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
+                <div style="display: flex; gap: 10px; padding: 10px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
+                    <img src="./images/magic.png" class="hero-card-img" style="width: 60px; height: 60px; min-width: 60px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
                     <div style="flex: 1; font-size: 11px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <b style="color: #2a2a2a;">Neighbor Witch</b>
-                            <span style="font-size: 9px; color: #666; background: #fff; padding: 1px 4px; border-radius: 3px;">2/3/8/4/7</span>
+                            <span style="font-size: 10px; color: #666; background: #fff; padding: 2px 6px; border-radius: 3px;">2/3/8/4/7</span>
                         </div>
-                        <p style="margin: 2px 0; color: #555; font-size: 10px;">Lives in the crooked cottage at the edge of town. Helpful to the polite, terrifying to others.</p>
-                        <p style="margin: 0; font-size: 10px;"><b style="color: var(--blood);">⚡ Arcane Alliance:</b> Steal 1-3 stat points permanently from any player. Recharges after 3 wins.</p>
+                        <p style="margin: 4px 0; color: #555; font-size: 11px;">Lives in the crooked cottage at the edge of town. Helpful to the polite, terrifying to others.</p>
+                        <p style="margin: 0; font-size: 11px;"><b style="color: var(--blood);">⚡ Arcane Alliance:</b> Steal 1-3 stat points permanently from any player. Recharges after 3 wins.</p>
                     </div>
                 </div>
                 
                 <!-- Fancy Ninja -->
-                <div style="display: flex; gap: 8px; padding: 8px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
-                    <img src="./images/ninja.png" style="width: 45px; height: 45px; min-width: 45px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
+                <div style="display: flex; gap: 10px; padding: 10px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
+                    <img src="./images/ninja.png" class="hero-card-img" style="width: 60px; height: 60px; min-width: 60px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
                     <div style="flex: 1; font-size: 11px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <b style="color: #2a2a2a;">Fancy Ninja</b>
-                            <span style="font-size: 9px; color: #666; background: #fff; padding: 1px 4px; border-radius: 3px;">4/7/5/3/5</span>
+                            <span style="font-size: 10px; color: #666; background: #fff; padding: 2px 6px; border-radius: 3px;">4/7/5/3/5</span>
                         </div>
-                        <p style="margin: 2px 0; color: #555; font-size: 10px;">Stylish assassin who values dramatic entrances. Every kill is a performance.</p>
-                        <p style="margin: 0; font-size: 10px;"><b style="color: var(--blood);">⚡ Assassination Contract:</b> Bet on a player failing. Win: steal +1 stat. Lose: lose -1 stat.</p>
+                        <p style="margin: 4px 0; color: #555; font-size: 11px;">Stylish assassin who values dramatic entrances. Every kill is a performance.</p>
+                        <p style="margin: 0; font-size: 11px;"><b style="color: var(--blood);">⚡ Assassination Contract:</b> Bet on a player failing. Win: steal +1 stat. Lose: lose -1 stat.</p>
                     </div>
                 </div>
                 
                 <!-- Lost Dragon -->
-                <div style="display: flex; gap: 8px; padding: 8px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
-                    <img src="./images/dragon.png" style="width: 45px; height: 45px; min-width: 45px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
+                <div style="display: flex; gap: 10px; padding: 10px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
+                    <img src="./images/dragon.png" class="hero-card-img" style="width: 60px; height: 60px; min-width: 60px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
                     <div style="flex: 1; font-size: 11px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <b style="color: #2a2a2a;">Lost Dragon</b>
-                            <span style="font-size: 9px; color: #666; background: #fff; padding: 1px 4px; border-radius: 3px;">8/5/4/3/3</span>
+                            <span style="font-size: 10px; color: #666; background: #fff; padding: 2px 6px; border-radius: 3px;">8/5/4/3/3</span>
                         </div>
-                        <p style="margin: 2px 0; color: #555; font-size: 10px;">Last of the sky-born warriors. Devastating power but fragile spirit.</p>
-                        <p style="margin: 0; font-size: 10px;"><b style="color: var(--blood);">⚡ Dragon Rage:</b> When spending 4+ points, gain +3 bonus. Always active.</p>
+                        <p style="margin: 4px 0; color: #555; font-size: 11px;">Last of the sky-born warriors. Devastating power but fragile spirit.</p>
+                        <p style="margin: 0; font-size: 11px;"><b style="color: var(--blood);">⚡ Dragon Rage:</b> When spending 4+ points, gain +3 bonus. Always active.</p>
                     </div>
                 </div>
                 
                 <!-- Drunken Paladin -->
-                <div style="display: flex; gap: 8px; padding: 8px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
-                    <img src="./images/paladin.png" style="width: 45px; height: 45px; min-width: 45px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
+                <div style="display: flex; gap: 10px; padding: 10px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
+                    <img src="./images/paladin.png" class="hero-card-img" style="width: 60px; height: 60px; min-width: 60px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
                     <div style="flex: 1; font-size: 11px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <b style="color: #2a2a2a;">Drunken Paladin</b>
-                            <span style="font-size: 9px; color: #666; background: #fff; padding: 1px 4px; border-radius: 3px;">3/2/3/8/7</span>
+                            <span style="font-size: 10px; color: #666; background: #fff; padding: 2px 6px; border-radius: 3px;">3/2/3/8/7</span>
                         </div>
-                        <p style="margin: 2px 0; color: #555; font-size: 10px;">Holy knight who found divine inspiration flows better after a few tankards.</p>
-                        <p style="margin: 0; font-size: 10px;"><b style="color: var(--blood);">⚡ Liquid Courage:</b> Once per stage, roll dice. 5-6 = instant win! Resets each stage.</p>
+                        <p style="margin: 4px 0; color: #555; font-size: 11px;">Holy knight who found divine inspiration flows better after a few tankards.</p>
+                        <p style="margin: 0; font-size: 11px;"><b style="color: var(--blood);">⚡ Liquid Courage:</b> Once per stage, roll dice. 5-6 = instant win! Resets each stage.</p>
                     </div>
                 </div>
                 
                 <!-- Mute Monk -->
-                <div style="display: flex; gap: 8px; padding: 8px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
-                    <img src="./images/monk.png" style="width: 45px; height: 45px; min-width: 45px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
+                <div style="display: flex; gap: 10px; padding: 10px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
+                    <img src="./images/monk.png" class="hero-card-img" style="width: 60px; height: 60px; min-width: 60px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
                     <div style="flex: 1; font-size: 11px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <b style="color: #2a2a2a;">Mute Monk</b>
-                            <span style="font-size: 9px; color: #666; background: #fff; padding: 1px 4px; border-radius: 3px;">3/3/9/6/7</span>
+                            <span style="font-size: 10px; color: #666; background: #fff; padding: 2px 6px; border-radius: 3px;">3/3/9/6/7</span>
                         </div>
-                        <p style="margin: 2px 0; color: #555; font-size: 10px;">Took a sacred vow of silence 30 years ago. Communicates through meaningful stares.</p>
-                        <p style="margin: 0; font-size: 10px;"><b style="color: var(--blood);">⚡ Inner Peace:</b> When meditating, choose any stat to restore +4 instead. Always active.</p>
+                        <p style="margin: 4px 0; color: #555; font-size: 11px;">Took a sacred vow of silence 30 years ago. Communicates through meaningful stares.</p>
+                        <p style="margin: 0; font-size: 11px;"><b style="color: var(--blood);">⚡ Inner Peace:</b> When meditating, choose any stat to restore +4 instead. Always active.</p>
                     </div>
                 </div>
                 
                 <!-- Lover Zombie -->
-                <div style="display: flex; gap: 8px; padding: 8px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
-                    <img src="./images/zombie.png" style="width: 45px; height: 45px; min-width: 45px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
+                <div style="display: flex; gap: 10px; padding: 10px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 6px;">
+                    <img src="./images/zombie.png" class="hero-card-img" style="width: 60px; height: 60px; min-width: 60px; border: 2px solid #8b7355; border-radius: 4px; object-fit: cover;">
                     <div style="flex: 1; font-size: 11px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <b style="color: #2a2a2a;">Lover Zombie</b>
-                            <span style="font-size: 9px; color: #666; background: #fff; padding: 1px 4px; border-radius: 3px;">9/2/4/3/8</span>
+                            <span style="font-size: 10px; color: #666; background: #fff; padding: 2px 6px; border-radius: 3px;">9/2/4/3/8</span>
                         </div>
-                        <p style="margin: 2px 0; color: #555; font-size: 10px;">Died for love, rose from the grave. Terrifyingly strong, surprisingly gentle.</p>
-                        <p style="margin: 0; font-size: 10px;"><b style="color: var(--blood);">⚡ Cursed Embrace:</b> When you win, all others lose -2 from a stat you choose, you gain +1. Always active.</p>
+                        <p style="margin: 4px 0; color: #555; font-size: 11px;">Died for love, rose from the grave. Terrifyingly strong, surprisingly gentle.</p>
+                        <p style="margin: 0; font-size: 11px;"><b style="color: var(--blood);">⚡ Cursed Embrace:</b> When you win, all others lose -2 from a stat you choose, you gain +1. Always active.</p>
                     </div>
                 </div>
                 
