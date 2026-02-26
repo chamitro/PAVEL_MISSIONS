@@ -1256,7 +1256,7 @@
                     </div>
                 </div>
                 <p class="hero-card-desc">Perfectly balanced assassin. No one knows their true face or purpose.</p>
-                <p class="hero-card-ability"><b>⚡ Shadow Control:</b> Force a player to use a meditation. Uses: 1-3 based on party size.</p>
+                <p class="hero-card-ability"><b>⚡ Shadow Control:</b> Force a player to use a meditation. Uses: 1-3 based on party size. Resets at shop.</p>
             </div>
             
             <!-- Friendly AI -->
@@ -1374,6 +1374,45 @@
                 </div>
                 <p class="hero-card-desc">Died for love, rose from the grave. Terrifyingly strong, surprisingly gentle.</p>
                 <p class="hero-card-ability"><b>⚡ Cursed Embrace:</b> When you win, all others lose -2 from a stat you choose, you gain +1.</p>
+            </div>
+            
+            <!-- Devil Boy -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/devil.png" class="hero-card-img" alt="Devil Boy">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Devil Boy</p>
+                        <span class="hero-card-stats">4/4/7/6/4</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">A mischievous imp who trades in souls and secrets. Never trust a deal with a devil.</p>
+                <p class="hero-card-ability"><b>😈 Soul Contract:</b> Swap one of your stats with another player's stat permanently. Recharges after 3 wins.</p>
+            </div>
+            
+            <!-- Quick Thief -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/thief.png" class="hero-card-img" alt="Quick Thief">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Quick Thief</p>
+                        <span class="hero-card-stats">3/8/5/5/3</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">A goblin treasure hunter with nimble fingers. If it's not nailed down, it's hers.</p>
+                <p class="hero-card-ability"><b>🎲 Lucky Fingers:</b> Each challenge, roll dice. On 5-6, steal 1 Glory from any player.</p>
+            </div>
+            
+            <!-- Sad Troll -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/trol.png" class="hero-card-img" alt="Sad Troll">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Sad Troll</p>
+                        <span class="hero-card-stats">7/2/3/3/9</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">An outcast from the swamps, seeking acceptance. Misunderstood, but with a heart of gold.</p>
+                <p class="hero-card-ability"><b>🧌 Rising Spirit:</b> Every 3 consecutive wins (including group), gain +5 to any stat of your choice.</p>
             </div>
             
             <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px; width: 100%;">Return to Scrolls</button>
@@ -1522,79 +1561,161 @@
 // ============================================================
 
 const STAGES = [
-    {t: "Iron Portcullis", d: "A heavy gate slams down. Only brute strength can lift it.", s: "pow", e: 4, h: 6, a: 'stone'},
+    // ============ 100 STAGES FROM CARDS ============
+    // 001-020: Mixed POW/SPD/WIL
+    {t: "Iron Portcullis", d: "A heavy gate slams down. Only brute strength can lift it.", s: "pow", e: 4, h: 6, a: ['stone','tech']},
     {t: "The Pub Haul", d: "Move barrels of beer to pub's storage.", s: "pow", e: 2, h: 4, a: 'pub'},
-    {t: "Missing Feline", d: "Find Yuumi. Drunk Panchoncho's cat.", s: "wil", e: 2, h: 4, a: 'pub'},
-    {t: "Boulder Obstacle", d: "Your path is blocked by a rock. Move it.", s: "pow", e: 4, h: 9, a: 'stone'},
-    {t: "Tavern Brawl", d: "Restrain the drunken ork before it destroys the bar.", s: "pow", e: 3, h: 5, a: 'pub'},
-    {t: "The Bell Sprint", d: "Whoever ring the pub's bell faster wins a beer.", s: "spd", e: 4, h: 9, a: 'pub'},
-    {t: "Dwarven Anvil", d: "Shape the hot metal with physical force.", s: "pow", e: 5, h: 9, a: 'stone'},
+    {t: "Missing Feline", d: "Find Yuumi. Drunk Panchoncho's cat.", s: "wil", e: 2, h: 4, a: ['pub','shadow']},
+    {t: "Boulder Obstacle", d: "Your path is blocked by a rock. Move it.", s: "pow", e: 4, h: 9, a: ['stone','silent']},
+    {t: "Tavern Brawl", d: "Restrain the drunken ork before it destroys the bar.", s: "pow", e: 3, h: 5, a: ['pub','stone']},
+    {t: "Shattered Manacles", d: "Break free from the chains before the guards return!", s: "pow", e: 4, h: 7, a: ['stone','shadow']},
+    {t: "The Bell Sprint", d: "Whoever rings the pub's bell faster wins a beer.", s: "spd", e: 4, h: 9, a: ['pub','shadow']},
+    {t: "Dwarven Anvil", d: "Shape the hot metal with physical force.", s: "pow", e: 5, h: 9, a: ['stone','tech']},
+    {t: "Wall Crush Trap", d: "The walls are closing! Find the switch fast!", s: "spd", e: 5, h: 8, a: ['shadow','tech']},
     {t: "Nightly Pub Run", d: "Walk fast through the forest to go to the pub at night.", s: "spd", e: 4, h: 7, a: ['dark','shadow']},
+    {t: "Bully Wrestling", d: "The village bully challenges you. Pin him down!", s: "pow", e: 3, h: 6, a: ['stone','crowd']},
     {t: "The Beer Tribute", d: "Go to pub and bring to king Antony 100 beers.", s: "wil", e: 2, h: 4, a: ['pub','crowd']},
-    {t: "Shadowy Cellar", d: "The darkness is alive. Run before it catches you.", s: "spd", e: 5, h: 9, a: 'dark'},
-    {t: "Skybridge Cross", d: "Cross the thin rope bridge high in the clouds.", s: "wil", e: 5, h: 8, a: 'sky'},
-    {t: "Royal Mediator", d: "King Antony is drunk again. Help him befriend with an ork.", s: "cha", e: 4, h: 8, a: ['pub','crowd']},
-    {t: "The Pub Inferno", d: "Pub is on fire! You must rescue the drunk ones!", s: "brn", e: 5, h: 8, a: 'shadow'},
-    {t: "Counter Coin Catch", d: "Dozens of coins fall from pub's bar. Catch them.", s: "spd", e: 4, h: 6, a: 'shadow'},
+    {t: "Elevator Repair", d: "Fix the broken pulley system to escape the pit!", s: "brn", e: 4, h: 7, a: ['tech','stone']},
+    {t: "Excalibur's Lever", d: "Pull the legendary sword from the stone!", s: "pow", e: 5, h: 10, a: ['stone','magic']},
+    {t: "Shadowy Cellar", d: "The darkness is alive. Run before it catches you.", s: "spd", e: 5, h: 9, a: ['dark','shadow']},
+    {t: "Skybridge Cross", d: "Cross the thin rope bridge high in the clouds.", s: "wil", e: 5, h: 8, a: ['sky','silent']},
+    {t: "Royal Mediator", d: "King Antony is drunk again. Help him befriend an ork.", s: "cha", e: 4, h: 8, a: ['pub','crowd']},
+    {t: "The Pub Inferno", d: "Pub is on fire! You must rescue the drunk ones!", s: "brn", e: 5, h: 8, a: ['shadow','tech']},
+    {t: "Rooftop Sprint", d: "Chase the thief across the rooftops of Pavel!", s: "spd", e: 4, h: 8, a: ['shadow','sky']},
+    {t: "Counter Coin Catch", d: "Dozens of coins fall from pub's bar. Catch them.", s: "spd", e: 4, h: 6, a: ['shadow','tech']},
+    
+    // 021-040: Mixed BRN/SPD/CHA
     {t: "Village Exodus", d: "FIRE! Navigate the villagers to the nearest safe city.", s: "brn", e: 5, h: 10, a: ['magic','tech']},
-    {t: "The Racoon Thief", d: "A racoon stole your food. Chase them through the pub.", s: "spd", e: 3, h: 6, a: ['sky','shadow']},
-    {t: "Drunken Tab", d: "You are drunk! Calculate the pub's bill correct!", s: "wil", e: 2, h: 4, a: 'pub'},
-    {t: "Map Mastery", d: "Find the exit in a shifting, lightless labyrinth.", s: "brn", e: 5, h: 10, a: ['dark', 'shadow']},
-    {t: "Sky Diplomacy", d: "The dragon tribe wants to invade. Negotiate with them.", s: "brn", e: 4, h: 8, a: ['sky', 'crowd']},
-    {t: "Panchonco's Cocktail", d: "Panchonco wants a cocktail. Combine drinks.", s: "brn", e: 3, h: 6, a: 'pub'},
-    {t: "King's Favor", d: "Impress the drunken King with a fake story.", s: "cha", e: 3, h: 6, a: ['crowd', 'pub']},
+    {t: "Flooded Commode", d: "The tavern's flooding! Figure out how to stop the leak!", s: "brn", e: 3, h: 6, a: ['pub','tech']},
+    {t: "The Racoon Thief", d: "A racoon stole your food. Chase them through the pub.", s: "spd", e: 3, h: 6, a: ['shadow','sky']},
+    {t: "Crowded Waltz", d: "Dance through the crowded ballroom without bumping anyone!", s: "spd", e: 3, h: 5, a: ['crowd','shadow']},
+    {t: "Closing Portcullis", d: "Slide under the closing gate before you're trapped!", s: "spd", e: 4, h: 7, a: ['shadow','stone']},
+    {t: "Sticky Floor Escape", d: "The alchemist spilled glue! Move carefully but quickly!", s: "spd", e: 3, h: 6, a: ['shadow','magic']},
+    {t: "Clockwork Blades", d: "Navigate through the spinning blade trap!", s: "spd", e: 5, h: 9, a: ['tech','shadow']},
+    {t: "Petting Distraction", d: "Keep Yuumi distracted while others sneak past!", s: "cha", e: 2, h: 4, a: ['pub','silent']},
+    {t: "Antony's Math Cube", d: "Solve the king's puzzle box to prove your worth!", s: "brn", e: 4, h: 8, a: ['tech','magic']},
+    {t: "Lich's Mirror", d: "Answer the undead's riddles to pass safely!", s: "brn", e: 5, h: 9, a: ['undead','dark']},
+    {t: "The Golden Fix", d: "Repair the golden statue before the king notices!", s: "brn", e: 3, h: 6, a: ['tech','crowd']},
+    {t: "Panchonco's Riddle", d: "Solve Panchonco's drunken riddle for a free drink!", s: "brn", e: 3, h: 5, a: ['pub','tech']},
+    {t: "Crypt Memory", d: "Remember the sequence of symbols to escape the crypt!", s: "brn", e: 4, h: 8, a: ['undead','dark']},
+    {t: "Drunken Tab", d: "You are drunk! Calculate the pub's bill correctly!", s: "brn", e: 2, h: 4, a: ['pub','tech']},
+    {t: "Map Mastery", d: "Find the exit in a shifting, lightless labyrinth.", s: "brn", e: 5, h: 10, a: ['dark','shadow']},
+    {t: "Sky Diplomacy", d: "The dragon tribe wants to invade. Negotiate with them.", s: "brn", e: 4, h: 8, a: ['sky','crowd']},
+    {t: "The Sleepy Escort", d: "Guide the sleepwalking nobleman back to bed safely!", s: "brn", e: 3, h: 5, a: ['crowd','silent']},
+    {t: "Counterfeit Gold", d: "Identify the fake coins before the merchant notices!", s: "brn", e: 4, h: 7, a: ['tech','shadow']},
+    {t: "Panchonco's Cocktail", d: "Panchonco wants a cocktail. Combine drinks.", s: "brn", e: 3, h: 6, a: ['pub','tech']},
+    {t: "The Barman's Riddle", d: "Answer the mysterious barman's three riddles!", s: "brn", e: 4, h: 7, a: ['pub','magic']},
+    
+    // 041-060: Mixed BRN/CHA/WIL
+    {t: "Cipher Lock", d: "Decode the ancient cipher to open the vault!", s: "brn", e: 5, h: 9, a: ['tech','magic']},
+    {t: "Dragon Slayer", d: "Outsmart the dragon with a clever battle plan!", s: "brn", e: 5, h: 10, a: ['sky','tech']},
+    {t: "Pub Blend-In", d: "Act natural to avoid the guards searching the tavern!", s: "cha", e: 3, h: 5, a: ['pub','shadow']},
+    {t: "King's Favor", d: "Impress the drunken King with a fake story.", s: "cha", e: 3, h: 6, a: ['crowd','pub']},
+    {t: "Rock Gaslighting", d: "Convince the stone golem he's actually made of wood!", s: "cha", e: 4, h: 8, a: ['stone','magic']},
     {t: "The Nick Flattery", d: "Befriend old man Nick with flattery.", s: "cha", e: 3, h: 6, a: ['pub','crowd']},
-    {t: "Bouncer Talk", d: "Charm the stone golem into letting you pass.", s: "cha", e: 5, h: 10, a: ['crowd','magic']},
-    {t: "Panchonco's Song", d: "Sing a song that brings drunken Panchoncho to tears.", s: "cha", e: 4, h: 8, a: 'pub'},
-    {t: "Shadow Whisper", d: "Convince forest's dark spirits to light the way.", s: "cha", e: 4, h: 7, a: ['crowd']},
-    {t: "Aristocrat Snare", d: "End the boring conversation without being rude.", s: "cha", e: 3, h: 6, a: 'crowd'},
-    {t: "Divine Toast", d: "Scream so loud that gods listen to you.", s: "cha", e: 5, h: 10, a: 'sky'},
-    {t: "Tavern Temptation", d: "The beer smells of heaven. Stay focused.", s: "wil", e: 3, h: 6, a: ['undead', 'silent']},
-    {t: "The Void Whisper", d: "Voices promise power for your soul. Resist?", s: "wil", e: 4, h: 8, a: ['dark','undead']},
+    {t: "Bouncer Talk", d: "Charm the stone golem into letting you pass.", s: "cha", e: 5, h: 10, a: ['crowd','magic','tech']},
+    {t: "Panchonco's Song", d: "Sing a song that brings drunken Panchoncho to tears.", s: "cha", e: 4, h: 8, a: ['pub','silent']},
+    {t: "Ork Swamp Patrol", d: "Convince the ork patrol you belong in the swamp!", s: "cha", e: 4, h: 7, a: ['silent','crowd']},
+    {t: "Shadow Whisper", d: "Convince forest's dark spirits to light the way.", s: "cha", e: 4, h: 7, a: ['crowd','silent','dark']},
+    {t: "Silent Plea", d: "Communicate your urgent need without speaking!", s: "cha", e: 3, h: 6, a: ['silent','crowd']},
+    {t: "Sky Negotiator", d: "Broker peace between the cloud giants!", s: "cha", e: 5, h: 9, a: ['sky','crowd']},
+    {t: "Aristocrat Snare", d: "End the boring conversation without being rude.", s: "cha", e: 3, h: 6, a: ['crowd','silent']},
+    {t: "Mechanical Maker", d: "Convince the inventor to share his secrets!", s: "cha", e: 4, h: 7, a: ['tech','crowd']},
+    {t: "Divine Toast", d: "Scream so loud that gods listen to you.", s: "cha", e: 5, h: 10, a: ['sky','crowd']},
+    {t: "Bailiff Audit", d: "Talk your way out of the tax inspection!", s: "cha", e: 4, h: 8, a: ['crowd','tech']},
+    {t: "Tavern Temptation", d: "The beer smells of heaven. Stay focused.", s: "wil", e: 3, h: 6, a: ['undead','silent']},
+    {t: "The Void Whisper", d: "Voices promise power for your soul. Resist?", s: "wil", e: 4, h: 8, a: ['dark','undead','tech']},
     {t: "Monastic Silence", d: "Sit still while insects crawl on your skin.", s: "wil", e: 3, h: 6, a: ['silent','dark','undead']},
-    {t: "Beggar's Test", d: "Old Nick asks for your last money. Resist and go!", s: "wil", e: 2, h: 4, a: 'crowd'},
-    {t: "Molten Spirit", d: "Pub's floor is collapsing. Calm and cross!", s: "wil", e: 5, h: 10, a: ['sky', 'silent']},
-    {t: "Royal Beer Fight", d: "Win a beer fight against king Antony!", s: "wil", e: 3, h: 6, a: 'pub'},
+    {t: "Eldritch Guilt", d: "The demon shows your worst memories. Endure!", s: "wil", e: 5, h: 9, a: ['dark','magic']},
+    
+    // 061-080: Mixed WIL/SPD/POW
+    {t: "Infinite Staircase", d: "Climb the endless stairs without losing hope!", s: "wil", e: 4, h: 8, a: ['magic','silent']},
+    {t: "Stone Transformation", d: "Resist the medusa's gaze as you approach!", s: "wil", e: 5, h: 9, a: ['stone','magic']},
+    {t: "The Singer's Halt", d: "Stop the bard's enchanting song from controlling you!", s: "wil", e: 4, h: 7, a: ['magic','crowd']},
+    {t: "The Cursed Ring", d: "Remove the ring that whispers dark temptations!", s: "wil", e: 5, h: 10, a: ['magic','dark']},
+    {t: "Beggar's Test", d: "Old Nick asks for your last money. Resist and go!", s: "wil", e: 2, h: 4, a: ['crowd','silent']},
+    {t: "Echoes of Fear", d: "Walk through the haunted corridor without fleeing!", s: "wil", e: 4, h: 8, a: ['dark','undead']},
+    {t: "Molten Spirit", d: "Pub's floor is collapsing. Calm and cross!", s: "wil", e: 5, h: 10, a: ['sky','silent']},
+    {t: "The Proxy King", d: "Resist the urge to abuse the temporary power!", s: "wil", e: 4, h: 7, a: ['crowd','magic']},
+    {t: "Royal Beer Fight", d: "Win a beer fight against king Antony!", s: "wil", e: 3, h: 6, a: ['pub','crowd']},
+    {t: "Hero's Burden", d: "Carry the weight of responsibility without breaking!", s: "wil", e: 5, h: 9, a: ['silent','crowd']},
     {t: "Barrel Avalanche", d: "Beer barrels roll down the pub stairs. Dodge them all!", s: "spd", e: 4, h: 8, a: ['magic','shadow']},
-    {t: "Stampeding Cattle", d: "Yuumi got your keys. CATCH HER!", s: "spd", e: 3, h: 6, a: ['shadow']},
-    {t: "Dragon's Breath", d: "You vs yuumi. Who is faster!", s: "spd", e: 3, h: 6, a: 'shadow'},
+    {t: "Flaming Arrows", d: "Dodge the rain of burning arrows!", s: "spd", e: 5, h: 9, a: ['shadow','sky']},
+    {t: "Collapsing Bridge", d: "Sprint across before the bridge falls apart!", s: "spd", e: 4, h: 8, a: ['shadow','stone']},
+    {t: "Stampeding Cattle", d: "Yuumi got your keys. CATCH HER!", s: "spd", e: 3, h: 6, a: ['shadow','pub']},
+    {t: "Lightning Chase", d: "Outrun the magical lightning bolts!", s: "spd", e: 5, h: 10, a: ['magic','shadow']},
+    {t: "Swamp Gas Escape", d: "Run from the toxic gas cloud in the swamp!", s: "spd", e: 4, h: 7, a: ['silent','shadow']},
+    {t: "Dragon's Breath", d: "You vs Yuumi. Who is faster!", s: "spd", e: 3, h: 6, a: ['shadow','sky']},
+    {t: "Assassin's Daggers", d: "Dodge the assassin's throwing knives!", s: "spd", e: 5, h: 9, a: ['shadow','dark']},
+    {t: "Crumbling Floor", d: "Jump from tile to tile as the floor collapses!", s: "spd", e: 4, h: 8, a: ['shadow','stone']},
     {t: "Pub Rat Race", d: "Catch Yuumi before Panchoncho notices she's gone!", s: "spd", e: 3, h: 5, a: ['pub','shadow']},
-    {t: "Giant's Arm Wrestling", d: "A drunken dragon challenges you. Show your strength!", s: "pow", e: 5, h: 10, a: ['stone','sky','undead']},
-    {t: "Fight with Panchonco?", d: "Drunk Panchonco blocks your path. Fight or negotiate!", s: "pow", e: 4, h: 8, a: ['stone','crowd', 'sky']},
+    
+    // 081-100: Mixed POW/CHA/BRN/WIL
+    {t: "Falling Chandelier", d: "Catch the falling chandelier before it crushes someone!", s: "pow", e: 4, h: 7, a: ['pub','stone']},
+    {t: "Giant's Arm Wrestling", d: "A drunken giant challenges you. Show your strength!", s: "pow", e: 5, h: 10, a: ['stone','sky','undead','silent']},
+    {t: "Troll Gate Breach", d: "Break down the troll's reinforced gate!", s: "pow", e: 5, h: 9, a: ['stone','silent']},
+    {t: "Frozen Door", d: "Break through the ice-covered door!", s: "pow", e: 4, h: 8, a: ['stone','magic']},
+    {t: "Beast Pit", d: "Wrestle the creature back into its cage!", s: "pow", e: 5, h: 10, a: ['stone','undead']},
+    {t: "Chain Breaking", d: "Break the chains holding the prisoner!", s: "pow", e: 4, h: 7, a: ['stone','dark']},
+    {t: "Fight with Panchonco", d: "Drunk Panchonco blocks your path. Fight or negotiate!", s: "pow", e: 4, h: 8, a: ['stone','crowd','sky']},
     {t: "Barrel Lift Challenge", d: "Impress a dwarf by lifting his heaviest beer barrel!", s: "pow", e: 3, h: 6, a: ['stone','undead']},
-    {t: "Dragon Lullaby", d: "Sing the drunken dragon to sleep before it burns the village!", s: "cha", e: 5, h: 9, a: ['crowd','pub']},
+    {t: "Dragon Lullaby", d: "Sing the drunken dragon to sleep before it burns the village!", s: "cha", e: 5, h: 9, a: ['crowd','pub','sky']},
+    {t: "Ork Peace Treaty", d: "Convince the ork chief that peace is profitable!", s: "cha", e: 5, h: 10, a: ['crowd','stone']},
     {t: "Bard's Duel", d: "Outperform the traveling bard in a song contest!", s: "cha", e: 4, h: 7, a: ['pub','dark','undead']},
-    {t: "King Antony's Trust", d: "Earn the king Antony's trust with your words!", s: "cha", e: 4, h: 7, a: ['pub','crowd']},
+    {t: "Spirit Negotiation", d: "Convince the angry ghost to find peace!", s: "cha", e: 4, h: 8, a: ['undead','silent']},
+    {t: "King Antony's Trust", d: "Earn king Antony's trust with your words!", s: "cha", e: 4, h: 7, a: ['pub','crowd']},
+    {t: "Devil's Bargain", d: "Negotiate with the imp without losing your soul!", s: "cha", e: 5, h: 9, a: ['tech','dark','magic']},
+    {t: "Drunk Wizard", d: "Convince the drunk wizard to cast the right spell!", s: "cha", e: 4, h: 8, a: ['magic','pub']},
     {t: "Poison Antidote", d: "Something in my beer! Mix the correct herbs to save yourself!", s: "brn", e: 4, h: 8, a: ['magic','silent']},
+    {t: "Trap's Mechanism", d: "Figure out how to disable the complex trap!", s: "brn", e: 5, h: 9, a: ['tech','shadow']},
     {t: "King's Antony Riddle", d: "Answer king Antony's three riddles or get excluded from Pavel's pub!", s: "brn", e: 4, h: 7, a: ['tech','magic','silent']},
+    {t: "Siren's Song", d: "Resist the siren's call and find the source!", s: "wil", e: 5, h: 10, a: ['magic','sky']},
     {t: "Nightmare Realm", d: "Trapped in a dream curse of nightmares. Will yourself awake!", s: "wil", e: 6, h: 10, a: ['dark','magic']}
 ];
 
-// Group Missions - Everyone must work together!
+// Group Missions - Everyone must work together! (25 total from cards)
 const GROUP_STAGES = [
-    // POW
-    {t: "The Great Swamp Flood", d: "Pavel is sinking! Everyone bail water.", s: "pow", e: 10, h: 15, isGroup: true},
-    {t: "Ork Horde Stand", d: "Push back the charging ork vanguard together!", s: "pow", e: 12, h: 16, isGroup: true},
-    {t: "The Giant's Rock", d: "A mountain giant blocks the path. Pull it away.", s: "pow", e: 10, h: 18, isGroup: true},
-    // SPD
-    {t: "Dragon's Siege", d: "Dodge the falling fireballs from the drunken dragon!", s: "spd", e: 12, h: 17, isGroup: true},
-    {t: "Village Fire Brigade", d: "The pub is on fire! Pass water bags at high speed.", s: "spd", e: 8, h: 13, isGroup: true},
-    // BRN
-    {t: "Lost Children Hunt", d: "Navigate the shifting mists using pure logic.", s: "brn", e: 10, h: 15, isGroup: true},
-    {t: "Magic Barrier Repair", d: "Recalibrate the village shield. Focus!", s: "brn", e: 9, h: 14, isGroup: true},
-    // CHA
-    {t: "Monastic Choir", d: "Sing in perfect harmony to enter the holy city.", s: "cha", e: 7, h: 12, isGroup: true},
-    {t: "The Final Toast", d: "Lead the tavern in the most epic song ever heard.", s: "cha", e: 7, h: 12, isGroup: true},
-    // WIL
-    {t: "The King's Banquet", d: "Resist the urge to drink all 5000 beers!", s: "wil", e: 8, h: 13, isGroup: true},
-    {t: "Nick Stories", d: "Stand your ground with old geezer Nick so he doesn't tell you another story", s: "wil", e: 8, h: 13, isGroup: true}
+    // POW (5)
+    {t: "The Great Swamp Flood", d: "Pavel is sinking! Everyone bail water from the swamp.", s: "pow", e: 10, h: 15, a: ['silent','stone'], isGroup: true},
+    {t: "Ork Horde Stand", d: "Push back the charging ork vanguard together!", s: "pow", e: 12, h: 16, a: ['stone','undead'], isGroup: true},
+    {t: "The Giant's Rock", d: "A mountain giant blocks the path. Pull the boulder away.", s: "pow", e: 10, h: 18, a: ['stone','silent'], isGroup: true},
+    {t: "The Beer Barrel Race", d: "Roll the massive barrels to the tavern before last call!", s: "pow", e: 8, h: 13, a: ['pub','stone'], isGroup: true},
+    {t: "Castle Gate Breach", d: "Ram down the castle gates together!", s: "pow", e: 11, h: 17, a: ['stone','tech'], isGroup: true},
+    
+    // SPD (5)
+    {t: "Dragon's Siege", d: "Dodge the falling fireballs from the drunken dragon!", s: "spd", e: 12, h: 17, a: ['sky','shadow'], isGroup: true},
+    {t: "Moving Walls", d: "Navigate the shifting maze before the walls crush you!", s: "spd", e: 10, h: 15, a: ['shadow','tech'], isGroup: true},
+    {t: "Misty Ambush", d: "Escape the bandits in the thick fog together!", s: "spd", e: 9, h: 14, a: ['shadow','dark'], isGroup: true},
+    {t: "Village Fire Brigade", d: "The pub is on fire! Pass water bags at high speed.", s: "spd", e: 8, h: 13, a: ['pub','shadow'], isGroup: true},
+    {t: "Lightning Storm Run", d: "Race to shelter before the magical storm strikes!", s: "spd", e: 11, h: 16, a: ['magic','shadow'], isGroup: true},
+    
+    // BRN (5)
+    {t: "Lost Children Hunt", d: "Navigate the shifting mists using pure logic.", s: "brn", e: 10, h: 15, a: ['magic','silent'], isGroup: true},
+    {t: "Magic Barrier Repair", d: "Recalibrate the village shield. Focus!", s: "brn", e: 9, h: 14, a: ['tech','magic'], isGroup: true},
+    {t: "Bridge Build", d: "Design and construct a bridge across the chasm!", s: "brn", e: 10, h: 15, a: ['tech','stone'], isGroup: true},
+    {t: "Riddle of the Sphinx", d: "Answer the ancient sphinx's riddles as a group!", s: "brn", e: 11, h: 16, a: ['magic','undead'], isGroup: true},
+    {t: "Alchemist's Crisis", d: "The potion is unstable! Calculate the fix together!", s: "brn", e: 9, h: 14, a: ['tech','magic'], isGroup: true},
+    
+    // CHA (5)
+    {t: "Monastic Choir", d: "Sing in perfect harmony to enter the holy city.", s: "cha", e: 7, h: 12, a: ['silent','sky'], isGroup: true},
+    {t: "The Final Toast", d: "Lead the tavern in the most epic song ever heard.", s: "cha", e: 7, h: 12, a: ['pub','crowd'], isGroup: true},
+    {t: "Dragon Negotiation", d: "Convince the dragon council to spare the village!", s: "cha", e: 11, h: 16, a: ['sky','crowd'], isGroup: true},
+    {t: "King's Pardon", d: "Plead your case before King Antony together!", s: "cha", e: 9, h: 14, a: ['crowd','pub'], isGroup: true},
+    {t: "Village Festival", d: "Organize the festival to unite the townspeople!", s: "cha", e: 8, h: 13, a: ['crowd','pub'], isGroup: true},
+    
+    // WIL (5)
+    {t: "The King's Banquet", d: "Resist the urge to drink all 5000 beers!", s: "wil", e: 8, h: 13, a: ['pub','undead'], isGroup: true},
+    {t: "The Silent Vigil", d: "Keep watch all night without falling asleep!", s: "wil", e: 9, h: 14, a: ['silent','dark'], isGroup: true},
+    {t: "Tavern Clean-up", d: "Endure cleaning the worst mess Pavel has ever seen!", s: "wil", e: 7, h: 12, a: ['pub','silent'], isGroup: true},
+    {t: "The Drunken Parade", d: "March through town while resisting all distractions!", s: "wil", e: 8, h: 13, a: ['crowd','pub'], isGroup: true},
+    {t: "Nick Stories", d: "Stand your ground with old geezer Nick so he doesn't tell another story!", s: "wil", e: 8, h: 13, a: ['silent','crowd'], isGroup: true}
 ];
 
 // Combine group missions into main deck
 STAGES.push(...GROUP_STAGES);
 
 const HEROES = [
-    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:5, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Force a player to meditate. Uses: 2p=1, 3p=2, 4+p=3' },
+    { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:5, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Force a player to meditate. Uses: 2p=1, 3p=2, 4+p=3. Resets at shop.' },
     { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:2, wil:6}, passive: 'System Override', passiveDesc: 'Use a different attribute. Recharges on friend challenge win' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Force', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
@@ -1603,7 +1724,10 @@ const HEROES = [
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:4, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 4+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll dice. If 5 or 6, auto-win' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice' },
-    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: All players lose 2 from a stat, you gain +1' }
+    { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: All players lose 2 from a stat, you gain +1' },
+    { n: 'Devil Boy', i: './images/devil.png', a: 'dark', s: {pow:4, spd:4, brn:7, cha:6, wil:4}, passive: 'Soul Contract', passiveDesc: 'Swap one of your stats with another player\'s stat permanently. Recharges after 3 wins.' },
+    { n: 'Quick Thief', i: './images/thief.png', a: 'shadow', s: {pow:3, spd:8, brn:5, cha:5, wil:3}, passive: 'Lucky Fingers', passiveDesc: 'Every challenge, roll dice. On 5-6, steal 1 Glory from any player.' },
+    { n: 'Sad Troll', i: './images/trol.png', a: 'silent', s: {pow:7, spd:2, brn:3, cha:3, wil:9}, passive: 'Rising Spirit', passiveDesc: 'Every 3 consecutive wins (including group), gain +5 to any stat.' }
 ];
 
 // ============================================================
@@ -1635,9 +1759,13 @@ let witchWins = {};       // Track Neighbor Witch wins
 let shadowControlUses = {}; // Track Dark Stalker uses
 let witchBorrowedStats = null; // Track borrowed stats from Witch
 let ninjaContract = null; // Track Ninja's assassination contract
+let devilWins = {}; // Track Devil Boy wins for Soul Contract recharge
+let trollConsecutiveWins = {}; // Track Sad Troll consecutive wins
+let thiefRolledThisTurn = false; // Track if Quick Thief already rolled this turn
 
-// Shop system
-let nextShopRound = -1;
+// Shop system - NOW BASED ON ROUNDS
+let nextShopAtRound = -1;  // Round number when next shop appears
+let shopIntervalIndex = 0; // Tracks which interval we're on (0=first, 1=second, etc.)
 let shopCount = 0;
 let storePlayerIdx = 0;
 let storePoints = 5;
@@ -1728,6 +1856,8 @@ function handleReg() {
     passiveUsed[regIdx] = false;
     challengesCompleted[regIdx] = 0;
     witchWins[regIdx] = 0;
+    devilWins[regIdx] = 0;
+    trollConsecutiveWins[regIdx] = 0;
 
     showModal(
         `Soul Linked`, 
@@ -1758,7 +1888,8 @@ function closeModalAndNextReg() {
 function startGame() {
     round = 0;
     stageInRound = 1;
-    nextShopRound = -1;
+    nextShopAtRound = -1;
+    shopIntervalIndex = 0;
     shopCount = 0;
     
     // Initialize pending state variables
@@ -1813,23 +1944,21 @@ function updateCounters() {
     
     const shopCountdownNumber = document.getElementById('shop-countdown-number');
     if (shopCountdownNumber) {
-        // Calculate total stages completed
-        const totalStagesCompleted = (round * party.length) + (stageInRound - 1);
+        const currentRoundDisplay = round + 1; // 1-indexed for display
         
-        if (nextShopRound === -1) {
-            const firstShopStage = party.length + 3;
-            const stagesUntil = firstShopStage - totalStagesCompleted;
-            shopCountdownNumber.innerText = stagesUntil > 0 ? stagesUntil : 'NOW';
-            shopCountdownNumber.style.color = stagesUntil <= 2 ? '#ff9800' : 'var(--gold)';
+        // Calculate first shop timing if not set
+        if (nextShopAtRound === -1) {
+            nextShopAtRound = party.length + 3; // First shop at round P+3
+        }
+        
+        const roundsUntilShop = nextShopAtRound - currentRoundDisplay;
+        
+        if (roundsUntilShop <= 0) {
+            shopCountdownNumber.innerText = 'SOON';
+            shopCountdownNumber.style.color = '#2ecc71';
         } else {
-            const stagesUntilShop = nextShopRound - totalStagesCompleted;
-            if (stagesUntilShop <= 0) {
-                shopCountdownNumber.innerText = 'NOW';
-                shopCountdownNumber.style.color = '#2ecc71';
-            } else {
-                shopCountdownNumber.innerText = stagesUntilShop;
-                shopCountdownNumber.style.color = stagesUntilShop <= 2 ? '#ff9800' : 'var(--gold)';
-            }
+            shopCountdownNumber.innerText = roundsUntilShop + ' rnd' + (roundsUntilShop > 1 ? 's' : '');
+            shopCountdownNumber.style.color = roundsUntilShop <= 2 ? '#ff9800' : 'var(--gold)';
         }
     }
 }
@@ -2018,6 +2147,16 @@ function startFight() {
         passiveButtons.push(`<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="setupAssassinationContract()">🥷 Assassination Contract (Bet on Failure)</button>`);
     }
     
+    // Devil Boy - Soul Contract
+    if(h.n === 'Devil Boy' && !passiveUsed[activeIdx] && party.length > 1) {
+        passiveButtons.push(`<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useSoulContract()">😈 Soul Contract (Swap Stats)</button>`);
+    }
+    
+    // Quick Thief - Lucky Fingers
+    if(h.n === 'Quick Thief' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== h)) {
+        passiveButtons.push(`<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useLuckyFingers()">🎲 Lucky Fingers (Roll to Steal Glory)</button>`);
+    }
+    
     let passiveOptions = passiveButtons.length > 0 
         ? `<div style="margin-top: 15px; border-top: 1px solid #8e7b55; padding-top: 10px;"><p style="font-size: 11px; color: #888; margin-bottom: 5px;">SPECIAL ABILITIES:</p>${passiveButtons.join('')}</div>` 
         : '';
@@ -2129,6 +2268,21 @@ function showResult(spent, bonus, final, win, usedStat) {
                 witchWins[activeIdx] = 0;
                 passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Arcane Alliance Recharged!</p>`;
             }
+        }
+        
+        // Devil Boy recharge
+        if(h.n === 'Devil Boy') {
+            devilWins[activeIdx] = (devilWins[activeIdx] || 0) + 1;
+            if(devilWins[activeIdx] >= 3 && passiveUsed[activeIdx]) {
+                passiveUsed[activeIdx] = false;
+                devilWins[activeIdx] = 0;
+                passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">😈 Soul Contract Recharged!</p>`;
+            }
+        }
+        
+        // Sad Troll - Rising Spirit check
+        if(h.n === 'Sad Troll') {
+            checkRisingSpirit(activeIdx);
         }
         
         // Check for Lover Zombie
@@ -2252,6 +2406,9 @@ function challengeWon() {
 }
 
 function challengeFailed() {
+    // Reset Sad Troll consecutive wins on failure
+    resetTrollConsecutiveWins(activeIdx);
+    
     // Check if ninja had a contract on THIS player who just failed
     if(ninjaContract && ninjaContract.target === activeIdx) {
         const ninja = party[ninjaContract.ninja];
@@ -2342,18 +2499,21 @@ function advanceToNextStage() {
     // Calculate total stages that WILL BE completed after this advance
     const totalStagesCompleted = (nextRound * party.length) + nextStageInRound;
     
-    // Calculate shop timing based on stages
-    if (nextShopRound === -1) {
-        nextShopRound = party.length + 3; // First shop after this many stages
+    // Calculate shop timing based on ROUNDS
+    // Shop appears at rounds: P+3, then +(P+6), then +(P+9), etc.
+    if (nextShopAtRound === -1) {
+        nextShopAtRound = party.length + 3; // First shop at round P+3
     }
     
-    // Check if shop time BEFORE advancing (shop happens between stages)
-    if (totalStagesCompleted >= nextShopRound) {
+    // Check if shop time (shop happens at start of certain rounds, stage 1)
+    if (nextRound + 1 >= nextShopAtRound && nextStageInRound === 1) {
         shopCount++;
-        const base = party.length + 3;
-        const multiplier = shopCount * 0.33;
-        const nextInterval = Math.round(base + (base * multiplier));
-        nextShopRound = totalStagesCompleted + nextInterval;
+        shopIntervalIndex++;
+        // Next interval: P + 3 + (3 * shopIntervalIndex) = P+6, P+9, P+12...
+        const nextInterval = party.length + 3 + (3 * shopIntervalIndex);
+        nextShopAtRound = nextShopAtRound + nextInterval;
+        
+        console.log(`🧪 Shop #${shopCount}! Next shop at round ${nextShopAtRound}`);
         
         // Store the pending state for after shop
         pendingReaderIdx = nextReaderIdx;
@@ -2400,6 +2560,9 @@ function advanceToNextRound() {
 }
 
 function resetUI() {
+    // Reset Quick Thief roll for new stage
+    thiefRolledThisTurn = false;
+    
     document.getElementById('draw-btn').style.display = 'block';
     document.getElementById('game-controls').style.display = 'none';
     document.getElementById('st-title').innerText = "A New Mission Awaits";
@@ -2551,6 +2714,8 @@ function friendChallengerInvest() {
     let canUseOverride = (challenger.n === 'Friendly AI' && !passiveUsed[challengerIdx]);
     let canUseArcaneAlliance = (challenger.n === 'Neighbor Witch' && !passiveUsed[challengerIdx]);
     let canUseLiquidCourage = (challenger.n === 'Drunken Paladin' && !passiveUsed[challengerIdx]);
+    let canUseSoulContract = (challenger.n === 'Devil Boy' && !passiveUsed[challengerIdx]);
+    let canUseLuckyFingers = (challenger.n === 'Quick Thief' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== challenger));
     
     let passiveOptions = '';
     if(canUseOverride) {
@@ -2559,6 +2724,10 @@ function friendChallengerInvest() {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendArcaneAlliance('challenger')">⚡ Arcane Alliance (Steal Points)</button>`;
     } else if(canUseLiquidCourage) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendLiquidCourage('challenger')">🍺 Liquid Courage (Roll for Auto-Win)</button>`;
+    } else if(canUseSoulContract) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendSoulContract('challenger')">😈 Soul Contract (Swap Stats)</button>`;
+    } else if(canUseLuckyFingers) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendLuckyFingers('challenger')">🎲 Lucky Fingers (Roll to Steal Glory)</button>`;
     }
     
     // Dragon Rage note
@@ -2603,6 +2772,8 @@ function friendOpponentInvest() {
     let canUseOverride = (opponent.n === 'Friendly AI' && !passiveUsed[opponentIdx]);
     let canUseArcaneAlliance = (opponent.n === 'Neighbor Witch' && !passiveUsed[opponentIdx]);
     let canUseLiquidCourage = (opponent.n === 'Drunken Paladin' && !passiveUsed[opponentIdx]);
+    let canUseSoulContract = (opponent.n === 'Devil Boy' && !passiveUsed[opponentIdx]);
+    let canUseLuckyFingers = (opponent.n === 'Quick Thief' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== opponent));
     
     let passiveOptions = '';
     if(canUseOverride) {
@@ -2611,6 +2782,10 @@ function friendOpponentInvest() {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendArcaneAlliance('opponent')">⚡ Arcane Alliance (Steal Points)</button>`;
     } else if(canUseLiquidCourage) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendLiquidCourage('opponent')">🍺 Liquid Courage (Roll for Auto-Win)</button>`;
+    } else if(canUseSoulContract) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendSoulContract('opponent')">😈 Soul Contract (Swap Stats)</button>`;
+    } else if(canUseLuckyFingers) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendLuckyFingers('opponent')">🎲 Lucky Fingers (Roll to Steal Glory)</button>`;
     }
     
     // Dragon Rage note
@@ -2775,6 +2950,32 @@ function finalizeFriendChallenge(challengerWin, opponentWin) {
                 passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ ${opponent.pName}'s Arcane Alliance Recharged!</p>`;
             }
         }
+        
+        // Check for Devil Boy recharge (both win)
+        if(challenger.n === 'Devil Boy') {
+            devilWins[friendChallengeData.challenger] = (devilWins[friendChallengeData.challenger] || 0) + 1;
+            if(devilWins[friendChallengeData.challenger] >= 3 && passiveUsed[friendChallengeData.challenger]) {
+                passiveUsed[friendChallengeData.challenger] = false;
+                devilWins[friendChallengeData.challenger] = 0;
+                passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">😈 ${challenger.pName}'s Soul Contract Recharged!</p>`;
+            }
+        }
+        if(opponent.n === 'Devil Boy') {
+            devilWins[friendChallengeData.opponent] = (devilWins[friendChallengeData.opponent] || 0) + 1;
+            if(devilWins[friendChallengeData.opponent] >= 3 && passiveUsed[friendChallengeData.opponent]) {
+                passiveUsed[friendChallengeData.opponent] = false;
+                devilWins[friendChallengeData.opponent] = 0;
+                passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">😈 ${opponent.pName}'s Soul Contract Recharged!</p>`;
+            }
+        }
+        
+        // Check for Sad Troll Rising Spirit (both win)
+        if(challenger.n === 'Sad Troll') {
+            checkRisingSpirit(friendChallengeData.challenger);
+        }
+        if(opponent.n === 'Sad Troll') {
+            checkRisingSpirit(friendChallengeData.opponent);
+        }
     } else if(challengerWin) {
         challenger.score += pPts * 2; // Double glory for solo win
         challenger.cur[pStage.s] += 2;
@@ -2796,6 +2997,24 @@ function finalizeFriendChallenge(challengerWin, opponentWin) {
                 passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Arcane Alliance Recharged!</p>`;
             }
         }
+        
+        // Check for Devil Boy recharge
+        if(challenger.n === 'Devil Boy') {
+            devilWins[friendChallengeData.challenger] = (devilWins[friendChallengeData.challenger] || 0) + 1;
+            if(devilWins[friendChallengeData.challenger] >= 3 && passiveUsed[friendChallengeData.challenger]) {
+                passiveUsed[friendChallengeData.challenger] = false;
+                devilWins[friendChallengeData.challenger] = 0;
+                passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">😈 Soul Contract Recharged!</p>`;
+            }
+        }
+        
+        // Check for Sad Troll Rising Spirit
+        if(challenger.n === 'Sad Troll') {
+            checkRisingSpirit(friendChallengeData.challenger);
+        }
+        
+        // Reset opponent's troll consecutive wins on loss
+        resetTrollConsecutiveWins(friendChallengeData.opponent);
     } else if(opponentWin) {
         opponent.score += pPts * 2;
         opponent.cur[pStage.s] += 2;
@@ -2817,8 +3036,30 @@ function finalizeFriendChallenge(challengerWin, opponentWin) {
                 passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Arcane Alliance Recharged!</p>`;
             }
         }
+        
+        // Check for Devil Boy recharge
+        if(opponent.n === 'Devil Boy') {
+            devilWins[friendChallengeData.opponent] = (devilWins[friendChallengeData.opponent] || 0) + 1;
+            if(devilWins[friendChallengeData.opponent] >= 3 && passiveUsed[friendChallengeData.opponent]) {
+                passiveUsed[friendChallengeData.opponent] = false;
+                devilWins[friendChallengeData.opponent] = 0;
+                passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">😈 Soul Contract Recharged!</p>`;
+            }
+        }
+        
+        // Check for Sad Troll Rising Spirit
+        if(opponent.n === 'Sad Troll') {
+            checkRisingSpirit(friendChallengeData.opponent);
+        }
+        
+        // Reset challenger's troll consecutive wins on loss
+        resetTrollConsecutiveWins(friendChallengeData.challenger);
     } else {
         message = `Both failed! No glory earned.`;
+        
+        // Both failed - reset both trolls
+        resetTrollConsecutiveWins(friendChallengeData.challenger);
+        resetTrollConsecutiveWins(friendChallengeData.opponent);
     }
     
     updatePartyUI();
@@ -3049,6 +3290,173 @@ function friendOpponentInvestNormal() {
     );
 }
 
+// ============================================================
+// FRIEND CHALLENGE - DEVIL BOY SOUL CONTRACT
+// ============================================================
+
+function useFriendSoulContract(role) {
+    const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
+    const devil = party[playerIdx];
+    
+    // Build target options (can target anyone except self)
+    let targetOptions = '';
+    party.forEach((p, idx) => {
+        if(idx !== playerIdx) {
+            const indicator = idx === readerIdx ? ' 📜 (Reader)' : '';
+            targetOptions += `<option value="${idx}">${p.pName}${indicator}</option>`;
+        }
+    });
+    
+    showModal(
+        "😈 Soul Contract",
+        "Swap one of your stats with another player's permanently!",
+        `<div style="margin: 15px 0;">
+            <img src="${devil.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+        </div>
+        <p>Choose a player to swap with:</p>
+        <select id="friend-devil-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            ${targetOptions}
+        </select>
+        <p style="margin-top: 10px;">Choose YOUR stat to swap:</p>
+        <select id="friend-devil-your-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            <option value="pow">POWER (${devil.cur.pow})</option>
+            <option value="spd">SPEED (${devil.cur.spd})</option>
+            <option value="brn">BRAIN (${devil.cur.brn})</option>
+            <option value="cha">CHARISMA (${devil.cur.cha})</option>
+            <option value="wil">WILLPOWER (${devil.cur.wil})</option>
+        </select>
+        <p style="margin-top: 10px;">Choose THEIR stat to take:</p>
+        <select id="friend-devil-their-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            <option value="pow">POWER</option>
+            <option value="spd">SPEED</option>
+            <option value="brn">BRAIN</option>
+            <option value="cha">CHARISMA</option>
+            <option value="wil">WILLPOWER</option>
+        </select>
+        <div style="margin-top: 15px;">
+            <button class="btn btn-main" onclick="confirmFriendSoulContract('${role}')">Sign Contract</button>
+            <button class="btn btn-skip" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Cancel</button>
+        </div>`
+    );
+}
+
+function confirmFriendSoulContract(role) {
+    const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
+    const targetIdx = parseInt(document.getElementById('friend-devil-target').value);
+    const yourStat = document.getElementById('friend-devil-your-stat').value;
+    const theirStat = document.getElementById('friend-devil-their-stat').value;
+    
+    const devil = party[playerIdx];
+    const target = party[targetIdx];
+    
+    // Get the values
+    const yourValue = devil.cur[yourStat];
+    const theirValue = target.cur[theirStat];
+    
+    // Perform the swap
+    devil.cur[yourStat] = theirValue;
+    target.cur[theirStat] = yourValue;
+    
+    // Mark as used
+    passiveUsed[playerIdx] = true;
+    devilWins[playerIdx] = 0;
+    
+    updatePartyUI();
+    
+    showModal(
+        "😈 Soul Contract Signed!",
+        `Stats swapped with ${target.pName}!`,
+        `<p>You traded <b>${yourStat.toUpperCase()} (${yourValue})</b></p>
+        <p>For their <b>${theirStat.toUpperCase()} (${theirValue})</b></p>
+        <button class="btn btn-main" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Continue</button>`
+    );
+}
+
+// ============================================================
+// FRIEND CHALLENGE - QUICK THIEF LUCKY FINGERS
+// ============================================================
+
+function useFriendLuckyFingers(role) {
+    const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
+    const thief = party[playerIdx];
+    
+    // Check if anyone has glory to steal
+    const hasGlory = party.some(p => p.score > 0 && p !== thief);
+    if(!hasGlory) {
+        alert("No one has Glory to steal yet!");
+        return;
+    }
+    
+    thiefRolledThisTurn = true;
+    
+    // Roll animation
+    showModal("🎲 Lucky Fingers!", "Rolling...", `<div id="dice-container" style="margin: 30px 0;"></div>`);
+    
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+    
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const roll = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(roll);
+        
+        setTimeout(() => {
+            if(roll >= 5) {
+                // Success! Let them choose who to steal from
+                let targetOptions = '';
+                party.forEach((p, idx) => {
+                    if(p.score > 0 && idx !== playerIdx) {
+                        targetOptions += `<option value="${idx}">${p.pName} (${p.score} Glory)</option>`;
+                    }
+                });
+                
+                showModal(
+                    "🎲 Lucky Fingers - SUCCESS!",
+                    `You rolled a ${roll}! Choose who to steal from:`,
+                    `<select id="friend-thief-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+                        ${targetOptions}
+                    </select>
+                    <button class="btn btn-main" onclick="confirmFriendLuckyFingers('${role}')">Steal 1 Glory</button>`
+                );
+            } else {
+                // Failed
+                showModal(
+                    "🎲 Lucky Fingers - Failed!",
+                    `You rolled a ${roll}... Not lucky this time!`,
+                    `<p>You needed 5 or 6 to steal Glory.</p>
+                    <button class="btn btn-main" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Continue</button>`
+                );
+            }
+        }, 500);
+    }, 1000);
+}
+
+function confirmFriendLuckyFingers(role) {
+    const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
+    const targetIdx = parseInt(document.getElementById('friend-thief-target').value);
+    const thief = party[playerIdx];
+    const target = party[targetIdx];
+    
+    // Steal 1 glory
+    target.score--;
+    thief.score++;
+    
+    updatePartyUI();
+    
+    showModal(
+        "🗡️ Glory Stolen!",
+        `You stole 1 Glory from ${target.pName}!`,
+        `<p>${target.pName}: ${target.score} Glory</p>
+        <p>${thief.pName}: ${thief.score} Glory</p>
+        <button class="btn btn-main" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Continue</button>`
+    );
+}
+
 function resolveFriendChallengeWithAutoWin() {
     const challenger = party[friendChallengeData.challenger];
     const opponent = party[friendChallengeData.opponent];
@@ -3240,12 +3648,18 @@ function collectGroupContribution(idx, yesVoters) {
     // Check for passives
     let canUseOverride = (currentHero.n === 'Friendly AI' && !passiveUsed[playerIdx]);
     let canUseArcaneAlliance = (currentHero.n === 'Neighbor Witch' && !passiveUsed[playerIdx]);
+    let canUseSoulContract = (currentHero.n === 'Devil Boy' && !passiveUsed[playerIdx]);
+    let canUseLuckyFingers = (currentHero.n === 'Quick Thief' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== currentHero));
     
     let passiveOptions = '';
     if(canUseOverride) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupSystemOverride(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">⚡ System Override (Use Different Stat)</button>`;
     } else if(canUseArcaneAlliance) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupArcaneAlliance(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">🔮 Arcane Alliance (Steal Points)</button>`;
+    } else if(canUseSoulContract) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupSoulContract(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">😈 Soul Contract (Swap Stats)</button>`;
+    } else if(canUseLuckyFingers) {
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupLuckyFingers(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">🎲 Lucky Fingers (Roll to Steal Glory)</button>`;
     }
     
     // Dragon Rage note
@@ -3530,6 +3944,193 @@ function executeGroupArcaneAlliance(idx, yesVoters) {
     
     updatePartyUI();
     collectGroupContribution(idx + 1, yesVoters);
+}
+
+// ============================================================
+// GROUP CHALLENGE - DEVIL BOY SOUL CONTRACT
+// ============================================================
+
+function useGroupSoulContract(idx, yesVoters) {
+    const voterData = yesVoters[idx];
+    const playerIdx = voterData.playerIndex;
+    const devil = party[playerIdx];
+    
+    // Build target options (can target anyone except self)
+    let targetOptions = '';
+    party.forEach((p, i) => {
+        if(i !== playerIdx) {
+            const indicator = i === readerIdx ? ' 📜 (Reader)' : '';
+            targetOptions += `<option value="${i}">${p.pName}${indicator}</option>`;
+        }
+    });
+    
+    showModal(
+        "😈 Soul Contract",
+        "Swap one of your stats with another player's permanently!",
+        `<div style="margin: 15px 0;">
+            <img src="${devil.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+        </div>
+        <p>Choose a player to swap with:</p>
+        <select id="group-devil-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            ${targetOptions}
+        </select>
+        <p style="margin-top: 10px;">Choose YOUR stat to swap:</p>
+        <select id="group-devil-your-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            <option value="pow">POWER (${devil.cur.pow})</option>
+            <option value="spd">SPEED (${devil.cur.spd})</option>
+            <option value="brn">BRAIN (${devil.cur.brn})</option>
+            <option value="cha">CHARISMA (${devil.cur.cha})</option>
+            <option value="wil">WILLPOWER (${devil.cur.wil})</option>
+        </select>
+        <p style="margin-top: 10px;">Choose THEIR stat to take:</p>
+        <select id="group-devil-their-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            <option value="pow">POWER</option>
+            <option value="spd">SPEED</option>
+            <option value="brn">BRAIN</option>
+            <option value="cha">CHARISMA</option>
+            <option value="wil">WILLPOWER</option>
+        </select>
+        <div style="margin-top: 15px;">
+            <button class="btn btn-main" onclick="confirmGroupSoulContract(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Sign Contract & Contribute</button>
+        </div>`
+    );
+}
+
+function confirmGroupSoulContract(idx, yesVoters) {
+    const voterData = yesVoters[idx];
+    const playerIdx = voterData.playerIndex;
+    const targetIdx = parseInt(document.getElementById('group-devil-target').value);
+    const yourStat = document.getElementById('group-devil-your-stat').value;
+    const theirStat = document.getElementById('group-devil-their-stat').value;
+    
+    const devil = party[playerIdx];
+    const target = party[targetIdx];
+    
+    // Get the values
+    const yourValue = devil.cur[yourStat];
+    const theirValue = target.cur[theirStat];
+    
+    // Perform the swap
+    devil.cur[yourStat] = theirValue;
+    target.cur[theirStat] = yourValue;
+    
+    // Mark as used
+    passiveUsed[playerIdx] = true;
+    devilWins[playerIdx] = 0;
+    
+    updatePartyUI();
+    
+    // Now show normal contribution screen
+    showModal(
+        "😈 Soul Contract Signed!",
+        `Stats swapped with ${target.pName}!`,
+        `<p>You traded <b>${yourStat.toUpperCase()} (${yourValue})</b></p>
+        <p>For their <b>${theirStat.toUpperCase()} (${theirValue})</b></p>
+        <button class="btn btn-main" onclick="showGroupContribAfterPassive(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Continue to Contribute</button>`
+    );
+}
+
+function showGroupContribAfterPassive(idx, yesVoters) {
+    const voterData = yesVoters[idx];
+    const currentHero = party[voterData.playerIndex];
+    
+    showModal(
+        `${currentHero.pName}'s Contribution`,
+        `How much ${pStage.s.toUpperCase()} will you contribute?`,
+        `<div style="margin: 15px 0;">
+            <img src="${currentHero.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+        </div>
+        <p>Available ${pStage.s.toUpperCase()}: <b style="color: var(--gold);">${currentHero.cur[pStage.s]}</b></p>
+        <input type="number" id="group-contrib" class="input-hero" min="0" max="${currentHero.cur[pStage.s]}" value="0" style="width:100%; font-size:24px; text-align:center; margin:15px 0;">
+        <button class="btn btn-main" onclick="submitGroupContrib(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Contribute</button>`
+    );
+}
+
+// ============================================================
+// GROUP CHALLENGE - QUICK THIEF LUCKY FINGERS
+// ============================================================
+
+function useGroupLuckyFingers(idx, yesVoters) {
+    const voterData = yesVoters[idx];
+    const playerIdx = voterData.playerIndex;
+    const thief = party[playerIdx];
+    
+    // Check if anyone has glory to steal
+    const hasGlory = party.some(p => p.score > 0 && p !== thief);
+    if(!hasGlory) {
+        alert("No one has Glory to steal yet!");
+        return;
+    }
+    
+    thiefRolledThisTurn = true;
+    
+    // Roll animation
+    showModal("🎲 Lucky Fingers!", "Rolling...", `<div id="dice-container" style="margin: 30px 0;"></div>`);
+    
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+    
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const roll = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(roll);
+        
+        setTimeout(() => {
+            if(roll >= 5) {
+                // Success! Let them choose who to steal from
+                let targetOptions = '';
+                party.forEach((p, i) => {
+                    if(p.score > 0 && i !== playerIdx) {
+                        targetOptions += `<option value="${i}">${p.pName} (${p.score} Glory)</option>`;
+                    }
+                });
+                
+                showModal(
+                    "🎲 Lucky Fingers - SUCCESS!",
+                    `You rolled a ${roll}! Choose who to steal from:`,
+                    `<select id="group-thief-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+                        ${targetOptions}
+                    </select>
+                    <button class="btn btn-main" onclick="confirmGroupLuckyFingers(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Steal 1 Glory</button>`
+                );
+            } else {
+                // Failed
+                showModal(
+                    "🎲 Lucky Fingers - Failed!",
+                    `You rolled a ${roll}... Not lucky this time!`,
+                    `<p>You needed 5 or 6 to steal Glory.</p>
+                    <button class="btn btn-main" onclick="showGroupContribAfterPassive(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Continue to Contribute</button>`
+                );
+            }
+        }, 500);
+    }, 1000);
+}
+
+function confirmGroupLuckyFingers(idx, yesVoters) {
+    const voterData = yesVoters[idx];
+    const playerIdx = voterData.playerIndex;
+    const targetIdx = parseInt(document.getElementById('group-thief-target').value);
+    const thief = party[playerIdx];
+    const target = party[targetIdx];
+    
+    // Steal 1 glory
+    target.score--;
+    thief.score++;
+    
+    updatePartyUI();
+    
+    showModal(
+        "🗡️ Glory Stolen!",
+        `You stole 1 Glory from ${target.pName}!`,
+        `<p>${target.pName}: ${target.score} Glory</p>
+        <p>${thief.pName}: ${thief.score} Glory</p>
+        <button class="btn btn-main" onclick="showGroupContribAfterPassive(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Continue to Contribute</button>`
+    );
 }
 
 // ============================================================
@@ -3832,6 +4433,240 @@ function confirmShadowControl() {
 }
 
 // ============================================================
+// DEVIL BOY - SOUL CONTRACT
+// ============================================================
+
+function useSoulContract() {
+    const devil = party[activeIdx];
+    
+    if(passiveUsed[activeIdx]) {
+        alert("Soul Contract has already been used! Win 3 more challenges to recharge.");
+        return;
+    }
+    
+    // Build target options
+    let targetOptions = '';
+    party.forEach((p, idx) => {
+        if(idx !== activeIdx) {
+            const indicator = idx === readerIdx ? ' 📜 (Reader)' : '';
+            targetOptions += `<option value="${idx}">${p.pName}${indicator}</option>`;
+        }
+    });
+    
+    showModal(
+        "😈 Soul Contract",
+        "Swap one of your stats with another player's permanently!",
+        `<div style="margin: 15px 0;">
+            <img src="${devil.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+        </div>
+        <p>Choose a player to swap with:</p>
+        <select id="devil-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            ${targetOptions}
+        </select>
+        <p style="margin-top: 10px;">Choose YOUR stat to swap:</p>
+        <select id="devil-your-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            <option value="pow">POWER (${devil.cur.pow})</option>
+            <option value="spd">SPEED (${devil.cur.spd})</option>
+            <option value="brn">BRAIN (${devil.cur.brn})</option>
+            <option value="cha">CHARISMA (${devil.cur.cha})</option>
+            <option value="wil">WILLPOWER (${devil.cur.wil})</option>
+        </select>
+        <p style="margin-top: 10px;">Choose THEIR stat to take:</p>
+        <select id="devil-their-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            <option value="pow">POWER</option>
+            <option value="spd">SPEED</option>
+            <option value="brn">BRAIN</option>
+            <option value="cha">CHARISMA</option>
+            <option value="wil">WILLPOWER</option>
+        </select>
+        <div style="margin-top: 15px;">
+            <button class="btn btn-main" onclick="confirmSoulContract()">Sign Contract</button>
+            <button class="btn btn-skip" onclick="closeModal()">Cancel</button>
+        </div>`
+    );
+}
+
+function confirmSoulContract() {
+    const targetIdx = parseInt(document.getElementById('devil-target').value);
+    const yourStat = document.getElementById('devil-your-stat').value;
+    const theirStat = document.getElementById('devil-their-stat').value;
+    
+    const devil = party[activeIdx];
+    const target = party[targetIdx];
+    
+    // Get the values
+    const yourValue = devil.cur[yourStat];
+    const theirValue = target.cur[theirStat];
+    
+    // Perform the swap
+    devil.cur[yourStat] = theirValue;
+    target.cur[theirStat] = yourValue;
+    
+    // Mark as used
+    passiveUsed[activeIdx] = true;
+    devilWins[activeIdx] = 0;
+    
+    updatePartyUI();
+    
+    showModal(
+        "😈 Soul Contract Signed!",
+        `Stats swapped with ${target.pName}!`,
+        `<p>You traded <b>${yourStat.toUpperCase()} (${yourValue})</b></p>
+        <p>For their <b>${theirStat.toUpperCase()} (${theirValue})</b></p>
+        <p style="margin-top:10px; font-size:12px; color:#888;">Win 3 challenges to use Soul Contract again!</p>
+        <button class="btn btn-main" onclick="closeModal()">Continue</button>`
+    );
+}
+
+// ============================================================
+// QUICK THIEF - LUCKY FINGERS
+// ============================================================
+
+function useLuckyFingers() {
+    const thief = party[activeIdx];
+    
+    // Check if anyone has glory to steal
+    const hasGlory = party.some(p => p.score > 0 && p !== thief);
+    if(!hasGlory) {
+        alert("No one has Glory to steal yet!");
+        return;
+    }
+    
+    if(thiefRolledThisTurn) {
+        alert("You've already rolled this turn!");
+        return;
+    }
+    
+    thiefRolledThisTurn = true;
+    
+    // Roll animation
+    showModal("🎲 Lucky Fingers!", "Rolling...", `<div id="dice-container" style="margin: 30px 0;"></div>`);
+    
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+    
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const roll = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(roll);
+        
+        setTimeout(() => {
+            if(roll >= 5) {
+                // Success! Let them choose who to steal from
+                let targetOptions = '';
+                party.forEach((p, idx) => {
+                    if(p.score > 0 && idx !== activeIdx) {
+                        targetOptions += `<option value="${idx}">${p.pName} (${p.score} Glory)</option>`;
+                    }
+                });
+                
+                showModal(
+                    "🎲 Lucky Fingers - SUCCESS!",
+                    `You rolled a ${roll}! Choose who to steal from:`,
+                    `<div style="margin: 15px 0;">
+                        <img src="${thief.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+                    </div>
+                    <select id="thief-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+                        ${targetOptions}
+                    </select>
+                    <button class="btn btn-main" onclick="confirmLuckyFingers()">Steal 1 Glory</button>`
+                );
+            } else {
+                // Failed
+                showModal(
+                    "🎲 Lucky Fingers - Failed!",
+                    `You rolled a ${roll}... Not lucky this time!`,
+                    `<div style="margin: 15px 0;">
+                        <img src="${thief.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; opacity: 0.6;">
+                    </div>
+                    <p>You needed 5 or 6 to steal Glory.</p>
+                    <button class="btn btn-main" onclick="closeModal()">Continue</button>`
+                );
+            }
+        }, 500);
+    }, 1000);
+}
+
+function confirmLuckyFingers() {
+    const targetIdx = parseInt(document.getElementById('thief-target').value);
+    const thief = party[activeIdx];
+    const target = party[targetIdx];
+    
+    // Steal 1 glory
+    target.score--;
+    thief.score++;
+    
+    updatePartyUI();
+    
+    showModal(
+        "🗡️ Glory Stolen!",
+        `You stole 1 Glory from ${target.pName}!`,
+        `<p>${target.pName}: ${target.score} Glory</p>
+        <p>${thief.pName}: ${thief.score} Glory</p>
+        <button class="btn btn-main" onclick="closeModal()">Continue</button>`
+    );
+}
+
+// ============================================================
+// SAD TROLL - RISING SPIRIT (triggered on wins)
+// ============================================================
+
+function checkRisingSpirit(playerIdx) {
+    const player = party[playerIdx];
+    if(player.n !== 'Sad Troll') return;
+    
+    trollConsecutiveWins[playerIdx] = (trollConsecutiveWins[playerIdx] || 0) + 1;
+    
+    if(trollConsecutiveWins[playerIdx] >= 3) {
+        // Show stat selection modal
+        showModal(
+            "🧌 Rising Spirit!",
+            `${player.pName} has won 3 consecutive challenges!`,
+            `<div style="margin: 15px 0;">
+                <img src="${player.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+            </div>
+            <p>Choose a stat to gain +5:</p>
+            <select id="troll-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+                <option value="pow">POWER (${player.cur.pow})</option>
+                <option value="spd">SPEED (${player.cur.spd})</option>
+                <option value="brn">BRAIN (${player.cur.brn})</option>
+                <option value="cha">CHARISMA (${player.cur.cha})</option>
+                <option value="wil">WILLPOWER (${player.cur.wil})</option>
+            </select>
+            <button class="btn btn-main" onclick="confirmRisingSpirit(${playerIdx})">Gain +5</button>`
+        );
+    }
+}
+
+function confirmRisingSpirit(playerIdx) {
+    const stat = document.getElementById('troll-stat').value;
+    const player = party[playerIdx];
+    
+    player.cur[stat] += 5;
+    trollConsecutiveWins[playerIdx] = 0; // Reset counter
+    
+    updatePartyUI();
+    
+    showModal(
+        "🧌 Rising Spirit!",
+        `${player.pName} gained +5 ${stat.toUpperCase()}!`,
+        `<p>New ${stat.toUpperCase()}: <b>${player.cur[stat]}</b></p>
+        <button class="btn btn-main" onclick="closeModal()">Continue</button>`
+    );
+}
+
+function resetTrollConsecutiveWins(playerIdx) {
+    if(party[playerIdx] && party[playerIdx].n === 'Sad Troll') {
+        trollConsecutiveWins[playerIdx] = 0;
+    }
+}
+
+// ============================================================
 // FANCY NINJA - ASSASSINATION CONTRACT
 // ============================================================
 
@@ -3944,6 +4779,14 @@ function resolveNinjaContract(targetIdx, didWin) {
 // ============================================================
 
 function openStore() { 
+    // Reset Dark Stalker's Shadow Control uses for all players
+    party.forEach((p, idx) => {
+        if (p.n === 'Dark Stalker') {
+            shadowControlUses[idx] = 0;
+            console.log(`🗡️ ${p.pName}'s Shadow Control reset!`);
+        }
+    });
+    
     storePoints = 10; 
     tempStats = {pow:0, spd:0, brn:0, cha:0, wil:0}; 
     renderStore(); 
