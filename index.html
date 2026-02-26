@@ -1227,37 +1227,74 @@
         </div>
 
         <!-- Scroll 4: Game Rules -->
-        <div id="intro-book-4" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none;">
+        <div id="intro-book-4" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none; overflow-y: auto; max-height: 80vh;">
             <h1 style="color:var(--blood); text-align: center; font-size: 28px; animation: glow 3s ease-in-out infinite; text-shadow: 2px 2px 4px #000, 0 0 15px rgba(139, 0, 0, 0.6);">GAME RULES</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px; animation: float 4s ease-in-out infinite;">How to Claim Victory in the Missions</p>
-            <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 20px 0;">
-            <div class="instruction-text">
-                <p style="font-style: italic; margin-bottom: 15px;"><b>The Setup:</b> As another night falls upon Pavel, ten legendary heroes gather at the tavern—each with their own unique abilities and soul affinities. From these ten, you and your companions will select your champions. Tonight, King Antony has announced a grand competition: a series of challenges, or <b>Missions</b>, with a grand prize awaiting those who prove themselves most worthy. The heroes must pass through these trials, testing their strength, speed, intellect, charisma, and willpower to claim victory and glory.</p>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px; animation: float 4s ease-in-out infinite;">Complete Guide to the Missions of Pavel</p>
+            <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
+            <div class="instruction-text" style="text-align: justify;">
                 
-                <p><b>Objective:</b> Guide your chosen hero through the Missions, accumulating the highest Glory score by successfully completing challenges. The hero with the most Glory when all Missions are complete wins the grand prize.</p>
+                <p style="font-style: italic; margin-bottom: 15px; background: rgba(139,0,0,0.1); padding: 10px; border-left: 3px solid var(--blood);"><b>The Setup:</b> Ten legendary heroes gather at Pavel's tavern, each with unique abilities and soul affinities. King Antony has announced a grand competition - a series of Missions where heroes prove their worth through trials of strength, speed, intellect, charisma, and willpower.</p>
                 
-                <p><b>Core Mechanics:</b></p>
+                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">🎯 OBJECTIVE</b></p>
+                <p>Accumulate the highest <b>Glory</b> score by completing challenges. The hero with the most Glory when all missions are complete wins!</p>
                 
-                <p><b>1. Turn Structure:</b> Draw a challenge. The player to your left tells you the difficulty of this challenge (Minor = 1 Glory, Deadly = 2 Glory). Each challenge has a required stat (POW, SPD, BRN, CHA, or WIL). You must decide how to approach this challenge.</p>
+                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">📜 ROUNDS & STAGES</b></p>
+                <p>The game is divided into <b>Rounds</b>. Each Round consists of multiple <b>Stages</b> (one per player). A new Round begins when the original first Reader becomes Reader again - meaning everyone has read once.</p>
                 
-                <p><b>2. Resource Management:</b> You have five attributes (POW, SPD, BRN, CHA, WIL), each starting between 1-9 points depending on your hero. To overcome a challenge, you must spend attribute points matching or exceeding the target number.</p>
+                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">👤 THE READER</b></p>
+                <p>Each stage has a <b>Reader</b> who:</p>
+                <p style="margin-left: 15px;">• Draws and reads the mission card aloud</p>
+                <p style="margin-left: 15px;">• Rolls the Fate Dice to determine difficulty (1-3 = Easy, 4-6 = Hard)</p>
+                <p style="margin-left: 15px;">• Knows the secret target number</p>
+                <p style="margin-left: 15px;">• <b>Does NOT participate</b> in regular challenges, Challenge a Friend, or Group Missions</p>
+                <p style="margin-left: 15px;">• <b>CAN be targeted</b> by abilities (Shadow Control, Arcane Alliance, etc.)</p>
                 
-                <p><b>3. Soul-Type Advantage:</b> If your hero's Soul-Type matches the challenge's affinity, you receive a <b>+3 automatic bonus</b> toward the challenge. Soul-Type advantages are <b>secret</b> for players.</p>
+                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">⚔️ CHALLENGE OPTIONS</b></p>
+                <p>When it's your turn as Challenger, you have three choices:</p>
                 
-                <p><b>4. Decision Options:</b> Each turn, you have three choices:</p>
-                <p style="margin-left: 20px;">• <b>Do the Challenge:</b> Spend attribute points to meet the target and claim Glory. If you win you get <b>back 2 points</b> of what you spent!</p>
-                <p style="margin-left: 20px;">• <b>Pass (Meditation):</b> Skip the challenge without penalty. You have exactly <b>3 Meditations</b> for the entire game—use them wisely on impossible or inefficient challenges.</p>
-                <p style="margin-left: 20px;">• <b>Challenge a Friend:</b> Engage in a competitive dual challenge with another player <b>without dice</b> help, but the one who make the challenge take <b>+3 bonus</b> in the fight for his courage! Both invest attribute points. Outcomes: both succeed (both gain Glory), one succeeds (solo winner gains <b>bonus</b> Glory), or both fail (no Glory). But, after challenge a friend, <b>another challenge opens</b>. Strategic for difficult challenges or when attributes are scarce.</p>
+                <p style="margin-top: 10px; margin-left: 10px;"><b>1. ATTEMPT THE CHALLENGE</b></p>
+                <p style="margin-left: 20px;">• Spend stat points to meet or exceed the secret target</p>
+                <p style="margin-left: 20px;">• <b>Win:</b> Gain Glory (1 Easy / 2 Hard) + get back 2 spent points</p>
+                <p style="margin-left: 20px;">• <b>Fail:</b> Lose all spent points, challenge passes to next player</p>
                 
-                 <p><b>5. Pass and Play:</b> When you finish your turn, pass the mobile to the player next to you.</p>
+                <p style="margin-top: 10px; margin-left: 10px;"><b>2. MEDITATE (PASS)</b></p>
+                <p style="margin-left: 20px;">• Skip the challenge without spending points</p>
+                <p style="margin-left: 20px;">• You have exactly <b>3 Meditations</b> for the entire game</p>
+                <p style="margin-left: 20px;">• Challenge passes to next player</p>
                 
-                <p><b>6. Recovery System:</b> The Alchemist appears periodically (frequency depends on party size) to restore <b>10 total points</b> distributed across your attributes. This is your primary resource regeneration—plan accordingly.</p>
+                <p style="margin-top: 10px; margin-left: 10px;"><b>3. CHALLENGE A FRIEND</b></p>
+                <p style="margin-left: 20px;">• Challenge another player (not the Reader) to a duel</p>
+                <p style="margin-left: 20px;">• Initiator gets <b>+3 Courage Bonus</b></p>
+                <p style="margin-left: 20px;">• Both players secretly invest points, then reveal</p>
+                <p style="margin-left: 20px;">• <b>Both Win:</b> Both gain Glory</p>
+                <p style="margin-left: 20px;">• <b>One Wins:</b> Winner gains +1 bonus Glory</p>
+                <p style="margin-left: 20px;">• <b>Both Fail:</b> No Glory awarded</p>
+                <p style="margin-left: 20px;">• After resolution, a <b>new challenge opens</b> for remaining players</p>
                 
-                <p><b>7. Group Missions:</b> Sometimes the entire party faces a <b>Group Mission</b> marked with 🤝. In these challenges, <b>ALL heroes must contribute together</b>. Each player contributes stat points, and all contributions are combined (including affinity bonuses). If the total meets the target: everyone gains <b>+2 Glory (Easy) or +4 Glory (Hard)</b>. If the party fails: <b>everyone loses -3 to ALL stats</b>! Cooperation is key!</p>
+                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">🤝 GROUP MISSIONS</b></p>
+                <p>Special missions marked with 🤝 require <b>ALL heroes to contribute</b>:</p>
+                <p style="margin-left: 15px;">• Reader cannot contribute (only reads)</p>
+                <p style="margin-left: 15px;">• All contributions are combined (including affinity bonuses)</p>
+                <p style="margin-left: 15px;">• <b>Success:</b> Everyone gains +2 Glory (Easy) or +4 Glory (Hard)</p>
+                <p style="margin-left: 15px;">• <b>Failure:</b> Everyone loses <b>-3 to ALL stats</b>!</p>
                 
-                <p><b>8. Victory Condition:</b> After all Missions are completed, the hero with the highest accumulated Glory is declared the victor and claims the prize.</p>
+                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">✨ SOUL-TYPE AFFINITY</b></p>
+                <p>Each hero has a secret Soul-Type. If your Soul-Type matches the challenge's affinity, you receive a <b>+3 automatic bonus</b>. Soul-Types are secret!</p>
                 
-                <p style="margin-top: 15px; color: var(--blood);"><b>Strategic Considerations:</b> Balance immediate Glory gains against long-term resource sustainability. Identify which challenges favor your Soul-Type. Conserve Meditations for truly impossible trials. Use "Challenge a Friend" to split difficult challenges or eliminate competition. In Group Missions, coordinate with your party—failure means everyone suffers!</p>
+                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">🧪 THE ALCHEMIST SHOP</b></p>
+                <p>Periodically, the Alchemist appears to restore your stats:</p>
+                <p style="margin-left: 15px;">• Distribute <b>10 points</b> across any stats (max +5 per stat)</p>
+                <p style="margin-left: 15px;">• Shop frequency depends on party size</p>
+                <p style="margin-left: 15px;">• This is your primary recovery - plan accordingly!</p>
+                
+                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">⚡ HERO ABILITIES</b></p>
+                <p>Each hero has a unique passive ability (see Heroes scroll for details). Some abilities:</p>
+                <p style="margin-left: 15px;">• Are always active (Dragon Rage, Brute Force)</p>
+                <p style="margin-left: 15px;">• Require activation and recharge (System Override, Arcane Alliance)</p>
+                <p style="margin-left: 15px;">• Can target other players including the Reader</p>
+                <p style="margin-left: 15px;">• Reset or recharge based on specific conditions</p>
+                
+                <p style="margin-top: 15px; color: var(--gold); background: rgba(197,160,89,0.1); padding: 10px; border: 1px solid var(--gold);"><b>💡 STRATEGY TIPS:</b> Balance Glory gains against resource sustainability. Identify which challenges favor your Soul-Type. Save Meditations for impossible trials. Use Challenge a Friend strategically to share difficult challenges. In Group Missions, coordinate with your party - failure hurts everyone!</p>
             </div>
             <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
     </div>
@@ -1431,6 +1468,8 @@ let regIdx = 0;           // Registration index
 let readerIdx = 0;        // Who is the READER (opens & sets difficulty)
 let activeIdx = 0;        // Who is currently ATTEMPTING the mission
 let firstChallengerIdx = 0; // First challenger (left of reader) - becomes next reader
+let originalFirstReaderIdx = 0; // Track who was the FIRST reader ever (for round tracking)
+let stageInRound = 1;     // Track which stage within the current round
 
 let pTarget = 0;          // Current challenge target number
 let pPts = 0;             // Glory points for current challenge
@@ -1565,8 +1604,15 @@ function closeModalAndNextReg() {
 
 function startGame() {
     round = 0;
+    stageInRound = 1;
     nextShopRound = -1;
     shopCount = 0;
+    
+    // Initialize pending state variables
+    pendingReaderIdx = 0;
+    pendingFirstChallengerIdx = 0;
+    pendingRound = 0;
+    pendingStageInRound = 1;
     
     totalRounds = parseInt(document.getElementById('deck-size-in').value);
     
@@ -1581,6 +1627,7 @@ function startGame() {
     
     // Initialize turn structure
     readerIdx = 0;                              // Player 0 is first reader
+    originalFirstReaderIdx = 0;                 // Remember who started as first reader
     firstChallengerIdx = 1 % party.length;      // Player to the left of reader
     activeIdx = firstChallengerIdx;             // First challenger starts
     
@@ -1607,24 +1654,28 @@ function updateTurnLabels() {
 function updateCounters() {
     const roundDisplay = document.getElementById('round-counter');
     if (roundDisplay) {
-        roundDisplay.innerText = `${round + 1}/${totalRounds}`;
+        // Show "Round X - Stage Y" format
+        roundDisplay.innerText = `R${round + 1} Stage ${stageInRound}`;
     }
     
     const shopCountdownNumber = document.getElementById('shop-countdown-number');
     if (shopCountdownNumber) {
+        // Calculate total stages completed
+        const totalStagesCompleted = (round * party.length) + (stageInRound - 1);
+        
         if (nextShopRound === -1) {
-            const firstShop = party.length + 3;
-            const turnsUntil = firstShop - round;
-            shopCountdownNumber.innerText = turnsUntil;
-            shopCountdownNumber.style.color = 'var(--gold)';
+            const firstShopStage = party.length + 3;
+            const stagesUntil = firstShopStage - totalStagesCompleted;
+            shopCountdownNumber.innerText = stagesUntil > 0 ? stagesUntil : 'NOW';
+            shopCountdownNumber.style.color = stagesUntil <= 2 ? '#ff9800' : 'var(--gold)';
         } else {
-            const turnsUntilShop = nextShopRound - round;
-            if (turnsUntilShop <= 0) {
+            const stagesUntilShop = nextShopRound - totalStagesCompleted;
+            if (stagesUntilShop <= 0) {
                 shopCountdownNumber.innerText = 'NOW';
                 shopCountdownNumber.style.color = '#2ecc71';
             } else {
-                shopCountdownNumber.innerText = turnsUntilShop;
-                shopCountdownNumber.style.color = turnsUntilShop <= 2 ? '#ff9800' : 'var(--gold)';
+                shopCountdownNumber.innerText = stagesUntilShop;
+                shopCountdownNumber.style.color = stagesUntilShop <= 2 ? '#ff9800' : 'var(--gold)';
             }
         }
     }
@@ -1638,14 +1689,24 @@ function readerOpensMission() {
     if (isProcessing) return;
     isProcessing = true;
     
-    pStage = deck[round];
+    // Calculate deck index based on total missions played (round * party.length + stageInRound - 1)
+    const deckIndex = (round * party.length) + stageInRound - 1;
+    
+    // Check if deck is exhausted
+    if (deckIndex >= deck.length) {
+        isProcessing = false;
+        endGame();
+        return;
+    }
+    
+    pStage = deck[deckIndex];
     const reader = party[readerIdx];
     
     // Check if this is a group mission with only 2 players (shouldn't happen but safety)
     if(pStage.isGroup && party.length === 2) {
         // Draw another card
-        deck[round] = deck.filter(s => !s.isGroup).sort(() => 0.5 - Math.random())[0];
-        pStage = deck[round];
+        deck[deckIndex] = deck.filter(s => !s.isGroup).sort(() => 0.5 - Math.random())[0];
+        pStage = deck[deckIndex];
     }
     
     setTimeout(() => {
@@ -2102,51 +2163,87 @@ function missionDiscarded() {
     advanceToNextRound();
 }
 
-function advanceToNextRound() {
-    round++;
-    
-    // Clear any active ninja contract for new round
+function advanceToNextStage() {
+    // Clear any active ninja contract for new stage
     ninjaContract = null;
     
-    // Reset Drunken Paladin's dice for new round (can use once per turn)
+    // Reset Drunken Paladin's dice for new stage (can use once per turn)
     party.forEach(p => {
         if(p.n === 'Drunken Paladin') {
             p.paladinDiceUsedThisTurn = false;
         }
     });
     
-    // Calculate shop timing
-    if (nextShopRound === -1) {
-        nextShopRound = party.length + 3;
+    // Calculate what the NEXT reader would be
+    const nextReaderIdx = firstChallengerIdx;
+    const nextFirstChallengerIdx = (nextReaderIdx + 1) % party.length;
+    
+    // Determine if this would be a new round (next reader = original first reader)
+    let nextRound = round;
+    let nextStageInRound = stageInRound + 1;
+    if (nextReaderIdx === originalFirstReaderIdx) {
+        nextRound = round + 1;
+        nextStageInRound = 1;
     }
     
-    // Check if shop time
-    if (round === nextShopRound) {
+    // Calculate total stages that WILL BE completed after this advance
+    const totalStagesCompleted = (nextRound * party.length) + nextStageInRound;
+    
+    // Calculate shop timing based on stages
+    if (nextShopRound === -1) {
+        nextShopRound = party.length + 3; // First shop after this many stages
+    }
+    
+    // Check if shop time BEFORE advancing (shop happens between stages)
+    if (totalStagesCompleted >= nextShopRound) {
         shopCount++;
         const base = party.length + 3;
         const multiplier = shopCount * 0.33;
         const nextInterval = Math.round(base + (base * multiplier));
-        nextShopRound = round + nextInterval;
+        nextShopRound = totalStagesCompleted + nextInterval;
+        
+        // Store the pending state for after shop
+        pendingReaderIdx = nextReaderIdx;
+        pendingFirstChallengerIdx = nextFirstChallengerIdx;
+        pendingRound = nextRound;
+        pendingStageInRound = nextStageInRound;
         
         storePlayerIdx = 0;
         openStore();
         return;
     }
     
-    // Check if game is over
-    if (round >= totalRounds) {
+    // Check if game is over (based on deck being empty)
+    if (totalStagesCompleted > totalRounds) {
         endGame();
         return;
     }
     
-    // NEW: First challenger becomes next reader
-    readerIdx = firstChallengerIdx;
-    firstChallengerIdx = (readerIdx + 1) % party.length;
+    // Now actually advance
+    readerIdx = nextReaderIdx;
+    firstChallengerIdx = nextFirstChallengerIdx;
     activeIdx = firstChallengerIdx;
+    round = nextRound;
+    stageInRound = nextStageInRound;
     
-    console.log(`📜 New Reader: ${party[readerIdx].pName}, First Challenger: ${party[firstChallengerIdx].pName}`);
+    if (nextReaderIdx === originalFirstReaderIdx && nextRound > 0) {
+        console.log(`🔄 NEW ROUND ${round + 1}! Reader back to ${party[readerIdx].pName}`);
+    }
+    
+    console.log(`📜 Round ${round + 1}, Stage ${stageInRound}: Reader: ${party[readerIdx].pName}, First Challenger: ${party[firstChallengerIdx].pName}`);
     
     resetUI();
+}
+
+// Variables to store pending state during shop
+let pendingReaderIdx = 0;
+let pendingFirstChallengerIdx = 0;
+let pendingRound = 0;
+let pendingStageInRound = 1;
+
+// Keep old name for compatibility
+function advanceToNextRound() {
+    advanceToNextStage();
 }
 
 function resetUI() {
@@ -2155,7 +2252,10 @@ function resetUI() {
     document.getElementById('st-title').innerText = "A New Mission Awaits";
     document.getElementById('st-desc').innerText = "";
     document.getElementById('st-req').innerText = "";
-    document.getElementById('prog-bar').style.width = `${(round/totalRounds)*100}%`;
+    
+    // Calculate progress based on total missions played
+    const totalMissionsPlayed = (round * party.length) + stageInRound - 1;
+    document.getElementById('prog-bar').style.width = `${(totalMissionsPlayed/totalRounds)*100}%`;
     
     updateTurnLabels();
     closeModal();
@@ -3410,11 +3510,12 @@ function applyZombieDebuff() {
 function useArcaneAlliance() {
     const witch = party[activeIdx];
     
-    // Build list of other players to steal from
+    // Build list of other players to steal from (including reader!)
     let playerOptions = '';
     party.forEach((p, idx) => {
-        if(idx !== activeIdx && idx !== readerIdx) {
-            playerOptions += `<option value="${idx}">${p.pName} (${p.n})</option>`;
+        if(idx !== activeIdx) {
+            const isReader = idx === readerIdx ? ' 📜' : '';
+            playerOptions += `<option value="${idx}">${p.pName} (${p.n})${isReader}</option>`;
         }
     });
     
@@ -3597,11 +3698,12 @@ function setupAssassinationContract() {
         return;
     }
     
-    // Build list of targets (other challengers, not reader)
+    // Build list of targets (other challengers - including reader for when they play later)
     let targetOptions = '';
     party.forEach((p, idx) => {
-        if(idx !== activeIdx && idx !== readerIdx) {
-            targetOptions += `<option value="${idx}">${p.pName} (${p.n})</option>`;
+        if(idx !== activeIdx) {
+            const isReader = idx === readerIdx ? ' 📜 (Reader)' : '';
+            targetOptions += `<option value="${idx}">${p.pName} (${p.n})${isReader}</option>`;
         }
     });
     
@@ -3737,17 +3839,22 @@ function finishStore() {
     if(storePlayerIdx < party.length) {
         openStore();
     } else { 
-        // Check if game should end (shop was on last round)
-        if (round >= totalRounds) {
+        // Apply the pending state that was saved before shop
+        readerIdx = pendingReaderIdx;
+        firstChallengerIdx = pendingFirstChallengerIdx;
+        activeIdx = firstChallengerIdx;
+        round = pendingRound;
+        stageInRound = pendingStageInRound;
+        
+        // Check if game should end (deck exhausted)
+        const totalStagesCompleted = (round * party.length) + stageInRound;
+        if (totalStagesCompleted > totalRounds) {
             closeModal();
             endGame();
             return;
         }
         
-        // After shop, continue with next reader
-        readerIdx = firstChallengerIdx;
-        firstChallengerIdx = (readerIdx + 1) % party.length;
-        activeIdx = firstChallengerIdx;
+        console.log(`📜 After Shop - Round ${round + 1}, Stage ${stageInRound}: Reader: ${party[readerIdx].pName}`);
         resetUI();
     }
 }
