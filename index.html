@@ -2105,6 +2105,13 @@ function advanceToNextRound() {
     // Clear any active ninja contract for new round
     ninjaContract = null;
     
+    // Reset Drunken Paladin's dice for new round (can use once per turn)
+    party.forEach(p => {
+        if(p.n === 'Drunken Paladin') {
+            p.paladinDiceUsedThisTurn = false;
+        }
+    });
+    
     // Calculate shop timing
     if (nextShopRound === -1) {
         nextShopRound = party.length + 3;
@@ -3740,6 +3747,13 @@ function finishStore() {
     if(storePlayerIdx < party.length) {
         openStore();
     } else { 
+        // Check if game should end (shop was on last round)
+        if (round >= totalRounds) {
+            closeModal();
+            endGame();
+            return;
+        }
+        
         // After shop, continue with next reader
         readerIdx = firstChallengerIdx;
         firstChallengerIdx = (readerIdx + 1) % party.length;
