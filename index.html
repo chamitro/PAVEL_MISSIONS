@@ -548,9 +548,218 @@
             }
         }
         
-        /* ========== MOBILE RESPONSIVE STYLES ========== */
+        /* ========== RESPONSIVE BOOK CLASSES ========== */
         
-        /* Tablet and smaller desktop */
+        /* Book container */
+        .book-container {
+            margin-top: 20px;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: 85vh;
+        }
+        
+        .book-title {
+            color: var(--blood);
+            text-align: center;
+            margin: 0 0 5px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .book-subtitle {
+            text-align: center;
+            font-style: italic;
+            color: #5a4634;
+            margin: 0 0 15px 0;
+        }
+        
+        .book-divider {
+            border: none;
+            border-top: 1px solid #a08060;
+            margin: 15px 0;
+        }
+        
+        /* Map container - always full width */
+        .map-container {
+            width: 100%;
+            border: 3px solid #8b7355;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .map-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Hero cards - MOBILE FIRST (stacked layout with big image) */
+        .hero-card {
+            background: linear-gradient(135deg, #f8f4ec 0%, #ebe3d3 100%);
+            border: 1px solid #c9b896;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .hero-card-top {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .hero-card-img {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #8b7355;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        
+        .hero-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .hero-card-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2a2a2a;
+            margin: 0 0 4px 0;
+        }
+        
+        .hero-card-stats {
+            display: inline-block;
+            font-size: 12px;
+            color: #555;
+            background: #fff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+        }
+        
+        .hero-card-desc {
+            font-size: 13px;
+            color: #555;
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+        }
+        
+        .hero-card-ability {
+            font-size: 13px;
+            color: #333;
+            margin: 0;
+            padding: 8px 10px;
+            background: rgba(139, 0, 0, 0.08);
+            border-left: 3px solid var(--blood);
+            border-radius: 0 6px 6px 0;
+            line-height: 1.4;
+        }
+        
+        .hero-card-ability b {
+            color: var(--blood);
+        }
+        
+        /* Location cards */
+        .location-card {
+            background: linear-gradient(135deg, #f8f4ec 0%, #ebe3d3 100%);
+            padding: 12px 15px;
+            border-left: 4px solid var(--blood);
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        
+        .location-card-title {
+            margin: 0 0 6px 0;
+            color: var(--blood);
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .location-card-text {
+            margin: 0;
+            font-size: 13px;
+            color: #444;
+            line-height: 1.5;
+        }
+        
+        /* Book text */
+        .book-text {
+            font-size: 14px;
+            color: #3a3a3a;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        
+        .book-text p {
+            margin: 0 0 12px 0;
+        }
+        
+        .book-text b {
+            color: var(--blood);
+        }
+        
+        /* ========== DESKTOP STYLES (min-width: 500px) ========== */
+        @media (min-width: 500px) {
+            .book-container {
+                padding: 25px;
+            }
+            
+            .book-title {
+                font-size: 28px;
+            }
+            
+            .book-subtitle {
+                font-size: 13px;
+            }
+            
+            .hero-card {
+                padding: 18px;
+            }
+            
+            .hero-card-img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .hero-card-name {
+                font-size: 18px;
+            }
+            
+            .hero-card-stats {
+                font-size: 13px;
+            }
+            
+            .hero-card-desc {
+                font-size: 14px;
+            }
+            
+            .hero-card-ability {
+                font-size: 14px;
+            }
+            
+            .location-card {
+                padding: 15px 18px;
+            }
+            
+            .location-card-title {
+                font-size: 16px;
+            }
+            
+            .location-card-text {
+                font-size: 14px;
+            }
+            
+            .book-text {
+                font-size: 15px;
+            }
+        }
+        
+        /* ========== MOBILE GAME UI STYLES ========== */
         @media (max-width: 600px) {
             .container {
                 max-width: 100%;
@@ -613,16 +822,6 @@
                 right: 50px;
             }
             
-            /* Intro screen adjustments */
-            #intro-book-select {
-                padding: 25px 15px !important;
-            }
-            
-            #intro-book-select > div:first-of-type {
-                padding: 25px 15px !important;
-                max-width: 100% !important;
-            }
-            
             /* Scroll buttons */
             .scroll-btn {
                 height: 100px !important;
@@ -636,43 +835,9 @@
                 font-size: 11px !important;
             }
             
-            .scroll-grid {
-                gap: 15px !important;
-            }
-            
-            /* Books content */
-            #intro-book-1, #intro-book-2, #intro-book-3, #intro-book-4 {
-                padding: 20px !important;
-                max-height: 80vh;
-                overflow-y: auto;
-            }
-            
-            #intro-book-1 h1, #intro-book-2 h1, #intro-book-3 h1, #intro-book-4 h1 {
-                font-size: 22px !important;
-            }
-            
-            .instruction-text {
-                font-size: 13px;
-            }
-            
-            /* Hero cards in book 3 */
-            #intro-book-3 [style*="border: 2px solid"] {
-                padding: 12px !important;
-            }
-            
-            #intro-book-3 [style*="border: 2px solid"] img {
-                width: 50px !important;
-                height: 50px !important;
-            }
-            
-            #intro-book-3 [style*="border: 2px solid"] h3 {
-                font-size: 15px !important;
-            }
-            
             /* Splash screen */
             #fullscreen-splash img {
                 width: 200px !important;
-                height: auto !important;
             }
             
             #fullscreen-splash h1 {
@@ -683,39 +848,64 @@
                 font-size: 14px !important;
             }
             
-            #enter-fullscreen-btn {
-                font-size: 16px !important;
-                padding: 15px 30px !important;
-            }
-            
             /* Game screen hero images */
-            .hero-sheet img {
+            .hero-sheet img:not(.hero-card-img) {
                 width: 50px !important;
                 height: 50px !important;
             }
             
             .hero-sheet .medieval {
                 font-size: 16px !important;
-                gap: 10px !important;
             }
             
-            /* Turn banners */
             .turn-banner, .reader-banner {
                 font-size: 11px !important;
                 padding: 5px !important;
             }
-            
-            /* Passive ability text */
-            .hero-sheet > div[style*="border-left: 3px"] {
-                font-size: 9px !important;
-                padding: 5px 6px !important;
-            }
         }
         
-        /* Small phones */
+        /* ========== SMALL PHONES ========== */
         @media (max-width: 400px) {
             .container {
                 padding: 8px;
+            }
+            
+            .book-container {
+                padding: 12px;
+            }
+            
+            .book-title {
+                font-size: 20px;
+            }
+            
+            .hero-card {
+                padding: 12px;
+            }
+            
+            .hero-card-top {
+                gap: 12px;
+            }
+            
+            .hero-card-img {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .hero-card-name {
+                font-size: 15px;
+            }
+            
+            .hero-card-stats {
+                font-size: 11px;
+            }
+            
+            .hero-card-desc {
+                font-size: 12px;
+            }
+            
+            .hero-card-ability {
+                font-size: 12px;
+                padding: 6px 8px;
             }
             
             .stage-frame {
@@ -727,22 +917,9 @@
                 font-size: 16px;
             }
             
-            .st-desc {
-                font-size: 13px;
-            }
-            
-            .hero-sheet {
-                padding: 10px;
-            }
-            
             .btn {
                 padding: 10px;
                 font-size: 11px;
-            }
-            
-            .modal {
-                padding: 15px;
-                border-width: 5px;
             }
             
             .stat-val {
@@ -757,18 +934,6 @@
                 width: 32px;
                 height: 32px;
                 font-size: 12px;
-                top: -8px;
-                right: -3px;
-            }
-            
-            .meditate-count {
-                font-size: 7px;
-                padding: 2px 4px;
-                right: 40px;
-            }
-            
-            #intro-book-select {
-                padding: 15px 10px !important;
             }
             
             .scroll-btn {
@@ -779,23 +944,6 @@
                 font-size: 14px !important;
             }
             
-            .scroll-btn p {
-                font-size: 10px !important;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-            }
-            
-            .scroll-grid {
-                gap: 12px !important;
-            }
-            
-            .hero-sheet .medieval {
-                font-size: 14px !important;
-            }
-            
-            /* Dice smaller on mobile */
             .dice {
                 width: 70px !important;
                 height: 70px !important;
@@ -807,7 +955,7 @@
             }
         }
         
-        /* Ensure proper scaling for all screen sizes */
+        /* Desktop container max-width */
         @media (min-width: 601px) {
             .container {
                 max-width: 480px;
@@ -1024,213 +1172,211 @@
             <button class="btn btn-danger" onclick="resetHallOfFame()" style="font-size: 10px; margin-top: 40px; opacity: 0.6;">Reset Hall of Fame</button>
 
         <!-- Scroll 1: The World Map -->
-        <div id="intro-book-1" class="hero-sheet" style="margin-top: 20px; padding: 20px; display: none; overflow-y: auto; max-height: 80vh;">
-            <h1 style="color:var(--gold); text-align: center; font-size: 24px; margin-bottom: 10px; text-shadow: 2px 2px 4px #000;">THE WORLD MAP</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 11px; margin-bottom: 15px;">The Lands Surrounding Pavel</p>
-            <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+        <div id="intro-book-1" class="hero-sheet book-container" style="margin-top: 20px; display: none;">
+            <h1 class="book-title medieval" style="color: var(--gold);">THE WORLD MAP</h1>
+            <p class="book-subtitle">The Lands Surrounding Pavel</p>
+            <hr class="book-divider">
             
-            <!-- Map Image - Full Width -->
-            <div style="width: 100%; margin-bottom: 20px; border: 3px solid #8e7b55; border-radius: 8px; overflow: hidden; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%);">
-                <img src="./images/map.png" alt="Map of Pavel" style="width: 100%; height: auto; display: block;">
+            <!-- Map Image - Full Width Responsive -->
+            <div class="map-container">
+                <img src="./images/map.png" alt="Map of Pavel">
             </div>
             
-            <div style="font-size: 12px; color: #3a3a3a; text-align: justify;">
-                <p style="margin-bottom: 12px;"><b style="color: var(--blood);">Pavel Town</b> sits at the heart of a vast and varied realm, surrounded by ancient forests that stretch in every direction. To those who know where to look, pathways wind through these woods to distant lands and settlements.</p>
+            <div class="book-text">
+                <p><b>Pavel Town</b> sits at the heart of a vast realm, surrounded by ancient forests that stretch in every direction. To those who know where to look, pathways wind through these woods to distant lands.</p>
 
-                <p style="margin-bottom: 12px;">Hidden within the <b style="color: var(--blood);">Misty Forest</b>, where the trees grow tall and the fog never truly lifts, wander the <b style="color: var(--blood);">Nomads of the Ninja and Elven</b>. Living lightly upon the land, these elusive peoples move silently between moss-covered paths. The ninjas guard forgotten routes and secrets, while the elves tend the forest's magic, ensuring outsiders only pass when deemed worthy.</p>
+                <p>Hidden within the <b>Misty Forest</b>, where trees grow tall and fog never lifts, wander the <b>Nomads of the Ninja and Elven</b>. These elusive peoples guard forgotten routes and tend the forest's magic.</p>
                 
-                <p style="margin-bottom: 12px;"><b style="color: var(--blood);">To the Northeast</b>, beyond the clouds themselves, floats the mystical <b style="color: var(--blood);">Lost Dragon Town</b>. This ethereal city hovers in the sky, home to ancient dragons who have lived for centuries. On clear nights, villagers can sometimes see its lights twinkling among the stars.</p>
+                <p><b>To the Northeast</b>, beyond the clouds, floats the mystical <b>Lost Dragon Town</b>. This ethereal city hovers in the sky, home to ancient dragons who have lived for centuries.</p>
                 
-                <p style="margin-bottom: 12px;"><b style="color: var(--blood);">To the West</b> stand the imposing walls of the <b style="color: var(--blood);">Ork Fortress</b>, built from dark stone in the <b style="color: var(--blood);">Westlands</b>. Though fearsome in appearance, the orks have found common ground with Pavel's people over their mutual appreciation for strong drink and stronger stories.</p>
+                <p><b>To the West</b> stand the imposing walls of the <b>Ork Fortress</b>, built from dark stone in the <b>Westlands</b>. The orks have found common ground with Pavel's people over strong drink and stronger stories.</p>
                 
-                <p style="margin-bottom: 12px;"><b style="color: var(--blood);">To the Southeast</b> lie the <b style="color: var(--blood);">Monk Monasteries</b>, peaceful sanctuaries where monks dedicate their lives to meditation, study, and—when the mood strikes—the occasional pilgrimage to Pavel's famous tavern.</p>
+                <p><b>To the Southeast</b> lie the <b>Monk Monasteries</b>, peaceful sanctuaries of meditation—and occasional pilgrimages to Pavel's famous tavern.</p>
                 
-                <p style="margin-bottom: 12px;"><b style="color: var(--blood);">To the Southwest</b>, shrouded in perpetual mist, are the <b style="color: var(--blood);">High Dwarvish Mountains</b> and their cloudy forests. The dwarves dwelling here are master craftsmen, and their ales are said to be second only to Pavel's own.</p>
+                <p><b>To the Southwest</b>, shrouded in mist, are the <b>High Dwarvish Mountains</b>. The dwarves here are master craftsmen, their ales second only to Pavel's own.</p>
                 
-                <p>But between Pavel and safety lie <b style="color: var(--blood);">the Swamps</b>—a treacherous expanse of murky water and twisted trees. Here, trolls lurk in the shadows, emerging to raid the village under cover of darkness. Many heroes have ventured into the swamps seeking to end the threat, but the mist keeps its secrets well.</p>
+                <p>But between Pavel and safety lie <b>the Swamps</b>—a treacherous expanse where trolls lurk in shadows, emerging to raid the village. Many heroes have ventured in, but the mist keeps its secrets well.</p>
             </div>
             
-            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px;">Return to Scrolls</button>
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px; width: 100%;">Return to Scrolls</button>
         </div>
 
         <!-- Scroll 2: Pavel Town -->
-        <div id="intro-book-2" class="hero-sheet" style="margin-top: 20px; padding: 20px; display: none; overflow-y: auto; max-height: 80vh;">
-            <h1 style="color:var(--blood); text-align: center; font-size: 24px; text-shadow: 2px 2px 4px #000;">PAVEL TOWN</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 11px; margin-bottom: 15px;">The Town of Beer and Fellowship</p>
-            <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
-            <div style="font-size: 12px; color: #3a3a3a; text-align: justify;">
-                <p style="margin-bottom: 12px;">In the heart of a realm where ancient forests whisper forgotten secrets, there lies <b>Pavel</b>—a humble settlement of five thousand souls, all united by one simple truth: there is no problem that cannot be solved with good company and a cold mug of ale.</p>
-                
-                <div style="background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); padding: 10px; border-left: 3px solid var(--blood); margin: 12px 0; border-radius: 0 6px 6px 0;">
-                    <p style="margin: 0;"><b style="color: var(--blood);">👑 King Antony - The Peaceful King</b></p>
-                    <p style="margin: 6px 0 0 0; font-size: 11px; color: #555;">While neighboring monarchs concern themselves with conquest, Antony has but two ambitions: keeping his village peaceful and his tankard full. You'll find him most evenings at the tavern's corner table, laughing heartily and buying rounds for travelers. "A happy village is a peaceful village," he often declares.</p>
-                </div>
-                
-                <div style="background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); padding: 10px; border-left: 3px solid var(--blood); margin: 12px 0; border-radius: 0 6px 6px 0;">
-                    <p style="margin: 0;"><b style="color: var(--blood);">📖 Old Nick the Geezer - Keeper of Tales</b></p>
-                    <p style="margin: 6px 0 0 0; font-size: 11px; color: #555;">Every night, as the fire crackles and ale flows, Old Nick takes his seat by the hearth. With a voice weathered by a hundred winters, he weaves tales of when forests were deeper and monsters bolder. Some say he's been telling tales since the village was founded; others claim he's simply too stubborn to let death interrupt a good story.</p>
-                </div>
-                
-                <div style="background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); padding: 10px; border-left: 3px solid var(--blood); margin: 12px 0; border-radius: 0 6px 6px 0;">
-                    <p style="margin: 0;"><b style="color: var(--blood);">🍺 Panchonco & Yuumi - The Eternal Patron</b></p>
-                    <p style="margin: 6px 0 0 0; font-size: 11px; color: #555;">Propped against the bar as if he were part of the furniture, you'll always find Panchonco with his faithful cat Yuumi perched on his shoulder. Day or night, rain or shine, both swaying gently to some unheard rhythm. Some say he's been drinking since before King Antony was born.</p>
-                </div>
-                
-                <div style="background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); padding: 10px; border-left: 3px solid var(--blood); margin: 12px 0; border-radius: 0 6px 6px 0;">
-                    <p style="margin: 0;"><b style="color: var(--blood);">🌍 The Visitors</b></p>
-                    <p style="margin: 6px 0 0 0; font-size: 11px; color: #555;">Pavel's fame has spread across the realm. <b>Dragons</b> descend from Lost Dragon Town, folding their great wings to squeeze through the pub's door. <b>Orcs</b> march down from their Fortress, war cries replaced with drinking songs. <b>Monks</b> journey from their Monasteries, finding enlightenment tastes remarkably like honey mead. Even the reclusive <b>Dwarves</b> emerge from the misty mountains.</p>
-                </div>
-                
-                <div style="background: linear-gradient(135deg, #fff0f0 0%, #ffe8e8 100%); padding: 10px; border-left: 3px solid #8b0000; margin: 12px 0; border-radius: 0 6px 6px 0;">
-                    <p style="margin: 0;"><b style="color: #8b0000;">⚠️ The Threat</b></p>
-                    <p style="margin: 6px 0 0 0; font-size: 11px; color: #555;">But not all is merriment in Pavel. In <b>the Swamps</b> lurk <b>trolls</b>—brutal, cunning creatures who hide in the mire and strike without warning. Their raids are swift and merciless. Many brave souls have ventured into those cursed marshes, but few return, and those who do speak in whispers of what dwells in the deepest shadows.</p>
-                </div>
+        <div id="intro-book-2" class="hero-sheet book-container" style="margin-top: 20px; display: none;">
+            <h1 class="book-title medieval">PAVEL TOWN</h1>
+            <p class="book-subtitle">The Town of Beer and Fellowship</p>
+            <hr class="book-divider">
+            
+            <div class="book-text">
+                <p>In the heart of a realm where ancient forests whisper forgotten secrets, there lies <b>Pavel</b>—a humble settlement of five thousand souls, united by one truth: there is no problem that cannot be solved with good company and a cold mug of ale.</p>
             </div>
-            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px;">Return to Scrolls</button>
+            
+            <div class="location-card">
+                <p class="location-card-title">👑 King Antony - The Peaceful King</p>
+                <p class="location-card-text">While neighboring monarchs concern themselves with conquest, Antony has but two ambitions: keeping his village peaceful and his tankard full. You'll find him at the tavern's corner table, buying rounds for travelers. "A happy village is a peaceful village," he declares.</p>
+            </div>
+            
+            <div class="location-card">
+                <p class="location-card-title">📖 Old Nick the Geezer - Keeper of Tales</p>
+                <p class="location-card-text">Every night, Old Nick takes his seat by the hearth. With a voice weathered by a hundred winters, he weaves tales of when forests were deeper and monsters bolder. Some say he's too stubborn to let death interrupt a good story.</p>
+            </div>
+            
+            <div class="location-card">
+                <p class="location-card-title">🍺 Panchonco & Yuumi - The Eternal Patron</p>
+                <p class="location-card-text">Propped against the bar with his cat Yuumi on his shoulder, Panchonco haunts the pub day and night. Yuumi seems the only creature who understands his slurred philosophy. Some say he's been drinking since before King Antony was born.</p>
+            </div>
+            
+            <div class="location-card">
+                <p class="location-card-title">🌍 The Visitors</p>
+                <p class="location-card-text">Pavel's fame has spread across the realm. <b>Dragons</b> descend from Lost Dragon Town. <b>Orcs</b> march from their Fortress, war cries replaced with drinking songs. <b>Monks</b> find enlightenment tastes like honey mead. Even <b>Dwarves</b> emerge from misty mountains.</p>
+            </div>
+            
+            <div class="location-card" style="border-left-color: #8b0000; background: linear-gradient(135deg, #fff0f0 0%, #ffe8e8 100%);">
+                <p class="location-card-title">⚠️ The Threat</p>
+                <p class="location-card-text">In <b>the Swamps</b> lurk <b>trolls</b>—brutal creatures who strike without warning. Their raids are swift and merciless. Many have ventured into those marshes, but few return, and those who do speak in whispers of what dwells in the deepest shadows.</p>
+            </div>
+            
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px; width: 100%;">Return to Scrolls</button>
         </div>
         </div>
 
         <!-- Scroll 3: The Heroes -->
-        <div id="intro-book-3" class="hero-sheet" style="margin-top: 20px; padding: 15px; display: none; overflow-y: auto; max-height: 80vh;">
-            <h1 style="color:var(--blood); text-align: center; font-size: 24px; text-shadow: 2px 2px 4px #000;">THE HEROES OF PAVEL</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 11px; margin-bottom: 15px;">Legendary Warriors Seeking Glory</p>
-            <hr style="border: 0; border-top: 1px solid #8e7b55; margin: 15px 0;">
+        <div id="intro-book-3" class="hero-sheet book-container" style="margin-top: 20px; display: none;">
+            <h1 class="book-title medieval">THE HEROES OF PAVEL</h1>
+            <p class="book-subtitle">Legendary Warriors Seeking Glory</p>
+            <hr class="book-divider">
             
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-                
-                <!-- Dark Stalker -->
-                <div style="display: flex; gap: 12px; padding: 12px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 8px;">
-                    <img src="./images/dark.png" style="width: 80px; height: 80px; min-width: 80px; border: 3px solid #8b7355; border-radius: 6px; object-fit: cover;">
-                    <div style="flex: 1; font-size: 12px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
-                            <b style="color: #2a2a2a; font-size: 14px;">Dark Stalker</b>
-                            <span style="font-size: 11px; color: #555; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd;">5/5/5/5/5</span>
-                        </div>
-                        <p style="margin: 4px 0; color: #555;">Perfectly balanced assassin. No one knows their true face or purpose.</p>
-                        <p style="margin: 0; color: #333;"><b style="color: var(--blood);">⚡ Shadow Control:</b> Force a player to use a meditation. Uses: 1-3 based on party size.</p>
+            <!-- Dark Stalker -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/dark.png" class="hero-card-img" alt="Dark Stalker">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Dark Stalker</p>
+                        <span class="hero-card-stats">5/5/5/5/5</span>
                     </div>
                 </div>
-                
-                <!-- Friendly AI -->
-                <div style="display: flex; gap: 12px; padding: 12px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 8px;">
-                    <img src="./images/ai.png" style="width: 80px; height: 80px; min-width: 80px; border: 3px solid #8b7355; border-radius: 6px; object-fit: cover;">
-                    <div style="flex: 1; font-size: 12px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
-                            <b style="color: #2a2a2a; font-size: 14px;">Friendly AI</b>
-                            <span style="font-size: 11px; color: #555; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd;">6/5/6/2/6</span>
-                        </div>
-                        <p style="margin: 4px 0; color: #555;">Sentient construct from a forgotten age. Analyzes problems with inhuman precision.</p>
-                        <p style="margin: 0; color: #333;"><b style="color: var(--blood);">⚡ System Override:</b> Use ANY stat for a challenge. Recharges on friend challenge win.</p>
-                    </div>
-                </div>
-                
-                <!-- Thug Dwarf -->
-                <div style="display: flex; gap: 12px; padding: 12px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 8px;">
-                    <img src="./images/swag.png" style="width: 80px; height: 80px; min-width: 80px; border: 3px solid #8b7355; border-radius: 6px; object-fit: cover;">
-                    <div style="flex: 1; font-size: 12px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
-                            <b style="color: #2a2a2a; font-size: 14px;">Thug Dwarf</b>
-                            <span style="font-size: 11px; color: #555; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd;">7/2/2/5/6</span>
-                        </div>
-                        <p style="margin: 4px 0; color: #555;">Exiled from Ironpeak clans. Hit first, hit hard, never apologize.</p>
-                        <p style="margin: 0; color: #333;"><b style="color: var(--blood);">⚡ Brute Force:</b> Gain +3 POW permanently every time you win. Always active.</p>
-                    </div>
-                </div>
-                
-                <!-- Babbler Rogue -->
-                <div style="display: flex; gap: 12px; padding: 12px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 8px;">
-                    <img src="./images/rogue.png" style="width: 80px; height: 80px; min-width: 80px; border: 3px solid #8b7355; border-radius: 6px; object-fit: cover;">
-                    <div style="flex: 1; font-size: 12px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
-                            <b style="color: #2a2a2a; font-size: 14px;">Babbler Rogue</b>
-                            <span style="font-size: 11px; color: #555; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd;">2/4/5/8/6</span>
-                        </div>
-                        <p style="margin: 4px 0; color: #555;">Silver-tongued trickster who can talk their way out of anything.</p>
-                        <p style="margin: 0; color: #333;"><b style="color: var(--blood);">⚡ Crowd Favorite:</b> +1 bonus Glory for every 3 challenges completed. Always active.</p>
-                    </div>
-                </div>
-                
-                <!-- Neighbor Witch -->
-                <div style="display: flex; gap: 12px; padding: 12px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 8px;">
-                    <img src="./images/magic.png" style="width: 80px; height: 80px; min-width: 80px; border: 3px solid #8b7355; border-radius: 6px; object-fit: cover;">
-                    <div style="flex: 1; font-size: 12px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
-                            <b style="color: #2a2a2a; font-size: 14px;">Neighbor Witch</b>
-                            <span style="font-size: 11px; color: #555; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd;">2/3/8/4/7</span>
-                        </div>
-                        <p style="margin: 4px 0; color: #555;">Lives in the crooked cottage at the edge of town. Helpful to the polite, terrifying to others.</p>
-                        <p style="margin: 0; color: #333;"><b style="color: var(--blood);">⚡ Arcane Alliance:</b> Steal 1-3 stat points permanently from any player. Recharges after 3 wins.</p>
-                    </div>
-                </div>
-                
-                <!-- Fancy Ninja -->
-                <div style="display: flex; gap: 12px; padding: 12px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 8px;">
-                    <img src="./images/ninja.png" style="width: 80px; height: 80px; min-width: 80px; border: 3px solid #8b7355; border-radius: 6px; object-fit: cover;">
-                    <div style="flex: 1; font-size: 12px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
-                            <b style="color: #2a2a2a; font-size: 14px;">Fancy Ninja</b>
-                            <span style="font-size: 11px; color: #555; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd;">4/7/5/3/5</span>
-                        </div>
-                        <p style="margin: 4px 0; color: #555;">Stylish assassin who values dramatic entrances. Every kill is a performance.</p>
-                        <p style="margin: 0; color: #333;"><b style="color: var(--blood);">⚡ Assassination Contract:</b> Bet on a player failing. Win: steal +1 stat. Lose: lose -1 stat.</p>
-                    </div>
-                </div>
-                
-                <!-- Lost Dragon -->
-                <div style="display: flex; gap: 12px; padding: 12px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 8px;">
-                    <img src="./images/dragon.png" style="width: 80px; height: 80px; min-width: 80px; border: 3px solid #8b7355; border-radius: 6px; object-fit: cover;">
-                    <div style="flex: 1; font-size: 12px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
-                            <b style="color: #2a2a2a; font-size: 14px;">Lost Dragon</b>
-                            <span style="font-size: 11px; color: #555; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd;">8/5/4/3/3</span>
-                        </div>
-                        <p style="margin: 4px 0; color: #555;">Last of the sky-born warriors. Devastating power but fragile spirit.</p>
-                        <p style="margin: 0; color: #333;"><b style="color: var(--blood);">⚡ Dragon Rage:</b> When spending 4+ points, gain +3 bonus. Always active.</p>
-                    </div>
-                </div>
-                
-                <!-- Drunken Paladin -->
-                <div style="display: flex; gap: 12px; padding: 12px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 8px;">
-                    <img src="./images/paladin.png" style="width: 80px; height: 80px; min-width: 80px; border: 3px solid #8b7355; border-radius: 6px; object-fit: cover;">
-                    <div style="flex: 1; font-size: 12px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
-                            <b style="color: #2a2a2a; font-size: 14px;">Drunken Paladin</b>
-                            <span style="font-size: 11px; color: #555; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd;">3/2/3/8/7</span>
-                        </div>
-                        <p style="margin: 4px 0; color: #555;">Holy knight who found divine inspiration flows better after a few tankards.</p>
-                        <p style="margin: 0; color: #333;"><b style="color: var(--blood);">⚡ Liquid Courage:</b> Once per stage, roll dice. 5-6 = instant win! Resets each stage.</p>
-                    </div>
-                </div>
-                
-                <!-- Mute Monk -->
-                <div style="display: flex; gap: 12px; padding: 12px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 8px;">
-                    <img src="./images/monk.png" style="width: 80px; height: 80px; min-width: 80px; border: 3px solid #8b7355; border-radius: 6px; object-fit: cover;">
-                    <div style="flex: 1; font-size: 12px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
-                            <b style="color: #2a2a2a; font-size: 14px;">Mute Monk</b>
-                            <span style="font-size: 11px; color: #555; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd;">3/3/9/6/7</span>
-                        </div>
-                        <p style="margin: 4px 0; color: #555;">Took a sacred vow of silence 30 years ago. Communicates through meaningful stares.</p>
-                        <p style="margin: 0; color: #333;"><b style="color: var(--blood);">⚡ Inner Peace:</b> When meditating, choose any stat to restore +4 instead. Always active.</p>
-                    </div>
-                </div>
-                
-                <!-- Lover Zombie -->
-                <div style="display: flex; gap: 12px; padding: 12px; background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%); border: 1px solid #c9b896; border-radius: 8px;">
-                    <img src="./images/zombie.png" style="width: 80px; height: 80px; min-width: 80px; border: 3px solid #8b7355; border-radius: 6px; object-fit: cover;">
-                    <div style="flex: 1; font-size: 12px; color: #3a3a3a;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;">
-                            <b style="color: #2a2a2a; font-size: 14px;">Lover Zombie</b>
-                            <span style="font-size: 11px; color: #555; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd;">9/2/4/3/8</span>
-                        </div>
-                        <p style="margin: 4px 0; color: #555;">Died for love, rose from the grave. Terrifyingly strong, surprisingly gentle.</p>
-                        <p style="margin: 0; color: #333;"><b style="color: var(--blood);">⚡ Cursed Embrace:</b> When you win, all others lose -2 from a stat you choose, you gain +1. Always active.</p>
-                    </div>
-                </div>
-                
+                <p class="hero-card-desc">Perfectly balanced assassin. No one knows their true face or purpose.</p>
+                <p class="hero-card-ability"><b>⚡ Shadow Control:</b> Force a player to use a meditation. Uses: 1-3 based on party size.</p>
             </div>
             
-            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px;">Return to Scrolls</button>
+            <!-- Friendly AI -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/ai.png" class="hero-card-img" alt="Friendly AI">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Friendly AI</p>
+                        <span class="hero-card-stats">6/5/6/2/6</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">Sentient construct from a forgotten age. Analyzes problems with inhuman precision.</p>
+                <p class="hero-card-ability"><b>⚡ System Override:</b> Use ANY stat for a challenge. Recharges on friend challenge win.</p>
+            </div>
+            
+            <!-- Thug Dwarf -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/swag.png" class="hero-card-img" alt="Thug Dwarf">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Thug Dwarf</p>
+                        <span class="hero-card-stats">7/2/2/5/6</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">Exiled from Ironpeak clans. Hit first, hit hard, never apologize.</p>
+                <p class="hero-card-ability"><b>⚡ Brute Force:</b> Gain +3 POW permanently every time you win. Always active.</p>
+            </div>
+            
+            <!-- Babbler Rogue -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/rogue.png" class="hero-card-img" alt="Babbler Rogue">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Babbler Rogue</p>
+                        <span class="hero-card-stats">2/4/5/8/6</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">Silver-tongued trickster who can talk their way out of anything.</p>
+                <p class="hero-card-ability"><b>⚡ Crowd Favorite:</b> +1 bonus Glory for every 3 challenges completed. Always active.</p>
+            </div>
+            
+            <!-- Neighbor Witch -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/magic.png" class="hero-card-img" alt="Neighbor Witch">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Neighbor Witch</p>
+                        <span class="hero-card-stats">2/3/8/4/7</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">Lives in the crooked cottage at the edge of town. Helpful to the polite, terrifying to others.</p>
+                <p class="hero-card-ability"><b>⚡ Arcane Alliance:</b> Steal 1-3 stat points permanently from any player. Recharges after 3 wins.</p>
+            </div>
+            
+            <!-- Fancy Ninja -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/ninja.png" class="hero-card-img" alt="Fancy Ninja">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Fancy Ninja</p>
+                        <span class="hero-card-stats">4/7/5/3/5</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">Stylish assassin who values dramatic entrances. Every kill is a performance.</p>
+                <p class="hero-card-ability"><b>⚡ Assassination Contract:</b> Bet on a player failing. Win: steal +1 stat. Lose: -1 stat.</p>
+            </div>
+            
+            <!-- Lost Dragon -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/dragon.png" class="hero-card-img" alt="Lost Dragon">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Lost Dragon</p>
+                        <span class="hero-card-stats">8/5/4/3/3</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">Last of the sky-born warriors. Devastating power but fragile spirit.</p>
+                <p class="hero-card-ability"><b>⚡ Dragon Rage:</b> When spending 4+ points, gain +3 bonus. Always active.</p>
+            </div>
+            
+            <!-- Drunken Paladin -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/paladin.png" class="hero-card-img" alt="Drunken Paladin">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Drunken Paladin</p>
+                        <span class="hero-card-stats">3/2/3/8/7</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">Holy knight who found divine inspiration flows better after a few tankards.</p>
+                <p class="hero-card-ability"><b>⚡ Liquid Courage:</b> Once per stage, roll dice. 5-6 = instant win! Resets each stage.</p>
+            </div>
+            
+            <!-- Mute Monk -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/monk.png" class="hero-card-img" alt="Mute Monk">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Mute Monk</p>
+                        <span class="hero-card-stats">3/3/9/6/7</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">Took a sacred vow of silence 30 years ago. Communicates through meaningful stares.</p>
+                <p class="hero-card-ability"><b>⚡ Inner Peace:</b> When meditating, choose any stat to restore +4. Always active.</p>
+            </div>
+            
+            <!-- Lover Zombie -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/zombie.png" class="hero-card-img" alt="Lover Zombie">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Lover Zombie</p>
+                        <span class="hero-card-stats">9/2/4/3/8</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">Died for love, rose from the grave. Terrifyingly strong, surprisingly gentle.</p>
+                <p class="hero-card-ability"><b>⚡ Cursed Embrace:</b> When you win, all others lose -2 from a stat you choose, you gain +1.</p>
+            </div>
+            
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px; width: 100%;">Return to Scrolls</button>
         </div>
 
         <!-- Scroll 4: Game Rules -->
