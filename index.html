@@ -1420,75 +1420,201 @@
 
         <!-- Scroll 4: Game Rules -->
         <div id="intro-book-4" class="hero-sheet" style="margin-top: 20px; padding: 30px; display: none; overflow-y: auto; max-height: 80vh;">
-            <h1 style="color:var(--blood); text-align: center; font-size: 28px; animation: glow 3s ease-in-out infinite; text-shadow: 2px 2px 4px #000, 0 0 15px rgba(139, 0, 0, 0.6);">GAME RULES</h1>
-            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px; animation: float 4s ease-in-out infinite;">Complete Guide to the Missions of Pavel</p>
+            <h1 style="color:var(--blood); text-align: center; font-size: 28px; text-shadow: 2px 2px 4px #000, 0 0 15px rgba(139, 0, 0, 0.6);">📜 COMPLETE GAME RULES</h1>
+            <p style="text-align: center; font-style: italic; color: #5a4634; font-size: 12px; margin-bottom: 10px;">The Official Guide to Missions in Pavel</p>
             <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
             <div class="instruction-text" style="text-align: justify;">
                 
-                <p style="font-style: italic; margin-bottom: 15px; background: rgba(139,0,0,0.1); padding: 10px; border-left: 3px solid var(--blood);"><b>The Setup:</b> Ten legendary heroes gather at Pavel's tavern, each with unique abilities and soul affinities. King Antony has announced a grand competition - a series of Missions where heroes prove their worth through trials of strength, speed, intellect, charisma, and willpower.</p>
+                <p style="font-style: italic; margin-bottom: 15px; background: rgba(139,0,0,0.1); padding: 10px; border-left: 3px solid var(--blood);"><b>The Legend:</b> Thirteen legendary heroes gather at Pavel's tavern, each with unique abilities and soul affinities. King Antony has announced a grand competition - a series of Missions where heroes prove their worth through trials of Power, Speed, Brain, Charisma, and Willpower. Only one can claim the throne of Glory!</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">🎯 OBJECTIVE</b></p>
-                <p>Accumulate the highest <b>Glory</b> score by completing challenges. The hero with the most Glory when all missions are complete wins!</p>
+                <!-- GAME SETUP -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎮 GAME SETUP</b></p>
+                <p style="margin-left: 15px;">1. Choose the number of players (2-10 heroes)</p>
+                <p style="margin-left: 15px;">2. Each player enters their name and selects a hero</p>
+                <p style="margin-left: 15px;">3. Set the <b>Quest Length</b> (number of Rounds)</p>
+                <p style="margin-left: 15px;">4. The game begins with Player 1 as the first Reader</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">📜 ROUNDS & STAGES</b></p>
-                <p>The game is divided into <b>Rounds</b>. Each Round consists of multiple <b>Stages</b> (one per player). A new Round begins when the original first Reader becomes Reader again - meaning everyone has read once.</p>
+                <!-- OBJECTIVE -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎯 OBJECTIVE</b></p>
+                <p>Accumulate the highest <b>Glory</b> score by completing challenges. The hero with the most Glory when all rounds are complete wins! In case of a tie, the hero with more remaining stat points wins.</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">👤 THE READER</b></p>
+                <!-- HERO STATS -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">📊 HERO STATS</b></p>
+                <p>Each hero has 5 stats displayed as POW/SPD/BRN/CHA/WIL:</p>
+                <p style="margin-left: 15px;">• <b style="color: #e74c3c;">POW (Power)</b> - Physical strength challenges</p>
+                <p style="margin-left: 15px;">• <b style="color: #3498db;">SPD (Speed)</b> - Agility and quickness challenges</p>
+                <p style="margin-left: 15px;">• <b style="color: #9b59b6;">BRN (Brain)</b> - Intelligence and wisdom challenges</p>
+                <p style="margin-left: 15px;">• <b style="color: #f39c12;">CHA (Charisma)</b> - Social and persuasion challenges</p>
+                <p style="margin-left: 15px;">• <b style="color: #1abc9c;">WIL (Willpower)</b> - Mental fortitude challenges</p>
+                <p style="margin-top: 10px;">Stats are spent to complete challenges. <b>They do not regenerate automatically!</b> Only the Alchemist Shop and certain abilities restore stats.</p>
+                
+                <!-- ROUNDS & STAGES -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">📜 ROUNDS & STAGES</b></p>
+                <p>The game is divided into <b>Rounds</b>. Each Round consists of <b>Stages</b>:</p>
+                <p style="margin-left: 15px;">• One Stage = One mission card drawn and resolved</p>
+                <p style="margin-left: 15px;">• Each player becomes Reader once per Round (rotating clockwise)</p>
+                <p style="margin-left: 15px;">• A Round ends when the original first Reader becomes Reader again</p>
+                <p style="margin-left: 15px;">• Example: 4 players = 4 stages per round (one per Reader)</p>
+                
+                <!-- THE READER -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">👤 THE READER</b></p>
                 <p>Each stage has a <b>Reader</b> who:</p>
                 <p style="margin-left: 15px;">• Draws and reads the mission card aloud</p>
-                <p style="margin-left: 15px;">• Rolls the Fate Dice to determine difficulty (1-3 = Easy, 4-6 = Hard)</p>
-                <p style="margin-left: 15px;">• Knows the secret target number</p>
-                <p style="margin-left: 15px;">• <b>Does NOT participate</b> in regular challenges, Challenge a Friend, or Group Missions</p>
+                <p style="margin-left: 15px;">• Clicks "Roll Fate" to determine difficulty</p>
+                <p style="margin-left: 15px;">• Knows the secret target number (other players do not!)</p>
+                <p style="margin-left: 15px;">• <b style="color: #e74c3c;">Does NOT participate</b> in challenges during their turn</p>
                 <p style="margin-left: 15px;">• <b>CAN be targeted</b> by abilities (Shadow Control, Arcane Alliance, etc.)</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">⚔️ CHALLENGE OPTIONS</b></p>
-                <p>When it's your turn as Challenger, you have three choices:</p>
+                <!-- FATE DICE -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎲 FATE DICE & DIFFICULTY</b></p>
+                <p>When the Reader rolls the Fate Dice:</p>
+                <p style="margin-left: 15px;">• <b style="color: #2ecc71;">Roll 1-3 = EASY</b> - Lower target, worth 1 Glory</p>
+                <p style="margin-left: 15px;">• <b style="color: #e74c3c;">Roll 4-6 = HARD</b> - Higher target, worth 2 Glory</p>
+                <p style="margin-left: 15px;">• The exact target is: Base + (difficulty modifier) + random variance</p>
+                <p style="margin-left: 15px;">• Only the Reader sees the target - challengers must guess!</p>
                 
-                <p style="margin-top: 10px; margin-left: 10px;"><b>1. ATTEMPT THE CHALLENGE</b></p>
-                <p style="margin-left: 20px;">• Spend stat points to meet or exceed the secret target</p>
-                <p style="margin-left: 20px;">• <b>Win:</b> Gain Glory (1 Easy / 2 Hard) + get back 2 spent points</p>
-                <p style="margin-left: 20px;">• <b>Fail:</b> Lose all spent points, challenge passes to next player</p>
+                <!-- CHALLENGE OPTIONS -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">⚔️ CHALLENGER OPTIONS</b></p>
+                <p>When it's your turn as Challenger (starting from player to Reader's left), you have three choices:</p>
                 
-                <p style="margin-top: 10px; margin-left: 10px;"><b>2. MEDITATE (PASS)</b></p>
+                <p style="margin-top: 12px; margin-left: 10px; background: rgba(46,204,113,0.1); padding: 8px; border-left: 3px solid #2ecc71;"><b>1. ATTEMPT THE CHALLENGE</b></p>
+                <p style="margin-left: 20px;">• Choose how many stat points to spend (using the required stat)</p>
+                <p style="margin-left: 20px;">• Your total = Points spent + Affinity bonus (if applicable)</p>
+                <p style="margin-left: 20px;">• <b style="color: #2ecc71;">WIN (meet or exceed target):</b></p>
+                <p style="margin-left: 35px;">- Gain Glory (1 for Easy / 2 for Hard)</p>
+                <p style="margin-left: 35px;">- Get back 2 of your spent points</p>
+                <p style="margin-left: 35px;">- Stage ends, next Reader begins</p>
+                <p style="margin-left: 20px;">• <b style="color: #e74c3c;">FAIL (below target):</b></p>
+                <p style="margin-left: 35px;">- Lose ALL spent points</p>
+                <p style="margin-left: 35px;">- Challenge passes to next player</p>
+                
+                <p style="margin-top: 12px; margin-left: 10px; background: rgba(52,152,219,0.1); padding: 8px; border-left: 3px solid #3498db;"><b>2. MEDITATE (PASS)</b></p>
                 <p style="margin-left: 20px;">• Skip the challenge without spending points</p>
                 <p style="margin-left: 20px;">• You have exactly <b>3 Meditations</b> for the entire game</p>
+                <p style="margin-left: 20px;">• Meditations do NOT regenerate (except at Alchemist Shop: +1)</p>
                 <p style="margin-left: 20px;">• Challenge passes to next player</p>
+                <p style="margin-left: 20px;">• If ALL players meditate, the stage ends with no winner</p>
                 
-                <p style="margin-top: 10px; margin-left: 10px;"><b>3. CHALLENGE A FRIEND</b></p>
+                <p style="margin-top: 12px; margin-left: 10px; background: rgba(155,89,182,0.1); padding: 8px; border-left: 3px solid #9b59b6;"><b>3. CHALLENGE A FRIEND</b></p>
                 <p style="margin-left: 20px;">• Challenge another player (not the Reader) to a duel</p>
-                <p style="margin-left: 20px;">• Initiator gets <b>+3 Courage Bonus</b></p>
-                <p style="margin-left: 20px;">• Both players secretly invest points, then reveal</p>
-                <p style="margin-left: 20px;">• <b>Both Win:</b> Both gain Glory</p>
-                <p style="margin-left: 20px;">• <b>One Wins:</b> Winner gains +1 bonus Glory</p>
-                <p style="margin-left: 20px;">• <b>Both Fail:</b> No Glory awarded</p>
-                <p style="margin-left: 20px;">• After resolution, a <b>new challenge opens</b> for remaining players</p>
+                <p style="margin-left: 20px;">• The <b>Initiator</b> (you) gets <b>+3 Courage Bonus</b> automatically</p>
+                <p style="margin-left: 20px;">• Both players secretly invest points, then reveal simultaneously</p>
+                <p style="margin-left: 20px;">• <b style="color: #2ecc71;">BOTH WIN:</b> Both gain Glory for the challenge</p>
+                <p style="margin-left: 20px;">• <b style="color: #f39c12;">ONE WINS:</b> Winner gains +1 bonus Glory on top of challenge Glory</p>
+                <p style="margin-left: 20px;">• <b style="color: #e74c3c;">BOTH FAIL:</b> No Glory awarded to either</p>
+                <p style="margin-left: 20px;">• After resolution, a <b>new card is drawn</b> and remaining players may attempt</p>
+                <p style="margin-left: 20px;">• The two duelists cannot participate in this follow-up challenge</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">🤝 GROUP MISSIONS</b></p>
-                <p>Special missions marked with 🤝 require <b>ALL heroes to contribute</b>:</p>
-                <p style="margin-left: 15px;">• Reader cannot contribute (only reads)</p>
+                <!-- GROUP MISSIONS -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🤝 GROUP MISSIONS</b></p>
+                <p>Special missions marked with 🤝 require <b>teamwork from ALL heroes</b>:</p>
+                <p style="margin-left: 15px;">• Reader draws the card and rolls difficulty (does not contribute)</p>
+                <p style="margin-left: 15px;">• Each non-Reader player votes YES (participate) or NO (sit out)</p>
+                <p style="margin-left: 15px;">• YES voters contribute points; NO voters contribute nothing</p>
                 <p style="margin-left: 15px;">• All contributions are combined (including affinity bonuses)</p>
-                <p style="margin-left: 15px;">• <b>Success:</b> Everyone gains +2 Glory (Easy) or +4 Glory (Hard)</p>
-                <p style="margin-left: 15px;">• <b>Failure:</b> Everyone loses <b>-3 to ALL stats</b>!</p>
+                <p style="margin-left: 15px;">• <b style="color: #2ecc71;">SUCCESS:</b> All YES voters gain Glory (+2 Easy / +4 Hard)</p>
+                <p style="margin-left: 15px;">• <b style="color: #e74c3c;">FAILURE:</b> All YES voters lose <b>-3 to ALL five stats</b>!</p>
+                <p style="margin-left: 15px;">• NO voters: No reward, no penalty</p>
+                <p style="margin-left: 15px; font-style: italic; color: #888;">Note: Group missions require 3+ players and are disabled in 2-player games</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">✨ SOUL-TYPE AFFINITY</b></p>
-                <p>Each hero has a secret Soul-Type. If your Soul-Type matches the challenge's affinity, you receive a <b>+3 automatic bonus</b>. Soul-Types are secret!</p>
+                <!-- SOUL-TYPE AFFINITY -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">✨ SOUL-TYPE AFFINITY</b></p>
+                <p>Each hero has a secret <b>Soul-Type</b> (shown only in their character info):</p>
+                <p style="margin-left: 15px;">• Soul-Types: Dark, Tech, Stone, Crowd, Magic, Shadow, Sky, Tavern, Silent, Undead</p>
+                <p style="margin-left: 15px;">• Each challenge card has an Affinity tag</p>
+                <p style="margin-left: 15px;">• If your Soul-Type matches the challenge's Affinity: <b>+3 automatic bonus</b></p>
+                <p style="margin-left: 15px;">• This bonus applies to ALL challenge types (regular, friend, group)</p>
+                <p style="margin-left: 15px;">• Soul-Types are secret - don't reveal yours to other players!</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">🧪 THE ALCHEMIST SHOP</b></p>
-                <p>Periodically, the Alchemist appears to restore your stats:</p>
-                <p style="margin-left: 15px;">• Distribute <b>10 points</b> across any stats (max +5 per stat)</p>
-                <p style="margin-left: 15px;">• Shop frequency depends on party size</p>
-                <p style="margin-left: 15px;">• This is your primary recovery - plan accordingly!</p>
+                <!-- ALCHEMIST SHOP -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🧪 THE ALCHEMIST SHOP</b></p>
+                <p>Periodically, the mysterious Alchemist appears to restore your weary heroes:</p>
+                <p style="margin-left: 15px;">• Each player receives <b>10 Soul Points</b> to distribute</p>
+                <p style="margin-left: 15px;">• Spend points to restore any stat (maximum +5 per stat)</p>
+                <p style="margin-left: 15px;">• You also regain <b>+1 Meditation</b></p>
+                <p style="margin-left: 15px;">• Shop appears at the START of specific rounds</p>
+                <p style="margin-top: 10px;"><b>Shop Timing Formula</b> (P = number of players):</p>
+                <p style="margin-left: 15px;">• 1st Shop: Round <b>P + 3</b></p>
+                <p style="margin-left: 15px;">• 2nd Shop: 1st + <b>(P + 6)</b></p>
+                <p style="margin-left: 15px;">• 3rd Shop: 2nd + <b>(P + 9)</b></p>
+                <p style="margin-left: 15px;">• Pattern continues: intervals increase by 3 each time</p>
+                <p style="margin-top: 10px;"><b>Example with 4 players:</b></p>
+                <p style="margin-left: 15px;">• 1st Shop: Round 7 (4+3)</p>
+                <p style="margin-left: 15px;">• 2nd Shop: Round 17 (7+10)</p>
+                <p style="margin-left: 15px;">• 3rd Shop: Round 30 (17+13)</p>
                 
-                <p style="margin-top: 15px;"><b style="color: var(--blood); font-size: 14px;">⚡ HERO ABILITIES</b></p>
-                <p>Each hero has a unique passive ability (see Heroes scroll for details). Some abilities:</p>
-                <p style="margin-left: 15px;">• Are always active (Dragon Rage, Brute Force)</p>
-                <p style="margin-left: 15px;">• Require activation and recharge (System Override, Arcane Alliance)</p>
-                <p style="margin-left: 15px;">• Can target other players including the Reader</p>
-                <p style="margin-left: 15px;">• Reset or recharge based on specific conditions</p>
+                <!-- HERO ABILITIES -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">⚡ HERO ABILITIES</b></p>
+                <p>Each hero has a unique passive ability. Here are all 13:</p>
                 
-                <p style="margin-top: 15px; color: var(--gold); background: rgba(197,160,89,0.1); padding: 10px; border: 1px solid var(--gold);"><b>💡 STRATEGY TIPS:</b> Balance Glory gains against resource sustainability. Identify which challenges favor your Soul-Type. Save Meditations for impossible trials. Use Challenge a Friend strategically to share difficult challenges. In Group Missions, coordinate with your party - failure hurts everyone!</p>
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🗡️ Dark Stalker - Shadow Control</b></p>
+                <p style="margin-left: 20px;">Force any player to use one of their Meditations. Limited uses based on party size (2p=1, 3p=2, 4+p=3). <b>Resets at each shop.</b></p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🤖 Friendly AI - System Override</b></p>
+                <p style="margin-left: 20px;">Use ANY stat for a challenge instead of the required one. Recharges when you win a Friend Challenge.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>💪 Thug Dwarf - Brute Force</b></p>
+                <p style="margin-left: 20px;">Gain +3 POW permanently every time you win any challenge. Always active.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🎭 Babbler Rogue - Crowd Favorite</b></p>
+                <p style="margin-left: 20px;">Gain +1 bonus Glory for every 3 challenges you complete. Always active, tracks automatically.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🔮 Neighbor Witch - Arcane Alliance</b></p>
+                <p style="margin-left: 20px;">Steal stat points permanently from any player (choose stat and amount). Recharges after 3 wins.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🥷 Fancy Ninja - Assassination Contract</b></p>
+                <p style="margin-left: 20px;">Bet on another player failing their challenge. If they fail: steal +1 of a chosen stat. If they win: you lose -1 of that stat. Usable each turn.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🐉 Lost Dragon - Dragon Rage</b></p>
+                <p style="margin-left: 20px;">When spending 4+ points on a challenge, gain +3 bonus automatically. Always active.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🍺 Drunken Paladin - Liquid Courage</b></p>
+                <p style="margin-left: 20px;">Once per stage, roll a dice. On 5-6: instantly WIN the challenge regardless of points! Resets each new stage.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🧘 Mute Monk - Inner Peace</b></p>
+                <p style="margin-left: 20px;">When meditating, choose any stat to restore +4 points instead of just passing. Always active.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🧟 Lover Zombie - Cursed Embrace</b></p>
+                <p style="margin-left: 20px;">When you win, ALL other players lose -2 from a stat you choose, and you gain +1 to that stat. Always active.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>😈 Devil Boy - Soul Contract</b></p>
+                <p style="margin-left: 20px;">Swap one of your stats with another player's stat permanently. Choose both stats. Recharges after 3 wins.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🎲 Quick Thief - Lucky Fingers</b></p>
+                <p style="margin-left: 20px;">Each challenge, roll a dice. On 5-6: steal 1 Glory from any player who has Glory. Usable once per stage.</p>
+                
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🧌 Sad Troll - Rising Spirit</b></p>
+                <p style="margin-left: 20px;">Every 3 consecutive wins (including group missions), gain +5 to any stat of your choice. Streak resets on failure.</p>
+                
+                <!-- DICE GAMBLING -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎰 DICE GAMBLING</b></p>
+                <p>At certain points, you may gamble your Glory:</p>
+                <p style="margin-left: 15px;">• Bet 1-5 Glory points</p>
+                <p style="margin-left: 15px;">• Roll the dice: <b>4-6 = WIN</b> (double your bet), <b>1-3 = LOSE</b> (lose your bet)</p>
+                <p style="margin-left: 15px;">• High risk, high reward!</p>
+                
+                <!-- WINNING THE GAME -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🏆 WINNING THE GAME</b></p>
+                <p>The game ends when all Rounds are completed:</p>
+                <p style="margin-left: 15px;">• The hero with the <b>highest Glory</b> wins!</p>
+                <p style="margin-left: 15px;">• Tiebreaker: Most remaining total stat points</p>
+                <p style="margin-left: 15px;">• Second tiebreaker: Most remaining Meditations</p>
+                
+                <!-- STRATEGY TIPS -->
+                <p style="margin-top: 20px; color: var(--gold); background: rgba(197,160,89,0.15); padding: 15px; border: 1px solid var(--gold); border-radius: 8px;">
+                <b style="font-size: 14px;">💡 STRATEGY TIPS</b><br><br>
+                • <b>Resource Management:</b> Stats don't regenerate! Plan for the long game and don't overcommit early.<br><br>
+                • <b>Know Your Affinity:</b> Identify which challenges match your Soul-Type for the +3 bonus.<br><br>
+                • <b>Save Meditations:</b> Don't waste them on easy challenges - save for when stats are low.<br><br>
+                • <b>Challenge a Friend Wisely:</b> The +3 Courage Bonus makes initiating advantageous. Use it when you're confident.<br><br>
+                • <b>Group Mission Risk:</b> Failing costs -3 to ALL stats! Only vote YES if the team can make it.<br><br>
+                • <b>Shop Timing:</b> Know when shops appear and ration your stats accordingly.<br><br>
+                • <b>Watch Opponents:</b> Track who has used their abilities and meditations.<br><br>
+                • <b>Ability Synergy:</b> Some heroes combo well - Witch can steal stats that Dragon needs, Ninja can profit from others' failures.
+                </p>
+                
             </div>
-            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px;">Return to Scrolls</button>
+            <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 20px; width: 100%;">Return to Scrolls</button>
     </div>
 
     </div>
