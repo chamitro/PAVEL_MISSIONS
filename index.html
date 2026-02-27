@@ -1535,13 +1535,14 @@
                 <p style="margin-left: 15px;">• Shop appears at the START of specific rounds</p>
                 <p style="margin-top: 10px;"><b>Shop Timing Formula</b> (P = number of players):</p>
                 <p style="margin-left: 15px;">• 1st Shop: Round <b>P + 3</b></p>
-                <p style="margin-left: 15px;">• 2nd Shop: 1st + <b>(P + 6)</b></p>
-                <p style="margin-left: 15px;">• 3rd Shop: 2nd + <b>(P + 9)</b></p>
-                <p style="margin-left: 15px;">• Pattern continues: intervals increase by 3 each time</p>
+                <p style="margin-left: 15px;">• 2nd Shop: 1st + <b>(P + 4)</b></p>
+                <p style="margin-left: 15px;">• 3rd Shop: 2nd + <b>(P + 5)</b></p>
+                <p style="margin-left: 15px;">• Pattern continues: interval increases by 1 each shop</p>
                 <p style="margin-top: 10px;"><b>Example with 4 players:</b></p>
                 <p style="margin-left: 15px;">• 1st Shop: Round 7 (4+3)</p>
-                <p style="margin-left: 15px;">• 2nd Shop: Round 17 (7+10)</p>
-                <p style="margin-left: 15px;">• 3rd Shop: Round 30 (17+13)</p>
+                <p style="margin-left: 15px;">• 2nd Shop: Round 15 (7+8)</p>
+                <p style="margin-left: 15px;">• 3rd Shop: Round 24 (15+9)</p>
+                <p style="margin-left: 15px;">• 4th Shop: Round 34 (24+10)</p>
                 
                 <!-- HERO ABILITIES -->
                 <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">⚡ HERO ABILITIES</b></p>
@@ -2731,8 +2732,8 @@ function advanceToNextStage() {
     const totalStagesCompleted = (nextRound * party.length) + nextStageInRound;
     
     // Calculate shop timing based on ROUNDS ONLY
-    // Shop appears at rounds: P+3, then +(P+6), then +(P+9), etc.
-    // Example with 4 players: Round 7, then Round 17 (7+10), then Round 30 (17+13)
+    // Shop appears at rounds: P+3, then +(P+4), then +(P+5), etc. (interval increases by 1)
+    // Example with 4 players: Round 7, then Round 15 (7+8), then Round 24 (15+9)
     if (nextShopAtRound === -1) {
         nextShopAtRound = party.length + 3; // First shop at round P+3
         console.log(`🛒 Shop timing initialized: First shop at Round ${nextShopAtRound}`);
@@ -2750,8 +2751,8 @@ function advanceToNextStage() {
     if (isNewRound && nextRoundDisplay >= nextShopAtRound) {
         shopCount++;
         shopIntervalIndex++;
-        // Next interval: P + 3 + (3 * shopIntervalIndex) = P+6, P+9, P+12...
-        const nextInterval = party.length + 3 + (3 * shopIntervalIndex);
+        // Next interval: P + 3 + shopNumber (increases by 1 each shop)
+        const nextInterval = party.length + 3 + shopIntervalIndex;
         const previousShopRound = nextShopAtRound;
         nextShopAtRound = nextShopAtRound + nextInterval;
         
