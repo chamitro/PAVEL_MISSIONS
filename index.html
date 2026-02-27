@@ -1564,7 +1564,7 @@
                 <p style="margin-left: 20px;">Guess how many stat points to steal from any player. If they have enough, you get it! If not, the spell FAILS and ability is wasted. Recharges after 3 wins.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🥷 Fancy Ninja - Assassination Contract</b></p>
-                <p style="margin-left: 20px;">Bet on another player failing their challenge. If they fail: steal +1 of a chosen stat. If they win: you lose -1 of that stat. Usable each turn.</p>
+                <p style="margin-left: 20px;">Bet on another player (not the Reader) failing their challenge. If they fail: steal +1 stat. If they win: you lose -1 stat. Usable each stage.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🐉 Lost Dragon - Dragon Rage</b></p>
                 <p style="margin-left: 20px;">When spending 4+ points on a challenge, gain +3 bonus automatically. Always active.</p>
@@ -1848,7 +1848,7 @@ const HEROES = [
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Force', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
     { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Guess how many stat points to steal. If they do not have enough, spell fails! Recharges after 3 wins.' },
-    { n: 'Fancy Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Assassination Contract', passiveDesc: 'Bet on another player failing. If they fail, steal +1 stat. If they win, lose -1. Usable each turn.' },
+    { n: 'Fancy Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Assassination Contract', passiveDesc: 'Bet on a player (not Reader) failing. If they fail, steal +1 stat. If they win, lose -1. Usable each stage.' },
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:4, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 4+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll dice. If 5 or 6, auto-win' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice' },
@@ -2422,7 +2422,10 @@ function showResult(spent, bonus, final, win, usedStat) {
             if(witchWins[activeIdx] >= 3 && passiveUsed[activeIdx]) {
                 passiveUsed[activeIdx] = false;
                 witchWins[activeIdx] = 0;
-                passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Arcane Alliance Recharged!</p>`;
+                passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">🔮 Arcane Alliance Recharged!</p>`;
+            } else if(passiveUsed[activeIdx]) {
+                // Show progress toward recharge
+                passiveTriggers += `<p style="color:#888; font-size:11px;">🔮 Arcane Alliance: ${witchWins[activeIdx]}/3 wins to recharge</p>`;
             }
         }
         
@@ -2433,6 +2436,9 @@ function showResult(spent, bonus, final, win, usedStat) {
                 passiveUsed[activeIdx] = false;
                 devilWins[activeIdx] = 0;
                 passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">😈 Soul Contract Recharged!</p>`;
+            } else if(passiveUsed[activeIdx]) {
+                // Show progress toward recharge
+                passiveTriggers += `<p style="color:#888; font-size:11px;">😈 Soul Contract: ${devilWins[activeIdx]}/3 wins to recharge</p>`;
             }
         }
         
@@ -2547,12 +2553,27 @@ function challengeWon() {
     // Resolve Ninja contract (target won, ninja loses)
     if(ninjaContract && ninjaContract.target === activeIdx) {
         const ninja = party[ninjaContract.ninja];
+        const target = party[activeIdx];
         const stat = ninjaContract.stat;
         ninja.cur[stat] = Math.max(0, ninja.cur[stat] - 1);
         ninjaContract = null;
         updatePartyUI();
+        
+        // Show notification THEN continue
+        showModal(
+            "🥷 Contract Failed!",
+            `${target.pName} succeeded!`,
+            `<p>${ninja.pName} loses -1 ${stat.toUpperCase()}</p>
+            <p style="font-size: 12px; color: #888;">The target won, so the ninja pays the price.</p>
+            <button class="btn btn-main" onclick="finishChallengeWon()">Continue</button>`
+        );
+        return;
     }
     
+    finishChallengeWon();
+}
+
+function finishChallengeWon() {
     // Return borrowed stats from Witch
     returnBorrowedStats();
     
@@ -2575,8 +2596,22 @@ function challengeFailed() {
         ninja.cur[stat] += 1;
         ninjaContract = null;
         updatePartyUI();
+        
+        // Show notification THEN continue
+        showModal(
+            "🥷 Contract Fulfilled!",
+            `${target.pName} failed!`,
+            `<p>${ninja.pName} steals +1 ${stat.toUpperCase()} from ${target.pName}!</p>
+            <p style="font-size: 12px; color: var(--gold);">The assassination contract was successful.</p>
+            <button class="btn btn-main" onclick="finishChallengeFailed()">Continue</button>`
+        );
+        return;
     }
     
+    finishChallengeFailed();
+}
+
+function finishChallengeFailed() {
     // Return borrowed stats from Witch
     returnBorrowedStats();
     
@@ -2806,6 +2841,9 @@ function advanceToNextRound() {
 function resetUI() {
     // Reset Quick Thief roll for new stage
     thiefRolledThisTurn = false;
+    
+    // Clear ninja contract at start of new stage (contract is per-stage)
+    ninjaContract = null;
     
     // NOTE: shadowControlledPlayers is NOT cleared here - effect persists until player is forced to skip
     
@@ -5063,14 +5101,18 @@ function setupAssassinationContract() {
         return;
     }
     
-    // Build list of targets (other challengers - including reader for when they play later)
+    // Build list of targets (other challengers - NOT the reader since they don't participate)
     let targetOptions = '';
     party.forEach((p, idx) => {
-        if(idx !== activeIdx) {
-            const isReader = idx === readerIdx ? ' 📜 (Reader)' : '';
-            targetOptions += `<option value="${idx}">${p.pName} (${p.n})${isReader}</option>`;
+        if(idx !== activeIdx && idx !== readerIdx) {
+            targetOptions += `<option value="${idx}">${p.pName} (${p.n})</option>`;
         }
     });
+    
+    if(targetOptions === '') {
+        alert("No valid targets! (Reader doesn't participate in challenges)");
+        return;
+    }
     
     showModal(
         "🥷 Assassination Contract",
