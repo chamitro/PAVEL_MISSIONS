@@ -1561,7 +1561,7 @@
                 <p style="margin-left: 20px;">Gain +1 bonus Glory for every 3 challenges you complete. Always active, tracks automatically.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🔮 Neighbor Witch - Arcane Alliance</b></p>
-                <p style="margin-left: 20px;">Guess how many stat points to steal from any player. If they have enough, you get it! If not, the spell FAILS and ability is wasted. Recharges after 3 wins.</p>
+                <p style="margin-left: 20px;">Guess how many stat points to steal from any player. If they have enough, you get it! If not, the spell FAILS and ability is wasted. Recharges after 3 wins (any type: regular, friend, or group).</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🥷 Fancy Ninja - Assassination Contract</b></p>
                 <p style="margin-left: 20px;">Bet on another player (not the Reader) failing their challenge. If they fail: steal +1 stat. If they win: you lose -1 stat. Usable each stage.</p>
@@ -1579,13 +1579,13 @@
                 <p style="margin-left: 20px;">When you win, ALL other players lose -2 from a stat you choose, and you gain +1 to that stat. Always active.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>😈 Devil Boy - Soul Contract</b></p>
-                <p style="margin-left: 20px;">Choose a stat and swap its value with another player permanently. Recharges after 3 wins.</p>
+                <p style="margin-left: 20px;">Choose a stat and swap its value with another player permanently. Recharges after 3 wins (any type: regular, friend, or group).</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🎲 Quick Thief - Lucky Fingers</b></p>
                 <p style="margin-left: 20px;">Each challenge, roll a dice. On 5-6: steal 1 Glory from any player who has Glory. Usable once per stage.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🧌 Sad Troll - Rising Spirit</b></p>
-                <p style="margin-left: 20px;">Every 3 consecutive wins (including group missions), gain +5 to any stat of your choice. Streak resets on failure.</p>
+                <p style="margin-left: 20px;">Every 3 CONSECUTIVE wins, gain +5 to any stat. Streak resets on ANY failure (including meditation). Group wins count!</p>
                 
                 <!-- DICE GAMBLING -->
                 <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎰 DICE GAMBLING</b></p>
@@ -4069,6 +4069,24 @@ function resolveGroupChallenge(yesVoters) {
             challengesCompleted[v.playerIndex] = (challengesCompleted[v.playerIndex] || 0) + 1;
             if(p.n === 'Babbler Rogue' && challengesCompleted[v.playerIndex] % 3 === 0) {
                 p.score += 1;
+            }
+            
+            // Neighbor Witch - recharge tracking (group wins count!)
+            if(p.n === 'Neighbor Witch' && passiveUsed[v.playerIndex]) {
+                witchWins[v.playerIndex] = (witchWins[v.playerIndex] || 0) + 1;
+                if(witchWins[v.playerIndex] >= 3) {
+                    passiveUsed[v.playerIndex] = false;
+                    witchWins[v.playerIndex] = 0;
+                }
+            }
+            
+            // Devil Boy - recharge tracking (group wins count!)
+            if(p.n === 'Devil Boy' && passiveUsed[v.playerIndex]) {
+                devilWins[v.playerIndex] = (devilWins[v.playerIndex] || 0) + 1;
+                if(devilWins[v.playerIndex] >= 3) {
+                    passiveUsed[v.playerIndex] = false;
+                    devilWins[v.playerIndex] = 0;
+                }
             }
             
             // Sad Troll - Rising Spirit (group wins count!)
