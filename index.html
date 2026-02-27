@@ -1516,7 +1516,8 @@
     <div id="view-deck" style="display:none;">
         <div class="stage-frame" style="margin-top: 80px;">
             <h2 class="medieval">Quest Length</h2>
-            <input type="number" id="deck-size-in" value="10" min="5" max="70" class="input-hero" style="width: 100px; color:white; font-size:35px; text-align:center; margin: 20px 0; background: none;">
+            <input type="number" id="deck-size-in" value="10" min="5" max="50" class="input-hero" style="width: 100px; color:white; font-size:35px; text-align:center; margin: 20px 0; background: none;">
+            <p style="color: var(--gold); font-size: 14px; margin-top: -10px;">(Rounds)</p>
             <button class="btn btn-main" onclick="startGame()">Commence Descent</button>
         </div>
     </div>
@@ -1736,8 +1737,8 @@ const HEROES = [
 
 let party = [];           // Array of player objects
 let deck = [];            // Shuffled challenges for this game
-let round = 0;            // Current round (0 to totalRounds-1)
-let totalRounds = 0;      // Total missions in the game
+let round = 0;            // Current round (0-indexed, display as round+1)
+let totalRounds = 0;      // Total number of ROUNDS in the game (Quest Length)
 let pCount = 2;           // Number of players
 let regIdx = 0;           // Registration index
 
@@ -1900,6 +1901,9 @@ function startGame() {
     
     totalRounds = parseInt(document.getElementById('deck-size-in').value);
     
+    // Calculate total stages needed (each round has 1 stage per player)
+    const totalStagesNeeded = totalRounds * party.length;
+    
     // Filter out group missions if only 2 players
     let masterPool = [...STAGES];
     if(party.length === 2) {
@@ -1907,7 +1911,13 @@ function startGame() {
         console.log('2 players: Group missions disabled');
     }
     
-    deck = masterPool.sort(() => 0.5 - Math.random()).slice(0, totalRounds);
+    // Create deck with enough cards for all stages (may need to repeat cards if not enough)
+    let deckCards = [];
+    while (deckCards.length < totalStagesNeeded) {
+        const shuffled = [...masterPool].sort(() => 0.5 - Math.random());
+        deckCards = deckCards.concat(shuffled);
+    }
+    deck = deckCards.slice(0, totalStagesNeeded);
     
     // Initialize turn structure
     readerIdx = 0;                              // Player 0 is first reader
@@ -1921,7 +1931,7 @@ function startGame() {
     updatePartyUI(); 
     updateTurnLabels();
     
-    console.log(`🎮 GAME STARTED: ${party.length} players, ${totalRounds} rounds`);
+    console.log(`🎮 GAME STARTED: ${party.length} players, ${totalRounds} rounds (${totalStagesNeeded} total stages)`);
     console.log(`📜 Reader: ${party[readerIdx].pName}, First Challenger: ${party[firstChallengerIdx].pName}`);
 }
 
@@ -2499,21 +2509,32 @@ function advanceToNextStage() {
     // Calculate total stages that WILL BE completed after this advance
     const totalStagesCompleted = (nextRound * party.length) + nextStageInRound;
     
-    // Calculate shop timing based on ROUNDS
+    // Calculate shop timing based on ROUNDS ONLY
     // Shop appears at rounds: P+3, then +(P+6), then +(P+9), etc.
+    // Example with 4 players: Round 7, then Round 17 (7+10), then Round 30 (17+13)
     if (nextShopAtRound === -1) {
         nextShopAtRound = party.length + 3; // First shop at round P+3
+        console.log(`🛒 Shop timing initialized: First shop at Round ${nextShopAtRound}`);
     }
     
-    // Check if shop time (shop happens at start of certain rounds, stage 1)
-    if (nextRound + 1 >= nextShopAtRound && nextStageInRound === 1) {
+    // Convert nextRound (0-indexed) to display round (1-indexed)
+    const nextRoundDisplay = nextRound + 1;
+    
+    // Check if we're entering a new round that triggers a shop
+    // Shop happens ONCE when entering the target round (at stage 1)
+    const isNewRound = (nextStageInRound === 1 && nextRound > round);
+    
+    console.log(`📊 Round check: current R${round+1}, next R${nextRoundDisplay}, shopAt R${nextShopAtRound}, isNewRound=${isNewRound}`);
+    
+    if (isNewRound && nextRoundDisplay >= nextShopAtRound) {
         shopCount++;
         shopIntervalIndex++;
         // Next interval: P + 3 + (3 * shopIntervalIndex) = P+6, P+9, P+12...
         const nextInterval = party.length + 3 + (3 * shopIntervalIndex);
+        const previousShopRound = nextShopAtRound;
         nextShopAtRound = nextShopAtRound + nextInterval;
         
-        console.log(`🧪 Shop #${shopCount}! Next shop at round ${nextShopAtRound}`);
+        console.log(`🧪 Shop #${shopCount}! Triggered at Round ${previousShopRound}. Next shop at Round ${nextShopAtRound} (+${nextInterval})`);
         
         // Store the pending state for after shop
         pendingReaderIdx = nextReaderIdx;
@@ -2526,8 +2547,9 @@ function advanceToNextStage() {
         return;
     }
     
-    // Check if game is over (based on deck being empty)
-    if (totalStagesCompleted > totalRounds) {
+    // Check if game is over (based on completing all rounds)
+    // Game ends when we would advance past the last round
+    if (nextRoundDisplay > totalRounds) {
         endGame();
         return;
     }
@@ -2569,9 +2591,11 @@ function resetUI() {
     document.getElementById('st-desc').innerText = "";
     document.getElementById('st-req').innerText = "";
     
-    // Calculate progress based on total missions played
-    const totalMissionsPlayed = (round * party.length) + stageInRound - 1;
-    document.getElementById('prog-bar').style.width = `${(totalMissionsPlayed/totalRounds)*100}%`;
+    // Calculate progress based on rounds completed
+    // Current progress = completed rounds + partial progress in current round
+    const progressInCurrentRound = (stageInRound - 1) / party.length;
+    const totalProgress = (round + progressInCurrentRound) / totalRounds;
+    document.getElementById('prog-bar').style.width = `${totalProgress * 100}%`;
     
     updateTurnLabels();
     closeModal();
@@ -4842,9 +4866,9 @@ function finishStore() {
         round = pendingRound;
         stageInRound = pendingStageInRound;
         
-        // Check if game should end (deck exhausted)
-        const totalStagesCompleted = (round * party.length) + stageInRound;
-        if (totalStagesCompleted > totalRounds) {
+        // Check if game should end (all rounds completed)
+        const currentRoundDisplay = round + 1;
+        if (currentRoundDisplay > totalRounds) {
             closeModal();
             endGame();
             return;
