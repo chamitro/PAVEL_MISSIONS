@@ -1847,7 +1847,7 @@ const HEROES = [
     { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:2, wil:6}, passive: 'System Override', passiveDesc: 'Use a different attribute. Recharges on friend challenge win' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Force', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
-    { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Guess how many stat points to steal. If they don\\'t have enough, spell fails! Recharges after 3 wins.' },
+    { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Guess how many stat points to steal. If they do not have enough, spell fails! Recharges after 3 wins.' },
     { n: 'Fancy Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Assassination Contract', passiveDesc: 'Bet on another player failing. If they fail, steal +1 stat. If they win, lose -1. Usable each turn.' },
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:4, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 4+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll dice. If 5 or 6, auto-win' },
@@ -5357,21 +5357,35 @@ function resetHallOfFame() {
 // ============================================================
 
 function enterFullscreen() {
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) elem.requestFullscreen();
-    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-    else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+    try {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) elem.requestFullscreen();
+        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+        else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+    } catch(e) {
+        console.log('Fullscreen not available:', e);
+    }
 }
 
 function exitFullscreen() {
-    if (document.exitFullscreen) document.exitFullscreen();
-    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-    else if (document.msExitFullscreen) document.msExitFullscreen();
+    try {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+    } catch(e) {
+        console.log('Exit fullscreen error:', e);
+    }
 }
 
 function startGameFullscreen() {
+    // Hide splash first
     document.getElementById('fullscreen-splash').style.display = 'none';
     document.getElementById('exit-fullscreen').style.display = 'block';
+    
+    // Show the intro/menu screen
+    document.getElementById('view-intro').style.display = 'block';
+    
+    // Try to enter fullscreen (may fail but game still works)
     enterFullscreen();
 }
 
