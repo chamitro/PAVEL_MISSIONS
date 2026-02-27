@@ -2444,7 +2444,17 @@ function showResult(spent, bonus, final, win, usedStat) {
         
         // Sad Troll - Rising Spirit check
         if(h.n === 'Sad Troll') {
-            checkRisingSpirit(activeIdx);
+            trollConsecutiveWins[activeIdx] = (trollConsecutiveWins[activeIdx] || 0) + 1;
+            
+            if(trollConsecutiveWins[activeIdx] >= 3) {
+                // Rising Spirit triggered! Show stat selection first
+                updatePartyUI();
+                showRisingSpiritSelection(activeIdx, pPts, usedStat, passiveTriggers);
+                return; // Don't show victory modal yet
+            } else {
+                // Show progress
+                passiveTriggers += `<p style="color:#888; font-size:11px;">🧌 Rising Spirit: ${trollConsecutiveWins[activeIdx]}/3 consecutive wins</p>`;
+            }
         }
         
         // Check for Lover Zombie
@@ -5037,6 +5047,8 @@ function checkRisingSpirit(playerIdx) {
     
     trollConsecutiveWins[playerIdx] = (trollConsecutiveWins[playerIdx] || 0) + 1;
     
+    // This function is now only used by Friend Challenge and Group Mission
+    // Regular challenges handle it inline with showRisingSpiritSelection
     if(trollConsecutiveWins[playerIdx] >= 3) {
         // Show stat selection modal
         showModal(
@@ -5056,6 +5068,47 @@ function checkRisingSpirit(playerIdx) {
             <button class="btn btn-main" onclick="confirmRisingSpirit(${playerIdx})">Gain +5</button>`
         );
     }
+}
+
+// Used by regular challenges - needs to chain to victory modal
+function showRisingSpiritSelection(playerIdx, pPts, usedStat, passiveTriggers) {
+    const player = party[playerIdx];
+    
+    showModal(
+        "🧌 Rising Spirit!",
+        `${player.pName} has won 3 consecutive challenges!`,
+        `<div style="margin: 15px 0;">
+            <img src="${player.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+        </div>
+        <p>Choose a stat to gain +5:</p>
+        <select id="troll-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            <option value="pow">POWER (${player.cur.pow})</option>
+            <option value="spd">SPEED (${player.cur.spd})</option>
+            <option value="brn">BRAIN (${player.cur.brn})</option>
+            <option value="cha">CHARISMA (${player.cur.cha})</option>
+            <option value="wil">WILLPOWER (${player.cur.wil})</option>
+        </select>
+        <button class="btn btn-main" onclick="confirmRisingSpiritAndVictory(${playerIdx}, ${pPts}, '${usedStat}')">Gain +5</button>`
+    );
+}
+
+function confirmRisingSpiritAndVictory(playerIdx, pPts, usedStat) {
+    const stat = document.getElementById('troll-stat').value;
+    const player = party[playerIdx];
+    
+    player.cur[stat] += 5;
+    trollConsecutiveWins[playerIdx] = 0; // Reset counter
+    
+    updatePartyUI();
+    
+    // Now show victory modal
+    showModal(
+        `<span class="result-success">🏆 VICTORY!</span>`,
+        `${player.pName} conquers the challenge!`,
+        `<p style="color:#f3cf7a; font-weight:bold; margin-bottom: 15px;">🧌 Rising Spirit: +5 ${stat.toUpperCase()}!</p>
+        <p style="color:#1b5e20; font-weight:bold;">+${pPts} Glory! +2 ${usedStat.toUpperCase()} recovered!</p>
+        <button class="btn btn-main" onclick="challengeWon()">Continue</button>`
+    );
 }
 
 function confirmRisingSpirit(playerIdx) {
