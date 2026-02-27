@@ -3989,6 +3989,11 @@ function resolveGroupChallenge(yesVoters) {
             if(p.n === 'Babbler Rogue' && challengesCompleted[v.playerIndex] % 3 === 0) {
                 p.score += 1;
             }
+            
+            // Sad Troll - Rising Spirit (group wins count!)
+            if(p.n === 'Sad Troll') {
+                checkRisingSpirit(v.playerIndex);
+            }
         });
         
         showModal(
@@ -4016,6 +4021,11 @@ function resolveGroupChallenge(yesVoters) {
             p.cur.brn = Math.max(0, p.cur.brn - statLoss);
             p.cur.cha = Math.max(0, p.cur.cha - statLoss);
             p.cur.wil = Math.max(0, p.cur.wil - statLoss);
+            
+            // Sad Troll - Reset consecutive wins on failure
+            if(p.n === 'Sad Troll') {
+                resetTrollConsecutiveWins(v.playerIndex);
+            }
         });
         
         showModal(
