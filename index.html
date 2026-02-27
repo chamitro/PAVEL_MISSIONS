@@ -1308,7 +1308,7 @@
                     </div>
                 </div>
                 <p class="hero-card-desc">Lives in the crooked cottage at the edge of town. Helpful to the polite, terrifying to others.</p>
-                <p class="hero-card-ability"><b>⚡ Arcane Alliance:</b> Steal stat points permanently from any player. Recharges after 3 wins.</p>
+                <p class="hero-card-ability"><b>⚡ Arcane Alliance:</b> Guess how many stat points to steal. If wrong, the spell fails! Recharges after 3 wins.</p>
             </div>
             
             <!-- Fancy Ninja -->
@@ -1386,7 +1386,7 @@
                     </div>
                 </div>
                 <p class="hero-card-desc">A mischievous imp who trades in souls and secrets. Never trust a deal with a devil.</p>
-                <p class="hero-card-ability"><b>😈 Soul Contract:</b> Swap one of your stats with another player's stat permanently. Recharges after 3 wins.</p>
+                <p class="hero-card-ability"><b>😈 Soul Contract:</b> Choose a stat and swap its value with another player permanently. Recharges after 3 wins.</p>
             </div>
             
             <!-- Quick Thief -->
@@ -1561,7 +1561,7 @@
                 <p style="margin-left: 20px;">Gain +1 bonus Glory for every 3 challenges you complete. Always active, tracks automatically.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🔮 Neighbor Witch - Arcane Alliance</b></p>
-                <p style="margin-left: 20px;">Steal stat points permanently from any player (choose stat and amount). Recharges after 3 wins.</p>
+                <p style="margin-left: 20px;">Guess how many stat points to steal from any player. If they have enough, you get it! If not, the spell FAILS and ability is wasted. Recharges after 3 wins.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🥷 Fancy Ninja - Assassination Contract</b></p>
                 <p style="margin-left: 20px;">Bet on another player failing their challenge. If they fail: steal +1 of a chosen stat. If they win: you lose -1 of that stat. Usable each turn.</p>
@@ -1579,7 +1579,7 @@
                 <p style="margin-left: 20px;">When you win, ALL other players lose -2 from a stat you choose, and you gain +1 to that stat. Always active.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>😈 Devil Boy - Soul Contract</b></p>
-                <p style="margin-left: 20px;">Swap one of your stats with another player's stat permanently. Choose both stats. Recharges after 3 wins.</p>
+                <p style="margin-left: 20px;">Choose a stat and swap its value with another player permanently. Recharges after 3 wins.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🎲 Quick Thief - Lucky Fingers</b></p>
                 <p style="margin-left: 20px;">Each challenge, roll a dice. On 5-6: steal 1 Glory from any player who has Glory. Usable once per stage.</p>
@@ -1847,13 +1847,13 @@ const HEROES = [
     { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:2, wil:6}, passive: 'System Override', passiveDesc: 'Use a different attribute. Recharges on friend challenge win' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Force', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
-    { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Steal stat points permanently from any player. Recharges after 3 wins.' },
+    { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Guess how many stat points to steal. If they don\\'t have enough, spell fails! Recharges after 3 wins.' },
     { n: 'Fancy Ninja', i: './images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Assassination Contract', passiveDesc: 'Bet on another player failing. If they fail, steal +1 stat. If they win, lose -1. Usable each turn.' },
     { n: 'Lost Dragon', i: './images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:4, cha:3, wil:3}, passive: 'Dragon Rage', passiveDesc: 'When spending 4+ on any stat, gain +3 bonus' },
     { n: 'Drunken Paladin', i: './images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Liquid Courage', passiveDesc: 'Once per turn, roll dice. If 5 or 6, auto-win' },
     { n: 'Mute Monk', i: './images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Inner Peace', passiveDesc: 'Meditating restores +4 to one attribute of your choice' },
     { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: All players lose 2 from a stat, you gain +1' },
-    { n: 'Devil Boy', i: './images/devil.png', a: 'dark', s: {pow:4, spd:4, brn:7, cha:6, wil:4}, passive: 'Soul Contract', passiveDesc: 'Swap one of your stats with another player\'s stat permanently. Recharges after 3 wins.' },
+    { n: 'Devil Boy', i: './images/devil.png', a: 'dark', s: {pow:4, spd:4, brn:7, cha:6, wil:4}, passive: 'Soul Contract', passiveDesc: 'Choose a stat and swap its value with another player permanently. Recharges after 3 wins.' },
     { n: 'Quick Thief', i: './images/thief.png', a: 'shadow', s: {pow:3, spd:8, brn:5, cha:5, wil:3}, passive: 'Lucky Fingers', passiveDesc: 'Every challenge, roll dice. On 5-6, steal 1 Glory from any player.' },
     { n: 'Sad Troll', i: './images/trol.png', a: 'silent', s: {pow:7, spd:2, brn:3, cha:3, wil:9}, passive: 'Rising Spirit', passiveDesc: 'Every 3 consecutive wins (including group), gain +5 to any stat.' }
 ];
@@ -3376,7 +3376,6 @@ function executeFriendSystemOverride(role) {
 function useFriendArcaneAlliance(role) {
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
     const h = party[playerIdx];
-    passiveUsed[playerIdx] = true;
     
     // Get other players (excluding both challenger and opponent for fairness)
     const otherIdx = role === 'challenger' ? friendChallengeData.opponent : friendChallengeData.challenger;
@@ -3384,17 +3383,18 @@ function useFriendArcaneAlliance(role) {
     
     if(otherPlayers.length === 0) {
         alert("No other players to steal from!");
-        passiveUsed[playerIdx] = false;
         return;
     }
     
+    // DON'T show their stat values - Witch has to guess!
     let playerOptions = otherPlayers.map((p) => {
         let realIdx = party.indexOf(p);
-        return `<option value="${realIdx}">${p.pName} - ${pStage.s.toUpperCase()}: ${p.cur[pStage.s]}</option>`;
+        const isReader = realIdx === readerIdx ? ' 📜' : '';
+        return `<option value="${realIdx}">${p.pName} (${p.n})${isReader}</option>`;
     }).join('');
     
     showModal(
-        "⚡ Arcane Alliance",
+        "🔮 Arcane Alliance",
         "Steal power permanently from another player",
         `<div style="margin: 15px 0;">
             <img src="${h.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
@@ -3408,6 +3408,9 @@ function useFriendArcaneAlliance(role) {
         <p style="font-size:12px; color:#666;">Your ${pStage.s.toUpperCase()}: ${h.cur[pStage.s]}</p>
         <p style="font-size:14px; margin-top:10px;">How many of YOUR points to add?</p>
         <input type="number" id="friend-own-amt" class="input-hero" value="0" min="0" max="${h.cur[pStage.s]}" style="width:80px; font-size:24px; text-align:center; margin:10px 0;">
+        <div style="background: rgba(139,0,0,0.2); padding: 10px; margin: 15px 0; font-size: 12px; border: 1px solid var(--blood);">
+            <p style="color: var(--blood);">⚠️ WARNING: If they don't have enough, the spell FAILS and is wasted!</p>
+        </div>
         <button class="btn btn-main" onclick="executeFriendArcaneAlliance('${role}')">Commit</button>`
     );
 }
@@ -3421,13 +3424,29 @@ function executeFriendArcaneAlliance(role) {
     const borrowAmt = parseInt(document.getElementById('friend-borrow-amt').value) || 0;
     const ownAmt = parseInt(document.getElementById('friend-own-amt').value) || 0;
     
-    if(borrowAmt > ally.cur[pStage.s]) {
-        alert(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
+    // Mark as used BEFORE checking (ability is spent either way!)
+    passiveUsed[playerIdx] = true;
+    witchWins[playerIdx] = 0;
+    
+    if(ownAmt > h.cur[pStage.s]) {
+        alert("You don't have enough of your own points!");
+        passiveUsed[playerIdx] = false; // Give back on own stat error
         return;
     }
     
-    if(ownAmt > h.cur[pStage.s]) {
-        alert("You don't have enough points!");
+    // Check if target has enough - if not, spell FAILS!
+    if(borrowAmt > ally.cur[pStage.s]) {
+        showModal(
+            "🔮 Arcane Alliance FAILED!",
+            `${ally.pName} only has ${ally.cur[pStage.s]} ${pStage.s.toUpperCase()}!`,
+            `<div style="margin: 15px 0;">
+                <img src="${h.i}" style="width: 60px; height: 60px; border: 2px solid var(--blood); background: #000; opacity: 0.6;">
+            </div>
+            <p style="color: var(--blood);">You asked for ${borrowAmt} but they only have ${ally.cur[pStage.s]}!</p>
+            <p style="color: var(--blood); font-weight: bold;">The spell fizzles... ability wasted!</p>
+            <p style="font-size: 12px; color: #888; margin-top: 10px;">Win 3 challenges to recharge.</p>
+            <button class="btn btn-main" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Continue</button>`
+        );
         return;
     }
     
@@ -3555,55 +3574,68 @@ function useFriendSoulContract(role) {
         }
     });
     
+    // Store role for later use
+    window.friendSoulContractRole = role;
+    window.friendSoulContractPlayerIdx = playerIdx;
+    
     showModal(
         "😈 Soul Contract",
-        "Swap one of your stats with another player's permanently!",
+        "Swap a stat with another player permanently!",
         `<div style="margin: 15px 0;">
             <img src="${devil.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
         </div>
         <p>Choose a player to swap with:</p>
-        <select id="friend-devil-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+        <select id="friend-devil-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;" onchange="updateFriendSoulContractStats()">
             ${targetOptions}
         </select>
-        <p style="margin-top: 10px;">Choose YOUR stat to swap:</p>
-        <select id="friend-devil-your-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
-            <option value="pow">POWER (${devil.cur.pow})</option>
-            <option value="spd">SPEED (${devil.cur.spd})</option>
-            <option value="brn">BRAIN (${devil.cur.brn})</option>
-            <option value="cha">CHARISMA (${devil.cur.cha})</option>
-            <option value="wil">WILLPOWER (${devil.cur.wil})</option>
-        </select>
-        <p style="margin-top: 10px;">Choose THEIR stat to take:</p>
-        <select id="friend-devil-their-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
-            <option value="pow">POWER</option>
-            <option value="spd">SPEED</option>
-            <option value="brn">BRAIN</option>
-            <option value="cha">CHARISMA</option>
-            <option value="wil">WILLPOWER</option>
+        <p style="margin-top: 10px;">Choose stat to swap:</p>
+        <select id="friend-devil-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            <option value="pow">POWER (You: ${devil.cur.pow})</option>
+            <option value="spd">SPEED (You: ${devil.cur.spd})</option>
+            <option value="brn">BRAIN (You: ${devil.cur.brn})</option>
+            <option value="cha">CHARISMA (You: ${devil.cur.cha})</option>
+            <option value="wil">WILLPOWER (You: ${devil.cur.wil})</option>
         </select>
         <div style="margin-top: 15px;">
             <button class="btn btn-main" onclick="confirmFriendSoulContract('${role}')">Sign Contract</button>
             <button class="btn btn-skip" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Cancel</button>
         </div>`
     );
+    
+    setTimeout(updateFriendSoulContractStats, 100);
+}
+
+function updateFriendSoulContractStats() {
+    const playerIdx = window.friendSoulContractPlayerIdx;
+    const targetIdx = parseInt(document.getElementById('friend-devil-target').value);
+    const target = party[targetIdx];
+    const devil = party[playerIdx];
+    
+    const statSelect = document.getElementById('friend-devil-stat');
+    statSelect.innerHTML = `
+        <option value="pow">POWER (You: ${devil.cur.pow} ↔ Them: ${target.cur.pow})</option>
+        <option value="spd">SPEED (You: ${devil.cur.spd} ↔ Them: ${target.cur.spd})</option>
+        <option value="brn">BRAIN (You: ${devil.cur.brn} ↔ Them: ${target.cur.brn})</option>
+        <option value="cha">CHARISMA (You: ${devil.cur.cha} ↔ Them: ${target.cur.cha})</option>
+        <option value="wil">WILLPOWER (You: ${devil.cur.wil} ↔ Them: ${target.cur.wil})</option>
+    `;
 }
 
 function confirmFriendSoulContract(role) {
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
     const targetIdx = parseInt(document.getElementById('friend-devil-target').value);
-    const yourStat = document.getElementById('friend-devil-your-stat').value;
-    const theirStat = document.getElementById('friend-devil-their-stat').value;
+    const stat = document.getElementById('friend-devil-stat').value;
     
     const devil = party[playerIdx];
     const target = party[targetIdx];
     
     // Get the values
-    const yourValue = devil.cur[yourStat];
-    const theirValue = target.cur[theirStat];
+    const devilValue = devil.cur[stat];
+    const targetValue = target.cur[stat];
     
     // Perform the swap
-    devil.cur[yourStat] = theirValue;
-    target.cur[theirStat] = yourValue;
+    devil.cur[stat] = targetValue;
+    target.cur[stat] = devilValue;
     
     // Mark as used
     passiveUsed[playerIdx] = true;
@@ -3613,9 +3645,9 @@ function confirmFriendSoulContract(role) {
     
     showModal(
         "😈 Soul Contract Signed!",
-        `Stats swapped with ${target.pName}!`,
-        `<p>You traded <b>${yourStat.toUpperCase()} (${yourValue})</b></p>
-        <p>For their <b>${theirStat.toUpperCase()} (${theirValue})</b></p>
+        `${stat.toUpperCase()} swapped with ${target.pName}!`,
+        `<p>Your ${stat.toUpperCase()}: <b>${devilValue}</b> → <b>${targetValue}</b></p>
+        <p>Their ${stat.toUpperCase()}: <b>${targetValue}</b> → <b>${devilValue}</b></p>
         <button class="btn btn-main" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Continue</button>`
     );
 }
@@ -4125,20 +4157,20 @@ function useGroupArcaneAlliance(idx, yesVoters) {
     const voterData = yesVoters[idx];
     const playerIdx = voterData.playerIndex;
     const h = party[playerIdx];
-    passiveUsed[playerIdx] = true;
     
     // Get other players (excluding current player)
     let otherPlayers = party.filter((p, i) => i !== playerIdx);
     
     if(otherPlayers.length === 0) {
         alert("No other players to steal from!");
-        passiveUsed[playerIdx] = false;
         return;
     }
     
+    // DON'T show their stat values - Witch has to guess!
     let playerOptions = otherPlayers.map((p) => {
         let realIdx = party.indexOf(p);
-        return `<option value="${realIdx}">${p.pName} - ${pStage.s.toUpperCase()}: ${p.cur[pStage.s]}</option>`;
+        const isReader = realIdx === readerIdx ? ' 📜' : '';
+        return `<option value="${realIdx}">${p.pName} (${p.n})${isReader}</option>`;
     }).join('');
     
     showModal(
@@ -4156,6 +4188,9 @@ function useGroupArcaneAlliance(idx, yesVoters) {
         <p style="font-size:12px; color:#666;">Your ${pStage.s.toUpperCase()}: ${h.cur[pStage.s]}</p>
         <p style="font-size:14px; margin-top:10px;">How many of YOUR points to add?</p>
         <input type="number" id="group-own-amt" class="input-hero" value="0" min="0" max="${h.cur[pStage.s]}" style="width:80px; font-size:24px; text-align:center; margin:10px 0;">
+        <div style="background: rgba(139,0,0,0.2); padding: 10px; margin: 15px 0; font-size: 12px; border: 1px solid var(--blood);">
+            <p style="color: var(--blood);">⚠️ WARNING: If they don't have enough, the spell FAILS and is wasted!</p>
+        </div>
         <button class="btn btn-main" onclick="executeGroupArcaneAlliance(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Contribute</button>`
     );
 }
@@ -4170,13 +4205,29 @@ function executeGroupArcaneAlliance(idx, yesVoters) {
     const borrowAmt = parseInt(document.getElementById('group-borrow-amt').value) || 0;
     const ownAmt = parseInt(document.getElementById('group-own-amt').value) || 0;
     
-    if(borrowAmt > ally.cur[pStage.s]) {
-        alert(`${ally.pName} doesn't have enough ${pStage.s.toUpperCase()} points!`);
+    // Mark as used BEFORE checking (ability is spent either way!)
+    passiveUsed[playerIdx] = true;
+    witchWins[playerIdx] = 0;
+    
+    if(ownAmt > h.cur[pStage.s]) {
+        alert("You don't have enough of your own points!");
+        passiveUsed[playerIdx] = false; // Give back on own stat error
         return;
     }
     
-    if(ownAmt > h.cur[pStage.s]) {
-        alert("You don't have enough points!");
+    // Check if target has enough - if not, spell FAILS!
+    if(borrowAmt > ally.cur[pStage.s]) {
+        showModal(
+            "🔮 Arcane Alliance FAILED!",
+            `${ally.pName} only has ${ally.cur[pStage.s]} ${pStage.s.toUpperCase()}!`,
+            `<div style="margin: 15px 0;">
+                <img src="${h.i}" style="width: 60px; height: 60px; border: 2px solid var(--blood); background: #000; opacity: 0.6;">
+            </div>
+            <p style="color: var(--blood);">You asked for ${borrowAmt} but they only have ${ally.cur[pStage.s]}!</p>
+            <p style="color: var(--blood); font-weight: bold;">The spell fizzles... ability wasted!</p>
+            <p style="font-size: 12px; color: #888; margin-top: 10px;">Win 3 challenges to recharge.</p>
+            <button class="btn btn-main" onclick="showGroupContribAfterPassive(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Continue to Contribute</button>`
+        );
         return;
     }
     
@@ -4222,55 +4273,69 @@ function useGroupSoulContract(idx, yesVoters) {
         }
     });
     
+    // Store for later use
+    window.groupSoulContractPlayerIdx = playerIdx;
+    window.groupSoulContractIdx = idx;
+    window.groupSoulContractYesVoters = yesVoters;
+    
     showModal(
         "😈 Soul Contract",
-        "Swap one of your stats with another player's permanently!",
+        "Swap a stat with another player permanently!",
         `<div style="margin: 15px 0;">
             <img src="${devil.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
         </div>
         <p>Choose a player to swap with:</p>
-        <select id="group-devil-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+        <select id="group-devil-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;" onchange="updateGroupSoulContractStats()">
             ${targetOptions}
         </select>
-        <p style="margin-top: 10px;">Choose YOUR stat to swap:</p>
-        <select id="group-devil-your-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
-            <option value="pow">POWER (${devil.cur.pow})</option>
-            <option value="spd">SPEED (${devil.cur.spd})</option>
-            <option value="brn">BRAIN (${devil.cur.brn})</option>
-            <option value="cha">CHARISMA (${devil.cur.cha})</option>
-            <option value="wil">WILLPOWER (${devil.cur.wil})</option>
-        </select>
-        <p style="margin-top: 10px;">Choose THEIR stat to take:</p>
-        <select id="group-devil-their-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
-            <option value="pow">POWER</option>
-            <option value="spd">SPEED</option>
-            <option value="brn">BRAIN</option>
-            <option value="cha">CHARISMA</option>
-            <option value="wil">WILLPOWER</option>
+        <p style="margin-top: 10px;">Choose stat to swap:</p>
+        <select id="group-devil-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            <option value="pow">POWER (You: ${devil.cur.pow})</option>
+            <option value="spd">SPEED (You: ${devil.cur.spd})</option>
+            <option value="brn">BRAIN (You: ${devil.cur.brn})</option>
+            <option value="cha">CHARISMA (You: ${devil.cur.cha})</option>
+            <option value="wil">WILLPOWER (You: ${devil.cur.wil})</option>
         </select>
         <div style="margin-top: 15px;">
             <button class="btn btn-main" onclick="confirmGroupSoulContract(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Sign Contract & Contribute</button>
         </div>`
     );
+    
+    setTimeout(updateGroupSoulContractStats, 100);
+}
+
+function updateGroupSoulContractStats() {
+    const playerIdx = window.groupSoulContractPlayerIdx;
+    const targetIdx = parseInt(document.getElementById('group-devil-target').value);
+    const target = party[targetIdx];
+    const devil = party[playerIdx];
+    
+    const statSelect = document.getElementById('group-devil-stat');
+    statSelect.innerHTML = `
+        <option value="pow">POWER (You: ${devil.cur.pow} ↔ Them: ${target.cur.pow})</option>
+        <option value="spd">SPEED (You: ${devil.cur.spd} ↔ Them: ${target.cur.spd})</option>
+        <option value="brn">BRAIN (You: ${devil.cur.brn} ↔ Them: ${target.cur.brn})</option>
+        <option value="cha">CHARISMA (You: ${devil.cur.cha} ↔ Them: ${target.cur.cha})</option>
+        <option value="wil">WILLPOWER (You: ${devil.cur.wil} ↔ Them: ${target.cur.wil})</option>
+    `;
 }
 
 function confirmGroupSoulContract(idx, yesVoters) {
     const voterData = yesVoters[idx];
     const playerIdx = voterData.playerIndex;
     const targetIdx = parseInt(document.getElementById('group-devil-target').value);
-    const yourStat = document.getElementById('group-devil-your-stat').value;
-    const theirStat = document.getElementById('group-devil-their-stat').value;
+    const stat = document.getElementById('group-devil-stat').value;
     
     const devil = party[playerIdx];
     const target = party[targetIdx];
     
     // Get the values
-    const yourValue = devil.cur[yourStat];
-    const theirValue = target.cur[theirStat];
+    const devilValue = devil.cur[stat];
+    const targetValue = target.cur[stat];
     
     // Perform the swap
-    devil.cur[yourStat] = theirValue;
-    target.cur[theirStat] = yourValue;
+    devil.cur[stat] = targetValue;
+    target.cur[stat] = devilValue;
     
     // Mark as used
     passiveUsed[playerIdx] = true;
@@ -4281,9 +4346,9 @@ function confirmGroupSoulContract(idx, yesVoters) {
     // Now show normal contribution screen
     showModal(
         "😈 Soul Contract Signed!",
-        `Stats swapped with ${target.pName}!`,
-        `<p>You traded <b>${yourStat.toUpperCase()} (${yourValue})</b></p>
-        <p>For their <b>${theirStat.toUpperCase()} (${theirValue})</b></p>
+        `${stat.toUpperCase()} swapped with ${target.pName}!`,
+        `<p>Your ${stat.toUpperCase()}: <b>${devilValue}</b> → <b>${targetValue}</b></p>
+        <p>Their ${stat.toUpperCase()}: <b>${targetValue}</b> → <b>${devilValue}</b></p>
         <button class="btn btn-main" onclick="showGroupContribAfterPassive(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Continue to Contribute</button>`
     );
 }
@@ -4551,6 +4616,9 @@ function useArcaneAlliance() {
         </select>
         <p style="margin-top: 10px;">How many points to steal:</p>
         <input type="number" id="witch-amount" value="1" min="1" max="99" class="input-hero" style="width: 80px; text-align: center; font-size: 20px;">
+        <div style="background: rgba(139,0,0,0.2); padding: 10px; margin: 15px 0; font-size: 12px; border: 1px solid var(--blood);">
+            <p style="color: var(--blood);">⚠️ WARNING: If they don't have enough, the spell FAILS and is wasted!</p>
+        </div>
         <div style="margin-top: 15px;">
             <button class="btn btn-main" onclick="confirmArcaneAlliance()">Steal</button>
             <button class="btn btn-skip" onclick="startFight()">Cancel</button>
@@ -4566,9 +4634,23 @@ function confirmArcaneAlliance() {
     const target = party[targetIdx];
     const witch = party[activeIdx];
     
-    // Check if target has enough
+    // Mark as used BEFORE checking (ability is spent either way!)
+    passiveUsed[activeIdx] = true;
+    witchWins[activeIdx] = 0;
+    
+    // Check if target has enough - if not, spell FAILS!
     if(target.cur[stat] < amount) {
-        alert(`${target.pName} doesn't have enough ${stat.toUpperCase()}!`);
+        showModal(
+            "🔮 Arcane Alliance FAILED!",
+            `${target.pName} only has ${target.cur[stat]} ${stat.toUpperCase()}!`,
+            `<div style="margin: 15px 0;">
+                <img src="${witch.i}" style="width: 60px; height: 60px; border: 2px solid var(--blood); background: #000; opacity: 0.6;">
+            </div>
+            <p style="color: var(--blood);">You asked for ${amount} but they only have ${target.cur[stat]}!</p>
+            <p style="color: var(--blood); font-weight: bold;">The spell fizzles... ability wasted!</p>
+            <p style="font-size: 12px; color: #888; margin-top: 10px;">Win 3 challenges to recharge.</p>
+            <button class="btn btn-main" onclick="startFight()">Continue</button>`
+        );
         return;
     }
     
@@ -4576,8 +4658,6 @@ function confirmArcaneAlliance() {
     target.cur[stat] -= amount;
     witch.cur[stat] += amount;
     
-    // Mark as used
-    passiveUsed[activeIdx] = true;
     witchBorrowedStats = {
         borrower: activeIdx,
         lender: targetIdx,
@@ -4588,7 +4668,7 @@ function confirmArcaneAlliance() {
     updatePartyUI();
     
     showModal(
-        "🔮 Arcane Alliance!",
+        "🔮 Arcane Alliance SUCCESS!",
         `Stole ${amount} ${stat.toUpperCase()} from ${target.pName}!`,
         `<p>Your ${stat.toUpperCase()} is now: <b style="color: var(--gold);">${witch.cur[stat]}</b></p>
         <p style="font-size: 12px; color: var(--blood); margin-top: 10px;">⚠️ This transfer is PERMANENT!</p>
@@ -4742,52 +4822,62 @@ function useSoulContract() {
     
     showModal(
         "😈 Soul Contract",
-        "Swap one of your stats with another player's permanently!",
+        "Swap a stat with another player permanently!",
         `<div style="margin: 15px 0;">
             <img src="${devil.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
         </div>
         <p>Choose a player to swap with:</p>
-        <select id="devil-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+        <select id="devil-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;" onchange="updateSoulContractStats()">
             ${targetOptions}
         </select>
-        <p style="margin-top: 10px;">Choose YOUR stat to swap:</p>
-        <select id="devil-your-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
-            <option value="pow">POWER (${devil.cur.pow})</option>
-            <option value="spd">SPEED (${devil.cur.spd})</option>
-            <option value="brn">BRAIN (${devil.cur.brn})</option>
-            <option value="cha">CHARISMA (${devil.cur.cha})</option>
-            <option value="wil">WILLPOWER (${devil.cur.wil})</option>
+        <p style="margin-top: 10px;">Choose stat to swap:</p>
+        <select id="devil-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            <option value="pow">POWER (You: ${devil.cur.pow})</option>
+            <option value="spd">SPEED (You: ${devil.cur.spd})</option>
+            <option value="brn">BRAIN (You: ${devil.cur.brn})</option>
+            <option value="cha">CHARISMA (You: ${devil.cur.cha})</option>
+            <option value="wil">WILLPOWER (You: ${devil.cur.wil})</option>
         </select>
-        <p style="margin-top: 10px;">Choose THEIR stat to take:</p>
-        <select id="devil-their-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
-            <option value="pow">POWER</option>
-            <option value="spd">SPEED</option>
-            <option value="brn">BRAIN</option>
-            <option value="cha">CHARISMA</option>
-            <option value="wil">WILLPOWER</option>
-        </select>
+        <div id="soul-contract-preview" style="background: rgba(139,0,0,0.2); padding: 10px; margin: 10px 0; font-size: 12px;"></div>
         <div style="margin-top: 15px;">
             <button class="btn btn-main" onclick="confirmSoulContract()">Sign Contract</button>
             <button class="btn btn-skip" onclick="closeModal()">Cancel</button>
         </div>`
     );
+    
+    // Initialize preview
+    setTimeout(updateSoulContractStats, 100);
+}
+
+function updateSoulContractStats() {
+    const targetIdx = parseInt(document.getElementById('devil-target').value);
+    const target = party[targetIdx];
+    const devil = party[activeIdx];
+    
+    const statSelect = document.getElementById('devil-stat');
+    statSelect.innerHTML = `
+        <option value="pow">POWER (You: ${devil.cur.pow} ↔ Them: ${target.cur.pow})</option>
+        <option value="spd">SPEED (You: ${devil.cur.spd} ↔ Them: ${target.cur.spd})</option>
+        <option value="brn">BRAIN (You: ${devil.cur.brn} ↔ Them: ${target.cur.brn})</option>
+        <option value="cha">CHARISMA (You: ${devil.cur.cha} ↔ Them: ${target.cur.cha})</option>
+        <option value="wil">WILLPOWER (You: ${devil.cur.wil} ↔ Them: ${target.cur.wil})</option>
+    `;
 }
 
 function confirmSoulContract() {
     const targetIdx = parseInt(document.getElementById('devil-target').value);
-    const yourStat = document.getElementById('devil-your-stat').value;
-    const theirStat = document.getElementById('devil-their-stat').value;
+    const stat = document.getElementById('devil-stat').value;
     
     const devil = party[activeIdx];
     const target = party[targetIdx];
     
     // Get the values
-    const yourValue = devil.cur[yourStat];
-    const theirValue = target.cur[theirStat];
+    const devilValue = devil.cur[stat];
+    const targetValue = target.cur[stat];
     
     // Perform the swap
-    devil.cur[yourStat] = theirValue;
-    target.cur[theirStat] = yourValue;
+    devil.cur[stat] = targetValue;
+    target.cur[stat] = devilValue;
     
     // Mark as used
     passiveUsed[activeIdx] = true;
@@ -4797,9 +4887,9 @@ function confirmSoulContract() {
     
     showModal(
         "😈 Soul Contract Signed!",
-        `Stats swapped with ${target.pName}!`,
-        `<p>You traded <b>${yourStat.toUpperCase()} (${yourValue})</b></p>
-        <p>For their <b>${theirStat.toUpperCase()} (${theirValue})</b></p>
+        `${stat.toUpperCase()} swapped with ${target.pName}!`,
+        `<p>Your ${stat.toUpperCase()}: <b>${devilValue}</b> → <b>${targetValue}</b></p>
+        <p>Their ${stat.toUpperCase()}: <b>${targetValue}</b> → <b>${devilValue}</b></p>
         <p style="margin-top:10px; font-size:12px; color:#888;">Win 3 challenges to use Soul Contract again!</p>
         <button class="btn btn-main" onclick="closeModal()">Continue</button>`
     );
