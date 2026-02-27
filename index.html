@@ -1884,6 +1884,7 @@ let passiveUsed = {};     // Track one-time passive usage
 let challengesCompleted = {}; // Track for Crowd Favorite
 let witchWins = {};       // Track Neighbor Witch wins
 let shadowControlUses = {}; // Track Dark Stalker uses
+let shadowControlledPlayers = []; // Track players forced to meditate this stage
 let witchBorrowedStats = null; // Track borrowed stats from Witch
 let ninjaContract = null; // Track Ninja's assassination contract
 let devilWins = {}; // Track Devil Boy wins for Soul Contract recharge
@@ -2222,6 +2223,23 @@ function readerSetsDifficulty(m, pts, isGroup) {
     closeModal();
     updatePartyUI();
     updateTurnLabels();
+    
+    // Check if first challenger is shadow controlled
+    if (shadowControlledPlayers.includes(activeIdx)) {
+        shadowControlledPlayers = shadowControlledPlayers.filter(idx => idx !== activeIdx);
+        
+        const forcedPlayer = party[activeIdx];
+        showModal(
+            `🗡️ Shadow Controlled!`,
+            `${forcedPlayer.pName} was forced to meditate by Dark Stalker!`,
+            `<div style="margin: 15px 0;">
+                <img src="${forcedPlayer.i}" style="width: 80px; height: 80px; border: 3px solid var(--blood); background: #000; opacity: 0.6;">
+            </div>
+            <p style="color: var(--blood);">Their turn is automatically skipped!</p>
+            <button class="btn btn-main" onclick="shadowControlSkip()">Continue</button>`
+        );
+        return;
+    }
     
     // Show who's turn it is - but DON'T reveal target!
     const challenger = party[activeIdx];
@@ -2584,6 +2602,24 @@ function challengeFailed() {
         updatePartyUI();
         updateTurnLabels();
         
+        // Check if this player is shadow controlled (forced to skip)
+        if (shadowControlledPlayers.includes(activeIdx)) {
+            // Remove from shadow controlled list
+            shadowControlledPlayers = shadowControlledPlayers.filter(idx => idx !== activeIdx);
+            
+            const forcedPlayer = party[activeIdx];
+            showModal(
+                `🗡️ Shadow Controlled!`,
+                `${forcedPlayer.pName} was forced to meditate by Dark Stalker!`,
+                `<div style="margin: 15px 0;">
+                    <img src="${forcedPlayer.i}" style="width: 80px; height: 80px; border: 3px solid var(--blood); background: #000; opacity: 0.6;">
+                </div>
+                <p style="color: var(--blood);">Their turn is automatically skipped!</p>
+                <button class="btn btn-main" onclick="shadowControlSkip()">Continue</button>`
+            );
+            return;
+        }
+        
         const nextPlayer = party[activeIdx];
         const reader = party[readerIdx];
         showModal(
@@ -2607,6 +2643,64 @@ function missionDiscarded() {
     // Clear any remaining ninja contract
     ninjaContract = null;
     advanceToNextRound();
+}
+
+// Handle shadow controlled player's automatic skip
+function shadowControlSkip() {
+    closeModal();
+    
+    // This player was forced to skip, move to next
+    let nextChallenger = (activeIdx + 1) % party.length;
+    
+    // Check if we've come back to the reader (full rotation, everyone failed/skipped)
+    if(nextChallenger === readerIdx) {
+        // Clear any remaining ninja contract
+        ninjaContract = null;
+        
+        // Everyone failed/skipped! Mission discarded.
+        showModal(
+            `💀 Mission Discarded!`,
+            `All challengers have failed or skipped!`,
+            `<p style="margin: 20px 0;">The mission "${pStage.t}" proved too difficult.</p>
+            <p style="font-size: 14px; color: #888;">No glory was earned this round.</p>
+            <button class="btn btn-main" onclick="missionDiscarded()">Next Mission</button>`
+        );
+    } else {
+        // Move to next challenger
+        activeIdx = nextChallenger;
+        updatePartyUI();
+        updateTurnLabels();
+        
+        // Check if THIS player is also shadow controlled
+        if (shadowControlledPlayers.includes(activeIdx)) {
+            shadowControlledPlayers = shadowControlledPlayers.filter(idx => idx !== activeIdx);
+            
+            const forcedPlayer = party[activeIdx];
+            showModal(
+                `🗡️ Shadow Controlled!`,
+                `${forcedPlayer.pName} was also forced to meditate!`,
+                `<div style="margin: 15px 0;">
+                    <img src="${forcedPlayer.i}" style="width: 80px; height: 80px; border: 3px solid var(--blood); background: #000; opacity: 0.6;">
+                </div>
+                <p style="color: var(--blood);">Their turn is automatically skipped!</p>
+                <button class="btn btn-main" onclick="shadowControlSkip()">Continue</button>`
+            );
+            return;
+        }
+        
+        const nextPlayer = party[activeIdx];
+        const reader = party[readerIdx];
+        showModal(
+            `${nextPlayer.pName}'s Turn`,
+            `Previous player was skipped! You're up!`,
+            `<div style="margin: 15px 0;">
+                <img src="${nextPlayer.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+            </div>
+            <p>Challenge: <b>${pStage.t}</b></p>
+            <p>Required: <b style="color: var(--gold);">${pStage.s.toUpperCase()}</b> | Target: <b style="color: var(--blood);">???</b></p>
+            <button class="btn btn-main" onclick="closeModal()">Face the Challenge</button>`
+        );
+    }
 }
 
 function advanceToNextStage() {
@@ -2710,6 +2804,9 @@ function advanceToNextRound() {
 function resetUI() {
     // Reset Quick Thief roll for new stage
     thiefRolledThisTurn = false;
+    
+    // Clear shadow controlled list for new stage (they should have been skipped by now)
+    shadowControlledPlayers = [];
     
     document.getElementById('draw-btn').style.display = 'block';
     document.getElementById('game-controls').style.display = 'none';
@@ -4561,23 +4658,52 @@ function useShadowControl() {
 }
 
 function confirmShadowControl() {
-    const targetIdx = parseInt(document.getElementById('shadow-target').value);
-    const target = party[targetIdx];
+    const selectElement = document.getElementById('shadow-target');
+    if (!selectElement) {
+        console.error('Shadow Control: select element not found!');
+        alert('Error: Could not find target selection');
+        return;
+    }
+    
+    const targetIdx = parseInt(selectElement.value);
+    console.log(`🗡️ Shadow Control targeting player index: ${targetIdx}`);
+    
+    if (isNaN(targetIdx) || targetIdx < 0 || targetIdx >= party.length) {
+        console.error('Shadow Control: Invalid target index!');
+        alert('Error: Invalid target selected');
+        return;
+    }
+    
     const stalker = party[activeIdx];
     
-    // Use the meditation
-    target.skips--;
+    console.log(`🗡️ ${stalker.pName} using Shadow Control on ${party[targetIdx].pName}`);
+    console.log(`🗡️ ${party[targetIdx].pName} meditations BEFORE: ${party[targetIdx].skips}`);
+    
+    // Use the meditation - directly on party array
+    party[targetIdx].skips = party[targetIdx].skips - 1;
+    
+    // Mark this player as FORCED to meditate when their turn comes
+    if (!shadowControlledPlayers.includes(targetIdx)) {
+        shadowControlledPlayers.push(targetIdx);
+    }
+    
+    console.log(`🗡️ ${party[targetIdx].pName} meditations AFTER: ${party[targetIdx].skips}`);
+    console.log(`🗡️ Shadow controlled players:`, shadowControlledPlayers);
     
     // Track usage
     shadowControlUses[activeIdx] = (shadowControlUses[activeIdx] || 0) + 1;
     
+    // Force update the party UI
     updatePartyUI();
+    
+    const targetName = party[targetIdx].pName;
+    const targetSkips = party[targetIdx].skips;
     
     showModal(
         "🗡️ Shadow Control!",
-        `${target.pName} was forced to meditate!`,
-        `<p>${target.pName} lost 1 meditation.</p>
-        <p>They now have <b>${target.skips}</b> meditations remaining.</p>
+        `${targetName} will be forced to meditate!`,
+        `<p>${targetName} lost 1 meditation and will be FORCED to skip when their turn comes!</p>
+        <p>They now have <b>${targetSkips}</b> meditations remaining.</p>
         <button class="btn btn-main" onclick="closeModal()">Continue</button>`
     );
 }
@@ -4980,6 +5106,13 @@ function modSt(s,v) {
 
 function finishStore() {
     for(let s in tempStats) party[storePlayerIdx].cur[s] += tempStats[s];
+    
+    // Also restore +1 meditation (up to max 3)
+    if (party[storePlayerIdx].skips < 3) {
+        party[storePlayerIdx].skips++;
+        console.log(`🧘 ${party[storePlayerIdx].pName} gained +1 meditation (now ${party[storePlayerIdx].skips})`);
+    }
+    
     storePlayerIdx++;
     
     if(storePlayerIdx < party.length) {
@@ -5010,6 +5143,7 @@ function finishStore() {
 // ============================================================
 
 function updatePartyUI() {
+    console.log('📋 updatePartyUI called - Meditations:', party.map(p => `${p.pName}: ${p.skips}`).join(', '));
     document.getElementById('party-list').innerHTML = party.map((p, i) => {
         let isReader = (i === readerIdx);
         let isActive = (i === activeIdx);
