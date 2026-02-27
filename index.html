@@ -1884,7 +1884,7 @@ let passiveUsed = {};     // Track one-time passive usage
 let challengesCompleted = {}; // Track for Crowd Favorite
 let witchWins = {};       // Track Neighbor Witch wins
 let shadowControlUses = {}; // Track Dark Stalker uses
-let shadowControlledPlayers = []; // Track players forced to meditate this stage
+let shadowControlledPlayers = []; // Track players forced to meditate (persists until they skip)
 let witchBorrowedStats = null; // Track borrowed stats from Witch
 let ninjaContract = null; // Track Ninja's assassination contract
 let devilWins = {}; // Track Devil Boy wins for Soul Contract recharge
@@ -2019,6 +2019,7 @@ function startGame() {
     nextShopAtRound = -1;
     shopIntervalIndex = 0;
     shopCount = 0;
+    shadowControlledPlayers = []; // Reset shadow control for new game
     
     // Initialize pending state variables
     pendingReaderIdx = 0;
@@ -2805,8 +2806,7 @@ function resetUI() {
     // Reset Quick Thief roll for new stage
     thiefRolledThisTurn = false;
     
-    // Clear shadow controlled list for new stage (they should have been skipped by now)
-    shadowControlledPlayers = [];
+    // NOTE: shadowControlledPlayers is NOT cleared here - effect persists until player is forced to skip
     
     document.getElementById('draw-btn').style.display = 'block';
     document.getElementById('game-controls').style.display = 'none';
