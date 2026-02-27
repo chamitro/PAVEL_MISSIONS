@@ -1512,9 +1512,9 @@
                 <p style="margin-left: 15px;">• Each non-Reader player votes YES (participate) or NO (sit out)</p>
                 <p style="margin-left: 15px;">• YES voters contribute points; NO voters contribute nothing</p>
                 <p style="margin-left: 15px;">• All contributions are combined (including affinity bonuses)</p>
-                <p style="margin-left: 15px;">• <b style="color: #2ecc71;">SUCCESS:</b> All YES voters gain Glory (+2 Easy / +4 Hard)</p>
-                <p style="margin-left: 15px;">• <b style="color: #e74c3c;">FAILURE:</b> All YES voters lose <b>-3 to ALL five stats</b>!</p>
-                <p style="margin-left: 15px;">• NO voters: No reward, no penalty</p>
+                <p style="margin-left: 15px;">• <b style="color: #2ecc71;">SUCCESS:</b> All YES voters gain Glory (+2 Easy / +4 Hard) and counts as a WIN for abilities</p>
+                <p style="margin-left: 15px;">• <b style="color: #e74c3c;">FAILURE:</b> All YES voters lose <b>-3 to ALL five stats</b> and counts as a LOSS for abilities</p>
+                <p style="margin-left: 15px;">• <b>NO voters:</b> No reward, no penalty, and does NOT affect ability streaks</p>
                 <p style="margin-left: 15px; font-style: italic; color: #888;">Note: Group missions require 3+ players and are disabled in 2-player games</p>
                 
                 <!-- SOUL-TYPE AFFINITY -->
@@ -1570,7 +1570,7 @@
                 <p style="margin-left: 20px;">When spending 4+ points on a challenge, gain +3 bonus automatically. Always active.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🍺 Drunken Paladin - Liquid Courage</b></p>
-                <p style="margin-left: 20px;">Once per stage, roll a dice. On 5-6: instantly WIN the challenge regardless of points! Resets each new stage.</p>
+                <p style="margin-left: 20px;">Once per stage, roll a dice. On 5-6: instantly WIN (counts as a full win for all abilities). On 1-4: must attempt normally. Resets each stage.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🧘 Mute Monk - Inner Peace</b></p>
                 <p style="margin-left: 20px;">When meditating, choose any stat to restore +4 points instead of just passing. Always active.</p>
@@ -1585,7 +1585,7 @@
                 <p style="margin-left: 20px;">Each challenge, roll a dice. On 5-6: steal 1 Glory from any player who has Glory. Usable once per stage.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🧌 Sad Troll - Rising Spirit</b></p>
-                <p style="margin-left: 20px;">Every 3 CONSECUTIVE wins, gain +5 to any stat. Streak resets on ANY failure (including meditation). Group wins count!</p>
+                <p style="margin-left: 20px;">Every 3 CONSECUTIVE wins, gain +5 to any stat. Streak resets on ANY failure (regular/friend fail, group fail, or meditation). Voting NO on group missions does NOT reset your streak!</p>
                 
                 <!-- DICE GAMBLING -->
                 <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎰 DICE GAMBLING</b></p>
@@ -2525,7 +2525,33 @@ function gamble(cur, usedStat) {
                     if(witchWins[activeIdx] >= 3 && passiveUsed[activeIdx]) {
                         passiveUsed[activeIdx] = false;
                         witchWins[activeIdx] = 0;
-                        passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Arcane Alliance Recharged!</p>`;
+                        passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">🔮 Arcane Alliance Recharged!</p>`;
+                    } else if(passiveUsed[activeIdx]) {
+                        passiveTriggers += `<p style="color:#888; font-size:11px;">🔮 Arcane Alliance: ${witchWins[activeIdx]}/3 wins to recharge</p>`;
+                    }
+                }
+                
+                // Devil Boy recharge
+                if(h.n === 'Devil Boy') {
+                    devilWins[activeIdx] = (devilWins[activeIdx] || 0) + 1;
+                    if(devilWins[activeIdx] >= 3 && passiveUsed[activeIdx]) {
+                        passiveUsed[activeIdx] = false;
+                        devilWins[activeIdx] = 0;
+                        passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">😈 Soul Contract Recharged!</p>`;
+                    } else if(passiveUsed[activeIdx]) {
+                        passiveTriggers += `<p style="color:#888; font-size:11px;">😈 Soul Contract: ${devilWins[activeIdx]}/3 wins to recharge</p>`;
+                    }
+                }
+                
+                // Sad Troll - Rising Spirit
+                if(h.n === 'Sad Troll') {
+                    trollConsecutiveWins[activeIdx] = (trollConsecutiveWins[activeIdx] || 0) + 1;
+                    if(trollConsecutiveWins[activeIdx] >= 3) {
+                        updatePartyUI();
+                        showRisingSpiritSelection(activeIdx, pPts, usedStat, passiveTriggers);
+                        return;
+                    } else {
+                        passiveTriggers += `<p style="color:#888; font-size:11px;">🧌 Rising Spirit: ${trollConsecutiveWins[activeIdx]}/3 consecutive wins</p>`;
                     }
                 }
                 
@@ -4598,6 +4624,46 @@ function rollPaladinDice() {
                 h.score += pPts;
                 h.cur[pStage.s] += 2;
                 challengesCompleted[activeIdx]++;
+                
+                // Track wins for all passive abilities
+                // Thug Dwarf - Brute Force
+                if(h.n === 'Thug Dwarf') {
+                    h.cur.pow += 3;
+                }
+                
+                // Babbler Rogue - Crowd Favorite
+                if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
+                    h.score += 1;
+                }
+                
+                // Neighbor Witch - recharge tracking
+                if(h.n === 'Neighbor Witch' && passiveUsed[activeIdx]) {
+                    witchWins[activeIdx] = (witchWins[activeIdx] || 0) + 1;
+                    if(witchWins[activeIdx] >= 3) {
+                        passiveUsed[activeIdx] = false;
+                        witchWins[activeIdx] = 0;
+                    }
+                }
+                
+                // Devil Boy - recharge tracking
+                if(h.n === 'Devil Boy' && passiveUsed[activeIdx]) {
+                    devilWins[activeIdx] = (devilWins[activeIdx] || 0) + 1;
+                    if(devilWins[activeIdx] >= 3) {
+                        passiveUsed[activeIdx] = false;
+                        devilWins[activeIdx] = 0;
+                    }
+                }
+                
+                // Sad Troll - consecutive win tracking
+                if(h.n === 'Sad Troll') {
+                    trollConsecutiveWins[activeIdx] = (trollConsecutiveWins[activeIdx] || 0) + 1;
+                    if(trollConsecutiveWins[activeIdx] >= 3) {
+                        // Rising Spirit triggered!
+                        updatePartyUI();
+                        showRisingSpiritSelection(activeIdx, pPts, pStage.s, '');
+                        return;
+                    }
+                }
                 
                 if(h.n === 'Lover Zombie') {
                     updatePartyUI();
