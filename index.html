@@ -1513,7 +1513,7 @@
                 <p style="margin-left: 15px;">• YES voters contribute points; NO voters contribute nothing</p>
                 <p style="margin-left: 15px;">• All contributions are combined (including affinity bonuses)</p>
                 <p style="margin-left: 15px;">• <b style="color: #2ecc71;">SUCCESS:</b> All YES voters gain Glory (+2 Easy / +4 Hard) and counts as a WIN for abilities</p>
-                <p style="margin-left: 15px;">• <b style="color: #e74c3c;">FAILURE:</b> All YES voters lose <b>-3 to ALL five stats</b> and counts as a LOSS for abilities</p>
+                <p style="margin-left: 15px;">• <b style="color: #e74c3c;">FAILURE:</b> You can <b>🎲 Gamble</b> (dice +1 to +6 added to total) for a last-ditch save! If gamble fails too, all YES voters lose <b>-3 to ALL five stats</b></p>
                 <p style="margin-left: 15px;">• <b>NO voters:</b> No reward, no penalty, and does NOT affect ability streaks</p>
                 <p style="margin-left: 15px; font-style: italic; color: #888;">Note: Group missions require 3+ players and are disabled in 2-player games</p>
                 
@@ -1836,7 +1836,44 @@ const GROUP_STAGES = [
     {t: "The Silent Vigil", d: "Keep watch all night without falling asleep!", s: "wil", e: 9, h: 14, a: ['silent','dark'], isGroup: true},
     {t: "Tavern Clean-up", d: "Endure cleaning the worst mess Pavel has ever seen!", s: "wil", e: 7, h: 12, a: ['pub','silent'], isGroup: true},
     {t: "The Drunken Parade", d: "March through town while resisting all distractions!", s: "wil", e: 8, h: 13, a: ['crowd','pub'], isGroup: true},
-    {t: "Nick Stories", d: "Stand your ground with old geezer Nick so he doesn't tell another story!", s: "wil", e: 8, h: 13, a: ['silent','crowd'], isGroup: true}
+    {t: "Nick Stories", d: "Stand your ground with old geezer Nick so he doesn't tell another story!", s: "wil", e: 8, h: 13, a: ['silent','crowd'], isGroup: true},
+
+    // ===== 25 NEW SILLY GROUP MISSIONS =====
+
+    // POW (5) - Silly
+    {t: "Panchoncho's Arm Wrestling Tourney", d: "Blackout Panchoncho is beating EVERYONE. He keeps winning. He can barely stand. How?!", s: "pow", e: 12, h: 18, a: ['pub','stone'], isGroup: true},
+    {t: "The Royal Keg Launch", d: "King Antony wants a barrel fired over the castle wall for 'diplomatic reasons'. No further questions.", s: "pow", e: 10, h: 16, a: ['pub','stone'], isGroup: true},
+    {t: "Yuumi Up a Very Tall Tree", d: "Panchoncho's cat climbed the tallest tree in Pavel and is judging everyone from above. Get her down!", s: "pow", e: 9, h: 15, a: ['pub','sky'], isGroup: true},
+    {t: "The Tavern Door is Stuck Again", d: "The pub door is frozen shut. In July. Something is deeply wrong here. Push it open!", s: "pow", e: 8, h: 14, a: ['pub','magic'], isGroup: true},
+    {t: "Troll Tug of War", d: "A confused troll grabbed a rope and won't let go. He seems to be enjoying himself. Pull harder!", s: "pow", e: 11, h: 17, a: ['stone','silent'], isGroup: true},
+
+    // SPD (5) - Silly
+    {t: "Yuumi Stole the Royal Crown", d: "The cat has King Antony's crown and is absolutely zooming around Pavel. His Majesty is NOT amused.", s: "spd", e: 10, h: 15, a: ['pub','shadow'], isGroup: true},
+    {t: "The Angry Bee Situation", d: "Someone — we won't say who — knocked over the hive. The bees have OPINIONS. RUN!", s: "spd", e: 11, h: 16, a: ['sky','shadow'], isGroup: true},
+    {t: "Hot Potato But Actually Hot", d: "A confused wizard handed you a literal fireball to hold. Pass it around before someone loses a hand!", s: "spd", e: 12, h: 17, a: ['magic','shadow'], isGroup: true},
+    {t: "The Runaway Beer Wagon", d: "The delivery wagon has no driver, no brakes, and is heading toward the tavern. Move people, MOVE!", s: "spd", e: 9, h: 14, a: ['pub','shadow'], isGroup: true},
+    {t: "The Great Barrel Roll Race", d: "Last team to roll a barrel to the tavern buys the next round. Nobody wants to buy. SPRINT!", s: "spd", e: 8, h: 13, a: ['pub','stone'], isGroup: true},
+
+    // BRN (5) - Silly
+    {t: "Nick's Impossible Story Quiz", d: "Old Nick tests if you were ACTUALLY listening to his 6-hour story. Trick question: nobody was.", s: "brn", e: 9, h: 14, a: ['pub','silent'], isGroup: true},
+    {t: "The Wrong Potion Problem", d: "Panchoncho drank something purple and is now speaking backwards and floating slightly. Find the antidote!", s: "brn", e: 10, h: 15, a: ['magic','pub'], isGroup: true},
+    {t: "King Antony's Royal Tax Math", d: "The king is doing taxes after 14 beers. He owes himself money somehow. Fix this immediately.", s: "brn", e: 11, h: 16, a: ['pub','crowd'], isGroup: true},
+    {t: "Panchoncho's Drunken Philosophy", d: "Decode Panchoncho's slurred wisdom before he passes out mid-sentence. He says it's urgent. It isn't.", s: "brn", e: 8, h: 13, a: ['pub','silent'], isGroup: true},
+    {t: "The Upside-Down Map", d: "Someone drew a map of Pavel after three ales. North is where south should be. Navigate home. Good luck.", s: "brn", e: 9, h: 15, a: ['pub','tech'], isGroup: true},
+
+    // CHA (5) - Silly
+    {t: "The Dragon Got Offended", d: "Someone called it a 'big lizard'. It heard. It's at the tavern door. Smooth this over RIGHT NOW.", s: "cha", e: 10, h: 15, a: ['sky','crowd'], isGroup: true},
+    {t: "King Antony's Karaoke Night", d: "The king insists he has a beautiful singing voice. Tell him that's true without lying. Somehow.", s: "cha", e: 9, h: 14, a: ['pub','crowd'], isGroup: true},
+    {t: "The Great Village Apology Tour", d: "After last night's 'incident', every single person in Pavel needs a personal apology. You caused it.", s: "cha", e: 11, h: 16, a: ['pub','crowd'], isGroup: true},
+    {t: "Get Nick Off the Stage", d: "Old Nick grabbed the bard's lute and won't stop. He's on his fifth encore. Nobody asked.", s: "cha", e: 8, h: 13, a: ['pub','crowd'], isGroup: true},
+    {t: "The Accidental Talent Show", d: "Panchoncho signed everyone up to perform. The village is watching. Nobody prepared a single thing.", s: "cha", e: 10, h: 16, a: ['pub','crowd'], isGroup: true},
+
+    // WIL (5) - Silly
+    {t: "Panchoncho's Cursed Drinking Game", d: "The rules are simple: don't flinch. Panchoncho just revealed a pet snake named 'Tax Collector'.", s: "wil", e: 9, h: 14, a: ['pub','undead'], isGroup: true},
+    {t: "Nick's Four-Hour Bedtime Story", d: "Stay awake until Nick finishes his story. He hasn't finished a single story since the Year of the Ork.", s: "wil", e: 10, h: 15, a: ['pub','silent'], isGroup: true},
+    {t: "The Tavern Basement Situation", d: "The pub basement hasn't been cleaned since King Antony's grandfather's reign. Descend the hatch. Together.", s: "wil", e: 8, h: 13, a: ['pub','silent'], isGroup: true},
+    {t: "Yuumi's Eternal Staring Contest", d: "The cat challenged everyone simultaneously. She has not blinked in 40 minutes. Science has no answers.", s: "wil", e: 9, h: 14, a: ['pub','silent'], isGroup: true},
+    {t: "The Free Beer Trap", d: "King Antony set out unlimited free beer and locked the doors. He's watching. He says it's a test.", s: "wil", e: 11, h: 16, a: ['pub','crowd'], isGroup: true}
 ];
 
 // Combine group missions into main deck
@@ -1902,6 +1939,7 @@ let storePoints = 5;
 let tempStats = {};
 
 let isProcessing = false; // Prevent race conditions
+let pendingGroupFailure = null; // Store data for group failure gamble
 
 // ============================================================
 // UTILITY FUNCTIONS
@@ -4184,22 +4222,10 @@ function resolveGroupChallenge(yesVoters) {
             <button class="btn btn-main" onclick="finishGroupChallenge()">Continue</button>`
         );
     } else {
-        // Failure - participants lose stats scaled by number of participants
-        const statLoss = numParticipants; // -1 per participant
+        // Failure - store data and offer gamble BEFORE applying penalties
+        const statLoss = numParticipants;
         
-        yesVoters.forEach(v => {
-            const p = party[v.playerIndex];
-            p.cur.pow = Math.max(0, p.cur.pow - statLoss);
-            p.cur.spd = Math.max(0, p.cur.spd - statLoss);
-            p.cur.brn = Math.max(0, p.cur.brn - statLoss);
-            p.cur.cha = Math.max(0, p.cur.cha - statLoss);
-            p.cur.wil = Math.max(0, p.cur.wil - statLoss);
-            
-            // Sad Troll - Reset consecutive wins on failure
-            if(p.n === 'Sad Troll') {
-                resetTrollConsecutiveWins(v.playerIndex);
-            }
-        });
+        pendingGroupFailure = { yesVoters, numParticipants, statLoss, totalContribution, contributionSummary };
         
         showModal(
             "💀 GROUP FAILED!",
@@ -4212,10 +4238,9 @@ function resolveGroupChallenge(yesVoters) {
                     <span style="color: var(--blood);">${totalContribution} / ${pTarget}</span>
                 </div>
             </div>
-            <p style="color:var(--blood); font-weight:bold;">
-                ${numParticipants} participants = -${statLoss} to ALL stats each!
-            </p>
-            <button class="btn btn-main" onclick="finishGroupChallenge()">Accept Defeat</button>`
+            <p style="margin: 15px 0;">Gamble on a dice roll (+1 to +6) to save the mission?</p>
+            <button class="btn btn-main" style="background:var(--blood); color:white; border-color:white;" onclick="groupGamble()">🎲 Gamble!</button>
+            <button class="btn btn-skip" onclick="applyGroupFailure()">Accept Defeat (-${statLoss} to ALL stats each)</button>`
         );
     }
     
@@ -4227,6 +4252,158 @@ function finishGroupChallenge() {
     groupChallengeVotes = [];
     closeModal();
     advanceToNextRound();
+}
+
+function groupGamble() {
+    const { totalContribution, numParticipants, statLoss, yesVoters, contributionSummary } = pendingGroupFailure;
+    
+    showModal("🎲 Rolling the Bones...", "The group's fate decided by chance!", `<div id="dice-container" style="margin: 30px 0;"></div>`);
+    
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+    
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const luck = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(luck);
+        
+        setTimeout(() => {
+            const newTotal = totalContribution + luck;
+            
+            if(newTotal >= pTarget) {
+                // Miraculous success! Apply group success rewards
+                pendingGroupFailure = null;
+                
+                yesVoters.forEach(v => {
+                    const p = party[v.playerIndex];
+                    p.score += pPts * 2;
+                    
+                    const contrib = groupChallengeContributions.find(c => c.playerIndex === v.playerIndex);
+                    if(contrib && contrib.contribution > 0) {
+                        p.cur[pStage.s] += 2;
+                    }
+                    
+                    if(p.n === 'Thug Dwarf') p.cur.pow += 3;
+                    
+                    challengesCompleted[v.playerIndex] = (challengesCompleted[v.playerIndex] || 0) + 1;
+                    if(p.n === 'Babbler Rogue' && challengesCompleted[v.playerIndex] % 3 === 0) {
+                        p.score += 1;
+                    }
+                    
+                    if(p.n === 'Neighbor Witch' && passiveUsed[v.playerIndex]) {
+                        witchWins[v.playerIndex] = (witchWins[v.playerIndex] || 0) + 1;
+                        if(witchWins[v.playerIndex] >= 3) {
+                            passiveUsed[v.playerIndex] = false;
+                            witchWins[v.playerIndex] = 0;
+                        }
+                    }
+                    
+                    if(p.n === 'Friendly AI' && passiveUsed[v.playerIndex]) {
+                        friendlyAIWins[v.playerIndex] = (friendlyAIWins[v.playerIndex] || 0) + 1;
+                        if(friendlyAIWins[v.playerIndex] >= 3) {
+                            passiveUsed[v.playerIndex] = false;
+                            friendlyAIWins[v.playerIndex] = 0;
+                        }
+                    }
+                    
+                    if(p.n === 'Devil Boy' && passiveUsed[v.playerIndex]) {
+                        devilWins[v.playerIndex] = (devilWins[v.playerIndex] || 0) + 1;
+                        if(devilWins[v.playerIndex] >= 3) {
+                            passiveUsed[v.playerIndex] = false;
+                            devilWins[v.playerIndex] = 0;
+                        }
+                    }
+                    
+                    if(p.n === 'Sad Troll') {
+                        checkRisingSpirit(v.playerIndex);
+                    }
+                });
+                
+                updatePartyUI();
+                
+                // Check if Rising Spirit triggered
+                if(window.pendingRisingSpiritPlayerIdx !== null && window.pendingRisingSpiritPlayerIdx !== undefined) {
+                    const trollIdx = window.pendingRisingSpiritPlayerIdx;
+                    const troll = party[trollIdx];
+                    showModal(
+                        "🧌 Rising Spirit!",
+                        `${troll.pName} has won 3 consecutive challenges!`,
+                        `<div style="margin: 15px 0;">
+                            <img src="${troll.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+                        </div>
+                        <p>Choose a stat to gain +5:</p>
+                        <select id="troll-stat" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+                            <option value="pow">POWER (${troll.cur.pow})</option>
+                            <option value="spd">SPEED (${troll.cur.spd})</option>
+                            <option value="brn">BRAIN (${troll.cur.brn})</option>
+                            <option value="cha">CHARISMA (${troll.cur.cha})</option>
+                            <option value="wil">WILLPOWER (${troll.cur.wil})</option>
+                        </select>
+                        <button class="btn btn-main" onclick="confirmRisingSpiritGroupMission(${trollIdx})">Gain +5</button>`
+                    );
+                    return;
+                }
+                
+                showModal(
+                    "🎲 MIRACULOUS GROUP SUCCESS!",
+                    `Rolled a ${luck}! The dice gods are merciful!`,
+                    `<div style="display:flex; justify-content:space-around; margin:20px 0;">
+                        <div><b style="font-size:24px; color:var(--gold);">${newTotal}</b><br><small>New Total</small></div>
+                        <div style="opacity:0.3; font-size:24px;">VS</div>
+                        <div><b style="font-size:24px; color:var(--blood);">${pTarget}</b><br><small>Target</small></div>
+                    </div>
+                    <p style="color:#1b5e20; font-weight:bold;">All participants gain +${pPts * 2} Glory!</p>
+                    <button class="btn btn-main" onclick="finishGroupChallenge()">Continue</button>`
+                );
+            } else {
+                // Gamble failed - now accept defeat
+                showModal(
+                    "💀 Gamble Failed!",
+                    `Rolled a ${luck}. Not enough.`,
+                    `<div style="display:flex; justify-content:space-around; margin:20px 0;">
+                        <div><b style="font-size:24px; color:var(--gold);">${newTotal}</b><br><small>New Total</small></div>
+                        <div style="opacity:0.3; font-size:24px;">VS</div>
+                        <div><b style="font-size:24px; color:var(--blood);">${pTarget}</b><br><small>Target</small></div>
+                    </div>
+                    <p style="color:var(--blood);">The dice have spoken. Time to pay the price.</p>
+                    <button class="btn btn-main" onclick="applyGroupFailure()">Accept Defeat</button>`
+                );
+            }
+        }, 500);
+    }, 900);
+}
+
+function applyGroupFailure() {
+    const { yesVoters, numParticipants, statLoss } = pendingGroupFailure;
+    pendingGroupFailure = null;
+    
+    yesVoters.forEach(v => {
+        const p = party[v.playerIndex];
+        p.cur.pow = Math.max(0, p.cur.pow - statLoss);
+        p.cur.spd = Math.max(0, p.cur.spd - statLoss);
+        p.cur.brn = Math.max(0, p.cur.brn - statLoss);
+        p.cur.cha = Math.max(0, p.cur.cha - statLoss);
+        p.cur.wil = Math.max(0, p.cur.wil - statLoss);
+        
+        if(p.n === 'Sad Troll') {
+            resetTrollConsecutiveWins(v.playerIndex);
+        }
+    });
+    
+    updatePartyUI();
+    
+    showModal(
+        "💀 GROUP DEFEATED!",
+        `Mission failed. Everyone suffers.`,
+        `<p style="color:var(--blood); font-weight:bold; font-size:18px;">-${statLoss} to ALL stats for each participant!</p>
+        <p style="font-size:12px; color:#888; margin-top:10px;">${numParticipants} heroes participated = -${statLoss} per stat</p>
+        <button class="btn btn-main" onclick="finishGroupChallenge()">Limp Away</button>`
+    );
 }
 
 // ============================================================
