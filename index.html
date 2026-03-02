@@ -3935,6 +3935,8 @@ function resolveFriendChallengeWithAutoWin() {
 let groupChallengeContributions = [];
 let groupChallengeVotes = [];
 let groupChallengeVotingIndex = 0;
+let groupVotingOrder = [];
+let groupForcedNoPlayers = [];
 
 function readerSetsDifficultyGroup(m, pts) {
     pTarget = pStage[m];
@@ -3953,26 +3955,24 @@ function readerSetsDifficultyGroup(m, pts) {
 
 function startGroupVoting() {
     groupChallengeVotes = [];
+    groupForcedNoPlayers = [];
     groupChallengeVotingIndex = 0;
-    
-    // Skip the reader
-    if(groupChallengeVotingIndex === readerIdx) {
-        groupChallengeVotingIndex++;
+
+    // Build clockwise voting order starting from player next to reader
+    groupVotingOrder = [];
+    for(let i = 1; i < party.length; i++) {
+        const idx = (readerIdx + i) % party.length;
+        groupVotingOrder.push(idx);
     }
-    
+
     collectGroupVote();
 }
 
 function collectGroupVote() {
-    // Skip reader
-    while(groupChallengeVotingIndex === readerIdx) {
-        groupChallengeVotingIndex++;
-    }
-    
-    if(groupChallengeVotingIndex >= party.length) {
+    if(groupChallengeVotingIndex >= groupVotingOrder.length) {
         // All votes collected
         const yesVotes = groupChallengeVotes.filter(v => v.vote === 'yes');
-        
+
         if(yesVotes.length === 0) {
             showModal("🤝 Group Mission Declined", "No one wants to participate!", `
                 <p>The group mission is discarded.</p>
@@ -3983,9 +3983,40 @@ function collectGroupVote() {
         }
         return;
     }
-    
-    const currentHero = party[groupChallengeVotingIndex];
-    
+
+    const actualIdx = groupVotingOrder[groupChallengeVotingIndex];
+    const currentHero = party[actualIdx];
+
+    // Check if this player was forced to vote NO by Shadow Control
+    if(groupForcedNoPlayers.includes(actualIdx)) {
+        groupChallengeVotes.push({ playerIndex: actualIdx, vote: 'no' });
+        groupChallengeVotingIndex++;
+        showModal(
+            `🗡️ Shadow Controlled!`,
+            `${currentHero.pName} is forced to PASS!`,
+            `<div style="margin: 15px 0;">
+                <img src="${currentHero.i}" style="width: 80px; height: 80px; border: 3px solid var(--blood); background: #000;">
+            </div>
+            <p>Dark Stalker's Shadow Control forces ${currentHero.pName} to pass on this mission!</p>
+            <p style="font-size:12px; color:var(--blood);">-1 Meditation used</p>
+            <button class="btn btn-main" onclick="collectGroupVote()">Continue</button>`
+        );
+        return;
+    }
+
+    // Check for ability buttons during voting
+    let abilityButtons = '';
+
+    // Dark Stalker - Shadow Control
+    if(currentHero.n === 'Dark Stalker' && canUseShadowControl(actualIdx)) {
+        abilityButtons += `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useGroupShadowControl()">🗡️ Shadow Control (Force NO Vote)</button>`;
+    }
+
+    // Fancy Ninja - Assassination Contract
+    if(currentHero.n === 'Fancy Ninja' && ninjaContract === null) {
+        abilityButtons += `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="setupGroupAssassinationContract()">🥷 Assassination Contract</button>`;
+    }
+
     showModal(
         `${currentHero.pName}'s Decision`,
         `Will you join this group mission?`,
@@ -4001,16 +4032,18 @@ function collectGroupVote() {
         <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <button class="btn btn-main" style="background: #1b5e20; border-color: #4caf50;" onclick="voteGroup('yes')">✓ JOIN</button>
             <button class="btn btn-skip" onclick="voteGroup('no')">✗ PASS</button>
-        </div>`
+        </div>
+        ${abilityButtons}`
     );
 }
 
 function voteGroup(vote) {
+    const actualIdx = groupVotingOrder[groupChallengeVotingIndex];
     groupChallengeVotes.push({
-        playerIndex: groupChallengeVotingIndex,
+        playerIndex: actualIdx,
         vote: vote
     });
-    
+
     groupChallengeVotingIndex++;
     collectGroupVote();
 }
@@ -4154,6 +4187,13 @@ function resolveGroupChallenge(yesVoters) {
             }
         });
         
+        // Store success data for chained modals
+        window.pendingGroupSuccessData = { totalContribution, contributionSummary, yesVoters };
+        window.pendingGroupSuccessModalFn = 'showGroupSuccessModal';
+
+        // Resolve ninja contract (success = ninja loses if target voted YES)
+        resolveGroupNinjaContract(yesVoters, true);
+
         // Check if Rising Spirit triggered - if so, show that first
         if(window.pendingRisingSpiritPlayerIdx !== null && window.pendingRisingSpiritPlayerIdx !== undefined) {
             const trollIdx = window.pendingRisingSpiritPlayerIdx;
@@ -4176,21 +4216,9 @@ function resolveGroupChallenge(yesVoters) {
             );
             return;
         }
-        
-        showModal(
-            "🏆 GROUP SUCCESS!",
-            pStage.t,
-            `<div style="text-align: left; background: rgba(0,0,0,0.1); padding: 10px; margin: 15px 0;">
-                ${contributionSummary}
-                <hr style="border-top: 1px solid #8e7b55; margin: 10px 0;">
-                <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                    <span>TOTAL:</span>
-                    <span style="color: var(--gold);">${totalContribution} / ${pTarget}</span>
-                </div>
-            </div>
-            <p style="color:#1b5e20; font-weight:bold;">All participants gain +${pPts * 2} Glory!</p>
-            <button class="btn btn-main" onclick="finishGroupChallenge()">Continue</button>`
-        );
+
+        // Check for Lover Zombie cursed embrace
+        checkGroupLoverZombie(yesVoters, 'showGroupSuccessModal');
     } else {
         // Failure - store data and offer gamble BEFORE applying penalties
         const statLoss = numParticipants;
@@ -4220,8 +4248,59 @@ function resolveGroupChallenge(yesVoters) {
 function finishGroupChallenge() {
     groupChallengeContributions = [];
     groupChallengeVotes = [];
+    groupVotingOrder = [];
+    groupForcedNoPlayers = [];
+    ninjaContract = null;
+    window.pendingGroupSuccessData = null;
+    window.pendingGambleSuccessData = null;
+    window.pendingGroupSuccessModalFn = null;
+    window.lastNinjaContractResult = null;
     closeModal();
     advanceToNextRound();
+}
+
+function showGroupSuccessModal() {
+    const { totalContribution, contributionSummary } = window.pendingGroupSuccessData;
+    window.pendingGroupSuccessData = null;
+    const ninjaInfo = window.lastNinjaContractResult || '';
+    window.lastNinjaContractResult = null;
+
+    showModal(
+        "🏆 GROUP SUCCESS!",
+        pStage.t,
+        `<div style="text-align: left; background: rgba(0,0,0,0.1); padding: 10px; margin: 15px 0;">
+            ${contributionSummary}
+            <hr style="border-top: 1px solid #8e7b55; margin: 10px 0;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                <span>TOTAL:</span>
+                <span style="color: var(--gold);">${totalContribution} / ${pTarget}</span>
+            </div>
+        </div>
+        <p style="color:#1b5e20; font-weight:bold;">All participants gain +${pPts * 2} Glory!</p>
+        ${ninjaInfo}
+        <button class="btn btn-main" onclick="finishGroupChallenge()">Continue</button>`
+    );
+}
+
+function showGambleGroupSuccessModal() {
+    const { luck, newTotal } = window.pendingGambleSuccessData;
+    window.pendingGambleSuccessData = null;
+    window.pendingGroupSuccessData = null;
+    const ninjaInfo = window.lastNinjaContractResult || '';
+    window.lastNinjaContractResult = null;
+
+    showModal(
+        "🎲 MIRACULOUS GROUP SUCCESS!",
+        `Rolled a ${luck}! The dice gods are merciful!`,
+        `<div style="display:flex; justify-content:space-around; margin:20px 0;">
+            <div><b style="font-size:24px; color:var(--gold);">${newTotal}</b><br><small>New Total</small></div>
+            <div style="opacity:0.3; font-size:24px;">VS</div>
+            <div><b style="font-size:24px; color:var(--blood);">${pTarget}</b><br><small>Target</small></div>
+        </div>
+        <p style="color:#1b5e20; font-weight:bold;">All participants gain +${pPts * 2} Glory!</p>
+        ${ninjaInfo}
+        <button class="btn btn-main" onclick="finishGroupChallenge()">Continue</button>`
+    );
 }
 
 function groupGamble() {
@@ -4287,7 +4366,15 @@ function groupGamble() {
                 });
                 
                 updatePartyUI();
-                
+
+                // Store gamble success data for chained modals
+                window.pendingGambleSuccessData = { luck, newTotal, yesVoters };
+                window.pendingGroupSuccessData = { totalContribution: newTotal, contributionSummary, yesVoters };
+                window.pendingGroupSuccessModalFn = 'showGambleGroupSuccessModal';
+
+                // Resolve ninja contract (gamble success = ninja loses if target voted YES)
+                resolveGroupNinjaContract(yesVoters, true);
+
                 // Check if Rising Spirit triggered
                 if(window.pendingRisingSpiritPlayerIdx !== null && window.pendingRisingSpiritPlayerIdx !== undefined) {
                     const trollIdx = window.pendingRisingSpiritPlayerIdx;
@@ -4310,18 +4397,9 @@ function groupGamble() {
                     );
                     return;
                 }
-                
-                showModal(
-                    "🎲 MIRACULOUS GROUP SUCCESS!",
-                    `Rolled a ${luck}! The dice gods are merciful!`,
-                    `<div style="display:flex; justify-content:space-around; margin:20px 0;">
-                        <div><b style="font-size:24px; color:var(--gold);">${newTotal}</b><br><small>New Total</small></div>
-                        <div style="opacity:0.3; font-size:24px;">VS</div>
-                        <div><b style="font-size:24px; color:var(--blood);">${pTarget}</b><br><small>Target</small></div>
-                    </div>
-                    <p style="color:#1b5e20; font-weight:bold;">All participants gain +${pPts * 2} Glory!</p>
-                    <button class="btn btn-main" onclick="finishGroupChallenge()">Continue</button>`
-                );
+
+                // Check for Lover Zombie cursed embrace
+                checkGroupLoverZombie(yesVoters, 'showGambleGroupSuccessModal');
             } else {
                 // Gamble failed - now accept defeat
                 showModal(
@@ -4343,7 +4421,10 @@ function groupGamble() {
 function applyGroupFailure() {
     const { yesVoters, numParticipants, statLoss } = pendingGroupFailure;
     pendingGroupFailure = null;
-    
+
+    // Resolve ninja contract on failure (ninja steals if target voted YES)
+    resolveGroupNinjaContract(yesVoters, false);
+
     yesVoters.forEach(v => {
         const p = party[v.playerIndex];
         p.cur.pow = Math.max(0, p.cur.pow - statLoss);
@@ -4351,19 +4432,23 @@ function applyGroupFailure() {
         p.cur.brn = Math.max(0, p.cur.brn - statLoss);
         p.cur.cha = Math.max(0, p.cur.cha - statLoss);
         p.cur.wil = Math.max(0, p.cur.wil - statLoss);
-        
+
         if(p.n === 'Sad Troll') {
             resetTrollConsecutiveWins(v.playerIndex);
         }
     });
-    
+
     updatePartyUI();
-    
+
+    const ninjaInfo = window.lastNinjaContractResult || '';
+    window.lastNinjaContractResult = null;
+
     showModal(
         "💀 GROUP DEFEATED!",
         `Mission failed. Everyone suffers.`,
         `<p style="color:var(--blood); font-weight:bold; font-size:18px;">-${statLoss} to ALL stats for each participant!</p>
         <p style="font-size:12px; color:#888; margin-top:10px;">${numParticipants} heroes participated = -${statLoss} per stat</p>
+        ${ninjaInfo}
         <button class="btn btn-main" onclick="finishGroupChallenge()">Limp Away</button>`
     );
 }
@@ -4715,6 +4800,250 @@ function confirmGroupLuckyFingers(idx, yesVoters) {
         `<p>${target.pName}: ${target.score} Glory</p>
         <p>${thief.pName}: ${thief.score} Glory</p>
         <button class="btn btn-main" onclick="showGroupContribAfterPassive(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Continue to Contribute</button>`
+    );
+}
+
+// ============================================================
+// GROUP VOTING - DARK STALKER SHADOW CONTROL
+// ============================================================
+
+function useGroupShadowControl() {
+    const stalkerIdx = groupVotingOrder[groupChallengeVotingIndex];
+    const stalker = party[stalkerIdx];
+
+    if(!canUseShadowControl(stalkerIdx)) {
+        alert("Shadow Control has no uses remaining!");
+        return;
+    }
+
+    // Build list of targets: players who haven't voted yet, have meditations > 0, not reader
+    let targetOptions = '';
+    let hasTargets = false;
+    for(let i = groupChallengeVotingIndex + 1; i < groupVotingOrder.length; i++) {
+        const targetIdx = groupVotingOrder[i];
+        const target = party[targetIdx];
+        if(target.skips > 0 && !groupForcedNoPlayers.includes(targetIdx)) {
+            targetOptions += `<option value="${targetIdx}">${target.pName} (${target.skips} meditations)</option>`;
+            hasTargets = true;
+        }
+    }
+
+    if(!hasTargets) {
+        showModal(
+            "🗡️ Shadow Control",
+            "No valid targets!",
+            `<p>No remaining voters have meditations left.</p>
+            <button class="btn btn-main" onclick="collectGroupVote()">OK</button>`
+        );
+        return;
+    }
+
+    let maxUses = party.length >= 4 ? 3 : (party.length >= 3 ? 2 : 1);
+    let usedCount = shadowControlUses[stalkerIdx] || 0;
+
+    showModal(
+        "🗡️ Shadow Control",
+        `Force a player to vote NO (${maxUses - usedCount} uses left)`,
+        `<div style="margin: 15px 0;">
+            <img src="${stalker.i}" style="width: 60px; height: 60px; border: 2px solid var(--gold); background: #000;">
+        </div>
+        <p>Choose a player to force NO:</p>
+        <select id="group-shadow-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            ${targetOptions}
+        </select>
+        <p style="font-size: 12px; color: #888;">Target loses 1 meditation and is forced to PASS.</p>
+        <div style="margin-top: 15px;">
+            <button class="btn btn-main" onclick="confirmGroupShadowControl()">Use Shadow Control</button>
+            <button class="btn btn-skip" onclick="collectGroupVote()">Cancel</button>
+        </div>`
+    );
+}
+
+function confirmGroupShadowControl() {
+    const selectEl = document.getElementById('group-shadow-target');
+    if(!selectEl) return;
+
+    const targetIdx = parseInt(selectEl.value);
+    const stalkerIdx = groupVotingOrder[groupChallengeVotingIndex];
+    const target = party[targetIdx];
+
+    // Deduct meditation
+    target.skips = Math.max(0, target.skips - 1);
+
+    // Mark as forced NO
+    groupForcedNoPlayers.push(targetIdx);
+
+    // Track usage
+    shadowControlUses[stalkerIdx] = (shadowControlUses[stalkerIdx] || 0) + 1;
+
+    updatePartyUI();
+
+    showModal(
+        "🗡️ Shadow Control!",
+        `${target.pName} will be forced to PASS!`,
+        `<p>${target.pName} lost 1 meditation and will be forced to vote NO!</p>
+        <p>They now have <b>${target.skips}</b> meditations remaining.</p>
+        <button class="btn btn-main" onclick="collectGroupVote()">Continue to Vote</button>`
+    );
+}
+
+// ============================================================
+// GROUP VOTING - FANCY NINJA ASSASSINATION CONTRACT
+// ============================================================
+
+function setupGroupAssassinationContract() {
+    const ninjaIdx = groupVotingOrder[groupChallengeVotingIndex];
+    const ninja = party[ninjaIdx];
+
+    // Build list of targets (not reader, not self)
+    let targetOptions = '';
+    party.forEach((p, idx) => {
+        if(idx !== ninjaIdx && idx !== readerIdx) {
+            targetOptions += `<option value="${idx}">${p.pName} (${p.n})</option>`;
+        }
+    });
+
+    if(targetOptions === '') {
+        alert("No valid targets!");
+        return;
+    }
+
+    showModal(
+        "🥷 Assassination Contract",
+        "Bet on another player's group vote",
+        `<div style="margin: 15px 0;">
+            <img src="${ninja.i}" style="width: 60px; height: 60px; border: 2px solid var(--gold); background: #000;">
+        </div>
+        <p>Choose your target:</p>
+        <select id="group-ninja-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            ${targetOptions}
+        </select>
+        <p style="font-size: 12px; margin-top: 10px; color: #888;">
+            If group <b style="color: var(--blood);">FAILS</b> & target voted YES: You steal +1 ${pStage.s.toUpperCase()}<br>
+            If group <b style="color: #4caf50;">SUCCEEDS</b> & target voted YES: You lose -1 ${pStage.s.toUpperCase()}<br>
+            If target voted NO: Contract void
+        </p>
+        <div style="margin-top: 15px;">
+            <button class="btn btn-main" onclick="confirmGroupAssassinationContract()">Set Contract</button>
+            <button class="btn btn-skip" onclick="collectGroupVote()">Cancel</button>
+        </div>`
+    );
+}
+
+function confirmGroupAssassinationContract() {
+    const targetIdx = parseInt(document.getElementById('group-ninja-target').value);
+    const ninjaIdx = groupVotingOrder[groupChallengeVotingIndex];
+    const target = party[targetIdx];
+
+    ninjaContract = {
+        ninja: ninjaIdx,
+        target: targetIdx,
+        round: round,
+        stat: pStage.s,
+        isGroupContract: true
+    };
+
+    showModal(
+        "🥷 Contract Set!",
+        `Target: ${target.pName}`,
+        `<p>You've placed a contract on ${target.pName}.</p>
+        <p style="font-size: 12px; color: #888;">Resolution depends on group outcome and target's vote.</p>
+        <button class="btn btn-main" onclick="collectGroupVote()">Continue to Vote</button>`
+    );
+}
+
+function resolveGroupNinjaContract(yesVoters, groupSucceeded) {
+    if(!ninjaContract || !ninjaContract.isGroupContract) {
+        window.lastNinjaContractResult = null;
+        return;
+    }
+
+    const ninja = party[ninjaContract.ninja];
+    const target = party[ninjaContract.target];
+    const stat = ninjaContract.stat;
+    const targetVotedYes = yesVoters.some(v => v.playerIndex === ninjaContract.target && v.vote === 'yes');
+
+    if(!targetVotedYes) {
+        // Contract void - target voted NO
+        window.lastNinjaContractResult = `<p style="font-size:12px; color:#888; margin-top:8px;">🥷 Assassination Contract void - ${target.pName} voted NO.</p>`;
+        ninjaContract = null;
+        return;
+    }
+
+    if(groupSucceeded) {
+        // Ninja loses -1 stat (target voted YES and group succeeded)
+        ninja.cur[stat] = Math.max(0, ninja.cur[stat] - 1);
+        window.lastNinjaContractResult = `<p style="font-size:12px; color:var(--blood); margin-top:8px;">🥷 Contract Backfired! ${ninja.pName} loses -1 ${stat.toUpperCase()} (${target.pName} voted YES & group won)</p>`;
+        ninjaContract = null;
+    } else {
+        // Ninja steals +1 stat (target voted YES and group failed)
+        target.cur[stat] = Math.max(0, target.cur[stat] - 1);
+        ninja.cur[stat] += 1;
+        window.lastNinjaContractResult = `<p style="font-size:12px; color:#4caf50; margin-top:8px;">🥷 Contract Fulfilled! ${ninja.pName} steals +1 ${stat.toUpperCase()} from ${target.pName}</p>`;
+        ninjaContract = null;
+    }
+    updatePartyUI();
+}
+
+// ============================================================
+// GROUP MISSION - LOVER ZOMBIE CURSED EMBRACE
+// ============================================================
+
+function checkGroupLoverZombie(yesVoters, onCompleteFnName) {
+    // Check if any YES voter is Lover Zombie
+    const zombieVoter = yesVoters.find(v => party[v.playerIndex].n === 'Lover Zombie');
+    if(!zombieVoter) {
+        window[onCompleteFnName]();
+        return;
+    }
+
+    window.pendingGroupZombieCallback = onCompleteFnName;
+    window.pendingGroupZombieIdx = zombieVoter.playerIndex;
+
+    const zombie = party[zombieVoter.playerIndex];
+    showModal(
+        "💀 Cursed Embrace",
+        `${zombie.pName}'s victory comes at a cost!`,
+        `<div style="margin: 15px 0;">
+            <img src="${zombie.i}" style="width: 80px; height: 80px; border: 3px solid var(--blood); background: #000;">
+        </div>
+        <p>Choose a stat to drain from ALL other players:</p>
+        <select id="group-zombie-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin:15px 0;">
+            <option value="pow">POW</option>
+            <option value="spd">SPD</option>
+            <option value="brn">BRN</option>
+            <option value="cha">CHA</option>
+            <option value="wil">WIL</option>
+        </select>
+        <p style="font-size:12px;">All others lose -2, ${zombie.pName} gains +1</p>
+        <button class="btn btn-main" onclick="applyGroupZombieDebuff()">Drain!</button>`
+    );
+}
+
+function applyGroupZombieDebuff() {
+    const chosenStat = document.getElementById('group-zombie-stat').value;
+    const zombieIdx = window.pendingGroupZombieIdx;
+    const zombie = party[zombieIdx];
+
+    party.forEach((p, idx) => {
+        if(idx !== zombieIdx) {
+            p.cur[chosenStat] = Math.max(0, p.cur[chosenStat] - 2);
+        }
+    });
+    zombie.cur[chosenStat] += 1;
+
+    updatePartyUI();
+
+    const callbackName = window.pendingGroupZombieCallback;
+    window.pendingGroupZombieCallback = null;
+    window.pendingGroupZombieIdx = null;
+
+    showModal(
+        "💀 Cursed Embrace!",
+        `Drained ${chosenStat.toUpperCase()} from all players!`,
+        `<p>All other players lose -2 ${chosenStat.toUpperCase()}</p>
+        <p>${zombie.pName} gains +1 ${chosenStat.toUpperCase()}</p>
+        <button class="btn btn-main" onclick="${callbackName}()">Continue</button>`
     );
 }
 
@@ -5428,20 +5757,31 @@ function confirmRisingSpiritFriendChallenge(playerIdx, anyoneWon) {
 function confirmRisingSpiritGroupMission(playerIdx) {
     const stat = document.getElementById('troll-stat').value;
     const player = party[playerIdx];
-    
+
     player.cur[stat] += 5;
     trollConsecutiveWins[playerIdx] = 0; // Reset counter
     window.pendingRisingSpiritPlayerIdx = null; // Clear pending
-    
+
     updatePartyUI();
-    
-    // Show result then continue
-    showModal(
-        "🧌 Rising Spirit!",
-        `${player.pName} gained +5 ${stat.toUpperCase()}!`,
-        `<p>New ${stat.toUpperCase()}: <b>${player.cur[stat]}</b></p>
-        <button class="btn btn-main" onclick="finishGroupChallenge()">Continue</button>`
-    );
+
+    // Show result then check Lover Zombie before finishing
+    const successData = window.pendingGroupSuccessData;
+    const successModalFn = window.pendingGroupSuccessModalFn || 'showGroupSuccessModal';
+    if(successData) {
+        showModal(
+            "🧌 Rising Spirit!",
+            `${player.pName} gained +5 ${stat.toUpperCase()}!`,
+            `<p>New ${stat.toUpperCase()}: <b>${player.cur[stat]}</b></p>
+            <button class="btn btn-main" onclick="checkGroupLoverZombie(window.pendingGroupSuccessData.yesVoters, '${successModalFn}')">Continue</button>`
+        );
+    } else {
+        showModal(
+            "🧌 Rising Spirit!",
+            `${player.pName} gained +5 ${stat.toUpperCase()}!`,
+            `<p>New ${stat.toUpperCase()}: <b>${player.cur[stat]}</b></p>
+            <button class="btn btn-main" onclick="finishGroupChallenge()">Continue</button>`
+        );
+    }
 }
 
 function resetTrollConsecutiveWins(playerIdx) {
