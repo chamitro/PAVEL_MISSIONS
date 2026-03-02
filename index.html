@@ -1238,7 +1238,6 @@
             
             <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px; width: 100%;">Return to Scrolls</button>
         </div>
-        </div>
 
         <!-- Scroll 3: The Heroes -->
         <div id="intro-book-3" class="hero-sheet book-container" style="margin-top: 20px; display: none;">
@@ -4415,7 +4414,6 @@ function executeGroupSystemOverride(idx, yesVoters) {
     // Continue to normal contribution flow with refreshed stats
     collectGroupContribution(idx, yesVoters);
 }
-}
 
 function useGroupArcaneAlliance(idx, yesVoters) {
     const voterData = yesVoters[idx];
@@ -4840,7 +4838,7 @@ function cancelSystemOverride() {
     // Ability was not actually used — undo passiveUsed flag if it was set prematurely
     // (button is shown only when !passiveUsed, so just close)
     closeModal();
-    showChallengeModal();
+    startFight();
 }
 
 function executeSystemOverride() {
@@ -4859,7 +4857,7 @@ function executeSystemOverride() {
         <p style="color:#f3cf7a; font-weight:bold;">All stats restored to initial values!</p>
         <p style="font-size:13px; color:#aaa; margin-top:10px;">POW:6 &nbsp;|&nbsp; SPD:5 &nbsp;|&nbsp; BRN:6 &nbsp;|&nbsp; CHA:2 &nbsp;|&nbsp; WIL:6</p>
         <p style="font-size:12px; color:#c8a04a; margin-top:8px;">⚠ This ability is now permanently spent.</p>
-        <button class="btn btn-main" style="margin-top:15px;" onclick="closeModal(); showChallengeModal();">Continue</button>
+        <button class="btn btn-main" style="margin-top:15px;" onclick="closeModal(); startFight();">Continue</button>
     `);
 }
 
