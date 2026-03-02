@@ -1269,7 +1269,7 @@
                     </div>
                 </div>
                 <p class="hero-card-desc">Sentient construct from a forgotten age. Analyzes problems with inhuman precision.</p>
-                <p class="hero-card-ability"><b>⚡ System Override:</b> Use ANY stat for a challenge. Recharges on friend challenge win.</p>
+                <p class="hero-card-ability"><b>⚡ System Override:</b> Once per game, reset all your stats to their initial values (POW:6 SPD:5 BRN:6 CHA:2 WIL:6).</p>
             </div>
             
             <!-- Thug Dwarf -->
@@ -1552,6 +1552,7 @@
                 <p style="margin-left: 20px;">Force any player to use one of their Meditations. Limited uses based on party size (2p=1, 3p=2, 4+p=3). <b>Resets at each shop.</b></p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🤖 Friendly AI - System Override</b></p>
+                <p style="margin-left: 20px; font-size: 13px;">Once per game, reset ALL your stats back to your starting values (POW:6 SPD:5 BRN:6 CHA:2 WIL:6). Cannot be recharged.</p>
                 <p style="margin-left: 20px;">Use ANY stat for a challenge instead of the required one. Recharges when you win a Friend Challenge.</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>💪 Thug Dwarf - Brute Force</b></p>
@@ -1881,7 +1882,7 @@ STAGES.push(...GROUP_STAGES);
 
 const HEROES = [
     { n: 'Dark Stalker', i: './images/dark.png', a: 'dark', s: {pow:5, spd:5, brn:5, cha:5, wil:5}, passive: 'Shadow Control', passiveDesc: 'Force a player to meditate. Uses: 2p=1, 3p=2, 4+p=3. Resets at shop.' },
-    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:2, wil:6}, passive: 'System Override', passiveDesc: 'Use a different attribute. Recharges on friend challenge win' },
+    { n: 'Friendly AI', i: './images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:2, wil:6}, passive: 'System Override', passiveDesc: 'Once per game: reset all stats to initial values (POW:6 SPD:5 BRN:6 CHA:2 WIL:6). Cannot be recharged.' },
     { n: 'Thug Dwarf', i: './images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Brute Force', passiveDesc: 'Every time you win a challenge, gain +3 to POW' },
     { n: 'Babbler Rogue', i: './images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Crowd Favorite', passiveDesc: 'Gain +1 Glory for every 3 challenges you complete' },
     { n: 'Neighbor Witch', i: './images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Arcane Alliance', passiveDesc: 'Guess how many stat points to steal. If they do not have enough, spell fails! Recharges after 3 wins.' },
@@ -2325,7 +2326,7 @@ function startFight() {
     
     // Friendly AI - System Override
     if(h.n === 'Friendly AI' && !passiveUsed[activeIdx]) {
-        passiveButtons.push(`<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useSystemOverride()">⚡ System Override (Use Different Stat)</button>`);
+        passiveButtons.push(`<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useSystemOverride()">⚡ System Override (Reset Stats to Initial)</button>`);
     }
     
     // Neighbor Witch - Arcane Alliance
@@ -3081,7 +3082,7 @@ function friendChallengerInvest() {
     
     let passiveOptions = '';
     if(canUseOverride) {
-        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendSystemOverride('challenger')">⚡ System Override (Use Different Stat)</button>`;
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendSystemOverride('challenger')">⚡ System Override (Reset Stats to Initial)</button>`;
     } else if(canUseArcaneAlliance) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendArcaneAlliance('challenger')">⚡ Arcane Alliance (Steal Points)</button>`;
     } else if(canUseLiquidCourage) {
@@ -3139,7 +3140,7 @@ function friendOpponentInvest() {
     
     let passiveOptions = '';
     if(canUseOverride) {
-        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendSystemOverride('opponent')">⚡ System Override (Use Different Stat)</button>`;
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendSystemOverride('opponent')">⚡ System Override (Reset Stats to Initial)</button>`;
     } else if(canUseArcaneAlliance) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendArcaneAlliance('opponent')">⚡ Arcane Alliance (Steal Points)</button>`;
     } else if(canUseLiquidCourage) {
@@ -3285,16 +3286,6 @@ function finalizeFriendChallenge(challengerWin, opponentWin) {
         message = `Both ${challenger.pName} and ${opponent.pName} succeed! +${pPts} Glory each!`;
         anyoneWon = true;
         
-        // Check for Friendly AI recharge
-        if(challenger.n === 'Friendly AI' && passiveUsed[friendChallengeData.challenger]) {
-            passiveUsed[friendChallengeData.challenger] = false;
-            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ ${challenger.pName}'s System Override Recharged!</p>`;
-        }
-        if(opponent.n === 'Friendly AI' && passiveUsed[friendChallengeData.opponent]) {
-            passiveUsed[friendChallengeData.opponent] = false;
-            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ ${opponent.pName}'s System Override Recharged!</p>`;
-        }
-        
         // Check for Neighbor Witch recharge (both win)
         if(challenger.n === 'Neighbor Witch') {
             witchWins[friendChallengeData.challenger] = (witchWins[friendChallengeData.challenger] || 0) + 1;
@@ -3344,12 +3335,6 @@ function finalizeFriendChallenge(challengerWin, opponentWin) {
         message = `${challenger.pName} wins solo! +${pPts * 2} Glory!`;
         anyoneWon = true;
         
-        // Check for Friendly AI recharge
-        if(challenger.n === 'Friendly AI' && passiveUsed[friendChallengeData.challenger]) {
-            passiveUsed[friendChallengeData.challenger] = false;
-            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ System Override Recharged!</p>`;
-        }
-        
         // Check for Neighbor Witch recharge
         if(challenger.n === 'Neighbor Witch') {
             witchWins[friendChallengeData.challenger] = (witchWins[friendChallengeData.challenger] || 0) + 1;
@@ -3382,12 +3367,6 @@ function finalizeFriendChallenge(challengerWin, opponentWin) {
         opponent.cur[pStage.s] += 2;
         message = `${opponent.pName} wins solo! +${pPts * 2} Glory!`;
         anyoneWon = true;
-        
-        // Check for Friendly AI recharge
-        if(opponent.n === 'Friendly AI' && passiveUsed[friendChallengeData.opponent]) {
-            passiveUsed[friendChallengeData.opponent] = false;
-            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ System Override Recharged!</p>`;
-        }
         
         // Check for Neighbor Witch recharge
         if(opponent.n === 'Neighbor Witch') {
@@ -3463,49 +3442,41 @@ function finalizeFriendChallenge(challengerWin, opponentWin) {
 function useFriendSystemOverride(role) {
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
     const h = party[playerIdx];
-    passiveUsed[playerIdx] = true;
     
     showModal(
         "⚡ System Override",
-        "Choose which stat to use",
+        "Full System Reboot",
         `<div style="margin: 15px 0;">
             <img src="${h.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
         </div>
-        <p style="font-size:14px;">Select attribute to use instead of ${pStage.s.toUpperCase()}:</p>
-        <select id="friend-override-stat" class="input-hero" style="width:100%; font-size:16px; padding:10px; margin:15px 0;">
-            <option value="pow">POW: ${h.cur.pow}</option>
-            <option value="spd">SPD: ${h.cur.spd}</option>
-            <option value="brn">BRN: ${h.cur.brn}</option>
-            <option value="cha">CHA: ${h.cur.cha}</option>
-            <option value="wil">WIL: ${h.cur.wil}</option>
-        </select>
-        <p style="font-size:14px;">How many points to spend?</p>
-        <input type="number" id="friend-override-amt" class="input-hero" value="0" min="0" style="width:100%; font-size:24px; text-align:center; margin:10px 0;">
-        <button class="btn btn-main" onclick="executeFriendSystemOverride('${role}')">Commit</button>`
+        <p style="font-size:14px; margin-bottom:10px;">Reset ALL stats to initial values?</p>
+        <div style="background:rgba(0,0,0,0.2); border-radius:8px; padding:12px; margin:10px 0; text-align:left; font-size:14px;">
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>POW</span><span>${h.cur.pow} → <b style="color:#f3cf7a;">6</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>SPD</span><span>${h.cur.spd} → <b style="color:#f3cf7a;">5</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>BRN</span><span>${h.cur.brn} → <b style="color:#f3cf7a;">6</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>CHA</span><span>${h.cur.cha} → <b style="color:#f3cf7a;">2</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>WIL</span><span>${h.cur.wil} → <b style="color:#f3cf7a;">6</b></span></div>
+        </div>
+        <p style="color:#c8a04a; font-size:12px;">⚠ This ability can only be used ONCE per game.</p>
+        <button class="btn btn-main" onclick="executeFriendSystemOverride('${role}')">🔄 Reboot!</button>
+        <button class="btn btn-skip" onclick="closeModal();">Cancel</button>`
     );
 }
 
 function executeFriendSystemOverride(role) {
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
     const h = party[playerIdx];
-    const chosenStat = document.getElementById('friend-override-stat').value;
-    const spend = parseInt(document.getElementById('friend-override-amt').value) || 0;
+    passiveUsed[playerIdx] = true;
+    h.cur.pow = 6;
+    h.cur.spd = 5;
+    h.cur.brn = 6;
+    h.cur.cha = 2;
+    h.cur.wil = 6;
+    updatePartyUI();
     
-    if(spend > h.cur[chosenStat]) {
-        alert("Not enough points!");
-        return;
-    }
-    
-    // Store the override info
     if(role === 'challenger') {
-        friendChallengeData.challengerSpend = spend;
-        friendChallengeData.challengerOwnSpend = spend;
-        friendChallengeData.challengerOverrideStat = chosenStat;
         friendOpponentInvest();
     } else {
-        friendChallengeData.opponentSpend = spend;
-        friendChallengeData.opponentOwnSpend = spend;
-        friendChallengeData.opponentOverrideStat = chosenStat;
         resolveFriendChallenge();
     }
 }
@@ -4070,7 +4041,7 @@ function collectGroupContribution(idx, yesVoters) {
     
     let passiveOptions = '';
     if(canUseOverride) {
-        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupSystemOverride(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">⚡ System Override (Use Different Stat)</button>`;
+        passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupSystemOverride(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">⚡ System Override (Reset Stats to Initial)</button>`;
     } else if(canUseArcaneAlliance) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupArcaneAlliance(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">🔮 Arcane Alliance (Steal Points)</button>`;
     } else if(canUseSoulContract) {
@@ -4303,14 +4274,6 @@ function groupGamble() {
                         }
                     }
                     
-                    if(p.n === 'Friendly AI' && passiveUsed[v.playerIndex]) {
-                        friendlyAIWins[v.playerIndex] = (friendlyAIWins[v.playerIndex] || 0) + 1;
-                        if(friendlyAIWins[v.playerIndex] >= 3) {
-                            passiveUsed[v.playerIndex] = false;
-                            friendlyAIWins[v.playerIndex] = 0;
-                        }
-                    }
-                    
                     if(p.n === 'Devil Boy' && passiveUsed[v.playerIndex]) {
                         devilWins[v.playerIndex] = (devilWins[v.playerIndex] || 0) + 1;
                         if(devilWins[v.playerIndex] >= 3) {
@@ -4417,25 +4380,24 @@ function useGroupSystemOverride(idx, yesVoters) {
     const voterData = yesVoters[idx];
     const playerIdx = voterData.playerIndex;
     const h = party[playerIdx];
-    passiveUsed[playerIdx] = true;
     
     showModal(
         "⚡ System Override",
-        "Choose which stat to use",
+        "Full System Reboot",
         `<div style="margin: 15px 0;">
             <img src="${h.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
         </div>
-        <p style="font-size:14px;">Select attribute to use instead of ${pStage.s.toUpperCase()}:</p>
-        <select id="group-override-stat" class="input-hero" style="width:100%; font-size:16px; padding:10px; margin:15px 0;">
-            <option value="pow">POW: ${h.cur.pow}</option>
-            <option value="spd">SPD: ${h.cur.spd}</option>
-            <option value="brn">BRN: ${h.cur.brn}</option>
-            <option value="cha">CHA: ${h.cur.cha}</option>
-            <option value="wil">WIL: ${h.cur.wil}</option>
-        </select>
-        <p style="font-size:14px;">How many points to contribute?</p>
-        <input type="number" id="group-override-amt" class="input-hero" value="0" min="0" style="width:100%; font-size:24px; text-align:center; margin:10px 0;">
-        <button class="btn btn-main" onclick="executeGroupSystemOverride(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Contribute</button>`
+        <p style="font-size:14px; margin-bottom:10px;">Reset ALL stats to initial values first, then contribute?</p>
+        <div style="background:rgba(0,0,0,0.2); border-radius:8px; padding:12px; margin:10px 0; text-align:left; font-size:14px;">
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>POW</span><span>${h.cur.pow} → <b style="color:#f3cf7a;">6</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>SPD</span><span>${h.cur.spd} → <b style="color:#f3cf7a;">5</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>BRN</span><span>${h.cur.brn} → <b style="color:#f3cf7a;">6</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>CHA</span><span>${h.cur.cha} → <b style="color:#f3cf7a;">2</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>WIL</span><span>${h.cur.wil} → <b style="color:#f3cf7a;">6</b></span></div>
+        </div>
+        <p style="color:#c8a04a; font-size:12px;">⚠ Once per game. Stats reset BEFORE you contribute.</p>
+        <button class="btn btn-main" onclick="executeGroupSystemOverride(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">🔄 Reboot & Continue</button>
+        <button class="btn btn-skip" onclick="closeModal(); collectGroupContribution(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')});">Skip & Contribute Normally</button>`
     );
 }
 
@@ -4443,31 +4405,16 @@ function executeGroupSystemOverride(idx, yesVoters) {
     const voterData = yesVoters[idx];
     const playerIdx = voterData.playerIndex;
     const h = party[playerIdx];
-    const chosenStat = document.getElementById('group-override-stat').value;
-    const contribution = parseInt(document.getElementById('group-override-amt').value) || 0;
-    
-    if(contribution > h.cur[chosenStat]) {
-        alert("Not enough points!");
-        return;
-    }
-    
-    // Deduct from chosen stat
-    h.cur[chosenStat] -= contribution;
-    
-    // Calculate bonuses
-    let affinityBonus = (Array.isArray(pStage.a) ? pStage.a.includes(h.a) : h.a === pStage.a) ? 3 : 0;
-    let dragonBonus = (h.n === 'Lost Dragon' && contribution >= 4) ? 3 : 0;
-    
-    groupChallengeContributions.push({
-        playerIndex: playerIdx,
-        playerName: h.pName,
-        contribution: contribution,
-        total: contribution + affinityBonus + dragonBonus,
-        usedOverride: chosenStat
-    });
-    
+    passiveUsed[playerIdx] = true;
+    h.cur.pow = 6;
+    h.cur.spd = 5;
+    h.cur.brn = 6;
+    h.cur.cha = 2;
+    h.cur.wil = 6;
     updatePartyUI();
-    collectGroupContribution(idx + 1, yesVoters);
+    // Continue to normal contribution flow with refreshed stats
+    collectGroupContribution(idx, yesVoters);
+}
 }
 
 function useGroupArcaneAlliance(idx, yesVoters) {
@@ -4869,39 +4816,51 @@ function rollPaladinDice() {
 
 function useSystemOverride() {
     const h = party[activeIdx];
-    passiveUsed[activeIdx] = true;
+    const INITIAL = {pow:6, spd:5, brn:6, cha:2, wil:6};
     
-    showModal("⚡ System Override", "Choose stat to use", `
-        <select id="override-stat" class="input-hero" style="width:100%; font-size:18px; padding:10px; margin:15px 0;">
-            <option value="pow">POW (${h.cur.pow})</option>
-            <option value="spd">SPD (${h.cur.spd})</option>
-            <option value="brn">BRN (${h.cur.brn})</option>
-            <option value="cha">CHA (${h.cur.cha})</option>
-            <option value="wil">WIL (${h.cur.wil})</option>
-        </select>
-        <p>Spend how many?</p>
-        <input type="number" id="override-amt" value="1" class="input-hero" style="width:80px; text-align:center; font-size: 24px; margin: 10px 0;">
-        <button class="btn btn-main" style="margin-top:20px;" onclick="processOverrideAttempt()">Attempt!</button>
+    showModal("⚡ System Override", "Full System Reboot", `
+        <div style="margin: 15px 0;">
+            <img src="${h.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+        </div>
+        <p style="font-size:14px; margin-bottom:10px;">Reset ALL stats to initial values?</p>
+        <div style="background:rgba(0,0,0,0.2); border-radius:8px; padding:12px; margin:10px 0; text-align:left; font-size:14px;">
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>POW</span><span>${h.cur.pow} → <b style="color:#f3cf7a;">6</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>SPD</span><span>${h.cur.spd} → <b style="color:#f3cf7a;">5</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>BRN</span><span>${h.cur.brn} → <b style="color:#f3cf7a;">6</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>CHA</span><span>${h.cur.cha} → <b style="color:#f3cf7a;">2</b></span></div>
+            <div style="display:flex; justify-content:space-between; margin:4px 0;"><span>WIL</span><span>${h.cur.wil} → <b style="color:#f3cf7a;">6</b></span></div>
+        </div>
+        <p style="color:#c8a04a; font-size:12px;">⚠ This ability can only be used ONCE per game.</p>
+        <button class="btn btn-main" style="margin-top:15px;" onclick="executeSystemOverride()">🔄 Reboot!</button>
+        <button class="btn btn-skip" onclick="cancelSystemOverride()">Cancel</button>
     `);
 }
 
-function processOverrideAttempt() {
+function cancelSystemOverride() {
+    // Ability was not actually used — undo passiveUsed flag if it was set prematurely
+    // (button is shown only when !passiveUsed, so just close)
+    closeModal();
+    showChallengeModal();
+}
+
+function executeSystemOverride() {
     const h = party[activeIdx];
-    const chosenStat = document.getElementById('override-stat').value;
-    let spend = parseInt(document.getElementById('override-amt').value) || 0;
-    
-    if (spend > h.cur[chosenStat]) {
-        alert("Not enough points!");
-        return;
-    }
-    
-    let affinityBonus = (Array.isArray(pStage.a) ? pStage.a.includes(h.a) : h.a === pStage.a) ? 3 : 0;
-    let dragonBonus = (h.n === 'Lost Dragon' && spend >= 4) ? 3 : 0;
-    
-    let total = spend + affinityBonus + dragonBonus;
-    h.cur[chosenStat] -= spend;
-    
-    showResult(spend, affinityBonus + dragonBonus, total, total >= pTarget, chosenStat);
+    passiveUsed[activeIdx] = true;
+    h.cur.pow = 6;
+    h.cur.spd = 5;
+    h.cur.brn = 6;
+    h.cur.cha = 2;
+    h.cur.wil = 6;
+    updatePartyUI();
+    showModal("⚡ System Override", "Reboot Complete!", `
+        <div style="margin:15px 0;">
+            <img src="${h.i}" style="width:80px; height:80px; border:3px solid var(--gold); background:#000;">
+        </div>
+        <p style="color:#f3cf7a; font-weight:bold;">All stats restored to initial values!</p>
+        <p style="font-size:13px; color:#aaa; margin-top:10px;">POW:6 &nbsp;|&nbsp; SPD:5 &nbsp;|&nbsp; BRN:6 &nbsp;|&nbsp; CHA:2 &nbsp;|&nbsp; WIL:6</p>
+        <p style="font-size:12px; color:#c8a04a; margin-top:8px;">⚠ This ability is now permanently spent.</p>
+        <button class="btn btn-main" style="margin-top:15px;" onclick="closeModal(); showChallengeModal();">Continue</button>
+    `);
 }
 
 function selectLoverZombieDebuff() {
