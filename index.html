@@ -1413,7 +1413,72 @@
                 <p class="hero-card-desc">An outcast from the swamps, seeking acceptance. Misunderstood, but with a heart of gold.</p>
                 <p class="hero-card-ability"><b>🧌 Rising Spirit:</b> Every 3 consecutive wins (including group), gain +5 to any stat of your choice.</p>
             </div>
-            
+
+            <!-- Forest Spirit -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/spirit.png" class="hero-card-img" alt="Forest Spirit">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Forest Spirit</p>
+                        <span class="hero-card-stats">3/3/4/5/5</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">A mysterious entity born from ancient woods, channeling nature's unpredictable power.</p>
+                <p class="hero-card-ability"><b>🌿 Nature's Gamble:</b> On win, roll dice. 4-6: steal +1 ALL stats from player with most glory. 1-3: lose -1 ALL stats to player with least glory.</p>
+            </div>
+
+            <!-- Ancient Tree Elder -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/tree_elder.png" class="hero-card-img" alt="Ancient Tree Elder">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Ancient Tree Elder</p>
+                        <span class="hero-card-stats">7/2/8/3/7</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">A wise and ancient being whose roots stretch deep into the earth. Commands respect from all.</p>
+                <p class="hero-card-ability"><b>🌳 Ancient Roots:</b> In group missions: force another hero (not reader) to join. They skip voting and must contribute.</p>
+            </div>
+
+            <!-- Granny the Priest -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/priest_granny.png" class="hero-card-img" alt="Granny the Priest">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Granny the Priest</p>
+                        <span class="hero-card-stats">2/1/8/8/7</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">A gentle grandmother who found divine calling late in life. Her prayers bring comfort to all.</p>
+                <p class="hero-card-ability"><b>🙏 Divine Mercy:</b> If ALL players fail a regular mission, gain +1 Glory. Not in group missions.</p>
+            </div>
+
+            <!-- Warrior Girl -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/warrior_ork.png" class="hero-card-img" alt="Warrior Girl">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Warrior Girl</p>
+                        <span class="hero-card-stats">8/5/6/3/6</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">A fierce half-ork warrior who fights with unmatched ferocity. Born for battle.</p>
+                <p class="hero-card-ability"><b>⚔️ Battle Born:</b> In group missions: always +3 bonus to contribution. Stacks with affinity.</p>
+            </div>
+
+            <!-- Monkey Boy -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/monkey_boy.png" class="hero-card-img" alt="Monkey Boy">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Monkey Boy</p>
+                        <span class="hero-card-stats">4/8/4/4/4</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">A chaotic trickster raised by monkeys. Unpredictable and impossibly fast.</p>
+                <p class="hero-card-ability"><b>🐵 Chaos Reroll:</b> After ANY dice roll, force a reroll. 3 uses per shop cycle.</p>
+            </div>
+
             <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px; width: 100%;">Return to Scrolls</button>
         </div>
 
@@ -1424,7 +1489,7 @@
             <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
             <div class="instruction-text" style="text-align: justify;">
                 
-                <p style="font-style: italic; margin-bottom: 15px; background: rgba(139,0,0,0.1); padding: 10px; border-left: 3px solid var(--blood);"><b>The Legend:</b> Thirteen legendary heroes gather at Pavel's tavern, each with unique abilities and soul affinities. King Antony has announced a grand competition - a series of Missions where heroes prove their worth through trials of Power, Speed, Brain, Charisma, and Willpower. Only one can claim the throne of Glory!</p>
+                <p style="font-style: italic; margin-bottom: 15px; background: rgba(139,0,0,0.1); padding: 10px; border-left: 3px solid var(--blood);"><b>The Legend:</b> Eighteen legendary heroes gather at Pavel's tavern, each with unique abilities and soul affinities. King Antony has announced a grand competition - a series of Missions where heroes prove their worth through trials of Power, Speed, Brain, Charisma, and Willpower. Only one can claim the throne of Glory!</p>
                 
                 <!-- GAME SETUP -->
                 <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎮 GAME SETUP</b></p>
@@ -1545,7 +1610,7 @@
                 
                 <!-- HERO ABILITIES -->
                 <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">⚡ HERO ABILITIES</b></p>
-                <p>Each hero has a unique passive ability. Here are all 13:</p>
+                <p>Each hero has a unique passive ability. Here are all 18:</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🗡️ Dark Stalker - Shadow Control</b></p>
                 <p style="margin-left: 20px;">Force any player to use one of their Meditations. Limited uses based on party size (2p=1, 3p=2, 4+p=3). <b>Resets at each shop.</b></p>
@@ -1586,7 +1651,22 @@
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🧌 Sad Troll - Rising Spirit</b></p>
                 <p style="margin-left: 20px;">Every 3 CONSECUTIVE wins, gain +5 to any stat. Streak resets on ANY failure (regular/friend fail, group fail, or meditation). Voting NO on group missions does NOT reset your streak!</p>
-                
+
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🌿 Forest Spirit - Nature's Gamble</b></p>
+                <p style="margin-left: 20px;">On every regular mission win, roll a dice. 4-6: steal +1 to ALL stats from the player with the most Glory. 1-3: lose -1 from ALL stats, given to the player with the least Glory. Always active.</p>
+
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🌳 Ancient Tree Elder - Ancient Roots</b></p>
+                <p style="margin-left: 20px;">During group mission voting, force another hero (not the reader) to join the mission. They skip voting and must contribute. Once per group mission.</p>
+
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🙏 Granny the Priest - Divine Mercy</b></p>
+                <p style="margin-left: 20px;">If ALL players fail a regular mission (mission discarded), Granny gains +1 Glory. Does not trigger on group missions.</p>
+
+                <p style="margin-top: 10px; margin-left: 10px;"><b>⚔️ Warrior Girl - Battle Born</b></p>
+                <p style="margin-left: 20px;">In group missions, always receive +3 bonus to your contribution total. Stacks with soul affinity bonus.</p>
+
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🐵 Monkey Boy - Chaos Reroll</b></p>
+                <p style="margin-left: 20px;">After ANY dice roll in the game, force a reroll. Has 3 uses that recharge at each shop visit.</p>
+
                 <!-- DICE GAMBLING -->
                 <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎰 DICE GAMBLING</b></p>
                 <p>At certain points, you may gamble your Glory:</p>
@@ -1892,7 +1972,12 @@ const HEROES = [
     { n: 'Lover Zombie', i: './images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Cursed Embrace', passiveDesc: 'On victory: All players lose 2 from a stat, you gain +1' },
     { n: 'Devil Boy', i: './images/devil.png', a: 'dark', s: {pow:4, spd:4, brn:7, cha:6, wil:4}, passive: 'Soul Contract', passiveDesc: 'Choose a stat and swap its value with another player permanently. Recharges after 3 wins.' },
     { n: 'Quick Thief', i: './images/thief.png', a: 'shadow', s: {pow:3, spd:8, brn:5, cha:5, wil:3}, passive: 'Lucky Fingers', passiveDesc: 'Every challenge, roll dice. On 5-6, steal 1 Glory from any player.' },
-    { n: 'Sad Troll', i: './images/trol.png', a: 'silent', s: {pow:7, spd:2, brn:3, cha:3, wil:9}, passive: 'Rising Spirit', passiveDesc: 'Every 3 consecutive wins (including group), gain +5 to any stat.' }
+    { n: 'Sad Troll', i: './images/trol.png', a: 'silent', s: {pow:7, spd:2, brn:3, cha:3, wil:9}, passive: 'Rising Spirit', passiveDesc: 'Every 3 consecutive wins (including group), gain +5 to any stat.' },
+    { n: 'Forest Spirit', i: './images/spirit.png', a: 'dark', s:{pow:3,spd:3,brn:4,cha:5,wil:5}, passive: "Nature's Gamble", passiveDesc: "Roll dice on win. 4-6: steal +1 ALL stats from player with most glory. 1-3: lose -1 ALL stats to player with least glory." },
+    { n: 'Ancient Tree Elder', i: './images/tree_elder.png', a: 'magic', s:{pow:7,spd:2,brn:8,cha:3,wil:7}, passive: 'Ancient Roots', passiveDesc: 'In group missions: force another hero (not reader) to join. They skip voting and must contribute.' },
+    { n: 'Granny the Priest', i: './images/priest_granny.png', a: 'silent', s:{pow:2,spd:1,brn:8,cha:8,wil:7}, passive: 'Divine Mercy', passiveDesc: 'If ALL players fail a regular mission, gain +1 Glory. Not in group missions.' },
+    { n: 'Warrior Girl', i: './images/warrior_ork.png', a: 'stone', s:{pow:8,spd:5,brn:6,cha:3,wil:6}, passive: 'Battle Born', passiveDesc: 'In group missions: always +3 bonus to contribution. Stacks with affinity.' },
+    { n: 'Monkey Boy', i: './images/monkey_boy.png', a: 'shadow', s:{pow:4,spd:8,brn:4,cha:4,wil:4}, passive: 'Chaos Reroll', passiveDesc: 'After ANY dice roll, force a reroll. 3 uses. Recharges at shop.' }
 ];
 
 // ============================================================
@@ -1929,6 +2014,10 @@ let devilWins = {}; // Track Devil Boy wins for Soul Contract recharge
 let trollConsecutiveWins = {}; // Track Sad Troll consecutive wins
 window.pendingRisingSpiritPlayerIdx = null; // Track pending Rising Spirit modal
 let thiefRolledThisTurn = false; // Track if Quick Thief already rolled this turn
+let treeElderForcedPlayer = null;
+let treeElderUsedThisMission = false;
+let monkeyRerollUses = {};
+let pendingMonkeyRerollContext = null;
 
 // Shop system - NOW BASED ON ROUNDS
 let nextShopAtRound = -1;  // Round number when next shop appears
@@ -1940,6 +2029,45 @@ let tempStats = {};
 
 let isProcessing = false; // Prevent race conditions
 let pendingGroupFailure = null; // Store data for group failure gamble
+
+// ============================================================
+// MONKEY BOY - CHAOS REROLL HELPERS
+// ============================================================
+
+function getMonkeyBoyWithUses() {
+    const result = [];
+    party.forEach((p, idx) => {
+        if(p.n === 'Monkey Boy' && (monkeyRerollUses[idx] || 0) > 0) {
+            result.push({ playerIdx: idx, uses: monkeyRerollUses[idx] });
+        }
+    });
+    return result;
+}
+
+function monkeyReroll(playerIdx, contextType) {
+    monkeyRerollUses[playerIdx]--;
+    const ctx = pendingMonkeyRerollContext;
+    pendingMonkeyRerollContext = null;
+
+    if(contextType === 'gamble') {
+        gamble(ctx.cur, ctx.usedStat);
+    } else if(contextType === 'groupGamble') {
+        groupGamble();
+    } else if(contextType === 'paladinDice') {
+        // Reset the flag so dice can roll again
+        party[activeIdx].paladinDiceUsedThisTurn = true;
+        rollPaladinDice();
+    } else if(contextType === 'luckyFingers') {
+        thiefRolledThisTurn = false;
+        useLuckyFingers();
+    } else if(contextType === 'friendLuckyFingers') {
+        thiefRolledThisTurn = false;
+        useFriendLuckyFingers(ctx.role);
+    } else if(contextType === 'groupLuckyFingers') {
+        thiefRolledThisTurn = false;
+        useGroupLuckyFingers(window._groupLFIdx, window._groupLFVoters);
+    }
+}
 
 // ============================================================
 // UTILITY FUNCTIONS
@@ -2026,6 +2154,7 @@ function handleReg() {
     witchWins[regIdx] = 0;
     devilWins[regIdx] = 0;
     trollConsecutiveWins[regIdx] = 0;
+    if (hero.n === 'Monkey Boy') monkeyRerollUses[regIdx] = 3;
 
     showModal(
         `Soul Linked`, 
@@ -2497,13 +2626,20 @@ function showResult(spent, bonus, final, win, usedStat) {
             }
         }
         
+        // Check for Forest Spirit
+        if(h.n === 'Forest Spirit') {
+            updatePartyUI();
+            triggerNaturesGamble('challengeWon');
+            return;
+        }
+
         // Check for Lover Zombie
         if(h.n === 'Lover Zombie') {
             updatePartyUI();
             selectLoverZombieDebuff();
             return;
         }
-        
+
         showModal(
             `<span class="result-success">🏆 VICTORY!</span>`,
             `${h.pName} conquers the challenge!`,
@@ -2523,7 +2659,7 @@ function showResult(spent, bonus, final, win, usedStat) {
 
 function gamble(cur, usedStat) {
     showModal("🎲 Rolling the Bones...", "Fate decides!", `<div id="dice-container" style="margin: 30px 0;"></div>`);
-    
+
     let rollCount = 0;
     const rollInterval = setInterval(() => {
         const randomNum = Math.floor(Math.random() * 6) + 1;
@@ -2531,92 +2667,189 @@ function gamble(cur, usedStat) {
         rollCount++;
         if(rollCount >= 8) clearInterval(rollInterval);
     }, 100);
-    
+
     setTimeout(() => {
         clearInterval(rollInterval);
         const luck = Math.floor(Math.random() * 6) + 1;
         document.getElementById('dice-container').innerHTML = renderDice(luck);
-        
+
         setTimeout(() => {
-            const h = party[activeIdx];
-            let fin = cur + luck;
-            let win = fin >= pTarget;
-            
-            if(win) { 
-                h.score += pPts;
-                h.cur[usedStat] += 2;
-                challengesCompleted[activeIdx]++;
-                
-                let passiveTriggers = '';
-                if(h.n === 'Thug Dwarf') {
-                    h.cur.pow += 3;
-                    passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Brute Force: +3 POW!</p>`;
-                }
-                if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
-                    h.score += 1;
-                    passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Crowd Favorite: +1 Glory!</p>`;
-                }
-                
-                // Neighbor Witch recharge
-                if(h.n === 'Neighbor Witch') {
-                    witchWins[activeIdx] = (witchWins[activeIdx] || 0) + 1;
-                    if(witchWins[activeIdx] >= 3 && passiveUsed[activeIdx]) {
-                        passiveUsed[activeIdx] = false;
-                        witchWins[activeIdx] = 0;
-                        passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">🔮 Arcane Alliance Recharged!</p>`;
-                    } else if(passiveUsed[activeIdx]) {
-                        passiveTriggers += `<p style="color:#888; font-size:11px;">🔮 Arcane Alliance: ${witchWins[activeIdx]}/3 wins to recharge</p>`;
-                    }
-                }
-                
-                // Devil Boy recharge
-                if(h.n === 'Devil Boy') {
-                    devilWins[activeIdx] = (devilWins[activeIdx] || 0) + 1;
-                    if(devilWins[activeIdx] >= 3 && passiveUsed[activeIdx]) {
-                        passiveUsed[activeIdx] = false;
-                        devilWins[activeIdx] = 0;
-                        passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">😈 Soul Contract Recharged!</p>`;
-                    } else if(passiveUsed[activeIdx]) {
-                        passiveTriggers += `<p style="color:#888; font-size:11px;">😈 Soul Contract: ${devilWins[activeIdx]}/3 wins to recharge</p>`;
-                    }
-                }
-                
-                // Sad Troll - Rising Spirit
-                if(h.n === 'Sad Troll') {
-                    trollConsecutiveWins[activeIdx] = (trollConsecutiveWins[activeIdx] || 0) + 1;
-                    if(trollConsecutiveWins[activeIdx] >= 3) {
-                        updatePartyUI();
-                        showRisingSpiritSelection(activeIdx, pPts, usedStat, passiveTriggers);
-                        return;
-                    } else {
-                        passiveTriggers += `<p style="color:#888; font-size:11px;">🧌 Rising Spirit: ${trollConsecutiveWins[activeIdx]}/3 consecutive wins</p>`;
-                    }
-                }
-                
-                if(h.n === 'Lover Zombie') {
-                    updatePartyUI();
-                    selectLoverZombieDebuff();
-                    return;
-                }
-                
-                showModal(
-                    `<span class="result-success">🎲 MIRACULOUS VICTORY!</span>`,
-                    `Rolled a ${luck}!`,
-                    `<p>Final Power: <b>${fin}</b> vs Target: <b>${pTarget}</b></p>
-                    <p style="color:#1b5e20; font-weight:bold;">+${pPts} Glory!</p>
-                    ${passiveTriggers}
-                    <button class="btn btn-main" onclick="challengeWon()">Continue</button>`
-                );
+            const monkeys = getMonkeyBoyWithUses();
+            if(monkeys.length > 0) {
+                pendingMonkeyRerollContext = { type: 'gamble', cur, usedStat };
+                let rerollBtns = monkeys.map(m => `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px;" onclick="monkeyReroll(${m.playerIdx}, 'gamble')">🐵 ${party[m.playerIdx].pName} Reroll (${m.uses} left)</button>`).join('');
+                showModal("🎲 Dice Result", `Rolled ${luck}! (Power: ${cur + luck} vs Target: ${pTarget})`,
+                    `<button class="btn btn-main" onclick="resolveGamble(${cur},'${usedStat}',${luck})">Accept Result</button>${rerollBtns}`);
             } else {
-                showModal(
-                    `<span class="result-failure">💀 TOTAL FAILURE</span>`,
-                    `Rolled a ${luck}`,
-                    `<p>Final Power: <b>${fin}</b> vs Target: <b>${pTarget}</b></p>
-                    <p style="color:var(--blood);">Not enough...</p>
-                    <button class="btn btn-main" onclick="challengeFailed()">Continue</button>`
-                );
+                resolveGamble(cur, usedStat, luck);
             }
+        }, 500);
+    }, 900);
+}
+
+function resolveGamble(cur, usedStat, luck) {
+    const h = party[activeIdx];
+    let fin = cur + luck;
+    let win = fin >= pTarget;
+
+    if(win) {
+        h.score += pPts;
+        h.cur[usedStat] += 2;
+        challengesCompleted[activeIdx]++;
+
+        let passiveTriggers = '';
+        if(h.n === 'Thug Dwarf') {
+            h.cur.pow += 3;
+            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Brute Force: +3 POW!</p>`;
+        }
+        if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
+            h.score += 1;
+            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Crowd Favorite: +1 Glory!</p>`;
+        }
+
+        if(h.n === 'Neighbor Witch') {
+            witchWins[activeIdx] = (witchWins[activeIdx] || 0) + 1;
+            if(witchWins[activeIdx] >= 3 && passiveUsed[activeIdx]) {
+                passiveUsed[activeIdx] = false;
+                witchWins[activeIdx] = 0;
+                passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">🔮 Arcane Alliance Recharged!</p>`;
+            } else if(passiveUsed[activeIdx]) {
+                passiveTriggers += `<p style="color:#888; font-size:11px;">🔮 Arcane Alliance: ${witchWins[activeIdx]}/3 wins to recharge</p>`;
+            }
+        }
+
+        if(h.n === 'Devil Boy') {
+            devilWins[activeIdx] = (devilWins[activeIdx] || 0) + 1;
+            if(devilWins[activeIdx] >= 3 && passiveUsed[activeIdx]) {
+                passiveUsed[activeIdx] = false;
+                devilWins[activeIdx] = 0;
+                passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">😈 Soul Contract Recharged!</p>`;
+            } else if(passiveUsed[activeIdx]) {
+                passiveTriggers += `<p style="color:#888; font-size:11px;">😈 Soul Contract: ${devilWins[activeIdx]}/3 wins to recharge</p>`;
+            }
+        }
+
+        if(h.n === 'Sad Troll') {
+            trollConsecutiveWins[activeIdx] = (trollConsecutiveWins[activeIdx] || 0) + 1;
+            if(trollConsecutiveWins[activeIdx] >= 3) {
+                updatePartyUI();
+                showRisingSpiritSelection(activeIdx, pPts, usedStat, passiveTriggers);
+                return;
+            } else {
+                passiveTriggers += `<p style="color:#888; font-size:11px;">🧌 Rising Spirit: ${trollConsecutiveWins[activeIdx]}/3 consecutive wins</p>`;
+            }
+        }
+
+        if(h.n === 'Forest Spirit') {
             updatePartyUI();
+            triggerNaturesGamble('challengeWon');
+            return;
+        }
+
+        if(h.n === 'Lover Zombie') {
+            updatePartyUI();
+            selectLoverZombieDebuff();
+            return;
+        }
+
+        showModal(
+            `<span class="result-success">🎲 MIRACULOUS VICTORY!</span>`,
+            `Rolled a ${luck}!`,
+            `<p>Final Power: <b>${fin}</b> vs Target: <b>${pTarget}</b></p>
+            <p style="color:#1b5e20; font-weight:bold;">+${pPts} Glory!</p>
+            ${passiveTriggers}
+            <button class="btn btn-main" onclick="challengeWon()">Continue</button>`
+        );
+    } else {
+        showModal(
+            `<span class="result-failure">💀 TOTAL FAILURE</span>`,
+            `Rolled a ${luck}`,
+            `<p>Final Power: <b>${fin}</b> vs Target: <b>${pTarget}</b></p>
+            <p style="color:var(--blood);">Not enough...</p>
+            <button class="btn btn-main" onclick="challengeFailed()">Continue</button>`
+        );
+    }
+    updatePartyUI();
+}
+
+// ============================================================
+// FOREST SPIRIT - NATURE'S GAMBLE
+// ============================================================
+
+function triggerNaturesGamble(onComplete) {
+    const h = party[activeIdx];
+    showModal("🌿 Nature's Gamble!", "The forest spirits decide your fate...", `<div id="dice-container" style="margin: 30px 0;"></div>`);
+
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const roll = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('dice-container').innerHTML = renderDice(roll);
+
+        setTimeout(() => {
+            const stats = ['pow','spd','brn','cha','wil'];
+            if(roll >= 4) {
+                // Find player with most glory (excluding self)
+                let target = null;
+                let maxGlory = -1;
+                party.forEach((p, idx) => {
+                    if(idx !== activeIdx && p.score > maxGlory) {
+                        maxGlory = p.score;
+                        target = idx;
+                    }
+                });
+                if(target !== null) {
+                    stats.forEach(s => {
+                        const steal = Math.min(1, party[target].cur[s]);
+                        party[target].cur[s] -= steal;
+                        h.cur[s] += steal;
+                    });
+                    updatePartyUI();
+                    showModal(
+                        "🌿 Nature's Blessing!",
+                        `Rolled ${roll}! The forest favors you!`,
+                        `<p style="color:#4caf50;">Stole +1 ALL stats from ${party[target].pName} (most glory)!</p>
+                        <button class="btn btn-main" onclick="${onComplete}()">${onComplete === 'challengeWon' ? 'Continue' : 'Continue'}</button>`
+                    );
+                } else {
+                    showModal("🌿 Nature's Gamble", `Rolled ${roll}! No valid target.`,
+                        `<button class="btn btn-main" onclick="${onComplete}()">Continue</button>`);
+                }
+            } else {
+                // Find player with least glory (excluding self)
+                let target = null;
+                let minGlory = Infinity;
+                party.forEach((p, idx) => {
+                    if(idx !== activeIdx && p.score < minGlory) {
+                        minGlory = p.score;
+                        target = idx;
+                    }
+                });
+                if(target !== null) {
+                    stats.forEach(s => {
+                        const lose = Math.min(1, h.cur[s]);
+                        h.cur[s] -= lose;
+                        party[target].cur[s] += lose;
+                    });
+                    updatePartyUI();
+                    showModal(
+                        "🌿 Nature's Wrath!",
+                        `Rolled ${roll}! The forest punishes you!`,
+                        `<p style="color:var(--blood);">Lost -1 ALL stats to ${party[target].pName} (least glory)!</p>
+                        <button class="btn btn-main" onclick="${onComplete}()">${onComplete === 'challengeWon' ? 'Continue' : 'Continue'}</button>`
+                    );
+                } else {
+                    showModal("🌿 Nature's Gamble", `Rolled ${roll}! No valid target.`,
+                        `<button class="btn btn-main" onclick="${onComplete}()">Continue</button>`);
+                }
+            }
         }, 500);
     }, 900);
 }
@@ -2700,13 +2933,23 @@ function finishChallengeFailed() {
     if(nextChallenger === readerIdx) {
         // Clear any remaining ninja contract (shouldn't happen but just in case)
         ninjaContract = null;
-        
+
+        // Granny the Priest - Divine Mercy
+        let grannyBonus = '';
+        party.forEach((p, idx) => {
+            if(p.n === 'Granny the Priest') {
+                p.score += 1;
+                grannyBonus += `<p style="color:#f3cf7a;">🙏 Divine Mercy: ${p.pName} gains +1 Glory!</p>`;
+            }
+        });
+
         // Everyone failed! Mission discarded.
         showModal(
             `💀 Mission Discarded!`,
             `All challengers have failed!`,
             `<p style="margin: 20px 0;">The mission "${pStage.t}" proved too difficult.</p>
             <p style="font-size: 14px; color: #888;">No glory was earned this round.</p>
+            ${grannyBonus}
             <button class="btn btn-main" onclick="missionDiscarded()">Next Mission</button>`
         );
     } else {
@@ -3766,19 +4009,14 @@ function confirmFriendSoulContract(role) {
 function useFriendLuckyFingers(role) {
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
     const thief = party[playerIdx];
-    
-    // Check if anyone has glory to steal
+
     const hasGlory = party.some(p => p.score > 0 && p !== thief);
-    if(!hasGlory) {
-        alert("No one has Glory to steal yet!");
-        return;
-    }
-    
+    if(!hasGlory) { alert("No one has Glory to steal yet!"); return; }
+
     thiefRolledThisTurn = true;
-    
-    // Roll animation
+
     showModal("🎲 Lucky Fingers!", "Rolling...", `<div id="dice-container" style="margin: 30px 0;"></div>`);
-    
+
     let rollCount = 0;
     const rollInterval = setInterval(() => {
         const randomNum = Math.floor(Math.random() * 6) + 1;
@@ -3786,41 +4024,52 @@ function useFriendLuckyFingers(role) {
         rollCount++;
         if(rollCount >= 8) clearInterval(rollInterval);
     }, 100);
-    
+
     setTimeout(() => {
         clearInterval(rollInterval);
         const roll = Math.floor(Math.random() * 6) + 1;
         document.getElementById('dice-container').innerHTML = renderDice(roll);
-        
+
         setTimeout(() => {
-            if(roll >= 5) {
-                // Success! Let them choose who to steal from
-                let targetOptions = '';
-                party.forEach((p, idx) => {
-                    if(p.score > 0 && idx !== playerIdx) {
-                        targetOptions += `<option value="${idx}">${p.pName} (${p.score} Glory)</option>`;
-                    }
-                });
-                
-                showModal(
-                    "🎲 Lucky Fingers - SUCCESS!",
-                    `You rolled a ${roll}! Choose who to steal from:`,
-                    `<select id="friend-thief-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
-                        ${targetOptions}
-                    </select>
-                    <button class="btn btn-main" onclick="confirmFriendLuckyFingers('${role}')">Steal 1 Glory</button>`
-                );
+            const monkeys = getMonkeyBoyWithUses();
+            if(monkeys.length > 0) {
+                pendingMonkeyRerollContext = { type: 'friendLuckyFingers', role };
+                let rerollBtns = monkeys.map(m => `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px;" onclick="monkeyReroll(${m.playerIdx}, 'friendLuckyFingers')">🐵 ${party[m.playerIdx].pName} Reroll (${m.uses} left)</button>`).join('');
+                showModal("🎲 Dice Result", `Rolled ${roll}! (Need 5-6 to steal)`,
+                    `<button class="btn btn-main" onclick="resolveFriendLuckyFingers(${roll},'${role}')">Accept Result</button>${rerollBtns}`);
             } else {
-                // Failed
-                showModal(
-                    "🎲 Lucky Fingers - Failed!",
-                    `You rolled a ${roll}... Not lucky this time!`,
-                    `<p>You needed 5 or 6 to steal Glory.</p>
-                    <button class="btn btn-main" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Continue</button>`
-                );
+                resolveFriendLuckyFingers(roll, role);
             }
         }, 500);
     }, 1000);
+}
+
+function resolveFriendLuckyFingers(roll, role) {
+    const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
+    const thief = party[playerIdx];
+    if(roll >= 5) {
+        let targetOptions = '';
+        party.forEach((p, idx) => {
+            if(p.score > 0 && idx !== playerIdx) {
+                targetOptions += `<option value="${idx}">${p.pName} (${p.score} Glory)</option>`;
+            }
+        });
+        showModal(
+            "🎲 Lucky Fingers - SUCCESS!",
+            `You rolled a ${roll}! Choose who to steal from:`,
+            `<select id="friend-thief-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+                ${targetOptions}
+            </select>
+            <button class="btn btn-main" onclick="confirmFriendLuckyFingers('${role}')">Steal 1 Glory</button>`
+        );
+    } else {
+        showModal(
+            "🎲 Lucky Fingers - Failed!",
+            `You rolled a ${roll}... Not lucky this time!`,
+            `<p>You needed 5 or 6 to steal Glory.</p>
+            <button class="btn btn-main" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Continue</button>`
+        );
+    }
 }
 
 function confirmFriendLuckyFingers(role) {
@@ -4017,6 +4266,14 @@ function collectGroupVote() {
         abilityButtons += `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="setupGroupAssassinationContract()">🥷 Assassination Contract</button>`;
     }
 
+    // Ancient Tree Elder - Ancient Roots
+    if(currentHero.n === 'Ancient Tree Elder' && !treeElderUsedThisMission) {
+        const canForce = groupVotingOrder.some((pidx, vi) => vi > groupChallengeVotingIndex && pidx !== readerIdx && pidx !== actualIdx);
+        if(canForce) {
+            abilityButtons += `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useAncientRoots()">🌳 Ancient Roots (Force Join)</button>`;
+        }
+    }
+
     showModal(
         `${currentHero.pName}'s Decision`,
         `Will you join this group mission?`,
@@ -4048,10 +4305,65 @@ function voteGroup(vote) {
     collectGroupVote();
 }
 
+// Ancient Tree Elder - Ancient Roots functions
+function useAncientRoots() {
+    const actualIdx = groupVotingOrder[groupChallengeVotingIndex];
+    // Find players who haven't voted yet (not reader, not self)
+    let targetOptions = '';
+    groupVotingOrder.forEach((pidx, vi) => {
+        if(vi > groupChallengeVotingIndex && pidx !== readerIdx && pidx !== actualIdx) {
+            targetOptions += `<option value="${pidx}">${party[pidx].pName} (${party[pidx].n})</option>`;
+        }
+    });
+
+    showModal(
+        "🌳 Ancient Roots",
+        "Choose a hero to force into the mission:",
+        `<p style="font-size:12px; color:#888;">They will skip voting and must contribute.</p>
+        <select id="tree-elder-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+            ${targetOptions}
+        </select>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+            <button class="btn btn-main" style="background:#1b5e20; border-color:#4caf50;" onclick="confirmAncientRoots()">Force Join</button>
+            <button class="btn btn-skip" onclick="cancelAncientRoots()">Cancel</button>
+        </div>`
+    );
+}
+
+function cancelAncientRoots() {
+    // Return to normal voting
+    collectGroupVote();
+}
+
+function confirmAncientRoots() {
+    const targetIdx = parseInt(document.getElementById('tree-elder-target').value);
+    treeElderUsedThisMission = true;
+    treeElderForcedPlayer = targetIdx;
+
+    // Remove target from voting order (they skip voting)
+    const removeVotingIdx = groupVotingOrder.indexOf(targetIdx);
+    if(removeVotingIdx > groupChallengeVotingIndex) {
+        groupVotingOrder.splice(removeVotingIdx, 1);
+    }
+
+    // Add as yes-voter in groupChallengeVotes
+    groupChallengeVotes.push({ playerIndex: targetIdx, vote: 'yes' });
+
+    showModal(
+        "🌳 Ancient Roots!",
+        `${party[targetIdx].pName} is pulled into the mission!`,
+        `<div style="margin: 15px 0;">
+            <img src="${party[targetIdx].i}" style="width: 80px; height: 80px; border: 3px solid #4caf50; background: #000;">
+        </div>
+        <p>${party[targetIdx].pName} must now contribute to the group mission!</p>
+        <button class="btn btn-main" onclick="collectGroupVote()">Continue Voting</button>`
+    );
+}
+
 function startGroupContributions() {
     groupChallengeContributions = [];
     const yesVoters = groupChallengeVotes.filter(v => v.vote === 'yes');
-    
+
     collectGroupContribution(0, yesVoters);
 }
 
@@ -4087,6 +4399,12 @@ function collectGroupContribution(idx, yesVoters) {
     if(currentHero.n === 'Lost Dragon') {
         dragonNote = `<p style="font-size: 12px; color: #FF6347; margin-top: 8px;">⚡ Dragon Rage: Contribute 4+ for +3 bonus!</p>`;
     }
+
+    // Warrior Girl note
+    let warriorNote = '';
+    if(currentHero.n === 'Warrior Girl') {
+        warriorNote = `<p style="font-size:12px;color:#FF6347;margin-top:8px;">⚔️ Battle Born: Always +3 bonus!</p>`;
+    }
     
     showModal(
         `${currentHero.pName}'s Contribution`,
@@ -4096,6 +4414,7 @@ function collectGroupContribution(idx, yesVoters) {
         </div>
         <p>Available ${pStage.s.toUpperCase()}: <b style="color: var(--gold);">${currentHero.cur[pStage.s]}</b></p>
         ${dragonNote}
+        ${warriorNote}
         <input type="number" id="group-contrib" class="input-hero" min="0" max="${currentHero.cur[pStage.s]}" value="0" style="width:100%; font-size:24px; text-align:center; margin:15px 0;">
         <button class="btn btn-main" onclick="submitGroupContrib(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Contribute</button>
         ${passiveOptions}`
@@ -4118,12 +4437,13 @@ function submitGroupContrib(idx, yesVoters) {
     // Calculate bonuses
     let affinityBonus = (Array.isArray(pStage.a) ? pStage.a.includes(currentHero.a) : currentHero.a === pStage.a) ? 3 : 0;
     let dragonBonus = (currentHero.n === 'Lost Dragon' && contribution >= 4) ? 3 : 0;
-    
+    let warriorBonus = (currentHero.n === 'Warrior Girl') ? 3 : 0;
+
     groupChallengeContributions.push({
         playerIndex: voterData.playerIndex,
         playerName: currentHero.pName,
         contribution: contribution,
-        total: contribution + affinityBonus + dragonBonus
+        total: contribution + affinityBonus + dragonBonus + warriorBonus
     });
     
     updatePartyUI();
@@ -4251,6 +4571,8 @@ function finishGroupChallenge() {
     groupVotingOrder = [];
     groupForcedNoPlayers = [];
     ninjaContract = null;
+    treeElderForcedPlayer = null;
+    treeElderUsedThisMission = false;
     window.pendingGroupSuccessData = null;
     window.pendingGambleSuccessData = null;
     window.pendingGroupSuccessModalFn = null;
@@ -4305,9 +4627,9 @@ function showGambleGroupSuccessModal() {
 
 function groupGamble() {
     const { totalContribution, numParticipants, statLoss, yesVoters, contributionSummary } = pendingGroupFailure;
-    
+
     showModal("🎲 Rolling the Bones...", "The group's fate decided by chance!", `<div id="dice-container" style="margin: 30px 0;"></div>`);
-    
+
     let rollCount = 0;
     const rollInterval = setInterval(() => {
         const randomNum = Math.floor(Math.random() * 6) + 1;
@@ -4315,15 +4637,30 @@ function groupGamble() {
         rollCount++;
         if(rollCount >= 8) clearInterval(rollInterval);
     }, 100);
-    
+
     setTimeout(() => {
         clearInterval(rollInterval);
         const luck = Math.floor(Math.random() * 6) + 1;
         document.getElementById('dice-container').innerHTML = renderDice(luck);
-        
+
         setTimeout(() => {
-            const newTotal = totalContribution + luck;
-            
+            const monkeys = getMonkeyBoyWithUses();
+            if(monkeys.length > 0) {
+                pendingMonkeyRerollContext = { type: 'groupGamble' };
+                let rerollBtns = monkeys.map(m => `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px;" onclick="monkeyReroll(${m.playerIdx}, 'groupGamble')">🐵 ${party[m.playerIdx].pName} Reroll (${m.uses} left)</button>`).join('');
+                showModal("🎲 Group Dice Result", `Rolled ${luck}! (Total: ${totalContribution + luck} vs Target: ${pTarget})`,
+                    `<button class="btn btn-main" onclick="resolveGroupGamble(${luck})">Accept Result</button>${rerollBtns}`);
+            } else {
+                resolveGroupGamble(luck);
+            }
+        }, 500);
+    }, 900);
+}
+
+function resolveGroupGamble(luck) {
+    const { totalContribution, numParticipants, statLoss, yesVoters, contributionSummary } = pendingGroupFailure;
+    const newTotal = totalContribution + luck;
+
             if(newTotal >= pTarget) {
                 // Miraculous success! Apply group success rewards
                 pendingGroupFailure = null;
@@ -4414,8 +4751,6 @@ function groupGamble() {
                     <button class="btn btn-main" onclick="applyGroupFailure()">Accept Defeat</button>`
                 );
             }
-        }, 500);
-    }, 900);
 }
 
 function applyGroupFailure() {
@@ -4724,19 +5059,17 @@ function useGroupLuckyFingers(idx, yesVoters) {
     const voterData = yesVoters[idx];
     const playerIdx = voterData.playerIndex;
     const thief = party[playerIdx];
-    
-    // Check if anyone has glory to steal
+
     const hasGlory = party.some(p => p.score > 0 && p !== thief);
-    if(!hasGlory) {
-        alert("No one has Glory to steal yet!");
-        return;
-    }
-    
+    if(!hasGlory) { alert("No one has Glory to steal yet!"); return; }
+
     thiefRolledThisTurn = true;
-    
-    // Roll animation
+    // Store for monkey reroll context
+    window._groupLFIdx = idx;
+    window._groupLFVoters = yesVoters;
+
     showModal("🎲 Lucky Fingers!", "Rolling...", `<div id="dice-container" style="margin: 30px 0;"></div>`);
-    
+
     let rollCount = 0;
     const rollInterval = setInterval(() => {
         const randomNum = Math.floor(Math.random() * 6) + 1;
@@ -4744,41 +5077,54 @@ function useGroupLuckyFingers(idx, yesVoters) {
         rollCount++;
         if(rollCount >= 8) clearInterval(rollInterval);
     }, 100);
-    
+
     setTimeout(() => {
         clearInterval(rollInterval);
         const roll = Math.floor(Math.random() * 6) + 1;
         document.getElementById('dice-container').innerHTML = renderDice(roll);
-        
+
         setTimeout(() => {
-            if(roll >= 5) {
-                // Success! Let them choose who to steal from
-                let targetOptions = '';
-                party.forEach((p, i) => {
-                    if(p.score > 0 && i !== playerIdx) {
-                        targetOptions += `<option value="${i}">${p.pName} (${p.score} Glory)</option>`;
-                    }
-                });
-                
-                showModal(
-                    "🎲 Lucky Fingers - SUCCESS!",
-                    `You rolled a ${roll}! Choose who to steal from:`,
-                    `<select id="group-thief-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
-                        ${targetOptions}
-                    </select>
-                    <button class="btn btn-main" onclick="confirmGroupLuckyFingers(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Steal 1 Glory</button>`
-                );
+            const monkeys = getMonkeyBoyWithUses();
+            if(monkeys.length > 0) {
+                pendingMonkeyRerollContext = { type: 'groupLuckyFingers', idx, yesVoters };
+                let rerollBtns = monkeys.map(m => `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px;" onclick="monkeyReroll(${m.playerIdx}, 'groupLuckyFingers')">🐵 ${party[m.playerIdx].pName} Reroll (${m.uses} left)</button>`).join('');
+                showModal("🎲 Dice Result", `Rolled ${roll}! (Need 5-6 to steal)`,
+                    `<button class="btn btn-main" onclick="resolveGroupLuckyFingers(${roll})">Accept Result</button>${rerollBtns}`);
             } else {
-                // Failed
-                showModal(
-                    "🎲 Lucky Fingers - Failed!",
-                    `You rolled a ${roll}... Not lucky this time!`,
-                    `<p>You needed 5 or 6 to steal Glory.</p>
-                    <button class="btn btn-main" onclick="showGroupContribAfterPassive(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Continue to Contribute</button>`
-                );
+                resolveGroupLuckyFingers(roll);
             }
         }, 500);
     }, 1000);
+}
+
+function resolveGroupLuckyFingers(roll) {
+    const idx = window._groupLFIdx;
+    const yesVoters = window._groupLFVoters;
+    const voterData = yesVoters[idx];
+    const playerIdx = voterData.playerIndex;
+    if(roll >= 5) {
+        let targetOptions = '';
+        party.forEach((p, i) => {
+            if(p.score > 0 && i !== playerIdx) {
+                targetOptions += `<option value="${i}">${p.pName} (${p.score} Glory)</option>`;
+            }
+        });
+        showModal(
+            "🎲 Lucky Fingers - SUCCESS!",
+            `You rolled a ${roll}! Choose who to steal from:`,
+            `<select id="group-thief-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+                ${targetOptions}
+            </select>
+            <button class="btn btn-main" onclick="confirmGroupLuckyFingers(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Steal 1 Glory</button>`
+        );
+    } else {
+        showModal(
+            "🎲 Lucky Fingers - Failed!",
+            `You rolled a ${roll}... Not lucky this time!`,
+            `<p>You needed 5 or 6 to steal Glory.</p>
+            <button class="btn btn-main" onclick="showGroupContribAfterPassive(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Continue to Contribute</button>`
+        );
+    }
 }
 
 function confirmGroupLuckyFingers(idx, yesVoters) {
@@ -5054,9 +5400,9 @@ function applyGroupZombieDebuff() {
 function rollPaladinDice() {
     const h = party[activeIdx];
     h.paladinDiceUsedThisTurn = true;
-    
+
     showModal("🍺 Liquid Courage!", "Rolling...", `<div id="dice-container" style="margin: 30px 0;"></div>`);
-    
+
     let rollCount = 0;
     const rollInterval = setInterval(() => {
         const randomNum = Math.floor(Math.random() * 6) + 1;
@@ -5064,81 +5410,82 @@ function rollPaladinDice() {
         rollCount++;
         if(rollCount >= 8) clearInterval(rollInterval);
     }, 100);
-    
+
     setTimeout(() => {
         clearInterval(rollInterval);
         const roll = Math.floor(Math.random() * 6) + 1;
         document.getElementById('dice-container').innerHTML = renderDice(roll);
-        
+
         setTimeout(() => {
-            if(roll >= 5) {
-                h.score += pPts;
-                h.cur[pStage.s] += 2;
-                challengesCompleted[activeIdx]++;
-                
-                // Track wins for all passive abilities
-                // Thug Dwarf - Brute Force
-                if(h.n === 'Thug Dwarf') {
-                    h.cur.pow += 3;
-                }
-                
-                // Babbler Rogue - Crowd Favorite
-                if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) {
-                    h.score += 1;
-                }
-                
-                // Neighbor Witch - recharge tracking
-                if(h.n === 'Neighbor Witch' && passiveUsed[activeIdx]) {
-                    witchWins[activeIdx] = (witchWins[activeIdx] || 0) + 1;
-                    if(witchWins[activeIdx] >= 3) {
-                        passiveUsed[activeIdx] = false;
-                        witchWins[activeIdx] = 0;
-                    }
-                }
-                
-                // Devil Boy - recharge tracking
-                if(h.n === 'Devil Boy' && passiveUsed[activeIdx]) {
-                    devilWins[activeIdx] = (devilWins[activeIdx] || 0) + 1;
-                    if(devilWins[activeIdx] >= 3) {
-                        passiveUsed[activeIdx] = false;
-                        devilWins[activeIdx] = 0;
-                    }
-                }
-                
-                // Sad Troll - consecutive win tracking
-                if(h.n === 'Sad Troll') {
-                    trollConsecutiveWins[activeIdx] = (trollConsecutiveWins[activeIdx] || 0) + 1;
-                    if(trollConsecutiveWins[activeIdx] >= 3) {
-                        // Rising Spirit triggered!
-                        updatePartyUI();
-                        showRisingSpiritSelection(activeIdx, pPts, pStage.s, '');
-                        return;
-                    }
-                }
-                
-                if(h.n === 'Lover Zombie') {
-                    updatePartyUI();
-                    selectLoverZombieDebuff();
-                    return;
-                }
-                
-                showModal(
-                    "⚡ MIRACULOUS VICTORY!",
-                    `Rolled a ${roll}!`,
-                    `<p>Auto-win! +${pPts} Glory!</p>
-                    <button class="btn btn-main" onclick="challengeWon()">Continue</button>`
-                );
-                updatePartyUI();
+            const monkeys = getMonkeyBoyWithUses();
+            if(monkeys.length > 0) {
+                pendingMonkeyRerollContext = { type: 'paladinDice' };
+                let rerollBtns = monkeys.map(m => `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px;" onclick="monkeyReroll(${m.playerIdx}, 'paladinDice')">🐵 ${party[m.playerIdx].pName} Reroll (${m.uses} left)</button>`).join('');
+                showModal("🍺 Dice Result", `Rolled ${roll}! (Need 5-6 for auto-win)`,
+                    `<button class="btn btn-main" onclick="resolvePaladinDice(${roll})">Accept Result</button>${rerollBtns}`);
             } else {
-                showModal(
-                    "Dice Failed",
-                    `Rolled a ${roll}`,
-                    `<p>Need 5 or 6. Must attempt normally.</p>
-                    <button class="btn btn-main" onclick="startFight()">Try Challenge</button>`
-                );
+                resolvePaladinDice(roll);
             }
         }, 500);
     }, 900);
+}
+
+function resolvePaladinDice(roll) {
+    const h = party[activeIdx];
+    if(roll >= 5) {
+        h.score += pPts;
+        h.cur[pStage.s] += 2;
+        challengesCompleted[activeIdx]++;
+
+        if(h.n === 'Thug Dwarf') h.cur.pow += 3;
+        if(h.n === 'Babbler Rogue' && challengesCompleted[activeIdx] % 3 === 0) h.score += 1;
+
+        if(h.n === 'Neighbor Witch' && passiveUsed[activeIdx]) {
+            witchWins[activeIdx] = (witchWins[activeIdx] || 0) + 1;
+            if(witchWins[activeIdx] >= 3) { passiveUsed[activeIdx] = false; witchWins[activeIdx] = 0; }
+        }
+
+        if(h.n === 'Devil Boy' && passiveUsed[activeIdx]) {
+            devilWins[activeIdx] = (devilWins[activeIdx] || 0) + 1;
+            if(devilWins[activeIdx] >= 3) { passiveUsed[activeIdx] = false; devilWins[activeIdx] = 0; }
+        }
+
+        if(h.n === 'Sad Troll') {
+            trollConsecutiveWins[activeIdx] = (trollConsecutiveWins[activeIdx] || 0) + 1;
+            if(trollConsecutiveWins[activeIdx] >= 3) {
+                updatePartyUI();
+                showRisingSpiritSelection(activeIdx, pPts, pStage.s, '');
+                return;
+            }
+        }
+
+        if(h.n === 'Forest Spirit') {
+            updatePartyUI();
+            triggerNaturesGamble('challengeWon');
+            return;
+        }
+
+        if(h.n === 'Lover Zombie') {
+            updatePartyUI();
+            selectLoverZombieDebuff();
+            return;
+        }
+
+        showModal(
+            "⚡ MIRACULOUS VICTORY!",
+            `Rolled a ${roll}!`,
+            `<p>Auto-win! +${pPts} Glory!</p>
+            <button class="btn btn-main" onclick="challengeWon()">Continue</button>`
+        );
+        updatePartyUI();
+    } else {
+        showModal(
+            "Dice Failed",
+            `Rolled a ${roll}`,
+            `<p>Need 5 or 6. Must attempt normally.</p>
+            <button class="btn btn-main" onclick="startFight()">Try Challenge</button>`
+        );
+    }
 }
 
 function useSystemOverride() {
@@ -5544,24 +5891,15 @@ function confirmSoulContract() {
 
 function useLuckyFingers() {
     const thief = party[activeIdx];
-    
-    // Check if anyone has glory to steal
+
     const hasGlory = party.some(p => p.score > 0 && p !== thief);
-    if(!hasGlory) {
-        alert("No one has Glory to steal yet!");
-        return;
-    }
-    
-    if(thiefRolledThisTurn) {
-        alert("You've already rolled this turn!");
-        return;
-    }
-    
+    if(!hasGlory) { alert("No one has Glory to steal yet!"); return; }
+    if(thiefRolledThisTurn) { alert("You've already rolled this turn!"); return; }
+
     thiefRolledThisTurn = true;
-    
-    // Roll animation
+
     showModal("🎲 Lucky Fingers!", "Rolling...", `<div id="dice-container" style="margin: 30px 0;"></div>`);
-    
+
     let rollCount = 0;
     const rollInterval = setInterval(() => {
         const randomNum = Math.floor(Math.random() * 6) + 1;
@@ -5569,47 +5907,57 @@ function useLuckyFingers() {
         rollCount++;
         if(rollCount >= 8) clearInterval(rollInterval);
     }, 100);
-    
+
     setTimeout(() => {
         clearInterval(rollInterval);
         const roll = Math.floor(Math.random() * 6) + 1;
         document.getElementById('dice-container').innerHTML = renderDice(roll);
-        
+
         setTimeout(() => {
-            if(roll >= 5) {
-                // Success! Let them choose who to steal from
-                let targetOptions = '';
-                party.forEach((p, idx) => {
-                    if(p.score > 0 && idx !== activeIdx) {
-                        targetOptions += `<option value="${idx}">${p.pName} (${p.score} Glory)</option>`;
-                    }
-                });
-                
-                showModal(
-                    "🎲 Lucky Fingers - SUCCESS!",
-                    `You rolled a ${roll}! Choose who to steal from:`,
-                    `<div style="margin: 15px 0;">
-                        <img src="${thief.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
-                    </div>
-                    <select id="thief-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
-                        ${targetOptions}
-                    </select>
-                    <button class="btn btn-main" onclick="confirmLuckyFingers()">Steal 1 Glory</button>`
-                );
+            const monkeys = getMonkeyBoyWithUses();
+            if(monkeys.length > 0) {
+                pendingMonkeyRerollContext = { type: 'luckyFingers' };
+                let rerollBtns = monkeys.map(m => `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px;" onclick="monkeyReroll(${m.playerIdx}, 'luckyFingers')">🐵 ${party[m.playerIdx].pName} Reroll (${m.uses} left)</button>`).join('');
+                showModal("🎲 Dice Result", `Rolled ${roll}! (Need 5-6 to steal)`,
+                    `<button class="btn btn-main" onclick="resolveLuckyFingers(${roll})">Accept Result</button>${rerollBtns}`);
             } else {
-                // Failed
-                showModal(
-                    "🎲 Lucky Fingers - Failed!",
-                    `You rolled a ${roll}... Not lucky this time!`,
-                    `<div style="margin: 15px 0;">
-                        <img src="${thief.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; opacity: 0.6;">
-                    </div>
-                    <p>You needed 5 or 6 to steal Glory.</p>
-                    <button class="btn btn-main" onclick="closeModal()">Continue</button>`
-                );
+                resolveLuckyFingers(roll);
             }
         }, 500);
     }, 1000);
+}
+
+function resolveLuckyFingers(roll) {
+    const thief = party[activeIdx];
+    if(roll >= 5) {
+        let targetOptions = '';
+        party.forEach((p, idx) => {
+            if(p.score > 0 && idx !== activeIdx) {
+                targetOptions += `<option value="${idx}">${p.pName} (${p.score} Glory)</option>`;
+            }
+        });
+        showModal(
+            "🎲 Lucky Fingers - SUCCESS!",
+            `You rolled a ${roll}! Choose who to steal from:`,
+            `<div style="margin: 15px 0;">
+                <img src="${thief.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000;">
+            </div>
+            <select id="thief-target" class="input-hero" style="width: 100%; padding: 10px; margin: 10px 0;">
+                ${targetOptions}
+            </select>
+            <button class="btn btn-main" onclick="confirmLuckyFingers()">Steal 1 Glory</button>`
+        );
+    } else {
+        showModal(
+            "🎲 Lucky Fingers - Failed!",
+            `You rolled a ${roll}... Not lucky this time!`,
+            `<div style="margin: 15px 0;">
+                <img src="${thief.i}" style="width: 80px; height: 80px; border: 3px solid var(--gold); background: #000; opacity: 0.6;">
+            </div>
+            <p>You needed 5 or 6 to steal Glory.</p>
+            <button class="btn btn-main" onclick="closeModal()">Continue</button>`
+        );
+    }
 }
 
 function confirmLuckyFingers() {
@@ -5906,18 +6254,22 @@ function resolveNinjaContract(targetIdx, didWin) {
 // SHOP SYSTEM
 // ============================================================
 
-function openStore() { 
+function openStore() {
     // Reset Dark Stalker's Shadow Control uses for all players
     party.forEach((p, idx) => {
         if (p.n === 'Dark Stalker') {
             shadowControlUses[idx] = 0;
             console.log(`🗡️ ${p.pName}'s Shadow Control reset!`);
         }
+        if (p.n === 'Monkey Boy') {
+            monkeyRerollUses[idx] = 3;
+            console.log(`🐵 ${p.pName}'s Chaos Reroll recharged to 3!`);
+        }
     });
-    
-    storePoints = 10; 
-    tempStats = {pow:0, spd:0, brn:0, cha:0, wil:0}; 
-    renderStore(); 
+
+    storePoints = 10;
+    tempStats = {pow:0, spd:0, brn:0, cha:0, wil:0};
+    renderStore();
 }
 
 function renderStore() {
