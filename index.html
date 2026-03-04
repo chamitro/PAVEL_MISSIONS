@@ -1424,7 +1424,7 @@
                     </div>
                 </div>
                 <p class="hero-card-desc">A mysterious entity born from ancient woods, channeling nature's unpredictable power.</p>
-                <p class="hero-card-ability"><b>🌿 Nature's Gamble:</b> On win, roll dice. 4-6: steal +1 ALL stats from player with most glory. 1-3: lose -1 ALL stats to player with least glory.</p>
+                <p class="hero-card-ability"><b>🌿 Nature's Gamble:</b> On win, roll dice. 4-6: steal +1 ALL stats from most glory. 1-3: lose -1 ALL to least glory. Disabled if tied 1st/last or Spirit is 1st/last.</p>
             </div>
 
             <!-- Ancient Tree Elder -->
@@ -1479,6 +1479,32 @@
                 <p class="hero-card-ability"><b>🐵 Chaos Reroll:</b> After ANY dice roll, force a reroll. 3 uses per shop cycle.</p>
             </div>
 
+            <!-- Wizard of Orks -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/ork_wizard.png" class="hero-card-img" alt="Wizard of Orks">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Wizard of Orks</p>
+                        <span class="hero-card-stats">3/3/5/5/4</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">A cunning ork shaman who bridges two worlds. His brotherhood bonds grant powerful protection.</p>
+                <p class="hero-card-ability"><b>🧙 Ork Brotherhood:</b> With ork ally (Quick Thief/Warrior Girl): IMMUNE to all abilities. Without: choose Lucky Fingers or Battle Born.</p>
+            </div>
+
+            <!-- Another Drunk Guy -->
+            <div class="hero-card">
+                <div class="hero-card-top">
+                    <img src="./images/drunk_guy.png" class="hero-card-img" alt="Another Drunk Guy">
+                    <div class="hero-card-info">
+                        <p class="hero-card-name">Another Drunk Guy</p>
+                        <span class="hero-card-stats">6/2/4/4/4</span>
+                    </div>
+                </div>
+                <p class="hero-card-desc">Yet another drunkard stumbles into the adventure. His inebriation is somehow... empowering.</p>
+                <p class="hero-card-ability"><b>🍺 Drunken Fate:</b> Every dice roll of 6: +2 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at start.</p>
+            </div>
+
             <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px; width: 100%;">Return to Scrolls</button>
         </div>
 
@@ -1489,7 +1515,7 @@
             <hr style="border: 0; border-top: 2px double #8e7b55; margin: 20px 0;">
             <div class="instruction-text" style="text-align: justify;">
                 
-                <p style="font-style: italic; margin-bottom: 15px; background: rgba(139,0,0,0.1); padding: 10px; border-left: 3px solid var(--blood);"><b>The Legend:</b> Eighteen legendary heroes gather at Pavel's tavern, each with unique abilities and soul affinities. King Antony has announced a grand competition - a series of Missions where heroes prove their worth through trials of Power, Speed, Brain, Charisma, and Willpower. Only one can claim the throne of Glory!</p>
+                <p style="font-style: italic; margin-bottom: 15px; background: rgba(139,0,0,0.1); padding: 10px; border-left: 3px solid var(--blood);"><b>The Legend:</b> Twenty legendary heroes gather at Pavel's tavern, each with unique abilities and soul affinities. King Antony has announced a grand competition - a series of Missions where heroes prove their worth through trials of Power, Speed, Brain, Charisma, and Willpower. Only one can claim the throne of Glory!</p>
                 
                 <!-- GAME SETUP -->
                 <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎮 GAME SETUP</b></p>
@@ -1610,7 +1636,7 @@
                 
                 <!-- HERO ABILITIES -->
                 <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">⚡ HERO ABILITIES</b></p>
-                <p>Each hero has a unique passive ability. Here are all 18:</p>
+                <p>Each hero has a unique passive ability. Here are all 20:</p>
                 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🗡️ Dark Stalker - Shadow Control</b></p>
                 <p style="margin-left: 20px;">Force any player to use one of their Meditations. Limited uses based on party size (2p=1, 3p=2, 4+p=3). <b>Resets at each shop.</b></p>
@@ -1653,7 +1679,7 @@
                 <p style="margin-left: 20px;">Every 3 CONSECUTIVE wins, gain +5 to any stat. Streak resets on ANY failure (regular/friend fail, group fail, or meditation). Voting NO on group missions does NOT reset your streak!</p>
 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🌿 Forest Spirit - Nature's Gamble</b></p>
-                <p style="margin-left: 20px;">On every regular mission win, roll a dice. 4-6: steal +1 to ALL stats from the player with the most Glory. 1-3: lose -1 from ALL stats, given to the player with the least Glory. Always active.</p>
+                <p style="margin-left: 20px;">On every regular mission win, roll a dice. 4-6: steal +1 to ALL stats from the player with the most Glory. 1-3: lose -1 from ALL stats, given to the player with the least Glory. Disabled if Forest Spirit is in 1st or last place, or if 2+ heroes are tied for 1st or last place.</p>
 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🌳 Ancient Tree Elder - Ancient Roots</b></p>
                 <p style="margin-left: 20px;">During group mission voting, force another hero (not the reader) to join the mission. They skip voting and must contribute. Once per group mission.</p>
@@ -1666,6 +1692,12 @@
 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🐵 Monkey Boy - Chaos Reroll</b></p>
                 <p style="margin-left: 20px;">After ANY dice roll in the game, force a reroll. Has 3 uses that recharge at each shop visit.</p>
+
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🧙 Wizard of Orks - Ork Brotherhood</b></p>
+                <p style="margin-left: 20px;">If another ork (Quick Thief or Warrior Girl) is in the party: IMMUNE to all hero abilities. If no ork ally: choose Lucky Fingers or Battle Born at game start.</p>
+
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🍺 Another Drunk Guy - Drunken Fate</b></p>
+                <p style="margin-left: 20px;">Every dice roll of 6: gain +2 to ALL stats. With Drunken Paladin in the party: all other heroes lose -2 to ALL stats at game start.</p>
 
                 <!-- DICE GAMBLING -->
                 <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎰 DICE GAMBLING</b></p>
@@ -1973,11 +2005,13 @@ const HEROES = [
     { n: 'Devil Boy', i: './images/devil.png', a: 'dark', s: {pow:4, spd:4, brn:7, cha:6, wil:4}, passive: 'Soul Contract', passiveDesc: 'Choose a stat and swap its value with another player permanently. Recharges after 3 wins.' },
     { n: 'Quick Thief', i: './images/thief.png', a: 'shadow', s: {pow:3, spd:8, brn:5, cha:5, wil:3}, passive: 'Lucky Fingers', passiveDesc: 'Every challenge, roll dice. On 5-6, steal 1 Glory from any player.' },
     { n: 'Sad Troll', i: './images/trol.png', a: 'silent', s: {pow:7, spd:2, brn:3, cha:3, wil:9}, passive: 'Rising Spirit', passiveDesc: 'Every 3 consecutive wins (including group), gain +5 to any stat.' },
-    { n: 'Forest Spirit', i: './images/spirit.png', a: 'dark', s:{pow:3,spd:3,brn:4,cha:5,wil:5}, passive: "Nature's Gamble", passiveDesc: "Roll dice on win. 4-6: steal +1 ALL stats from player with most glory. 1-3: lose -1 ALL stats to player with least glory." },
+    { n: 'Forest Spirit', i: './images/spirit.png', a: 'dark', s:{pow:3,spd:3,brn:4,cha:5,wil:5}, passive: "Nature's Gamble", passiveDesc: "Roll dice on win. 4-6: steal +1 ALL stats from player with most glory. 1-3: lose -1 ALL stats to player with least glory. Disabled if Forest Spirit is 1st/last or if there's a tie for 1st/last." },
     { n: 'Ancient Tree Elder', i: './images/tree_elder.png', a: 'magic', s:{pow:7,spd:2,brn:8,cha:3,wil:7}, passive: 'Ancient Roots', passiveDesc: 'In group missions: force another hero (not reader) to join. They skip voting and must contribute.' },
     { n: 'Granny the Priest', i: './images/priest_granny.png', a: 'silent', s:{pow:2,spd:1,brn:8,cha:8,wil:7}, passive: 'Divine Mercy', passiveDesc: 'If ALL players fail a regular mission, gain +1 Glory. Not in group missions.' },
     { n: 'Warrior Girl', i: './images/warrior_ork.png', a: 'stone', s:{pow:8,spd:5,brn:6,cha:3,wil:6}, passive: 'Battle Born', passiveDesc: 'In group missions: always +3 bonus to contribution. Stacks with affinity.' },
-    { n: 'Monkey Boy', i: './images/monkey_boy.png', a: 'shadow', s:{pow:4,spd:8,brn:4,cha:4,wil:4}, passive: 'Chaos Reroll', passiveDesc: 'After ANY dice roll, force a reroll. 3 uses. Recharges at shop.' }
+    { n: 'Monkey Boy', i: './images/monkey_boy.png', a: 'shadow', s:{pow:4,spd:8,brn:4,cha:4,wil:4}, passive: 'Chaos Reroll', passiveDesc: 'After ANY dice roll, force a reroll. 3 uses. Recharges at shop.' },
+    { n: 'Wizard of Orks', i: './images/ork_wizard.png', a: 'magic', s:{pow:3,spd:3,brn:5,cha:5,wil:4}, passive: 'Ork Brotherhood', passiveDesc: 'If another ork (Quick Thief/Warrior Girl) is in the party: IMMUNE to all hero abilities. If no ork: choose Lucky Fingers or Battle Born.' },
+    { n: 'Another Drunk Guy', i: './images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Drunken Fate', passiveDesc: 'Every dice roll of 6: +2 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at game start.' }
 ];
 
 // ============================================================
@@ -2018,6 +2052,8 @@ let treeElderForcedPlayer = null;
 let treeElderUsedThisMission = false;
 let monkeyRerollUses = {};
 let pendingMonkeyRerollContext = null;
+let orkWizardMode = {};        // keyed by playerIdx: 'immune' | 'luckyFingers' | 'battleBorn'
+let drunkGuyDiceBonus = false; // true if Another Drunk Guy is in the game
 
 // Shop system - NOW BASED ON ROUNDS
 let nextShopAtRound = -1;  // Round number when next shop appears
@@ -2067,6 +2103,48 @@ function monkeyReroll(playerIdx, contextType) {
         thiefRolledThisTurn = false;
         useGroupLuckyFingers(window._groupLFIdx, window._groupLFVoters);
     }
+}
+
+// ============================================================
+// WIZARD OF ORKS - ORK BROTHERHOOD HELPERS
+// ============================================================
+
+function isImmuneToAbilities(playerIdx) {
+    return party[playerIdx] && party[playerIdx].n === 'Wizard of Orks' && orkWizardMode[playerIdx] === 'immune';
+}
+
+function showOrkWizardChoice(playerIdx) {
+    showModal(
+        'Ork Brotherhood',
+        `${party[playerIdx].pName} (Wizard of Orks) has no ork allies! Choose an alternative ability:`,
+        `<button class="btn btn-main" onclick="selectOrkWizardAbility(${playerIdx}, 'luckyFingers')">🎲 Lucky Fingers<br><span style="font-size:11px;">Roll dice each challenge. On 5-6, steal 1 Glory.</span></button>
+         <button class="btn btn-main" onclick="selectOrkWizardAbility(${playerIdx}, 'battleBorn')" style="margin-top:10px;">⚔️ Battle Born<br><span style="font-size:11px;">In group missions: always +3 bonus to contribution.</span></button>`
+    );
+}
+
+function selectOrkWizardAbility(playerIdx, choice) {
+    orkWizardMode[playerIdx] = choice;
+    const abilityName = choice === 'luckyFingers' ? 'Lucky Fingers' : 'Battle Born';
+    closeModal();
+    showModal('Ability Chosen', `${party[playerIdx].pName} chose <b>${abilityName}</b>!`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+// ============================================================
+// ANOTHER DRUNK GUY - DRUNKEN FATE HELPERS
+// ============================================================
+
+function checkDrunkGuyBonus(diceValue) {
+    if (!drunkGuyDiceBonus || diceValue !== 6) return '';
+    let bonusText = '';
+    party.forEach((p, idx) => {
+        if (p.n === 'Another Drunk Guy') {
+            ['pow','spd','brn','cha','wil'].forEach(s => p.cur[s] += 2);
+            bonusText += `<p style="color:#f3cf7a; font-size:12px;">🍺 Drunken Fate: ${p.pName} gains +2 to ALL stats!</p>`;
+        }
+    });
+    if (bonusText) updatePartyUI();
+    return bonusText;
 }
 
 // ============================================================
@@ -2155,6 +2233,7 @@ function handleReg() {
     devilWins[regIdx] = 0;
     trollConsecutiveWins[regIdx] = 0;
     if (hero.n === 'Monkey Boy') monkeyRerollUses[regIdx] = 3;
+    if (hero.n === 'Wizard of Orks') orkWizardMode[regIdx] = null;
 
     showModal(
         `Soul Linked`, 
@@ -2223,12 +2302,46 @@ function startGame() {
     firstChallengerIdx = 1 % party.length;      // Player to the left of reader
     activeIdx = firstChallengerIdx;             // First challenger starts
     
-    document.getElementById('view-deck').style.display = 'none'; 
+    document.getElementById('view-deck').style.display = 'none';
     document.getElementById('view-game').style.display = 'block';
-    
-    updatePartyUI(); 
+
+    // --- Wizard of Orks: Ork Brotherhood detection ---
+    const hasOrk = party.some(p => p.n === 'Quick Thief' || p.n === 'Warrior Girl');
+    party.forEach((p, idx) => {
+        if (p.n === 'Wizard of Orks') {
+            if (hasOrk) {
+                orkWizardMode[idx] = 'immune';
+                console.log(`🧙 Wizard of Orks (${p.pName}): IMMUNE mode - ork ally found`);
+            } else {
+                showOrkWizardChoice(idx);
+            }
+        }
+    });
+
+    // --- Another Drunk Guy: enable dice bonus tracking ---
+    const hasDrunkGuy = party.some(p => p.n === 'Another Drunk Guy');
+    drunkGuyDiceBonus = hasDrunkGuy;
+
+    // --- Drunken Fate synergy: Drunk Guy + Drunken Paladin ---
+    if (hasDrunkGuy && party.some(p => p.n === 'Drunken Paladin')) {
+        party.forEach((p, idx) => {
+            if (p.n !== 'Another Drunk Guy' && p.n !== 'Drunken Paladin') {
+                ['pow','spd','brn','cha','wil'].forEach(s => {
+                    p.cur[s] = Math.max(0, p.cur[s] - 2);
+                });
+            }
+        });
+        // Show notification after a short delay to not conflict with wizard choice
+        setTimeout(() => {
+            showModal('Drunken Fate Synergy!',
+                'Another Drunk Guy + Drunken Paladin are both in the party! All other heroes lose -2 to ALL stats!',
+                `<button class="btn btn-main" onclick="closeModal()">Accept Fate</button>`);
+        }, orkWizardMode[party.findIndex(p => p.n === 'Wizard of Orks')] === null ? 1500 : 100);
+    }
+
+    updatePartyUI();
     updateTurnLabels();
-    
+
     console.log(`🎮 GAME STARTED: ${party.length} players, ${totalRounds} rounds (${totalStagesNeeded} total stages)`);
     console.log(`📜 Reader: ${party[readerIdx].pName}, First Challenger: ${party[firstChallengerIdx].pName}`);
 }
@@ -2345,7 +2458,8 @@ function rollDifficultyDice(isGroup) {
         
         setTimeout(() => {
             isProcessing = false;
-            
+            const fateDrunkBonus = checkDrunkGuyBonus(diceResult);
+
             // Determine difficulty based on dice
             const isEasy = diceResult <= 3;
             const difficultyKey = isEasy ? 'e' : 'h';
@@ -2365,6 +2479,7 @@ function rollDifficultyDice(isGroup) {
                 </div>
                 ${isGroup ? `<p style="font-size: 12px; color: var(--blood);">⚠️ ${reader.pName} cannot participate!</p>` : ''}
                 <p style="font-size: 12px; color: #888;">Only ${reader.pName} knows the target!</p>
+                ${fateDrunkBonus}
                 <button class="btn btn-main" onclick="readerSetsDifficulty('${difficultyKey}', ${gloryPts}, ${isGroup})">Continue</button>`
             );
         }, 500);
@@ -2481,7 +2596,12 @@ function startFight() {
     if(h.n === 'Quick Thief' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== h)) {
         passiveButtons.push(`<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useLuckyFingers()">🎲 Lucky Fingers (Roll to Steal Glory)</button>`);
     }
-    
+
+    // Wizard of Orks - Lucky Fingers (when chosen)
+    if(h.n === 'Wizard of Orks' && orkWizardMode[activeIdx] === 'luckyFingers' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== h)) {
+        passiveButtons.push(`<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useLuckyFingers()">🎲 Lucky Fingers (Roll to Steal Glory)</button>`);
+    }
+
     let passiveOptions = passiveButtons.length > 0 
         ? `<div style="margin-top: 15px; border-top: 1px solid #8e7b55; padding-top: 10px;"><p style="font-size: 11px; color: #888; margin-bottom: 5px;">SPECIAL ABILITIES:</p>${passiveButtons.join('')}</div>` 
         : '';
@@ -2689,6 +2809,7 @@ function gamble(cur, usedStat) {
 
 function resolveGamble(cur, usedStat, luck) {
     const h = party[activeIdx];
+    const drunkBonus = checkDrunkGuyBonus(luck);
     let fin = cur + luck;
     let win = fin >= pTarget;
 
@@ -2697,7 +2818,7 @@ function resolveGamble(cur, usedStat, luck) {
         h.cur[usedStat] += 2;
         challengesCompleted[activeIdx]++;
 
-        let passiveTriggers = '';
+        let passiveTriggers = drunkBonus;
         if(h.n === 'Thug Dwarf') {
             h.cur.pow += 3;
             passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Brute Force: +3 POW!</p>`;
@@ -2766,6 +2887,7 @@ function resolveGamble(cur, usedStat, luck) {
             `Rolled a ${luck}`,
             `<p>Final Power: <b>${fin}</b> vs Target: <b>${pTarget}</b></p>
             <p style="color:var(--blood);">Not enough...</p>
+            ${drunkBonus}
             <button class="btn btn-main" onclick="challengeFailed()">Continue</button>`
         );
     }
@@ -2778,6 +2900,30 @@ function resolveGamble(cur, usedStat, luck) {
 
 function triggerNaturesGamble(onComplete) {
     const h = party[activeIdx];
+
+    // Disable if: Forest Spirit is tied for 1st or last place, or is alone at 1st/last
+    const spiritScore = h.score;
+    const others = party.filter((p, i) => i !== activeIdx);
+    const maxOtherGlory = Math.max(...others.map(p => p.score));
+    const minOtherGlory = Math.min(...others.map(p => p.score));
+    const spiritIsFirst = spiritScore >= maxOtherGlory;
+    const spiritIsLast = spiritScore <= minOtherGlory;
+    const tiedForFirst = others.filter(p => p.score === maxOtherGlory).length >= 2 && spiritScore < maxOtherGlory;
+    const tiedForLast = others.filter(p => p.score === minOtherGlory).length >= 2 && spiritScore > minOtherGlory;
+
+    if(spiritIsFirst || spiritIsLast || tiedForFirst || tiedForLast) {
+        let reason = '';
+        if(spiritIsFirst) reason = 'Forest Spirit is in 1st place';
+        else if(spiritIsLast) reason = 'Forest Spirit is in last place';
+        else if(tiedForFirst) reason = 'Multiple heroes tied for 1st place';
+        else reason = 'Multiple heroes tied for last place';
+
+        showModal("🌿 Nature's Gamble - Disabled",
+            `${reason} - the spirits stay silent.`,
+            `<button class="btn btn-main" onclick="${onComplete}()">Continue</button>`);
+        return;
+    }
+
     showModal("🌿 Nature's Gamble!", "The forest spirits decide your fate...", `<div id="dice-container" style="margin: 30px 0;"></div>`);
 
     let rollCount = 0;
@@ -2794,13 +2940,14 @@ function triggerNaturesGamble(onComplete) {
         document.getElementById('dice-container').innerHTML = renderDice(roll);
 
         setTimeout(() => {
+            const ngDrunkBonus = checkDrunkGuyBonus(roll);
             const stats = ['pow','spd','brn','cha','wil'];
             if(roll >= 4) {
-                // Find player with most glory (excluding self)
+                // Find player with most glory (excluding self, excluding immune)
                 let target = null;
                 let maxGlory = -1;
                 party.forEach((p, idx) => {
-                    if(idx !== activeIdx && p.score > maxGlory) {
+                    if(idx !== activeIdx && !isImmuneToAbilities(idx) && p.score > maxGlory) {
                         maxGlory = p.score;
                         target = idx;
                     }
@@ -2816,6 +2963,7 @@ function triggerNaturesGamble(onComplete) {
                         "🌿 Nature's Blessing!",
                         `Rolled ${roll}! The forest favors you!`,
                         `<p style="color:#4caf50;">Stole +1 ALL stats from ${party[target].pName} (most glory)!</p>
+                        ${ngDrunkBonus}
                         <button class="btn btn-main" onclick="${onComplete}()">${onComplete === 'challengeWon' ? 'Continue' : 'Continue'}</button>`
                     );
                 } else {
@@ -2823,11 +2971,11 @@ function triggerNaturesGamble(onComplete) {
                         `<button class="btn btn-main" onclick="${onComplete}()">Continue</button>`);
                 }
             } else {
-                // Find player with least glory (excluding self)
+                // Find player with least glory (excluding self, excluding immune)
                 let target = null;
                 let minGlory = Infinity;
                 party.forEach((p, idx) => {
-                    if(idx !== activeIdx && p.score < minGlory) {
+                    if(idx !== activeIdx && !isImmuneToAbilities(idx) && p.score < minGlory) {
                         minGlory = p.score;
                         target = idx;
                     }
@@ -2843,6 +2991,7 @@ function triggerNaturesGamble(onComplete) {
                         "🌿 Nature's Wrath!",
                         `Rolled ${roll}! The forest punishes you!`,
                         `<p style="color:var(--blood);">Lost -1 ALL stats to ${party[target].pName} (least glory)!</p>
+                        ${ngDrunkBonus}
                         <button class="btn btn-main" onclick="${onComplete}()">${onComplete === 'challengeWon' ? 'Continue' : 'Continue'}</button>`
                     );
                 } else {
@@ -3321,7 +3470,8 @@ function friendChallengerInvest() {
     let canUseLiquidCourage = (challenger.n === 'Drunken Paladin' && !passiveUsed[challengerIdx]);
     let canUseSoulContract = (challenger.n === 'Devil Boy' && !passiveUsed[challengerIdx]);
     let canUseLuckyFingers = (challenger.n === 'Quick Thief' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== challenger));
-    
+    let canUseWizardLF = (challenger.n === 'Wizard of Orks' && orkWizardMode[challengerIdx] === 'luckyFingers' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== challenger));
+
     let passiveOptions = '';
     if(canUseOverride) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendSystemOverride('challenger')">⚡ System Override (Reset Stats to Initial)</button>`;
@@ -3331,16 +3481,16 @@ function friendChallengerInvest() {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendLiquidCourage('challenger')">🍺 Liquid Courage (Roll for Auto-Win)</button>`;
     } else if(canUseSoulContract) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendSoulContract('challenger')">😈 Soul Contract (Swap Stats)</button>`;
-    } else if(canUseLuckyFingers) {
+    } else if(canUseLuckyFingers || canUseWizardLF) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendLuckyFingers('challenger')">🎲 Lucky Fingers (Roll to Steal Glory)</button>`;
     }
-    
+
     // Dragon Rage note
     let dragonNote = '';
     if(challenger.n === 'Lost Dragon') {
         dragonNote = `<p style="font-size: 12px; color: #FF6347; margin-top: 8px;">⚡ Dragon Rage: Spend 4+ for +3 bonus!</p>`;
     }
-    
+
     showModal(
         `${challenger.pName}'s Investment`,
         "You have +3 Courage Bonus!",
@@ -3379,7 +3529,8 @@ function friendOpponentInvest() {
     let canUseLiquidCourage = (opponent.n === 'Drunken Paladin' && !passiveUsed[opponentIdx]);
     let canUseSoulContract = (opponent.n === 'Devil Boy' && !passiveUsed[opponentIdx]);
     let canUseLuckyFingers = (opponent.n === 'Quick Thief' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== opponent));
-    
+    let canUseWizardLF = (opponent.n === 'Wizard of Orks' && orkWizardMode[opponentIdx] === 'luckyFingers' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== opponent));
+
     let passiveOptions = '';
     if(canUseOverride) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendSystemOverride('opponent')">⚡ System Override (Reset Stats to Initial)</button>`;
@@ -3389,16 +3540,16 @@ function friendOpponentInvest() {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendLiquidCourage('opponent')">🍺 Liquid Courage (Roll for Auto-Win)</button>`;
     } else if(canUseSoulContract) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendSoulContract('opponent')">😈 Soul Contract (Swap Stats)</button>`;
-    } else if(canUseLuckyFingers) {
+    } else if(canUseLuckyFingers || canUseWizardLF) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useFriendLuckyFingers('opponent')">🎲 Lucky Fingers (Roll to Steal Glory)</button>`;
     }
-    
+
     // Dragon Rage note
     let dragonNote = '';
     if(opponent.n === 'Lost Dragon') {
         dragonNote = `<p style="font-size: 12px; color: #FF6347; margin-top: 8px;">⚡ Dragon Rage: Spend 4+ for +3 bonus!</p>`;
     }
-    
+
     showModal(
         `${opponent.pName}'s Investment`,
         "How much will you risk?",
@@ -3727,15 +3878,15 @@ function useFriendArcaneAlliance(role) {
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
     const h = party[playerIdx];
     
-    // Get other players (excluding both challenger and opponent for fairness)
+    // Get other players (excluding both challenger and opponent for fairness, excluding immune)
     const otherIdx = role === 'challenger' ? friendChallengeData.opponent : friendChallengeData.challenger;
-    let otherPlayers = party.filter((p, i) => i !== playerIdx && i !== otherIdx);
-    
+    let otherPlayers = party.filter((p, i) => i !== playerIdx && i !== otherIdx && !isImmuneToAbilities(i));
+
     if(otherPlayers.length === 0) {
         alert("No other players to steal from!");
         return;
     }
-    
+
     // DON'T show their stat values - Witch has to guess!
     let playerOptions = otherPlayers.map((p) => {
         let realIdx = party.indexOf(p);
@@ -3768,12 +3919,18 @@ function useFriendArcaneAlliance(role) {
 function executeFriendArcaneAlliance(role) {
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
     const h = party[playerIdx];
-    
+
     const allyIdx = parseInt(document.getElementById('friend-borrow-player').value);
     const ally = party[allyIdx];
     const borrowAmt = parseInt(document.getElementById('friend-borrow-amt').value) || 0;
     const ownAmt = parseInt(document.getElementById('friend-own-amt').value) || 0;
-    
+
+    if(isImmuneToAbilities(allyIdx)) {
+        showModal("🔮 Arcane Alliance BLOCKED!", `${ally.pName} is immune to abilities (Ork Brotherhood)!`,
+            `<button class="btn btn-main" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Continue</button>`);
+        return;
+    }
+
     // Mark as used BEFORE checking (ability is spent either way!)
     passiveUsed[playerIdx] = true;
     witchWins[playerIdx] = 0;
@@ -3844,6 +4001,7 @@ function useFriendLiquidCourage(role) {
         document.getElementById('dice-container').innerHTML = renderDice(roll);
         
         setTimeout(() => {
+            const friendLCDrunkBonus = checkDrunkGuyBonus(roll);
             if(roll >= 5) {
                 // Auto-win!
                 if(role === 'challenger') {
@@ -3855,12 +4013,13 @@ function useFriendLiquidCourage(role) {
                     friendChallengeData.opponentOwnSpend = 0;
                     friendChallengeData.opponentAutoWin = true;
                 }
-                
+
                 showModal(
                     "🍺 LIQUID COURAGE SUCCESS!",
                     "The spirits favor you!",
                     `<p style="color:#4caf50; font-size:20px;">Rolled ${roll}! AUTO-WIN!</p>
                     <p>${h.pName} automatically wins the challenge!</p>
+                    ${friendLCDrunkBonus}
                     <button class="btn btn-main" onclick="${role === 'challenger' ? 'friendOpponentInvest()' : 'resolveFriendChallengeWithAutoWin()'}">Continue</button>`
                 );
             } else {
@@ -3870,6 +4029,7 @@ function useFriendLiquidCourage(role) {
                     "The spirits are fickle...",
                     `<p style="color:#e74c3c; font-size:20px;">Rolled ${roll}. Needed 5+</p>
                     <p>You must invest normally.</p>
+                    ${friendLCDrunkBonus}
                     <button class="btn btn-main" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Continue</button>`
                 );
             }
@@ -3914,11 +4074,11 @@ function friendOpponentInvestNormal() {
 function useFriendSoulContract(role) {
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
     const devil = party[playerIdx];
-    
-    // Build target options (can target anyone except self)
+
+    // Build target options (can target anyone except self, excluding immune)
     let targetOptions = '';
     party.forEach((p, idx) => {
-        if(idx !== playerIdx) {
+        if(idx !== playerIdx && !isImmuneToAbilities(idx)) {
             const indicator = idx === readerIdx ? ' 📜 (Reader)' : '';
             targetOptions += `<option value="${idx}">${p.pName}${indicator}</option>`;
         }
@@ -3975,18 +4135,24 @@ function confirmFriendSoulContract(role) {
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
     const targetIdx = parseInt(document.getElementById('friend-devil-target').value);
     const stat = document.getElementById('friend-devil-stat').value;
-    
+
     const devil = party[playerIdx];
     const target = party[targetIdx];
-    
+
+    if(isImmuneToAbilities(targetIdx)) {
+        showModal("😈 Soul Contract BLOCKED!", `${target.pName} is immune to abilities (Ork Brotherhood)!`,
+            `<button class="btn btn-main" onclick="${role === 'challenger' ? 'friendChallengerInvestNormal()' : 'friendOpponentInvestNormal()'}">Continue</button>`);
+        return;
+    }
+
     // Get the values
     const devilValue = devil.cur[stat];
     const targetValue = target.cur[stat];
-    
+
     // Perform the swap
     devil.cur[stat] = targetValue;
     target.cur[stat] = devilValue;
-    
+
     // Mark as used
     passiveUsed[playerIdx] = true;
     devilWins[playerIdx] = 0;
@@ -4045,12 +4211,13 @@ function useFriendLuckyFingers(role) {
 }
 
 function resolveFriendLuckyFingers(roll, role) {
+    checkDrunkGuyBonus(roll);
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
     const thief = party[playerIdx];
     if(roll >= 5) {
         let targetOptions = '';
         party.forEach((p, idx) => {
-            if(p.score > 0 && idx !== playerIdx) {
+            if(p.score > 0 && idx !== playerIdx && !isImmuneToAbilities(idx)) {
                 targetOptions += `<option value="${idx}">${p.pName} (${p.score} Glory)</option>`;
             }
         });
@@ -4311,7 +4478,7 @@ function useAncientRoots() {
     // Find players who haven't voted yet (not reader, not self)
     let targetOptions = '';
     groupVotingOrder.forEach((pidx, vi) => {
-        if(vi > groupChallengeVotingIndex && pidx !== readerIdx && pidx !== actualIdx) {
+        if(vi > groupChallengeVotingIndex && pidx !== readerIdx && pidx !== actualIdx && !isImmuneToAbilities(pidx)) {
             targetOptions += `<option value="${pidx}">${party[pidx].pName} (${party[pidx].n})</option>`;
         }
     });
@@ -4382,7 +4549,8 @@ function collectGroupContribution(idx, yesVoters) {
     let canUseArcaneAlliance = (currentHero.n === 'Neighbor Witch' && !passiveUsed[playerIdx]);
     let canUseSoulContract = (currentHero.n === 'Devil Boy' && !passiveUsed[playerIdx]);
     let canUseLuckyFingers = (currentHero.n === 'Quick Thief' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== currentHero));
-    
+    let canUseWizardLF = (currentHero.n === 'Wizard of Orks' && orkWizardMode[playerIdx] === 'luckyFingers' && !thiefRolledThisTurn && party.some(p => p.score > 0 && p !== currentHero));
+
     let passiveOptions = '';
     if(canUseOverride) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupSystemOverride(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">⚡ System Override (Reset Stats to Initial)</button>`;
@@ -4390,19 +4558,19 @@ function collectGroupContribution(idx, yesVoters) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupArcaneAlliance(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">🔮 Arcane Alliance (Steal Points)</button>`;
     } else if(canUseSoulContract) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupSoulContract(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">😈 Soul Contract (Swap Stats)</button>`;
-    } else if(canUseLuckyFingers) {
+    } else if(canUseLuckyFingers || canUseWizardLF) {
         passiveOptions = `<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:10px;" onclick="useGroupLuckyFingers(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">🎲 Lucky Fingers (Roll to Steal Glory)</button>`;
     }
-    
+
     // Dragon Rage note
     let dragonNote = '';
     if(currentHero.n === 'Lost Dragon') {
         dragonNote = `<p style="font-size: 12px; color: #FF6347; margin-top: 8px;">⚡ Dragon Rage: Contribute 4+ for +3 bonus!</p>`;
     }
 
-    // Warrior Girl note
+    // Warrior Girl / Wizard of Orks (Battle Born) note
     let warriorNote = '';
-    if(currentHero.n === 'Warrior Girl') {
+    if(currentHero.n === 'Warrior Girl' || (currentHero.n === 'Wizard of Orks' && orkWizardMode[playerIdx] === 'battleBorn')) {
         warriorNote = `<p style="font-size:12px;color:#FF6347;margin-top:8px;">⚔️ Battle Born: Always +3 bonus!</p>`;
     }
     
@@ -4437,7 +4605,7 @@ function submitGroupContrib(idx, yesVoters) {
     // Calculate bonuses
     let affinityBonus = (Array.isArray(pStage.a) ? pStage.a.includes(currentHero.a) : currentHero.a === pStage.a) ? 3 : 0;
     let dragonBonus = (currentHero.n === 'Lost Dragon' && contribution >= 4) ? 3 : 0;
-    let warriorBonus = (currentHero.n === 'Warrior Girl') ? 3 : 0;
+    let warriorBonus = (currentHero.n === 'Warrior Girl' || (currentHero.n === 'Wizard of Orks' && orkWizardMode[voterData.playerIndex] === 'battleBorn')) ? 3 : 0;
 
     groupChallengeContributions.push({
         playerIndex: voterData.playerIndex,
@@ -4659,6 +4827,7 @@ function groupGamble() {
 
 function resolveGroupGamble(luck) {
     const { totalContribution, numParticipants, statLoss, yesVoters, contributionSummary } = pendingGroupFailure;
+    checkDrunkGuyBonus(luck);
     const newTotal = totalContribution + luck;
 
             if(newTotal >= pTarget) {
@@ -4840,21 +5009,21 @@ function useGroupArcaneAlliance(idx, yesVoters) {
     const playerIdx = voterData.playerIndex;
     const h = party[playerIdx];
     
-    // Get other players (excluding current player)
-    let otherPlayers = party.filter((p, i) => i !== playerIdx);
-    
+    // Get other players (excluding current player, excluding immune)
+    let otherPlayers = party.filter((p, i) => i !== playerIdx && !isImmuneToAbilities(i));
+
     if(otherPlayers.length === 0) {
         alert("No other players to steal from!");
         return;
     }
-    
+
     // DON'T show their stat values - Witch has to guess!
     let playerOptions = otherPlayers.map((p) => {
         let realIdx = party.indexOf(p);
         const isReader = realIdx === readerIdx ? ' 📜' : '';
         return `<option value="${realIdx}">${p.pName} (${p.n})${isReader}</option>`;
     }).join('');
-    
+
     showModal(
         "🔮 Arcane Alliance",
         "Steal power permanently from another player",
@@ -4881,12 +5050,18 @@ function executeGroupArcaneAlliance(idx, yesVoters) {
     const voterData = yesVoters[idx];
     const playerIdx = voterData.playerIndex;
     const h = party[playerIdx];
-    
+
     const allyIdx = parseInt(document.getElementById('group-borrow-player').value);
     const ally = party[allyIdx];
     const borrowAmt = parseInt(document.getElementById('group-borrow-amt').value) || 0;
     const ownAmt = parseInt(document.getElementById('group-own-amt').value) || 0;
-    
+
+    if(isImmuneToAbilities(allyIdx)) {
+        showModal("🔮 Arcane Alliance BLOCKED!", `${ally.pName} is immune to abilities (Ork Brotherhood)!`,
+            `<button class="btn btn-main" onclick="showGroupContribAfterPassive(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Continue</button>`);
+        return;
+    }
+
     // Mark as used BEFORE checking (ability is spent either way!)
     passiveUsed[playerIdx] = true;
     witchWins[playerIdx] = 0;
@@ -4945,11 +5120,11 @@ function useGroupSoulContract(idx, yesVoters) {
     const voterData = yesVoters[idx];
     const playerIdx = voterData.playerIndex;
     const devil = party[playerIdx];
-    
-    // Build target options (can target anyone except self)
+
+    // Build target options (can target anyone except self, excluding immune)
     let targetOptions = '';
     party.forEach((p, i) => {
-        if(i !== playerIdx) {
+        if(i !== playerIdx && !isImmuneToAbilities(i)) {
             const indicator = i === readerIdx ? ' 📜 (Reader)' : '';
             targetOptions += `<option value="${i}">${p.pName}${indicator}</option>`;
         }
@@ -5007,18 +5182,24 @@ function confirmGroupSoulContract(idx, yesVoters) {
     const playerIdx = voterData.playerIndex;
     const targetIdx = parseInt(document.getElementById('group-devil-target').value);
     const stat = document.getElementById('group-devil-stat').value;
-    
+
     const devil = party[playerIdx];
     const target = party[targetIdx];
-    
+
+    if(isImmuneToAbilities(targetIdx)) {
+        showModal("😈 Soul Contract BLOCKED!", `${target.pName} is immune to abilities (Ork Brotherhood)!`,
+            `<button class="btn btn-main" onclick="showGroupContribAfterPassive(${idx}, ${JSON.stringify(yesVoters).replace(/"/g, '&quot;')})">Continue</button>`);
+        return;
+    }
+
     // Get the values
     const devilValue = devil.cur[stat];
     const targetValue = target.cur[stat];
-    
+
     // Perform the swap
     devil.cur[stat] = targetValue;
     target.cur[stat] = devilValue;
-    
+
     // Mark as used
     passiveUsed[playerIdx] = true;
     devilWins[playerIdx] = 0;
@@ -5098,6 +5279,7 @@ function useGroupLuckyFingers(idx, yesVoters) {
 }
 
 function resolveGroupLuckyFingers(roll) {
+    checkDrunkGuyBonus(roll);
     const idx = window._groupLFIdx;
     const yesVoters = window._groupLFVoters;
     const voterData = yesVoters[idx];
@@ -5105,7 +5287,7 @@ function resolveGroupLuckyFingers(roll) {
     if(roll >= 5) {
         let targetOptions = '';
         party.forEach((p, i) => {
-            if(p.score > 0 && i !== playerIdx) {
+            if(p.score > 0 && i !== playerIdx && !isImmuneToAbilities(i)) {
                 targetOptions += `<option value="${i}">${p.pName} (${p.score} Glory)</option>`;
             }
         });
@@ -5168,7 +5350,7 @@ function useGroupShadowControl() {
     for(let i = groupChallengeVotingIndex + 1; i < groupVotingOrder.length; i++) {
         const targetIdx = groupVotingOrder[i];
         const target = party[targetIdx];
-        if(target.skips > 0 && !groupForcedNoPlayers.includes(targetIdx)) {
+        if(target.skips > 0 && !groupForcedNoPlayers.includes(targetIdx) && !isImmuneToAbilities(targetIdx)) {
             targetOptions += `<option value="${targetIdx}">${target.pName} (${target.skips} meditations)</option>`;
             hasTargets = true;
         }
@@ -5213,6 +5395,12 @@ function confirmGroupShadowControl() {
     const stalkerIdx = groupVotingOrder[groupChallengeVotingIndex];
     const target = party[targetIdx];
 
+    if(isImmuneToAbilities(targetIdx)) {
+        showModal("🗡️ Shadow Control BLOCKED!", `${target.pName} is immune to abilities (Ork Brotherhood)!`,
+            `<button class="btn btn-main" onclick="collectGroupVote()">Continue</button>`);
+        return;
+    }
+
     // Deduct meditation
     target.skips = Math.max(0, target.skips - 1);
 
@@ -5241,10 +5429,10 @@ function setupGroupAssassinationContract() {
     const ninjaIdx = groupVotingOrder[groupChallengeVotingIndex];
     const ninja = party[ninjaIdx];
 
-    // Build list of targets (not reader, not self)
+    // Build list of targets (not reader, not self, not immune)
     let targetOptions = '';
     party.forEach((p, idx) => {
-        if(idx !== ninjaIdx && idx !== readerIdx) {
+        if(idx !== ninjaIdx && idx !== readerIdx && !isImmuneToAbilities(idx)) {
             targetOptions += `<option value="${idx}">${p.pName} (${p.n})</option>`;
         }
     });
@@ -5301,6 +5489,13 @@ function confirmGroupAssassinationContract() {
 function resolveGroupNinjaContract(yesVoters, groupSucceeded) {
     if(!ninjaContract || !ninjaContract.isGroupContract) {
         window.lastNinjaContractResult = null;
+        return;
+    }
+
+    // Immune target - contract voided
+    if(isImmuneToAbilities(ninjaContract.target)) {
+        window.lastNinjaContractResult = `<p style="font-size:12px; color:#888; margin-top:8px;">🥷 Contract voided - ${party[ninjaContract.target].pName} is immune (Ork Brotherhood).</p>`;
+        ninjaContract = null;
         return;
     }
 
@@ -5372,7 +5567,7 @@ function applyGroupZombieDebuff() {
     const zombie = party[zombieIdx];
 
     party.forEach((p, idx) => {
-        if(idx !== zombieIdx) {
+        if(idx !== zombieIdx && !isImmuneToAbilities(idx)) {
             p.cur[chosenStat] = Math.max(0, p.cur[chosenStat] - 2);
         }
     });
@@ -5432,6 +5627,7 @@ function rollPaladinDice() {
 
 function resolvePaladinDice(roll) {
     const h = party[activeIdx];
+    const paladinDrunkBonus = checkDrunkGuyBonus(roll);
     if(roll >= 5) {
         h.score += pPts;
         h.cur[pStage.s] += 2;
@@ -5475,6 +5671,7 @@ function resolvePaladinDice(roll) {
             "⚡ MIRACULOUS VICTORY!",
             `Rolled a ${roll}!`,
             `<p>Auto-win! +${pPts} Glory!</p>
+            ${paladinDrunkBonus}
             <button class="btn btn-main" onclick="challengeWon()">Continue</button>`
         );
         updatePartyUI();
@@ -5483,6 +5680,7 @@ function resolvePaladinDice(roll) {
             "Dice Failed",
             `Rolled a ${roll}`,
             `<p>Need 5 or 6. Must attempt normally.</p>
+            ${paladinDrunkBonus}
             <button class="btn btn-main" onclick="startFight()">Try Challenge</button>`
         );
     }
@@ -5554,9 +5752,9 @@ function selectLoverZombieDebuff() {
 function applyZombieDebuff() {
     const chosenStat = document.getElementById('zombie-stat').value;
     const zombie = party[activeIdx];
-    
+
     party.forEach((p, idx) => {
-        if(idx !== activeIdx) {
+        if(idx !== activeIdx && !isImmuneToAbilities(idx)) {
             p.cur[chosenStat] = Math.max(0, p.cur[chosenStat] - 2);
         }
     });
@@ -5580,12 +5778,12 @@ function useArcaneAlliance() {
     // Build list of other players to steal from (including reader!)
     let playerOptions = '';
     party.forEach((p, idx) => {
-        if(idx !== activeIdx) {
+        if(idx !== activeIdx && !isImmuneToAbilities(idx)) {
             const isReader = idx === readerIdx ? ' 📜' : '';
             playerOptions += `<option value="${idx}">${p.pName} (${p.n})${isReader}</option>`;
         }
     });
-    
+
     showModal(
         "🔮 Arcane Alliance",
         "Steal stat points permanently from another player",
@@ -5620,10 +5818,16 @@ function confirmArcaneAlliance() {
     const targetIdx = parseInt(document.getElementById('witch-target').value);
     const stat = document.getElementById('witch-stat').value;
     const amount = parseInt(document.getElementById('witch-amount').value) || 1;
-    
+
     const target = party[targetIdx];
     const witch = party[activeIdx];
-    
+
+    if(isImmuneToAbilities(targetIdx)) {
+        showModal("🔮 Arcane Alliance BLOCKED!", `${target.pName} is immune to abilities (Ork Brotherhood)!`,
+            `<button class="btn btn-main" onclick="startFight()">Continue</button>`);
+        return;
+    }
+
     // Mark as used BEFORE checking (ability is spent either way!)
     passiveUsed[activeIdx] = true;
     witchWins[activeIdx] = 0;
@@ -5702,12 +5906,12 @@ function useShadowControl() {
     let targetOptions = '';
     let hasTargets = false;
     party.forEach((p, idx) => {
-        if(idx !== activeIdx && p.skips > 0) {
+        if(idx !== activeIdx && p.skips > 0 && !isImmuneToAbilities(idx)) {
             targetOptions += `<option value="${idx}">${p.pName} (${p.skips} meditations left)</option>`;
             hasTargets = true;
         }
     });
-    
+
     if(!hasTargets) {
         showModal(
             "🗡️ Shadow Control",
@@ -5795,16 +5999,16 @@ function confirmShadowControl() {
 
 function useSoulContract() {
     const devil = party[activeIdx];
-    
+
     if(passiveUsed[activeIdx]) {
         alert("Soul Contract has already been used! Win 3 more challenges to recharge.");
         return;
     }
-    
+
     // Build target options
     let targetOptions = '';
     party.forEach((p, idx) => {
-        if(idx !== activeIdx) {
+        if(idx !== activeIdx && !isImmuneToAbilities(idx)) {
             const indicator = idx === readerIdx ? ' 📜 (Reader)' : '';
             targetOptions += `<option value="${idx}">${p.pName}${indicator}</option>`;
         }
@@ -5857,18 +6061,24 @@ function updateSoulContractStats() {
 function confirmSoulContract() {
     const targetIdx = parseInt(document.getElementById('devil-target').value);
     const stat = document.getElementById('devil-stat').value;
-    
+
     const devil = party[activeIdx];
     const target = party[targetIdx];
-    
+
+    if(isImmuneToAbilities(targetIdx)) {
+        showModal("😈 Soul Contract BLOCKED!", `${target.pName} is immune to abilities (Ork Brotherhood)!`,
+            `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+        return;
+    }
+
     // Get the values
     const devilValue = devil.cur[stat];
     const targetValue = target.cur[stat];
-    
+
     // Perform the swap
     devil.cur[stat] = targetValue;
     target.cur[stat] = devilValue;
-    
+
     // Mark as used
     passiveUsed[activeIdx] = true;
     devilWins[activeIdx] = 0;
@@ -5928,11 +6138,12 @@ function useLuckyFingers() {
 }
 
 function resolveLuckyFingers(roll) {
+    checkDrunkGuyBonus(roll);
     const thief = party[activeIdx];
     if(roll >= 5) {
         let targetOptions = '';
         party.forEach((p, idx) => {
-            if(p.score > 0 && idx !== activeIdx) {
+            if(p.score > 0 && idx !== activeIdx && !isImmuneToAbilities(idx)) {
                 targetOptions += `<option value="${idx}">${p.pName} (${p.score} Glory)</option>`;
             }
         });
@@ -6161,16 +6372,16 @@ function setupAssassinationContract() {
     // Build list of targets (other challengers - NOT the reader since they don't participate)
     let targetOptions = '';
     party.forEach((p, idx) => {
-        if(idx !== activeIdx && idx !== readerIdx) {
+        if(idx !== activeIdx && idx !== readerIdx && !isImmuneToAbilities(idx)) {
             targetOptions += `<option value="${idx}">${p.pName} (${p.n})</option>`;
         }
     });
-    
+
     if(targetOptions === '') {
         alert("No valid targets! (Reader doesn't participate in challenges)");
         return;
     }
-    
+
     showModal(
         "🥷 Assassination Contract",
         "Bet on another player's failure",
@@ -6220,7 +6431,13 @@ function confirmAssassinationContract() {
 
 function resolveNinjaContract(targetIdx, didWin) {
     if(!ninjaContract || ninjaContract.target !== targetIdx) return;
-    
+
+    // Immune target - contract voided
+    if(isImmuneToAbilities(ninjaContract.target)) {
+        ninjaContract = null;
+        return;
+    }
+
     const ninja = party[ninjaContract.ninja];
     const target = party[ninjaContract.target];
     const stat = ninjaContract.stat;

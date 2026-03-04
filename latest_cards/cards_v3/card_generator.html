@@ -689,10 +689,10 @@ const SOUL_DATA = {
     tech:   { icon: '⚙️', label: 'Tech',   heroes: ['Friendly AI'] },
     stone:  { icon: '🪨', label: 'Stone',  heroes: ['Thug Dwarf', 'Warrior Girl'] },
     crowd:  { icon: '👥', label: 'Crowd',  heroes: ['Babbler Rogue'] },
-    magic:  { icon: '✨', label: 'Magic',  heroes: ['Neighbor Witch', 'Ancient Tree Elder'] },
+    magic:  { icon: '✨', label: 'Magic',  heroes: ['Neighbor Witch', 'Ancient Tree Elder', 'Wizard of Orks'] },
     shadow: { icon: '🌫️', label: 'Shadow', heroes: ['Fancy Ninja', 'Quick Thief', 'Monkey Boy'] },
     sky:    { icon: '☁️', label: 'Sky',    heroes: ['Lost Dragon'] },
-    pub:    { icon: '🍺', label: 'Pub',    heroes: ['Drunken Paladin'] },
+    pub:    { icon: '🍺', label: 'Pub',    heroes: ['Drunken Paladin', 'Another Drunk Guy'] },
     silent: { icon: '🤫', label: 'Silent', heroes: ['Mute Monk', 'Sad Troll', 'Granny the Priest'] },
     undead: { icon: '💀', label: 'Undead', heroes: ['Lover Zombie'] }
 };
@@ -879,11 +879,13 @@ const HEROES = [
     { n: 'Devil Boy', i: '../../images/devil.png', a: 'dark', s: {pow:4, spd:4, brn:7, cha:6, wil:4}, passive: 'Soul Contract', passiveDesc: 'Choose a stat and swap its value with another player permanently. Recharges after 3 wins.', quote: '"Everything has a price. I set them."' },
     { n: 'Quick Thief', i: '../../images/thief.png', a: 'shadow', s: {pow:3, spd:8, brn:5, cha:5, wil:3}, passive: 'Lucky Fingers', passiveDesc: 'Each challenge, roll a dice. On 5-6: steal 1 Glory from any player who has it.', quote: '"If it\'s not nailed down, it\'s mine."' },
     { n: 'Sad Troll', i: '../../images/trol.png', a: 'silent', s: {pow:7, spd:2, brn:3, cha:3, wil:9}, passive: 'Rising Spirit', passiveDesc: 'Every 3 consecutive wins (including group), gain +5 to any stat.', quote: '"The world is heavy. But I carry on."' },
-    { n: 'Forest Spirit', i: '../../images/spirit.png', a: 'dark', s:{pow:3,spd:3,brn:4,cha:5,wil:5}, passive: "Nature's Gamble", passiveDesc: 'Roll dice on win. 4-6: steal +1 ALL stats from player with most glory. 1-3: lose -1 ALL stats to player with least glory.', quote: '"The forest remembers what men forget."' },
+    { n: 'Forest Spirit', i: '../../images/spirit.png', a: 'dark', s:{pow:3,spd:3,brn:4,cha:5,wil:5}, passive: "Nature's Gamble", passiveDesc: "Roll dice on win. 4-6: steal +1 ALL stats from most glory. 1-3: lose -1 ALL to least glory. Disabled if tied 1st/last or Spirit is 1st/last.", quote: '"The forest remembers what men forget."' },
     { n: 'Ancient Tree Elder', i: '../../images/tree_elder.png', a: 'magic', s:{pow:7,spd:2,brn:8,cha:3,wil:7}, passive: 'Ancient Roots', passiveDesc: 'In group missions: force another hero (not reader) to join. They skip voting and must contribute.', quote: '"I have stood here since before your grandfathers."' },
     { n: 'Granny the Priest', i: '../../images/priest_granny.png', a: 'silent', s:{pow:2,spd:1,brn:8,cha:8,wil:7}, passive: 'Divine Mercy', passiveDesc: 'If ALL players fail a regular mission, gain +1 Glory. Not in group missions.', quote: '"Have some cookies, dear. And a blessing."' },
     { n: 'Warrior Girl', i: '../../images/warrior_ork.png', a: 'stone', s:{pow:8,spd:5,brn:6,cha:3,wil:6}, passive: 'Battle Born', passiveDesc: 'In group missions: always +3 bonus to contribution. Stacks with affinity.', quote: '"My blade speaks louder than words."' },
-    { n: 'Monkey Boy', i: '../../images/monkey_boy.png', a: 'shadow', s:{pow:4,spd:8,brn:4,cha:4,wil:4}, passive: 'Chaos Reroll', passiveDesc: 'After ANY dice roll, force a reroll. 3 uses. Recharges at shop.', quote: '"Ooh ooh! Let me try that again!"' }
+    { n: 'Monkey Boy', i: '../../images/monkey_boy.png', a: 'shadow', s:{pow:4,spd:8,brn:4,cha:4,wil:4}, passive: 'Chaos Reroll', passiveDesc: 'After ANY dice roll, force a reroll. 3 uses. Recharges at shop.', quote: '"Ooh ooh! Let me try that again!"' },
+    { n: 'Wizard of Orks', i: '../../images/ork_wizard.png', a: 'magic', s:{pow:3,spd:3,brn:5,cha:5,wil:4}, passive: 'Ork Brotherhood', passiveDesc: 'If another ork (Quick Thief/Warrior Girl) is in the party: IMMUNE to all hero abilities. If no ork: choose Lucky Fingers or Battle Born.', quote: '"The old ways are the strongest ways."' },
+    { n: 'Another Drunk Guy', i: '../../images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Drunken Fate', passiveDesc: 'Every dice roll of 6: +2 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at game start.', quote: '"Is this round on me? I forgot..."' }
 ];
 
 // ============================================================
