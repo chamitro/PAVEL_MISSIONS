@@ -9,6 +9,7 @@
 **A medieval tavern card game where heroes compete for glory through strategic resource management, unique passive abilities, tactical mind games, and cooperative group missions.**
 
 **🎮 Live Demo:** https://chamitro.github.io/PAVEL_MISSIONS/
+**Print Cards for live play in folder:** ./all_cards
 
 ![Game Type](https://img.shields.io/badge/Type-Party%20Game-gold)
 ![Players](https://img.shields.io/badge/Players-2--10-blue)
