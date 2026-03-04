@@ -1502,7 +1502,7 @@
                     </div>
                 </div>
                 <p class="hero-card-desc">Yet another drunkard stumbles into the adventure. His inebriation is somehow... empowering.</p>
-                <p class="hero-card-ability"><b>🍺 Drunken Fate:</b> Every dice roll of 6: +2 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at start.</p>
+                <p class="hero-card-ability"><b>🍺 Drunken Fate:</b> Every dice roll of 6: +1 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at start.</p>
             </div>
 
             <button class="btn btn-main" onclick="showBookSelect()" style="margin-top: 15px; width: 100%;">Return to Scrolls</button>
@@ -1697,7 +1697,7 @@
                 <p style="margin-left: 20px;">If another ork (Quick Thief or Warrior Girl) is in the party: IMMUNE to all hero abilities. If no ork ally: choose Lucky Fingers or Battle Born at game start.</p>
 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🍺 Another Drunk Guy - Drunken Fate</b></p>
-                <p style="margin-left: 20px;">Every dice roll of 6: gain +2 to ALL stats. With Drunken Paladin in the party: all other heroes lose -2 to ALL stats at game start.</p>
+                <p style="margin-left: 20px;">Every dice roll of 6: gain +1 to ALL stats. With Drunken Paladin in the party: all other heroes lose -2 to ALL stats at game start.</p>
 
                 <!-- DICE GAMBLING -->
                 <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🎰 DICE GAMBLING</b></p>
@@ -2011,7 +2011,7 @@ const HEROES = [
     { n: 'Warrior Girl', i: './images/warrior_ork.png', a: 'stone', s:{pow:8,spd:5,brn:6,cha:3,wil:6}, passive: 'Battle Born', passiveDesc: 'In group missions: always +3 bonus to contribution. Stacks with affinity.' },
     { n: 'Monkey Boy', i: './images/monkey_boy.png', a: 'shadow', s:{pow:4,spd:8,brn:4,cha:4,wil:4}, passive: 'Chaos Reroll', passiveDesc: 'After ANY dice roll, force a reroll. 3 uses. Recharges at shop.' },
     { n: 'Wizard of Orks', i: './images/ork_wizard.png', a: 'magic', s:{pow:3,spd:3,brn:5,cha:5,wil:4}, passive: 'Ork Brotherhood', passiveDesc: 'If another ork (Quick Thief/Warrior Girl) is in the party: IMMUNE to all hero abilities. If no ork: choose Lucky Fingers or Battle Born.' },
-    { n: 'Another Drunk Guy', i: './images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Drunken Fate', passiveDesc: 'Every dice roll of 6: +2 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at game start.' }
+    { n: 'Another Drunk Guy', i: './images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Drunken Fate', passiveDesc: 'Every dice roll of 6: +1 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at game start.' }
 ];
 
 // ============================================================
@@ -2139,8 +2139,8 @@ function checkDrunkGuyBonus(diceValue) {
     let bonusText = '';
     party.forEach((p, idx) => {
         if (p.n === 'Another Drunk Guy') {
-            ['pow','spd','brn','cha','wil'].forEach(s => p.cur[s] += 2);
-            bonusText += `<p style="color:#f3cf7a; font-size:12px;">🍺 Drunken Fate: ${p.pName} gains +2 to ALL stats!</p>`;
+            ['pow','spd','brn','cha','wil'].forEach(s => p.cur[s] += 1);
+            bonusText += `<p style="color:#f3cf7a; font-size:12px;">🍺 Drunken Fate: ${p.pName} gains +1 to ALL stats!</p>`;
         }
     });
     if (bonusText) updatePartyUI();

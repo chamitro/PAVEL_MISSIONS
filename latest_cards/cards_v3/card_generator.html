@@ -598,6 +598,222 @@ body {
     .controls { display: none; }
     .card-grid { gap: 10px; }
     .mission-card, .hero-card { break-inside: avoid; }
+    .book-page { break-inside: avoid; box-shadow: none !important; }
+}
+
+/* ========================================
+   BOOKLET PAGES
+   ======================================== */
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.book-page {
+    width: 700px;
+    min-height: 960px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-page .book-frame {
+    border: 4px solid #5a3a1a;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2a1a0e 0%, #1a1020 50%, #2a1a0e 100%);
+    padding: 3px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-page .book-inner {
+    border: 2px solid #8e7b55;
+    border-radius: 8px;
+    padding: 35px 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(26,16,10,0.95) 0%, rgba(20,12,30,0.95) 100%);
+}
+
+.book-page .book-inner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238e7b55' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+}
+
+.book-page .book-inner > * { position: relative; z-index: 1; }
+
+.book-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 26px;
+    color: #f3cf7a;
+    text-align: center;
+    margin-bottom: 8px;
+    text-shadow: 0 0 15px rgba(243,207,122,0.3);
+}
+
+.book-subtitle {
+    font-family: 'Almendra', serif;
+    font-size: 15px;
+    color: #b89b5e;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.book-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0;
+}
+.book-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8e7b55, transparent);
+}
+.book-divider-icon {
+    color: #f3cf7a;
+    font-size: 12px;
+}
+
+.book-heading {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 17px;
+    color: #f3cf7a;
+    margin: 12px 0 8px;
+}
+
+.book-subheading {
+    font-family: 'Almendra', serif;
+    font-size: 15px;
+    color: #d4a76a;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.book-text {
+    font-family: 'Almendra', serif;
+    font-size: 14px;
+    color: #c8b88a;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.book-text em { color: #f3cf7a; font-style: italic; }
+.book-text strong { color: #d4a76a; }
+
+.book-quote {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #a89060;
+    border-left: 3px solid #8e7b55;
+    padding: 8px 15px;
+    margin: 10px 0;
+    background: rgba(142,123,85,0.08);
+    border-radius: 0 6px 6px 0;
+}
+
+.book-npc {
+    background: rgba(142,123,85,0.1);
+    border: 1px solid rgba(142,123,85,0.3);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 8px 0;
+}
+.book-npc-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    color: #f3cf7a;
+    margin-bottom: 4px;
+}
+.book-npc-desc {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #c8b88a;
+    line-height: 1.5;
+}
+
+.book-rule-box {
+    background: rgba(139,0,0,0.1);
+    border: 1px solid rgba(139,0,0,0.3);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 8px 0;
+}
+.book-rule-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    color: #ff6b6b;
+    margin-bottom: 6px;
+}
+.book-rule-text {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #c8b88a;
+    line-height: 1.5;
+}
+
+.book-list {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #c8b88a;
+    line-height: 1.7;
+    padding-left: 20px;
+    margin: 6px 0;
+}
+.book-list li { margin-bottom: 3px; }
+.book-list li strong { color: #f3cf7a; }
+
+.book-ability {
+    background: rgba(243,207,122,0.06);
+    border-left: 3px solid #8e7b55;
+    padding: 6px 12px;
+    margin: 5px 0;
+    border-radius: 0 6px 6px 0;
+}
+.book-ability-name {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #f3cf7a;
+    font-weight: bold;
+}
+.book-ability-desc {
+    font-family: 'Almendra', serif;
+    font-size: 12px;
+    color: #a89060;
+    line-height: 1.4;
+}
+
+.book-page-num {
+    text-align: center;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 12px;
+    color: #8e7b55;
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+.book-footer {
+    text-align: center;
+    font-family: 'Almendra', serif;
+    font-size: 11px;
+    color: #5a4a2a;
+    font-style: italic;
+    margin-top: 5px;
 }
 
 /* Section title */
@@ -649,6 +865,8 @@ body {
     <button onclick="showSection('group')" id="btn-group">Group Missions (50)</button>
     <button onclick="showSection('heroes')" id="btn-heroes">Heroes (13)</button>
     <button onclick="showSection('stats')" id="btn-stats">Stat Cards (5)</button>
+    <button onclick="showSection('world')" id="btn-world">Book of the World</button>
+    <button onclick="showSection('rules')" id="btn-rules">Book of Rules</button>
     <button onclick="showSection('all')" id="btn-all">Show All</button>
     <button onclick="window.print()" style="background:#1B5E20; border-color:#4CAF50;">Print / Save PDF</button>
     <span class="note">Right-click any card → "Save image as" or use Print for PDF export</span>
@@ -677,6 +895,16 @@ body {
 <div id="stats-section" class="hidden">
     <h2 class="section-title">Stat Reference Cards</h2>
     <div class="card-grid" id="stats-grid"></div>
+</div>
+
+<div id="world-section" class="hidden">
+    <h2 class="section-title">Book of the World</h2>
+    <div class="book-grid" id="world-grid"></div>
+</div>
+
+<div id="rules-section" class="hidden">
+    <h2 class="section-title">Book of Game Rules</h2>
+    <div class="book-grid" id="rules-grid"></div>
 </div>
 
 <script>
@@ -885,7 +1113,7 @@ const HEROES = [
     { n: 'Warrior Girl', i: '../../images/warrior_ork.png', a: 'stone', s:{pow:8,spd:5,brn:6,cha:3,wil:6}, passive: 'Battle Born', passiveDesc: 'In group missions: always +3 bonus to contribution. Stacks with affinity.', quote: '"My blade speaks louder than words."' },
     { n: 'Monkey Boy', i: '../../images/monkey_boy.png', a: 'shadow', s:{pow:4,spd:8,brn:4,cha:4,wil:4}, passive: 'Chaos Reroll', passiveDesc: 'After ANY dice roll, force a reroll. 3 uses. Recharges at shop.', quote: '"Ooh ooh! Let me try that again!"' },
     { n: 'Wizard of Orks', i: '../../images/ork_wizard.png', a: 'magic', s:{pow:3,spd:3,brn:5,cha:5,wil:4}, passive: 'Ork Brotherhood', passiveDesc: 'If another ork (Quick Thief/Warrior Girl) is in the party: IMMUNE to all hero abilities. If no ork: choose Lucky Fingers or Battle Born.', quote: '"The old ways are the strongest ways."' },
-    { n: 'Another Drunk Guy', i: '../../images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Drunken Fate', passiveDesc: 'Every dice roll of 6: +2 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at game start.', quote: '"Is this round on me? I forgot..."' }
+    { n: 'Another Drunk Guy', i: '../../images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Drunken Fate', passiveDesc: 'Every dice roll of 6: +1 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at game start.', quote: '"Is this round on me? I forgot..."' }
 ];
 
 // ============================================================
@@ -1120,6 +1348,529 @@ function renderStatCard(stat) {
 }
 
 // ============================================================
+// BOOK OF THE WORLD
+// ============================================================
+
+function buildWorldBook() {
+    const grid = document.getElementById('world-grid');
+
+    // Page 1: Cover / Introduction
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner" style="justify-content: center; text-align: center;">
+                <div style="font-size:60px; margin-bottom:20px;">📜</div>
+                <div class="book-title" style="font-size:32px; margin-bottom:15px;">Book of the World</div>
+                <div class="book-subtitle" style="font-size:18px;">The Lands, Legends & Lore of Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote" style="border-left:none; text-align:center; background:none;">
+                    "In the heart of a realm where ancient forests whisper forgotten secrets,
+                    there lies Pavel — a humble settlement of five thousand souls,
+                    united by one truth: there is no problem that cannot be solved
+                    with good company and a cold mug of ale."
+                </div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-text" style="color:#8e7b55; margin-top:20px;">A Guide for Heroes & Adventurers</div>
+                <div class="book-page-num">— i —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 2: The World Map
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title">The World Map</div>
+                <div class="book-subtitle">The Lands Surrounding Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-text">Pavel Town sits at the heart of a vast realm. Hidden in the <em>Misty Forest</em> wander the Nomads of the Ninja and Elven.</div>
+
+                <div class="book-heading">The Cardinal Lands</div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">☁️ Northeast — Lost Dragon Town</div>
+                    <div class="book-npc-desc">A floating citadel beyond the clouds where the last sky-born dragons dwell. Few mortals have visited and returned unchanged. The dragons are not hostile — merely aloof, though they have been known to descend upon Pavel when the mead is particularly fine.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">⚔️ West — The Ork Fortress</div>
+                    <div class="book-npc-desc">An imposing stronghold of stone and iron. Once a symbol of endless conflict, the fortress has softened in recent years. Ork war cries have been replaced with drinking songs, and their raids on Pavel are now peaceful (if boisterous) tavern visits.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">🧘 Southeast — Monk Monasteries</div>
+                    <div class="book-npc-desc">Perched on serene hilltops, these ancient monasteries offer peace and enlightenment. The monks have discovered that enlightenment tastes remarkably like honey mead, and frequently make pilgrimages to Pavel's tavern for "spiritual research."</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">⛏️ Southwest — Dwarvish Mountains</div>
+                    <div class="book-npc-desc">Deep within the misty mountains, master craftsmen forge legendary weapons and brew legendary ales. The dwarves emerge occasionally, drawn by the promise of competitions, bar fights, and proving that dwarven brew is superior to anything surface-dwellers can produce.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">⚠️ The Swamps</div>
+                <div class="book-text">Between Pavel and safety lie the <strong>Swamps</strong> — where trolls lurk, emerging to raid the village. Many heroes have ventured in, but few return. And those who do speak in whispers of what dwells in the deepest shadows.</div>
+
+                <div class="book-quote">"The swamp does not forgive. The swamp does not forget. The swamp just... swallows."</div>
+
+                <div class="book-page-num">— 1 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 3: Pavel Town
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title">Pavel Town</div>
+                <div class="book-subtitle">The Town of Beer and Fellowship</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-text">Pavel is no grand city — it boasts no towering spires or marble halls. What it has is something far more valuable: <em>the finest tavern in all the realms</em>, a king who'd rather buy you a drink than wage a war, and a community bound together by loyalty, laughter, and a shared understanding that life is too short to drink bad ale.</div>
+
+                <div class="book-text">The town sits at a crossroads of every major path in the realm. This makes it a natural gathering point for adventurers, outcasts, merchants, and anyone looking for a warm fire, a cold drink, and a story worth telling.</div>
+
+                <div class="book-heading">Notable Citizens of Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">👑 King Antony — The Peaceful King</div>
+                    <div class="book-npc-desc">While neighboring monarchs concern themselves with conquest, Antony has but two ambitions: keeping his village peaceful and his tankard full. You'll find him at the tavern's corner table, buying rounds for travelers. <em>"A happy village is a peaceful village,"</em> he declares, raising his seventh mug of the evening.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">📖 Old Nick the Geezer — Keeper of Tales</div>
+                    <div class="book-npc-desc">Every night, Old Nick takes his seat by the hearth. With a voice weathered by a hundred winters, he weaves tales of when forests were deeper and monsters bolder. Some say he's simply too stubborn to let death interrupt a good story. Nobody has ever successfully escaped one of his tales before it ends — and none have ever ended.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">🍺 Panchonco & Yuumi — The Eternal Patron</div>
+                    <div class="book-npc-desc">Propped against the bar with his cat Yuumi perched on his shoulder, Panchonco haunts the pub day and night. Yuumi seems the only creature who truly understands his slurred philosophy. Some say he's been drinking since before King Antony was born. Others say he IS the tavern.</div>
+                </div>
+
+                <div class="book-page-num">— 2 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 4: The Visitors & The Threat
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">The Visitors & The Threat</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🌍 Those Who Come to Pavel</div>
+                <div class="book-text">Pavel's fame has spread across the realm. <em>Dragons</em> descend from Lost Dragon Town, their fiery breath dimmed by curiosity. <em>Orks</em> march from their Fortress, war cries replaced with drinking songs. <em>Monks</em> find enlightenment tastes like honey mead. Even <em>Dwarves</em> emerge from their misty mountains, grudgingly admitting that surface ale "isn't terrible."</div>
+
+                <div class="book-text">Heroes of every kind are drawn here — assassins seeking redemption, paladins seeking purpose, witches seeking ingredients, and zombies seeking... well, love, apparently.</div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">⚠️ The Ever-Present Danger</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">The Swamp Trolls</div>
+                    <div class="book-rule-text">In the Swamps lurk trolls — brutal creatures who strike without warning. Their raids are swift and merciless. Many have ventured into those marshes, but few return, and those who do speak in whispers of what dwells in the deepest shadows. It is because of this threat that King Antony has announced the Grand Competition — a series of Missions to identify the greatest heroes who can protect Pavel.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🏆 The Grand Competition</div>
+                <div class="book-text">And so it begins. King Antony has decreed that the heroes who gather at his tavern must prove their worth through trials of <strong>Power</strong>, <strong>Speed</strong>, <strong>Brain</strong>, <strong>Charisma</strong>, and <strong>Willpower</strong>. Only the one who claims the most <em>Glory</em> shall earn the title of Pavel's Champion.</div>
+
+                <div class="book-quote">"Every hero has a story. Every story needs a tavern. Welcome to Pavel."</div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">The Heroes</div>
+                <div class="book-text">Twenty legendary heroes gather at Pavel's tavern. Each carries unique abilities and a secret <em>Soul Affinity</em> — an elemental bond that grants them power over certain challenges. The ten Soul Types are:</div>
+                <div class="book-list" style="list-style:none; padding-left:0; display:flex; flex-wrap:wrap; gap:5px 20px;">
+                    ${Object.entries(SOUL_DATA).map(([k,v]) => `<span>${v.icon} <strong>${v.label}</strong></span>`).join('')}
+                </div>
+                <div class="book-text" style="margin-top:10px;">When a hero's Soul matches a mission's affinity, they receive a <strong>+3 bonus</strong> — a powerful advantage that can turn the tide of any challenge.</div>
+
+                <div class="book-page-num">— 3 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 5: Hero Roster (first half)
+    const half = Math.ceil(HEROES.length / 2);
+    const heroesPage1 = HEROES.slice(0, half);
+    const heroesPage2 = HEROES.slice(half);
+
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Heroes of Pavel</div>
+                <div class="book-subtitle">Part I — The First Champions</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${heroesPage1.map(h => {
+                    const soulInfo = Object.entries(SOUL_DATA).find(([k,v]) => k === h.a);
+                    const soulLabel = soulInfo ? soulInfo[1].icon + ' ' + soulInfo[1].label : h.a;
+                    return `<div class="book-ability">
+                        <div class="book-ability-name">${h.n} <span style="color:#8e7b55; font-weight:normal; font-size:11px;">[${h.s.pow}/${h.s.spd}/${h.s.brn}/${h.s.cha}/${h.s.wil}] — ${soulLabel}</span></div>
+                        <div class="book-ability-desc">${h.passiveDesc}</div>
+                    </div>`;
+                }).join('')}
+                <div class="book-page-num">— 4 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 6: Hero Roster (second half)
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Heroes of Pavel</div>
+                <div class="book-subtitle">Part II — The Later Champions</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${heroesPage2.map(h => {
+                    const soulInfo = Object.entries(SOUL_DATA).find(([k,v]) => k === h.a);
+                    const soulLabel = soulInfo ? soulInfo[1].icon + ' ' + soulInfo[1].label : h.a;
+                    return `<div class="book-ability">
+                        <div class="book-ability-name">${h.n} <span style="color:#8e7b55; font-weight:normal; font-size:11px;">[${h.s.pow}/${h.s.spd}/${h.s.brn}/${h.s.cha}/${h.s.wil}] — ${soulLabel}</span></div>
+                        <div class="book-ability-desc">${h.passiveDesc}</div>
+                    </div>`;
+                }).join('')}
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote">"Every hero has a story. Some just haven't finished writing it yet."</div>
+                <div class="book-page-num">— 5 —</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================================
+// BOOK OF GAME RULES
+// ============================================================
+
+function buildRulesBook() {
+    const grid = document.getElementById('rules-grid');
+
+    // Page 1: Cover
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner" style="justify-content: center; text-align: center;">
+                <div style="font-size:60px; margin-bottom:20px;">⚔️</div>
+                <div class="book-title" style="font-size:32px; margin-bottom:15px;">Book of Rules</div>
+                <div class="book-subtitle" style="font-size:18px;">The Official Guide to Missions in Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote" style="border-left:none; text-align:center; background:none;">
+                    "Twenty legendary heroes gather at Pavel's tavern,
+                    each with unique abilities and soul affinities.
+                    King Antony has announced a grand competition —
+                    a series of Missions where heroes prove their worth.
+                    Only one can claim the throne of Glory!"
+                </div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-text" style="color:#8e7b55; margin-top:20px;">For 2–10 Players</div>
+                <div class="book-page-num">— i —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 2: Setup & Objective
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Game Setup & Objective</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🎮 Setup</div>
+                <ol class="book-list">
+                    <li>Choose the number of players (2–10 heroes)</li>
+                    <li>Each player enters their name and receives a random hero</li>
+                    <li>Set the Quest Length (number of Rounds)</li>
+                    <li>The game begins with Player 1 as the first Reader</li>
+                </ol>
+
+                <div class="book-heading">🏆 Objective</div>
+                <div class="book-text">Accumulate the highest <em>Glory</em> score by completing challenges. The hero with the most Glory when all rounds are complete wins!</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Tiebreakers</div>
+                    <div class="book-rule-text">1st: Most remaining total stat points. 2nd: Most remaining Meditations.</div>
+                </div>
+
+                <div class="book-heading">📊 Hero Stats</div>
+                <div class="book-text">Each hero has 5 stats: <strong>POW</strong> (Power), <strong>SPD</strong> (Speed), <strong>BRN</strong> (Brain), <strong>CHA</strong> (Charisma), <strong>WIL</strong> (Willpower).</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">⚠️ Important</div>
+                    <div class="book-rule-text">Stats are SPENT to complete challenges. They do NOT regenerate automatically! Only the Alchemist Shop and certain abilities restore stats.</div>
+                </div>
+
+                <div class="book-heading">🔄 Rounds & Stages</div>
+                <ul class="book-list">
+                    <li>The game is divided into <strong>Rounds</strong></li>
+                    <li>One Stage = One mission card drawn and resolved</li>
+                    <li>Each player becomes <strong>Reader</strong> once per Round (rotating clockwise)</li>
+                    <li>A Round ends when the original first Reader becomes Reader again</li>
+                    <li>Example: 4 players = 4 stages per round</li>
+                </ul>
+
+                <div class="book-heading">📖 The Reader</div>
+                <div class="book-text">Each stage has a Reader who:</div>
+                <ul class="book-list">
+                    <li>Draws and reads the mission card aloud</li>
+                    <li>Rolls the <em>Fate Dice</em> to determine difficulty</li>
+                    <li>Knows the secret target number (others do NOT!)</li>
+                    <li>Does NOT participate in challenges during their turn</li>
+                    <li>CAN be targeted by hero abilities</li>
+                </ul>
+
+                <div class="book-page-num">— 1 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 3: Challenge Resolution
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Challenge Resolution</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🎲 Fate Dice & Difficulty</div>
+                <div class="book-text">When the Reader rolls the Fate Dice:</div>
+                <ul class="book-list">
+                    <li><strong>Roll 1–3 = EASY</strong> — Lower target, worth <strong>1 Glory</strong></li>
+                    <li><strong>Roll 4–6 = HARD</strong> — Higher target, worth <strong>2 Glory</strong></li>
+                    <li>Only the Reader sees the exact target — challengers must guess!</li>
+                </ul>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">Your Three Options</div>
+                <div class="book-text">Starting from the player to the Reader's left (clockwise), each Challenger chooses:</div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">1. ⚔️ Attempt the Challenge</div>
+                    <div class="book-npc-desc">
+                        Choose how many stat points to spend (using the required stat).<br>
+                        Your total = Points spent + Affinity bonus (if applicable).<br><br>
+                        <strong style="color:#4CAF50;">WIN</strong> (meet or exceed target): Gain Glory (1 Easy / 2 Hard), get back +2 of your spent points. Stage ends.<br>
+                        <strong style="color:#ff6b6b;">FAIL</strong> (below target): Lose ALL spent points. Challenge passes to next player.
+                    </div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">2. 🧘 Meditate (Pass)</div>
+                    <div class="book-npc-desc">
+                        Skip the challenge without spending points.<br>
+                        You have exactly <strong>3 Meditations</strong> for the entire game.<br>
+                        Meditations do NOT regenerate (except +1 at Alchemist Shop).<br>
+                        If ALL players meditate or fail, the mission is discarded — no one wins.
+                    </div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">3. 🤝 Challenge a Friend</div>
+                    <div class="book-npc-desc">
+                        Challenge another player (not the Reader) to a duel.<br>
+                        The Initiator gets a <strong>+3 Courage Bonus</strong> automatically.<br>
+                        Both players secretly invest points, then reveal simultaneously.<br><br>
+                        <strong>Both WIN:</strong> Both gain Glory.<br>
+                        <strong>One WINS:</strong> Winner gains +1 bonus Glory on top.<br>
+                        <strong>Both FAIL:</strong> No Glory awarded to either.<br><br>
+                        After the duel, a new card is drawn — the two duelists sit out.
+                    </div>
+                </div>
+
+                <div class="book-page-num">— 2 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 4: Group Missions & Soul Affinity
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Group Missions & Affinity</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🤝 Group Missions</div>
+                <div class="book-text">Special missions marked with 🤝 require teamwork from ALL heroes:</div>
+                <ul class="book-list">
+                    <li>Reader draws the card and rolls difficulty (does not contribute)</li>
+                    <li>Each non-Reader player votes <strong>YES</strong> (participate) or <strong>NO</strong> (sit out)</li>
+                    <li>Voting order is <strong>clockwise from the Reader</strong></li>
+                    <li>YES voters contribute points; NO voters contribute nothing</li>
+                    <li>All contributions are combined (including affinity bonuses)</li>
+                </ul>
+
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Group Mission Results</div>
+                    <div class="book-rule-text">
+                        <strong style="color:#4CAF50;">SUCCESS:</strong> All YES voters gain Glory (+2 Easy / +4 Hard) and it counts as a WIN for abilities.<br><br>
+                        <strong style="color:#ff6b6b;">FAILURE:</strong> You can 🎲 Gamble (dice adds +1 to +6 to total) for a last chance! If gamble fails too, all YES voters lose <strong>-3 to ALL five stats</strong>.<br><br>
+                        <strong>NO voters:</strong> No reward, no penalty. Does NOT affect ability streaks.
+                    </div>
+                </div>
+                <div class="book-text" style="color:#888; font-size:12px;">Note: Group missions require 3+ players and are disabled in 2-player games.</div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">✨ Soul-Type Affinity</div>
+                <div class="book-text">Each hero has a secret <em>Soul-Type</em> — an elemental bond:</div>
+                <div style="display:flex; flex-wrap:wrap; gap:5px 15px; margin:8px 0;">
+                    ${Object.entries(SOUL_DATA).map(([k,v]) => `<span style="font-size:13px;">${v.icon} <strong style="color:#f3cf7a;">${v.label}</strong></span>`).join('')}
+                </div>
+                <ul class="book-list">
+                    <li>Each challenge card has an Affinity tag</li>
+                    <li>If your Soul-Type matches: <strong>+3 automatic bonus</strong></li>
+                    <li>Applies to ALL challenge types (regular, friend, group)</li>
+                    <li>Soul-Types are secret — don't reveal yours!</li>
+                </ul>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🏪 The Alchemist Shop</div>
+                <div class="book-text">Periodically, the mysterious Alchemist appears:</div>
+                <ul class="book-list">
+                    <li>Each player receives <strong>10 Soul Points</strong> to distribute</li>
+                    <li>Spend points to restore any stat (max +5 per stat)</li>
+                    <li>You also regain <strong>+1 Meditation</strong></li>
+                    <li>Some hero abilities recharge at the shop</li>
+                </ul>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Shop Timing (P = number of players)</div>
+                    <div class="book-rule-text">
+                        1st Shop: Round P + 3 &nbsp;|&nbsp; 2nd Shop: 1st + (P + 4) &nbsp;|&nbsp; 3rd Shop: 2nd + (P + 5)<br>
+                        Example (4 players): Rounds 7, 15, 24, 34...
+                    </div>
+                </div>
+
+                <div class="book-page-num">— 3 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 5: Hero Abilities Part 1
+    const abilities1 = [
+        { icon: '🗡️', name: 'Dark Stalker — Shadow Control', desc: 'Force any player to use one of their Meditations. Limited uses based on party size (2p=1, 3p=2, 4+p=3). Resets at each shop.' },
+        { icon: '🤖', name: 'Friendly AI — System Override', desc: 'Once per game: reset ALL your stats back to starting values. Cannot be recharged. Also: Use ANY stat for a challenge instead of the required one (recharges on friend challenge win).' },
+        { icon: '💪', name: 'Thug Dwarf — Brute Force', desc: 'Gain +3 POW permanently every time you win any challenge. Always active.' },
+        { icon: '🎭', name: 'Babbler Rogue — Crowd Favorite', desc: '+1 bonus Glory for every 3 challenges completed. Always active.' },
+        { icon: '🔮', name: 'Neighbor Witch — Arcane Alliance', desc: 'Guess how many stat points to steal from any player. If they don\'t have enough, the spell FAILS. Recharges after 3 wins.' },
+        { icon: '🥷', name: 'Fancy Ninja — Assassination Contract', desc: 'Bet on another player failing. Win: steal +1 stat. Lose: -1 stat. Usable each stage.' },
+        { icon: '🐉', name: 'Lost Dragon — Dragon Rage', desc: 'When spending 4+ points, gain +3 bonus automatically. Always active.' },
+        { icon: '🍺', name: 'Drunken Paladin — Liquid Courage', desc: 'Once per stage, roll dice. On 5-6: instant win! On 1-4: attempt normally. Resets each stage.' },
+        { icon: '🧘', name: 'Mute Monk — Inner Peace', desc: 'When meditating, choose any stat to restore +4 points instead of just passing. Always active.' },
+        { icon: '🧟', name: 'Lover Zombie — Cursed Embrace', desc: 'When you win, ALL other players lose -2 from a stat you choose, and you gain +1 to that stat.' },
+    ];
+
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Hero Abilities</div>
+                <div class="book-subtitle">Part I — The Original Champions</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${abilities1.map(a => `<div class="book-ability">
+                    <div class="book-ability-name">${a.icon} ${a.name}</div>
+                    <div class="book-ability-desc">${a.desc}</div>
+                </div>`).join('')}
+                <div class="book-page-num">— 4 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 6: Hero Abilities Part 2
+    const abilities2 = [
+        { icon: '😈', name: 'Devil Boy — Soul Contract', desc: 'Choose a stat and swap its value with another player permanently. Recharges after 3 wins.' },
+        { icon: '🎲', name: 'Quick Thief — Lucky Fingers', desc: 'Each challenge, roll dice. On 5-6: steal 1 Glory from any player. Once per stage.' },
+        { icon: '🧌', name: 'Sad Troll — Rising Spirit', desc: 'Every 3 consecutive wins (including group), gain +5 to any stat. Streak resets on any failure.' },
+        { icon: '🌿', name: 'Forest Spirit — Nature\'s Gamble', desc: 'On every regular win, roll dice. 4-6: steal +1 ALL stats from most-glory player. 1-3: lose -1 ALL stats to least-glory player.' },
+        { icon: '🌳', name: 'Ancient Tree Elder — Ancient Roots', desc: 'In group missions: force another hero (not reader) to join. They skip voting and must contribute. Once per group mission.' },
+        { icon: '🙏', name: 'Granny the Priest — Divine Mercy', desc: 'If ALL players fail a regular mission (discarded), Granny gains +1 Glory. Does not trigger on group missions.' },
+        { icon: '⚔️', name: 'Warrior Girl — Battle Born', desc: 'In group missions: always +3 bonus to contribution. Stacks with affinity bonus.' },
+        { icon: '🐵', name: 'Monkey Boy — Chaos Reroll', desc: 'After ANY dice roll, force a complete reroll. 3 uses total. Recharges at each shop visit.' },
+        { icon: '🧙', name: 'Wizard of Orks — Ork Brotherhood', desc: 'With ork ally (Quick Thief/Warrior Girl): IMMUNE to all hero abilities. Without: choose Lucky Fingers or Battle Born at game start.' },
+        { icon: '🍺', name: 'Another Drunk Guy — Drunken Fate', desc: 'Every dice roll of 6 in the game: +1 to ALL stats. With Drunken Paladin in party: all other heroes lose -2 ALL stats at game start.' },
+    ];
+
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Hero Abilities</div>
+                <div class="book-subtitle">Part II — The New Champions</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${abilities2.map(a => `<div class="book-ability">
+                    <div class="book-ability-name">${a.icon} ${a.name}</div>
+                    <div class="book-ability-desc">${a.desc}</div>
+                </div>`).join('')}
+                <div class="book-page-num">— 5 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 7: Winning & Strategy
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Winning & Strategy</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🎲 Dice Gambling</div>
+                <div class="book-text">At certain points, you may gamble your Glory:</div>
+                <ul class="book-list">
+                    <li>Bet 1–5 Glory points</li>
+                    <li>Roll the dice: <strong>4-6 = WIN</strong> (double your bet), <strong>1-3 = LOSE</strong> (lose your bet)</li>
+                    <li>High risk, high reward!</li>
+                </ul>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🏆 Winning the Game</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Victory Conditions</div>
+                    <div class="book-rule-text">
+                        The game ends when all Rounds are completed.<br>
+                        <strong>1st:</strong> Hero with the highest Glory wins!<br>
+                        <strong>Tiebreaker:</strong> Most remaining total stat points.<br>
+                        <strong>2nd Tiebreaker:</strong> Most remaining Meditations.
+                    </div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">💡 Strategy Tips</div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">📦 Resource Management</div>
+                    <div class="book-npc-desc">Stats don't regenerate! Plan for the long game and don't overcommit early. Know when the next shop appears.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">✨ Know Your Affinity</div>
+                    <div class="book-npc-desc">Identify which challenges match your Soul-Type for the +3 bonus. This advantage can make or break a hard challenge.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🧘 Save Meditations</div>
+                    <div class="book-npc-desc">Don't waste them on easy challenges — save for when stats are critically low.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🤝 Challenge a Friend Wisely</div>
+                    <div class="book-npc-desc">The +3 Courage Bonus makes initiating advantageous. Use it when you're confident in your stat pool.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">⚠️ Group Mission Risk</div>
+                    <div class="book-npc-desc">Failing costs -3 to ALL stats! Only vote YES if the team can make it. Voting NO is sometimes the smart play.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">👁️ Watch Opponents</div>
+                    <div class="book-npc-desc">Track who has used their abilities and meditations. Knowledge of your rivals is itself a weapon.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote">"Fortune favors the bold — but wisdom favors the prepared."</div>
+
+                <div class="book-page-num">— 6 —</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================================
 // INITIALIZATION
 // ============================================================
 
@@ -1157,25 +1908,23 @@ function init() {
     STAT_CARDS.forEach(s => {
         statsGrid.innerHTML += renderStatCard(s);
     });
+
+    // Build books
+    buildWorldBook();
+    buildRulesBook();
 }
 
 function showSection(section) {
     document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
 
-    const missions = document.getElementById('missions-section');
-    const group = document.getElementById('group-section');
-    const heroes = document.getElementById('heroes-section');
-    const stats = document.getElementById('stats-section');
+    const sections = ['missions', 'group', 'heroes', 'stats', 'world', 'rules'];
+    sections.forEach(s => document.getElementById(s + '-section').classList.add('hidden'));
 
-    missions.classList.add('hidden');
-    group.classList.add('hidden');
-    heroes.classList.add('hidden');
-    stats.classList.add('hidden');
-
-    if (section === 'missions' || section === 'all') missions.classList.remove('hidden');
-    if (section === 'group' || section === 'all') group.classList.remove('hidden');
-    if (section === 'heroes' || section === 'all') heroes.classList.remove('hidden');
-    if (section === 'stats' || section === 'all') stats.classList.remove('hidden');
+    if (section === 'all') {
+        sections.forEach(s => document.getElementById(s + '-section').classList.remove('hidden'));
+    } else {
+        document.getElementById(section + '-section').classList.remove('hidden');
+    }
 
     document.getElementById('btn-' + section).classList.add('active');
 }
