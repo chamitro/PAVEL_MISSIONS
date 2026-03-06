@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavel Missions - Γεννητρια Καρτων (Εκδοση Ψυχων)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=MedievalSharp&family=Almendra:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: #1a1a2e;
+    color: #d4c5a0;
+    font-family: 'MedievalSharp', serif;
+    padding: 20px;
+}
+
+.controls {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1a1a2e;
+    padding: 15px 0;
+    border-bottom: 2px solid #8e7b55;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.controls button {
+    padding: 10px 20px;
+    font-family: 'MedievalSharp', serif;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #8e7b55;
+    border-radius: 6px;
+    color: #d4c5a0;
+    background: #2a1a1a;
+}
+.controls button:hover { background: #3a2a1a; }
+.controls button.active { background: #5a3a1a; border-color: #f3cf7a; }
+.controls .note {
+    font-size: 13px;
+    color: #888;
+    margin-left: 15px;
+}
+
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* ========================================
+   MISSION CARD
+   ======================================== */
+.mission-card {
+    width: 350px;
+    min-height: 520px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Outer border/frame */
+.mission-card .card-frame {
+    border: 4px solid #8B4513;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #c4a265 0%, #d4c196 25%, #b89b5e 50%, #d4c196 75%, #c4a265 100%);
+    padding: 3px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mission-card .card-inner {
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Stat header bar */
+.mission-card .stat-header {
+    text-align: center;
+    padding: 8px 12px;
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    position: relative;
+}
+.mission-card .stat-header .card-num {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    font-size: 10px;
+    font-family: 'MedievalSharp', serif;
+    opacity: 0.7;
+}
+
+.stat-header.pow { background: linear-gradient(135deg, #8B0000, #c0392b); border-bottom: 3px solid #5a0000; }
+.stat-header.spd { background: linear-gradient(135deg, #1565C0, #2196F3); border-bottom: 3px solid #0D47A1; }
+.stat-header.brn { background: linear-gradient(135deg, #6A1B9A, #9C27B0); border-bottom: 3px solid #4A148C; }
+.stat-header.cha { background: linear-gradient(135deg, #E65100, #FF9800); border-bottom: 3px solid #BF360C; }
+.stat-header.wil { background: linear-gradient(135deg, #1B5E20, #4CAF50); border-bottom: 3px solid #1B5E20; }
+
+/* Card body */
+.mission-card .card-body {
+    padding: 18px 16px 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, rgba(196,162,101,0.3) 0%, rgba(180,148,88,0.15) 100%);
+}
+
+.mission-card .card-title {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: #3a2a1a;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.mission-card .card-desc {
+    font-size: 14px;
+    color: #5a4a3a;
+    text-align: center;
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+/* Difficulty boxes */
+.mission-card .diff-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.diff-box {
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+}
+.diff-box.easy {
+    background: rgba(27, 94, 32, 0.12);
+    border: 2px solid #4CAF50;
+}
+.diff-box.hard {
+    background: rgba(139, 0, 0, 0.08);
+    border: 2px solid #c0392b;
+}
+.diff-box .diff-label {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+}
+.diff-box.easy .diff-label { color: #1B5E20; }
+.diff-box.hard .diff-label { color: #8B0000; }
+.diff-box .diff-value {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1;
+}
+.diff-box.easy .diff-value { color: #2E7D32; }
+.diff-box.hard .diff-value { color: #c0392b; }
+.diff-box .diff-pts {
+    font-size: 12px;
+    color: #5a4a3a;
+    margin-top: 4px;
+}
+
+/* Affinity section */
+.mission-card .affinity-section {
+    text-align: center;
+    margin-top: auto;
+}
+.mission-card .affinity-label {
+    font-size: 11px;
+    color: #8a7a5a;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 400;
+}
+.mission-card .soul-tags {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.soul-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid;
+}
+.soul-tag .soul-icon { font-size: 13px; }
+
+/* Soul type colors */
+.soul-tag.dark    { background: #2a1a2a; color: #c9a0dc; border-color: #6a3a6a; }
+.soul-tag.tech    { background: #1a2a3a; color: #7ac4f3; border-color: #3a6a8a; }
+.soul-tag.stone   { background: #3a3028; color: #c8b080; border-color: #7a6a50; }
+.soul-tag.crowd   { background: #3a2818; color: #e8c070; border-color: #8a7040; }
+.soul-tag.magic   { background: #2a1a3a; color: #b080e8; border-color: #6a3a9a; }
+.soul-tag.shadow  { background: #1a1a28; color: #9090c0; border-color: #5050a0; }
+.soul-tag.sky     { background: #182838; color: #88c8f0; border-color: #3878a8; }
+.soul-tag.pub     { background: #382818; color: #d8a850; border-color: #906828; }
+.soul-tag.silent  { background: #283028; color: #a0c8a0; border-color: #507850; }
+.soul-tag.undead  { background: #2a2018; color: #c0a070; border-color: #786040; }
+
+/* Group mission label */
+.mission-card .group-label {
+    text-align: center;
+    font-size: 11px;
+    font-family: 'Cinzel Decorative', serif;
+    color: #fff;
+    letter-spacing: 3px;
+    padding: 2px 0 0;
+    font-weight: 700;
+}
+
+/* ========================================
+   HERO CARD
+   ======================================== */
+.hero-card {
+    width: 350px;
+    min-height: 620px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+}
+
+.hero-card .card-frame {
+    border: 4px solid #8B4513;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #c4a265 0%, #d4c196 25%, #b89b5e 50%, #d4c196 75%, #c4a265 100%);
+    padding: 3px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-card .card-inner {
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(196,162,101,0.3) 0%, rgba(180,148,88,0.15) 100%);
+}
+
+/* Hero header with image and name */
+.hero-card .hero-header {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 12px 8px;
+    gap: 12px;
+    position: relative;
+}
+
+.hero-card .hero-portrait {
+    width: 90px;
+    height: 90px;
+    border: 3px solid #8B4513;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #000;
+    flex-shrink: 0;
+}
+
+.hero-card .hero-info {
+    flex: 1;
+    padding-top: 4px;
+}
+
+.hero-card .hero-name {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: #3a2a1a;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.hero-card .hero-soul-line {
+    font-size: 12px;
+    color: #6a5a4a;
+}
+
+/* Soul badge - NEW prominent design */
+.hero-card .soul-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    border: 2px solid;
+}
+.soul-badge.dark    { background: #2a1a2a; color: #c9a0dc; border-color: #8a5a9a; }
+.soul-badge.tech    { background: #1a2a3a; color: #7ac4f3; border-color: #4a8aba; }
+.soul-badge.stone   { background: #3a3028; color: #c8b080; border-color: #9a8a60; }
+.soul-badge.crowd   { background: #3a2818; color: #e8c070; border-color: #b09050; }
+.soul-badge.magic   { background: #2a1a3a; color: #b080e8; border-color: #8a5aba; }
+.soul-badge.shadow  { background: #1a1a28; color: #9090c0; border-color: #7070b0; }
+.soul-badge.sky     { background: #182838; color: #88c8f0; border-color: #5898c8; }
+.soul-badge.pub     { background: #382818; color: #d8a850; border-color: #b08838; }
+.soul-badge.silent  { background: #283028; color: #a0c8a0; border-color: #709870; }
+.soul-badge.undead  { background: #2a2018; color: #c0a070; border-color: #987850; }
+.soul-badge .soul-icon { font-size: 15px; }
+
+/* Stat rows */
+.hero-card .stat-table {
+    padding: 8px 12px;
+}
+.hero-card .stat-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+    padding: 4px 0;
+}
+.hero-card .stat-color-bar {
+    width: 6px;
+    height: 28px;
+    border-radius: 2px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+.stat-color-bar.pow { background: #c0392b; }
+.stat-color-bar.spd { background: #2196F3; }
+.stat-color-bar.brn { background: #9C27B0; }
+.stat-color-bar.cha { background: #FF9800; }
+.stat-color-bar.wil { background: #4CAF50; }
+
+.hero-card .stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3a2a1a;
+    width: 40px;
+    text-align: center;
+}
+.hero-card .stat-name {
+    font-size: 11px;
+    color: #8a7a5a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Passive section */
+.hero-card .passive-section {
+    margin: 8px 12px;
+    border: 2px solid #8B4513;
+    border-radius: 6px;
+    padding: 10px;
+    background: rgba(255,255,255,0.06);
+}
+.hero-card .passive-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #3a2a1a;
+    margin-bottom: 6px;
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 12px;
+}
+.hero-card .passive-desc {
+    font-size: 13px;
+    color: #5a4a3a;
+    line-height: 1.4;
+}
+
+/* Flavor text */
+.hero-card .flavor-text {
+    margin-top: auto;
+    padding: 10px 16px 12px;
+    text-align: right;
+    font-style: italic;
+    font-size: 12px;
+    color: #8a7a5a;
+}
+
+/* Soul icons map */
+.soul-icon-text::before { content: attr(data-icon); }
+
+/* ========================================
+   STAT REFERENCE CARD
+   ======================================== */
+.stat-card {
+    width: 350px;
+    min-height: 520px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-card .card-frame {
+    border: 4px solid;
+    border-radius: 12px;
+    padding: 3px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.stat-card .card-frame.pow { border-color: #8B0000; background: linear-gradient(135deg, #3a1515, #5a2020 40%, #3a1515 100%); }
+.stat-card .card-frame.spd { border-color: #0D47A1; background: linear-gradient(135deg, #0a1a30, #152a50 40%, #0a1a30 100%); }
+.stat-card .card-frame.brn { border-color: #4A148C; background: linear-gradient(135deg, #1a0a30, #2a1550 40%, #1a0a30 100%); }
+.stat-card .card-frame.cha { border-color: #BF360C; background: linear-gradient(135deg, #301a0a, #4a2a10 40%, #301a0a 100%); }
+.stat-card .card-frame.wil { border-color: #1B5E20; background: linear-gradient(135deg, #0a1a0a, #152a15 40%, #0a1a0a 100%); }
+
+.stat-card .card-inner {
+    border: 2px solid;
+    border-radius: 8px;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.stat-card .card-inner.pow { border-color: #5a0000; }
+.stat-card .card-inner.spd { border-color: #0D47A1; }
+.stat-card .card-inner.brn { border-color: #4A148C; }
+.stat-card .card-inner.cha { border-color: #BF360C; }
+.stat-card .card-inner.wil { border-color: #1B5E20; }
+
+.stat-card .stat-card-header {
+    text-align: center;
+    padding: 24px 16px 12px;
+}
+.stat-card .stat-abbr {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 52px;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+.stat-card .stat-fullname {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+.stat-card.pow .stat-abbr, .stat-card.pow .stat-fullname { color: #f3cf7a; }
+.stat-card.spd .stat-abbr, .stat-card.spd .stat-fullname { color: #88c8f0; }
+.stat-card.brn .stat-abbr, .stat-card.brn .stat-fullname { color: #c9a0dc; }
+.stat-card.cha .stat-abbr, .stat-card.cha .stat-fullname { color: #f0c878; }
+.stat-card.wil .stat-abbr, .stat-card.wil .stat-fullname { color: #a0d8a0; }
+
+.stat-card .stat-card-body {
+    padding: 0 20px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-card .stat-flavor {
+    text-align: center;
+    font-size: 14px;
+    color: #c8b898;
+    line-height: 1.4;
+    margin-bottom: 18px;
+    padding: 0 8px;
+    font-style: italic;
+}
+
+.stat-card .stat-divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.stat-card .stat-divider-line {
+    flex: 1;
+    height: 1px;
+    opacity: 0.3;
+}
+.stat-card.pow .stat-divider-line { background: #c0392b; }
+.stat-card.spd .stat-divider-line { background: #2196F3; }
+.stat-card.brn .stat-divider-line { background: #9C27B0; }
+.stat-card.cha .stat-divider-line { background: #FF9800; }
+.stat-card.wil .stat-divider-line { background: #4CAF50; }
+
+.stat-card .stat-divider-icon {
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+.stat-card .stat-section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+.stat-card.pow .stat-section-title { color: #f3cf7a; }
+.stat-card.spd .stat-section-title { color: #88c8f0; }
+.stat-card.brn .stat-section-title { color: #c9a0dc; }
+.stat-card.cha .stat-section-title { color: #f0c878; }
+.stat-card.wil .stat-section-title { color: #a0d8a0; }
+
+.stat-card .example-challenge {
+    margin-bottom: 8px;
+    padding-left: 4px;
+}
+.stat-card .example-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #d8c8a8;
+}
+.stat-card .example-name::before {
+    content: '◆ ';
+    font-size: 10px;
+}
+.stat-card .example-desc {
+    font-size: 12px;
+    color: #a09080;
+    padding-left: 14px;
+}
+
+.stat-card .skilled-section {
+    margin-top: auto;
+    padding-top: 12px;
+}
+.stat-card .skilled-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+.stat-card.pow .skilled-title { color: #f3cf7a; }
+.stat-card.spd .skilled-title { color: #88c8f0; }
+.stat-card.brn .skilled-title { color: #c9a0dc; }
+.stat-card.cha .skilled-title { color: #f0c878; }
+.stat-card.wil .skilled-title { color: #a0d8a0; }
+
+.stat-card .skilled-tags {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-card .stat-card-footer {
+    text-align: center;
+    padding: 16px 12px 12px;
+    margin-top: auto;
+}
+.stat-card .footer-warning {
+    font-size: 13px;
+    color: #c8a878;
+    font-weight: bold;
+}
+.stat-card .footer-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-top: 4px;
+    color: #a09080;
+}
+
+/* Print styles */
+@media print {
+    body { background: white; padding: 0; }
+    .controls { display: none; }
+    .card-grid { gap: 10px; }
+    .mission-card, .hero-card { break-inside: avoid; }
+    .book-page { break-inside: avoid; box-shadow: none !important; }
+}
+
+/* ========================================
+   BOOKLET PAGES
+   ======================================== */
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.book-page {
+    width: 700px;
+    min-height: 960px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-page .book-frame {
+    border: 4px solid #5a3a1a;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2a1a0e 0%, #1a1020 50%, #2a1a0e 100%);
+    padding: 3px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-page .book-inner {
+    border: 2px solid #8e7b55;
+    border-radius: 8px;
+    padding: 35px 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(26,16,10,0.95) 0%, rgba(20,12,30,0.95) 100%);
+}
+
+.book-page .book-inner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238e7b55' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+}
+
+.book-page .book-inner > * { position: relative; z-index: 1; }
+
+.book-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 26px;
+    color: #f3cf7a;
+    text-align: center;
+    margin-bottom: 8px;
+    text-shadow: 0 0 15px rgba(243,207,122,0.3);
+}
+
+.book-subtitle {
+    font-family: 'Almendra', serif;
+    font-size: 15px;
+    color: #b89b5e;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.book-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0;
+}
+.book-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8e7b55, transparent);
+}
+.book-divider-icon {
+    color: #f3cf7a;
+    font-size: 12px;
+}
+
+.book-heading {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 17px;
+    color: #f3cf7a;
+    margin: 12px 0 8px;
+}
+
+.book-subheading {
+    font-family: 'Almendra', serif;
+    font-size: 15px;
+    color: #d4a76a;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.book-text {
+    font-family: 'Almendra', serif;
+    font-size: 14px;
+    color: #c8b88a;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.book-text em { color: #f3cf7a; font-style: italic; }
+.book-text strong { color: #d4a76a; }
+
+.book-quote {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #a89060;
+    border-left: 3px solid #8e7b55;
+    padding: 8px 15px;
+    margin: 10px 0;
+    background: rgba(142,123,85,0.08);
+    border-radius: 0 6px 6px 0;
+}
+
+.book-npc {
+    background: rgba(142,123,85,0.1);
+    border: 1px solid rgba(142,123,85,0.3);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 8px 0;
+}
+.book-npc-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    color: #f3cf7a;
+    margin-bottom: 4px;
+}
+.book-npc-desc {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #c8b88a;
+    line-height: 1.5;
+}
+
+.book-rule-box {
+    background: rgba(139,0,0,0.1);
+    border: 1px solid rgba(139,0,0,0.3);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 8px 0;
+}
+.book-rule-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    color: #ff6b6b;
+    margin-bottom: 6px;
+}
+.book-rule-text {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #c8b88a;
+    line-height: 1.5;
+}
+
+.book-list {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #c8b88a;
+    line-height: 1.7;
+    padding-left: 20px;
+    margin: 6px 0;
+}
+.book-list li { margin-bottom: 3px; }
+.book-list li strong { color: #f3cf7a; }
+
+.book-ability {
+    background: rgba(243,207,122,0.06);
+    border-left: 3px solid #8e7b55;
+    padding: 6px 12px;
+    margin: 5px 0;
+    border-radius: 0 6px 6px 0;
+}
+.book-ability-name {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #f3cf7a;
+    font-weight: bold;
+}
+.book-ability-desc {
+    font-family: 'Almendra', serif;
+    font-size: 12px;
+    color: #a89060;
+    line-height: 1.4;
+}
+
+.book-page-num {
+    text-align: center;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 12px;
+    color: #8e7b55;
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+.book-footer {
+    text-align: center;
+    font-family: 'Almendra', serif;
+    font-size: 11px;
+    color: #5a4a2a;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Section title */
+.section-title {
+    width: 100%;
+    text-align: center;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 28px;
+    color: #f3cf7a;
+    margin: 30px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #8e7b55;
+}
+
+.hidden { display: none !important; }
+
+/* Soul legend */
+.soul-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    border: 1px solid #8e7b55;
+}
+.soul-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+}
+.soul-legend-item .soul-tag { font-size: 11px; }
+.soul-legend-item .hero-names {
+    color: #888;
+    font-size: 11px;
+}
+</style>
+</head>
+<body>
+
+<h1 style="text-align:center; font-family:'Cinzel Decorative',serif; color:#f3cf7a; margin-bottom:5px;">Pavel Missions - Γεννητρια Καρτων</h1>
+<p style="text-align:center; color:#888; font-size:14px; margin-bottom:20px;">Εκδοση Ψυχων - Τα μπονους συγγενειας χρησιμοποιουν τυπους Ψυχης αντι για ονοματα ηρωων</p>
+
+<div class="controls">
+    <button onclick="showSection('missions')" id="btn-missions" class="active">Αποστολες (100)</button>
+    <button onclick="showSection('group')" id="btn-group">Ομαδικες Αποστολες (50)</button>
+    <button onclick="showSection('heroes')" id="btn-heroes">Ηρωες (13)</button>
+    <button onclick="showSection('stats')" id="btn-stats">Καρτες Στατιστικων (5)</button>
+    <button onclick="showSection('world')" id="btn-world">Βιβλιο του Κοσμου</button>
+    <button onclick="showSection('rules')" id="btn-rules">Βιβλιο Κανονων</button>
+    <button onclick="showSection('all')" id="btn-all">Εμφανιση Ολων</button>
+    <button onclick="window.print()" style="background:#1B5E20; border-color:#4CAF50;">Εκτυπωση / Αποθηκευση PDF</button>
+    <span class="note">Δεξι κλικ σε καρτα → "Αποθηκευση εικονας" ή Εκτυπωση για εξαγωγη PDF</span>
+</div>
+
+<!-- Soul Legend -->
+<div class="soul-legend" id="soul-legend">
+    <div style="width:100%; text-align:center; font-weight:bold; font-size:14px; margin-bottom:5px; color:#f3cf7a;">ΤΥΠΟΙ ΨΥΧΗΣ → ΗΡΩΕΣ</div>
+</div>
+
+<div id="missions-section">
+    <h2 class="section-title">Καρτες Αποστολων (1-100)</h2>
+    <div class="card-grid" id="missions-grid"></div>
+</div>
+
+<div id="group-section" class="hidden">
+    <h2 class="section-title">Καρτες Ομαδικων Αποστολων (1-50)</h2>
+    <div class="card-grid" id="group-grid"></div>
+</div>
+
+<div id="heroes-section" class="hidden">
+    <h2 class="section-title">Καρτες Ηρωων</h2>
+    <div class="card-grid" id="heroes-grid"></div>
+</div>
+
+<div id="stats-section" class="hidden">
+    <h2 class="section-title">Καρτες Αναφορας Στατιστικων</h2>
+    <div class="card-grid" id="stats-grid"></div>
+</div>
+
+<div id="world-section" class="hidden">
+    <h2 class="section-title">Book of the World</h2>
+    <div class="book-grid" id="world-grid"></div>
+</div>
+
+<div id="rules-section" class="hidden">
+    <h2 class="section-title">Book of Game Rules</h2>
+    <div class="book-grid" id="rules-grid"></div>
+</div>
+
+<script>
+// ============================================================
+// SOUL SYSTEM
+// ============================================================
+
+const SOUL_DATA = {
+    dark:   { icon: '🌑', label: 'Dark',   heroes: ['Dark Stalker', 'Devil Boy', 'Forest Spirit'] },
+    tech:   { icon: '⚙️', label: 'Tech',   heroes: ['Friendly AI'] },
+    stone:  { icon: '🪨', label: 'Stone',  heroes: ['Thug Dwarf', 'Warrior Girl'] },
+    crowd:  { icon: '👥', label: 'Crowd',  heroes: ['Babbler Rogue'] },
+    magic:  { icon: '✨', label: 'Magic',  heroes: ['Neighbor Witch', 'Ancient Tree Elder', 'Wizard of Orks'] },
+    shadow: { icon: '🌫️', label: 'Shadow', heroes: ['Fancy Ninja', 'Quick Thief', 'Monkey Boy'] },
+    sky:    { icon: '☁️', label: 'Sky',    heroes: ['Lost Dragon'] },
+    pub:    { icon: '🍺', label: 'Pub',    heroes: ['Drunken Paladin', 'Another Drunk Guy'] },
+    silent: { icon: '🤫', label: 'Silent', heroes: ['Mute Monk', 'Sad Troll', 'Granny the Priest'] },
+    undead: { icon: '💀', label: 'Undead', heroes: ['Lover Zombie'] }
+};
+
+// ============================================================
+// MISSION DATA (100 missions)
+// ============================================================
+
+const STAGES = [
+    {t: "Σιδερένια Καταπακτή", d: "Μια βαριά πύλη πέφτει με πάταγο. Μόνο ωμή δύναμη μπορεί να τη σηκώσει.", s: "pow", e: 4, h: 6, a: ['stone','tech']},
+    {t: "Η Μεταφορά της Ταβέρνας", d: "Μετέφερε τα βαρέλια μπίρας στην αποθήκη της ταβέρνας.", s: "pow", e: 2, h: 4, a: ['pub']},
+    {t: "Χαμένη Γάτα", d: "Βρες τη Yuumi. Τη γάτα του μεθυσμένου Panchoncho.", s: "wil", e: 2, h: 4, a: ['pub','shadow']},
+    {t: "Ογκόλιθος στο Δρόμο", d: "Ένας βράχος σου κλείνει τον δρόμο. Μετακίνησέ τον.", s: "pow", e: 4, h: 9, a: ['stone','silent']},
+    {t: "Καυγάς στην Ταβέρνα", d: "Συγκράτησε τον μεθυσμένο ορκ πριν καταστρέψει το μπαρ.", s: "pow", e: 3, h: 5, a: ['pub','stone']},
+    {t: "Σπασμένα Δεσμά", d: "Σπάσε τις αλυσίδες πριν γυρίσουν οι φρουροί!", s: "pow", e: 4, h: 7, a: ['stone','shadow']},
+    {t: "Ο Αγώνας του Καμπαναριού", d: "Όποιος χτυπήσει πρώτος την καμπάνα της ταβέρνας κερδίζει μια μπίρα.", s: "spd", e: 4, h: 9, a: ['pub','shadow']},
+    {t: "Νανικό Αμόνι", d: "Σφυρηλάτησε το πυρακτωμένο μέταλλο με σωματική δύναμη.", s: "pow", e: 5, h: 9, a: ['stone','tech']},
+    {t: "Παγίδα Συντριβής", d: "Οι τοίχοι κλείνουν! Βρες τον διακόπτη γρήγορα!", s: "spd", e: 5, h: 8, a: ['shadow','tech']},
+    {t: "Νυχτερινή Βόλτα στην Ταβέρνα", d: "Περπάτα γρήγορα μέσα στο δάσος για να φτάσεις στην ταβέρνα τη νύχτα.", s: "spd", e: 4, h: 7, a: ['dark','shadow']},
+    {t: "Πάλη με τον Νταή", d: "Ο νταής του χωριού σε προκαλεί. Ρίξ' τον κάτω!", s: "pow", e: 3, h: 6, a: ['stone','crowd']},
+    {t: "Ο Φόρος της Μπίρας", d: "Πήγαινε στην ταβέρνα και φέρε στον King Antony 100 μπίρες.", s: "wil", e: 2, h: 4, a: ['pub','crowd']},
+    {t: "Επισκευή Ανελκυστήρα", d: "Φτιάξε το σπασμένο σύστημα τροχαλίας για να βγεις από τον λάκκο!", s: "brn", e: 4, h: 7, a: ['tech','stone']},
+    {t: "Ο Μοχλός του Excalibur", d: "Τράβηξε το θρυλικό σπαθί από την πέτρα!", s: "pow", e: 5, h: 10, a: ['stone','magic']},
+    {t: "Σκοτεινό Κελάρι", d: "Το σκοτάδι ζωντανεύει. Τρέξε πριν σε πιάσει.", s: "spd", e: 5, h: 9, a: ['dark','shadow']},
+    {t: "Διάβαση στα Σύννεφα", d: "Διέσχισε τη λεπτή κρεμαστή γέφυρα ψηλά στα σύννεφα.", s: "wil", e: 5, h: 8, a: ['sky','silent']},
+    {t: "Βασιλικός Διαμεσολαβητής", d: "Ο King Antony μέθυσε πάλι. Βοήθησέ τον να κάνει φίλο έναν ορκ.", s: "cha", e: 4, h: 8, a: ['pub','crowd']},
+    {t: "Η Πυρκαγιά της Ταβέρνας", d: "Η ταβέρνα καίγεται! Πρέπει να σώσεις τους μεθυσμένους!", s: "brn", e: 5, h: 8, a: ['shadow','tech']},
+    {t: "Κυνηγητό στις Στέγες", d: "Κυνήγησε τον κλέφτη πάνω στις σκεπές του Pavel!", s: "spd", e: 4, h: 8, a: ['shadow','sky']},
+    {t: "Μάζεμα Νομισμάτων", d: "Δεκάδες νομίσματα πέφτουν από τον πάγκο της ταβέρνας. Πιάσ' τα.", s: "spd", e: 4, h: 6, a: ['shadow','tech']},
+    {t: "Εκκένωση Χωριού", d: "ΦΩΤΙΑ! Οδήγησε τους χωρικούς στην πλησιέστερη ασφαλή πόλη.", s: "brn", e: 5, h: 10, a: ['magic','tech']},
+    {t: "Πλημμυρισμένη Ταβέρνα", d: "Η ταβέρνα πλημμυρίζει! Βρες πώς να σταματήσεις τη διαρροή!", s: "brn", e: 3, h: 6, a: ['pub','tech']},
+    {t: "Το Ρακούν-Κλέφτης", d: "Ένα ρακούν σου έκλεψε το φαγητό. Κυνήγησέ το μέσα στην ταβέρνα.", s: "spd", e: 3, h: 6, a: ['shadow','sky']},
+    {t: "Βαλς στο Πλήθος", d: "Χόρεψε μέσα στην κατάμεστη αίθουσα χωρίς να χτυπήσεις κανέναν!", s: "spd", e: 3, h: 5, a: ['crowd','shadow']},
+    {t: "Η Πύλη Κλείνει", d: "Γλίστρα κάτω από την πύλη που κλείνει πριν παγιδευτείς!", s: "spd", e: 4, h: 7, a: ['shadow','stone']},
+    {t: "Κολλώδες Πάτωμα", d: "Ο αλχημιστής έχυσε κόλλα! Κινήσου προσεκτικά αλλά γρήγορα!", s: "spd", e: 3, h: 6, a: ['shadow','magic']},
+    {t: "Λεπίδες Μηχανισμού", d: "Πέρνα μέσα από την παγίδα με τις περιστρεφόμενες λεπίδες!", s: "spd", e: 5, h: 9, a: ['tech','shadow']},
+    {t: "Χάδια Αντιπερισπασμού", d: "Κράτα τη Yuumi απασχολημένη ενώ οι άλλοι περνούν κρυφά!", s: "cha", e: 2, h: 4, a: ['pub','silent']},
+    {t: "Ο Κύβος του Antony", d: "Λύσε τον γρίφο του βασιλιά για να αποδείξεις την αξία σου!", s: "brn", e: 4, h: 8, a: ['tech','magic']},
+    {t: "Ο Καθρέφτης του Λιτς", d: "Απάντησε στους γρίφους του αζώου για να περάσεις με ασφάλεια!", s: "brn", e: 5, h: 9, a: ['undead','dark']},
+    {t: "Η Χρυσή Επιδιόρθωση", d: "Επισκεύασε το χρυσό άγαλμα πριν το προσέξει ο βασιλιάς!", s: "brn", e: 3, h: 6, a: ['tech','crowd']},
+    {t: "Ο Γρίφος του Panchonco", d: "Λύσε τον μεθυσμένο γρίφο του Panchonco για ένα δωρεάν ποτό!", s: "brn", e: 3, h: 5, a: ['pub','tech']},
+    {t: "Μνήμη της Κρύπτης", d: "Θυμήσου τη σειρά των συμβόλων για να δραπετεύσεις από την κρύπτη!", s: "brn", e: 4, h: 8, a: ['undead','dark']},
+    {t: "Μεθυσμένος Λογαριασμός", d: "Είσαι μεθυσμένος! Υπολόγισε σωστά τον λογαριασμό της ταβέρνας!", s: "brn", e: 2, h: 4, a: ['pub','tech']},
+    {t: "Αφέντης του Χάρτη", d: "Βρες την έξοδο σε έναν μεταβαλλόμενο, σκοτεινό λαβύρινθο.", s: "brn", e: 5, h: 10, a: ['dark','shadow']},
+    {t: "Ουράνια Διπλωματία", d: "Η φυλή των δράκων θέλει να εισβάλει. Διαπραγματεύσου μαζί τους.", s: "brn", e: 4, h: 8, a: ['sky','crowd']},
+    {t: "Η Νυσταγμένη Συνοδεία", d: "Οδήγησε τον υπνοβάτη ευγενή πίσω στο κρεβάτι του με ασφάλεια!", s: "brn", e: 3, h: 5, a: ['crowd','silent']},
+    {t: "Πλαστά Χρυσά", d: "Εντόπισε τα πλαστά νομίσματα πριν τα προσέξει ο έμπορος!", s: "brn", e: 4, h: 7, a: ['tech','shadow']},
+    {t: "Το Κοκτέιλ του Panchonco", d: "Ο Panchonco θέλει κοκτέιλ. Ανακάτεψε τα ποτά.", s: "brn", e: 3, h: 6, a: ['pub','tech']},
+    {t: "Ο Γρίφος του Μπάρμαν", d: "Απάντησε στους τρεις γρίφους του μυστηριώδη μπάρμαν!", s: "brn", e: 4, h: 7, a: ['pub','magic']},
+    {t: "Κρυπτογραφημένη Κλειδαριά", d: "Αποκρυπτογράφησε τον αρχαίο κώδικα για να ανοίξεις το θησαυροφυλάκιο!", s: "brn", e: 5, h: 9, a: ['tech','magic']},
+    {t: "Δρακοκτόνος", d: "Ξεγέλασε τον δράκο με ένα έξυπνο σχέδιο μάχης!", s: "brn", e: 5, h: 10, a: ['sky','tech']},
+    {t: "Μεταμφίεση στην Ταβέρνα", d: "Φέρσου φυσικά για να αποφύγεις τους φρουρούς που ψάχνουν την ταβέρνα!", s: "cha", e: 3, h: 5, a: ['pub','shadow']},
+    {t: "Η Εύνοια του Βασιλιά", d: "Εντυπωσίασε τον μεθυσμένο βασιλιά με μια ψεύτικη ιστορία.", s: "cha", e: 3, h: 6, a: ['crowd','pub']},
+    {t: "Ψυχολογικό Παιχνίδι", d: "Πείσε τον πέτρινο γκόλεμ ότι είναι φτιαγμένος από ξύλο!", s: "cha", e: 4, h: 8, a: ['stone','magic']},
+    {t: "Κολακεία στον Old Nick", d: "Κέρδισε τη φιλία του γέρου Old Nick με κολακεία.", s: "cha", e: 3, h: 6, a: ['pub','crowd']},
+    {t: "Κουβέντα με τον Μπράβο", d: "Γοήτεψε τον πέτρινο γκόλεμ για να σε αφήσει να περάσεις.", s: "cha", e: 5, h: 10, a: ['crowd','magic','tech']},
+    {t: "Το Τραγούδι του Panchonco", d: "Τραγούδησε ένα τραγούδι που θα κάνει τον μεθυσμένο Panchoncho να δακρύσει.", s: "cha", e: 4, h: 8, a: ['pub','silent']},
+    {t: "Περίπολος Ορκ στον Βάλτο", d: "Πείσε την περίπολο των ορκ ότι ανήκεις στον βάλτο!", s: "cha", e: 4, h: 7, a: ['silent','crowd']},
+    {t: "Ψίθυρος στη Σκιά", d: "Πείσε τα σκοτεινά πνεύματα του δάσους να φωτίσουν τον δρόμο.", s: "cha", e: 4, h: 7, a: ['crowd','silent','dark']},
+    {t: "Σιωπηλή Ικεσία", d: "Μετέδωσε την επείγουσα ανάγκη σου χωρίς να μιλήσεις!", s: "cha", e: 3, h: 6, a: ['silent','crowd']},
+    {t: "Διαπραγματευτής των Ουρανών", d: "Φέρε ειρήνη ανάμεσα στους γίγαντες των σύννεφων!", s: "cha", e: 5, h: 9, a: ['sky','crowd']},
+    {t: "Παγίδα Αριστοκράτη", d: "Τελείωσε τη βαρετή συζήτηση χωρίς να γίνεις αγενής.", s: "cha", e: 3, h: 6, a: ['crowd','silent']},
+    {t: "Ο Μηχανικός Εφευρέτης", d: "Πείσε τον εφευρέτη να μοιραστεί τα μυστικά του!", s: "cha", e: 4, h: 7, a: ['tech','crowd']},
+    {t: "Θεϊκή Πρόποση", d: "Φώναξε τόσο δυνατά ώστε να σε ακούσουν οι θεοί.", s: "cha", e: 5, h: 10, a: ['sky','crowd']},
+    {t: "Φορολογικός Έλεγχος", d: "Ξεφύτρωσε με τα λόγια σου από τον φορολογικό έλεγχο!", s: "cha", e: 4, h: 8, a: ['crowd','tech']},
+    {t: "Πειρασμός της Ταβέρνας", d: "Η μπίρα μυρίζει παράδεισο. Μείνε συγκεντρωμένος.", s: "wil", e: 3, h: 6, a: ['undead','silent']},
+    {t: "Ο Ψίθυρος του Κενού", d: "Φωνές υπόσχονται δύναμη με αντάλλαγμα την ψυχή σου. Αντιστέκεσαι;", s: "wil", e: 4, h: 8, a: ['dark','undead','tech']},
+    {t: "Μοναστική Σιωπή", d: "Κάθισε ακίνητος ενώ έντομα σέρνονται πάνω στο δέρμα σου.", s: "wil", e: 3, h: 6, a: ['silent','dark','undead']},
+    {t: "Δαιμονική Ενοχή", d: "Ο δαίμονας σου δείχνει τις χειρότερες αναμνήσεις σου. Άντεξε!", s: "wil", e: 5, h: 9, a: ['dark','magic']},
+    {t: "Ατέλειωτη Σκάλα", d: "Ανέβα τα ατελείωτα σκαλιά χωρίς να χάσεις την ελπίδα σου!", s: "wil", e: 4, h: 8, a: ['magic','silent']},
+    {t: "Πέτρινη Μεταμόρφωση", d: "Αντιστάσου στο βλέμμα της μέδουσας καθώς πλησιάζεις!", s: "wil", e: 5, h: 9, a: ['stone','magic']},
+    {t: "Σταμάτα τον Τραγουδιστή", d: "Μην αφήσεις το μαγευτικό τραγούδι του βάρδου να σε ελέγξει!", s: "wil", e: 4, h: 7, a: ['magic','crowd']},
+    {t: "Το Καταραμένο Δαχτυλίδι", d: "Βγάλε το δαχτυλίδι που ψιθυρίζει σκοτεινούς πειρασμούς!", s: "wil", e: 5, h: 10, a: ['magic','dark']},
+    {t: "Η Δοκιμασία του Ζητιάνου", d: "Ο Old Nick ζητάει τα τελευταία σου χρήματα. Αντιστάσου και φύγε!", s: "wil", e: 2, h: 4, a: ['crowd','silent']},
+    {t: "Αντηχήσεις Φόβου", d: "Περπάτα στον στοιχειωμένο διάδρομο χωρίς να το βάλεις στα πόδια!", s: "wil", e: 4, h: 8, a: ['dark','undead']},
+    {t: "Πύρινο Πνεύμα", d: "Το πάτωμα της ταβέρνας καταρρέει. Ηρέμησε και διέσχισέ το!", s: "wil", e: 5, h: 10, a: ['sky','silent']},
+    {t: "Ο Αντιβασιλέας", d: "Αντιστάσου στον πειρασμό να κάνεις κατάχρηση της προσωρινής εξουσίας!", s: "wil", e: 4, h: 7, a: ['crowd','magic']},
+    {t: "Βασιλική Μπιρομαχία", d: "Κέρδισε μια μπιρομαχία ενάντια στον King Antony!", s: "wil", e: 3, h: 6, a: ['pub','crowd']},
+    {t: "Το Βάρος του Ήρωα", d: "Σήκωσε το βάρος της ευθύνης χωρίς να λυγίσεις!", s: "wil", e: 5, h: 9, a: ['silent','crowd']},
+    {t: "Χιονοστιβάδα Βαρελιών", d: "Βαρέλια μπίρας κυλούν από τις σκάλες της ταβέρνας. Απόφυγέ τα όλα!", s: "spd", e: 4, h: 8, a: ['magic','shadow']},
+    {t: "Φλεγόμενα Βέλη", d: "Απόφυγε τη βροχή φλεγόμενων βελών!", s: "spd", e: 5, h: 9, a: ['shadow','sky']},
+    {t: "Γέφυρα που Καταρρέει", d: "Τρέξε να περάσεις πριν καταρρεύσει η γέφυρα!", s: "spd", e: 4, h: 8, a: ['shadow','stone']},
+    {t: "Η Yuumi και τα Κλειδιά", d: "Η Yuumi πήρε τα κλειδιά σου. ΠΙΑΣ' ΤΗΝ!", s: "spd", e: 3, h: 6, a: ['shadow','pub']},
+    {t: "Κυνηγητό Κεραυνών", d: "Τρέξε πιο γρήγορα από τους μαγικούς κεραυνούς!", s: "spd", e: 5, h: 10, a: ['magic','shadow']},
+    {t: "Δηλητηριώδες Αέριο στον Βάλτο", d: "Φύγε μακριά από το τοξικό σύννεφο αερίου στον βάλτο!", s: "spd", e: 4, h: 7, a: ['silent','shadow']},
+    {t: "Η Ανάσα του Δράκου", d: "Εσύ εναντίον της Yuumi. Ποιος είναι πιο γρήγορος!", s: "spd", e: 3, h: 6, a: ['shadow','sky']},
+    {t: "Τα Στιλέτα του Δολοφόνου", d: "Απόφυγε τα μαχαίρια που πετάει ο δολοφόνος!", s: "spd", e: 5, h: 9, a: ['shadow','dark']},
+    {t: "Πάτωμα που Θρυμματίζεται", d: "Πήδα από πλακάκι σε πλακάκι καθώς το πάτωμα καταρρέει!", s: "spd", e: 4, h: 8, a: ['shadow','stone']},
+    {t: "Κυνηγητό στην Ταβέρνα", d: "Πιάσε τη Yuumi πριν καταλάβει ο Panchoncho ότι έφυγε!", s: "spd", e: 3, h: 5, a: ['pub','shadow']},
+    {t: "Ο Πολυέλαιος Πέφτει", d: "Πιάσε τον πολυέλαιο που πέφτει πριν συνθλίψει κάποιον!", s: "pow", e: 4, h: 7, a: ['pub','stone']},
+    {t: "Μπρα-ντε-φερ με Γίγαντα", d: "Ένας μεθυσμένος γίγαντας σε προκαλεί. Δείξε τη δύναμή σου!", s: "pow", e: 5, h: 10, a: ['stone','sky','undead','silent']},
+    {t: "Παραβίαση Πύλης Τρολ", d: "Σπάσε την ενισχυμένη πύλη του τρολ!", s: "pow", e: 5, h: 9, a: ['stone','silent']},
+    {t: "Παγωμένη Πόρτα", d: "Σπάσε την πόρτα που έχει καλυφθεί από πάγο!", s: "pow", e: 4, h: 8, a: ['stone','magic']},
+    {t: "Λάκκος Θηρίων", d: "Πάλεψε το πλάσμα και βάλ' το πίσω στο κλουβί του!", s: "pow", e: 5, h: 10, a: ['stone','undead']},
+    {t: "Σπάσιμο Αλυσίδων", d: "Σπάσε τις αλυσίδες που κρατούν τον φυλακισμένο!", s: "pow", e: 4, h: 7, a: ['stone','dark']},
+    {t: "Μάχη με τον Panchonco", d: "Ο μεθυσμένος Panchonco σου κλείνει τον δρόμο. Πολέμα ή διαπραγματεύσου!", s: "pow", e: 4, h: 8, a: ['stone','crowd','sky']},
+    {t: "Σήκωμα Βαρελιού", d: "Εντυπωσίασε έναν νάνο σηκώνοντας το βαρύτερο βαρέλι μπίρας του!", s: "pow", e: 3, h: 6, a: ['stone','undead']},
+    {t: "Νανούρισμα Δράκου", d: "Νανούρισε τον μεθυσμένο δράκο πριν κάψει το χωριό!", s: "cha", e: 5, h: 9, a: ['crowd','pub','sky']},
+    {t: "Συνθήκη Ειρήνης Ορκ", d: "Πείσε τον αρχηγό των ορκ ότι η ειρήνη είναι κερδοφόρα!", s: "cha", e: 5, h: 10, a: ['crowd','stone']},
+    {t: "Μονομαχία Βάρδων", d: "Νίκησε τον περιπλανώμενο βάρδο σε διαγωνισμό τραγουδιού!", s: "cha", e: 4, h: 7, a: ['pub','dark','undead']},
+    {t: "Διαπραγμάτευση με Πνεύμα", d: "Πείσε το θυμωμένο φάντασμα να βρει ειρήνη!", s: "cha", e: 4, h: 8, a: ['undead','silent']},
+    {t: "Η Εμπιστοσύνη του King Antony", d: "Κέρδισε την εμπιστοσύνη του King Antony με τα λόγια σου!", s: "cha", e: 4, h: 7, a: ['pub','crowd']},
+    {t: "Συμφωνία με τον Διάβολο", d: "Διαπραγματεύσου με τον δαιμόνιο χωρίς να χάσεις την ψυχή σου!", s: "cha", e: 5, h: 9, a: ['tech','dark','magic']},
+    {t: "Μεθυσμένος Μάγος", d: "Πείσε τον μεθυσμένο μάγο να ρίξει το σωστό ξόρκι!", s: "cha", e: 4, h: 8, a: ['magic','pub']},
+    {t: "Αντίδοτο Δηλητηρίου", d: "Κάτι έχει η μπίρα μου! Ανακάτεψε τα σωστά βότανα για να σωθείς!", s: "brn", e: 4, h: 8, a: ['magic','silent']},
+    {t: "Μηχανισμός Παγίδας", d: "Βρες πώς να απενεργοποιήσεις την πολύπλοκη παγίδα!", s: "brn", e: 5, h: 9, a: ['tech','shadow']},
+    {t: "Ο Γρίφος του King Antony", d: "Απάντησε στους τρεις γρίφους του King Antony ή αποκλείεσαι από την ταβέρνα του Pavel!", s: "brn", e: 4, h: 7, a: ['tech','magic','silent']},
+    {t: "Το Τραγούδι της Σειρήνας", d: "Αντιστάσου στο κάλεσμα της σειρήνας και βρες την πηγή του!", s: "wil", e: 5, h: 10, a: ['magic','sky']},
+    {t: "Βασίλειο Εφιαλτών", d: "Παγιδευμένος σε κατάρα ονείρων γεμάτη εφιάλτες. Ξύπνα με τη δύναμη της θέλησής σου!", s: "wil", e: 6, h: 10, a: ['dark','magic']}
+];
+
+// ============================================================
+// GROUP MISSION DATA (50 missions)
+// ============================================================
+
+const GROUP_STAGES = [
+    {t: "Η Μεγάλη Πλημμύρα του Βάλτου", d: "Το Pavel βυθίζεται! Αδειάστε όλοι μαζί το νερό από τον βάλτο.", s: "pow", e: 10, h: 15, a: ['silent','stone']},
+    {t: "Αντίσταση στην Ορδή των Ορκ", d: "Σπρώξτε πίσω την εφόρμηση της εμπροσθοφυλακής των ορκ όλοι μαζί!", s: "pow", e: 12, h: 16, a: ['stone','undead']},
+    {t: "Ο Βράχος του Γίγαντα", d: "Ένας γίγαντας του βουνού φράζει το μονοπάτι. Τραβήξτε τον ογκόλιθο!", s: "pow", e: 10, h: 18, a: ['stone','silent']},
+    {t: "Ο Αγώνας με τα Βαρέλια Μπύρας", d: "Κυλήστε τα τεράστια βαρέλια στην ταβέρνα πριν κλείσει!", s: "pow", e: 8, h: 13, a: ['pub','stone']},
+    {t: "Παραβίαση της Πύλης του Κάστρου", d: "Γκρεμίστε τις πύλες του κάστρου όλοι μαζί!", s: "pow", e: 11, h: 17, a: ['stone','tech']},
+    {t: "Η Πολιορκία του Δράκου", d: "Αποφύγετε τις μπάλες φωτιάς που ρίχνει ο μεθυσμένος δράκος!", s: "spd", e: 12, h: 17, a: ['sky','shadow']},
+    {t: "Κινούμενοι Τοίχοι", d: "Περάστε τον μεταμορφωνόμενο λαβύρινθο πριν σας συνθλίψουν οι τοίχοι!", s: "spd", e: 10, h: 15, a: ['shadow','tech']},
+    {t: "Ενέδρα στην Ομίχλη", d: "Ξεφύγετε από τους ληστές μέσα στην πυκνή ομίχλη όλοι μαζί!", s: "spd", e: 9, h: 14, a: ['shadow','dark']},
+    {t: "Η Πυροσβεστική του Χωριού", d: "Η ταβέρνα καίγεται! Περάστε τα σακιά με νερό αστραπιαία.", s: "spd", e: 8, h: 13, a: ['pub','shadow']},
+    {t: "Τρέξτε στην Αστραπόβροντη", d: "Φτάστε σε καταφύγιο πριν χτυπήσει η μαγική καταιγίδα!", s: "spd", e: 11, h: 16, a: ['magic','shadow']},
+    {t: "Αναζήτηση των Χαμένων Παιδιών", d: "Πλοηγηθείτε μέσα στις μεταβαλλόμενες ομίχλες με καθαρή λογική.", s: "brn", e: 10, h: 15, a: ['magic','silent']},
+    {t: "Επισκευή του Μαγικού Φράγματος", d: "Επαναβαθμονομήστε την ασπίδα του χωριού. Συγκέντρωση!", s: "brn", e: 9, h: 14, a: ['tech','magic']},
+    {t: "Κατασκευή Γέφυρας", d: "Σχεδιάστε και χτίστε μια γέφυρα πάνω από το φαράγγι!", s: "brn", e: 10, h: 15, a: ['tech','stone']},
+    {t: "Το Αίνιγμα της Σφίγγας", d: "Απαντήστε στα αρχαία αινίγματα της Σφίγγας ως ομάδα!", s: "brn", e: 11, h: 16, a: ['magic','undead']},
+    {t: "Η Κρίση του Αλχημιστή", d: "Το φίλτρο είναι ασταθές! Υπολογίστε τη λύση όλοι μαζί!", s: "brn", e: 9, h: 14, a: ['tech','magic']},
+    {t: "Μοναστική Χορωδία", d: "Τραγουδήστε σε τέλεια αρμονία για να μπείτε στην ιερή πόλη.", s: "cha", e: 7, h: 12, a: ['silent','sky']},
+    {t: "Η Τελευταία Πρόποση", d: "Οδηγήστε την ταβέρνα στο πιο επικό τραγούδι που ακούστηκε ποτέ.", s: "cha", e: 7, h: 12, a: ['pub','crowd']},
+    {t: "Διαπραγμάτευση με τον Δράκο", d: "Πείστε το συμβούλιο των δράκων να λυπηθεί το χωριό!", s: "cha", e: 11, h: 16, a: ['sky','crowd']},
+    {t: "Η Χάρη του Βασιλιά", d: "Υπερασπιστείτε την υπόθεσή σας ενώπιον του King Antony όλοι μαζί!", s: "cha", e: 9, h: 14, a: ['crowd','pub']},
+    {t: "Το Πανηγύρι του Χωριού", d: "Οργανώστε τη γιορτή για να ενώσετε τους κατοίκους!", s: "cha", e: 8, h: 13, a: ['crowd','pub']},
+    {t: "Το Βασιλικό Συμπόσιο", d: "Αντισταθείτε στον πειρασμό να πιείτε και τις 5000 μπύρες!", s: "wil", e: 8, h: 13, a: ['pub','undead']},
+    {t: "Η Σιωπηλή Αγρύπνια", d: "Κάντε βάρδια όλη νύχτα χωρίς να σας πάρει ο ύπνος!", s: "wil", e: 9, h: 14, a: ['silent','dark']},
+    {t: "Καθαρισμός Ταβέρνας", d: "Αντέξτε τον καθαρισμό του χειρότερου χάλιου που είδε ποτέ το Pavel!", s: "wil", e: 7, h: 12, a: ['pub','silent']},
+    {t: "Η Μεθυσμένη Παρέλαση", d: "Βαδίστε μέσα στην πόλη αντιστεκόμενοι σε κάθε περισπασμό!", s: "wil", e: 8, h: 13, a: ['crowd','pub']},
+    {t: "Οι Ιστορίες του Nick", d: "Κρατήστε τη θέση σας απέναντι στον γέρο Nick πριν αρχίσει κι άλλη ιστορία!", s: "wil", e: 8, h: 13, a: ['silent','crowd']},
+    {t: "Το Τουρνουά Μπρα-ντε-Φερ του Panchoncho", d: "Ο Panchoncho σε μπλακάουτ νικάει ΟΛΟΥΣ. Κερδίζει συνέχεια. Μόλις στέκεται. Πώς γίνεται;!", s: "pow", e: 12, h: 18, a: ['pub','stone']},
+    {t: "Η Βασιλική Εκτόξευση Βαρελιού", d: "Ο King Antony θέλει να εκτοξευτεί ένα βαρέλι πάνω από το τείχος του κάστρου για 'διπλωματικούς λόγους'. Χωρίς ερωτήσεις.", s: "pow", e: 10, h: 16, a: ['pub','stone']},
+    {t: "Η Yuumi σε Πανύψηλο Δέντρο", d: "Η γάτα του Panchoncho σκαρφάλωσε στο ψηλότερο δέντρο στο Pavel και κρίνει τους πάντες από ψηλά. Κατεβάστε την!", s: "pow", e: 9, h: 15, a: ['pub','sky']},
+    {t: "Η Πόρτα της Ταβέρνας Κόλλησε Πάλι", d: "Η πόρτα της ταβέρνας πάγωσε. Τον Ιούλιο. Κάτι πάει πολύ στραβά. Σπρώξτε!", s: "pow", e: 8, h: 14, a: ['pub','magic']},
+    {t: "Διελκυστίνδα με Τρολ", d: "Ένα μπερδεμένο τρολ άρπαξε ένα σχοινί και δεν το αφήνει. Φαίνεται να διασκεδάζει. Τραβήξτε δυνατότερα!", s: "pow", e: 11, h: 17, a: ['stone','silent']},
+    {t: "Η Yuumi Έκλεψε το Βασιλικό Στέμμα", d: "Η γάτα φοράει το στέμμα του King Antony και τρέχει σαν τρελή σε όλο το Pavel. Η Μεγαλειότητά του ΔΕΝ διασκεδάζει.", s: "spd", e: 10, h: 15, a: ['pub','shadow']},
+    {t: "Το Περιστατικό με τις Θυμωμένες Μέλισσες", d: "Κάποιος — δεν λέμε ποιος — αναποδογύρισε την κυψέλη. Οι μέλισσες έχουν ΑΠΟΨΗ. ΤΡΕΞΤΕ!", s: "spd", e: 11, h: 16, a: ['sky','shadow']},
+    {t: "Καυτή Πατάτα, Κυριολεκτικά Καυτή", d: "Ένας μπερδεμένος μάγος σας έδωσε μια κανονική μπάλα φωτιάς. Πασάρτε τη γρήγορα πριν χάσει κάποιος χέρι!", s: "spd", e: 12, h: 17, a: ['magic','shadow']},
+    {t: "Το Ακυβέρνητο Κάρο Μπύρας", d: "Το κάρο με τις μπύρες δεν έχει οδηγό, δεν έχει φρένα και κατευθύνεται στην ταβέρνα. Κουνηθείτε, ΤΩΡΑ!", s: "spd", e: 9, h: 14, a: ['pub','shadow']},
+    {t: "Ο Μεγάλος Αγώνας Κύλισης Βαρελιών", d: "Η τελευταία ομάδα που κυλάει το βαρέλι στην ταβέρνα κερνάει τον επόμενο γύρο. Κανείς δεν θέλει να κεράσει. ΣΠΡΙΝΤ!", s: "spd", e: 8, h: 13, a: ['pub','stone']},
+    {t: "Το Αδύνατο Κουίζ του Old Nick", d: "Ο Old Nick εξετάζει αν ΠΡΑΓΜΑΤΙΚΑ ακούγατε την 6ωρη ιστορία του. Ερώτηση-παγίδα: κανείς δεν άκουγε.", s: "brn", e: 9, h: 14, a: ['pub','silent']},
+    {t: "Το Πρόβλημα με το Λάθος Φίλτρο", d: "Ο Panchoncho ήπιε κάτι μοβ και τώρα μιλάει ανάποδα και αιωρείται ελαφρώς. Βρείτε το αντίδοτο!", s: "brn", e: 10, h: 15, a: ['magic','pub']},
+    {t: "Τα Βασιλικά Μαθηματικά Φορολογίας του King Antony", d: "Ο βασιλιάς κάνει φορολογική δήλωση μετά από 14 μπύρες. Χρωστάει λεφτά στον εαυτό του κάπως. Φτιάξτε το αμέσως.", s: "brn", e: 11, h: 16, a: ['pub','crowd']},
+    {t: "Η Μεθυσμένη Φιλοσοφία του Panchoncho", d: "Αποκρυπτογραφήστε τη μπερδεμένη σοφία του Panchoncho πριν λιποθυμήσει στη μέση της πρότασης. Λέει ότι είναι επείγον. Δεν είναι.", s: "brn", e: 8, h: 13, a: ['pub','silent']},
+    {t: "Ο Ανάποδος Χάρτης", d: "Κάποιος ζωγράφισε χάρτη του Pavel μετά από τρεις μπύρες. Ο βορράς είναι εκεί που πρέπει να είναι ο νότος. Βρείτε τον δρόμο σπίτι. Καλή τύχη.", s: "brn", e: 9, h: 15, a: ['pub','tech']},
+    {t: "Ο Δράκος Προσβλήθηκε", d: "Κάποιος τον αποκάλεσε 'μεγάλη σαύρα'. Το άκουσε. Είναι στην πόρτα της ταβέρνας. Μαλακώστε το ΤΩΡΑ ΑΜΕΣΩΣ.", s: "cha", e: 10, h: 15, a: ['sky','crowd']},
+    {t: "Η Βραδιά Καραόκε του King Antony", d: "Ο βασιλιάς επιμένει ότι έχει υπέροχη φωνή. Πείτε του ότι αληθεύει χωρίς να πείτε ψέματα. Με κάποιον τρόπο.", s: "cha", e: 9, h: 14, a: ['pub','crowd']},
+    {t: "Η Μεγάλη Περιοδεία Συγγνωμών", d: "Μετά το 'περιστατικό' της χθεσινής βραδιάς, κάθε κάτοικος του Pavel χρειάζεται προσωπική συγγνώμη. Εσείς φταίτε.", s: "cha", e: 11, h: 16, a: ['pub','crowd']},
+    {t: "Κατεβάστε τον Nick από τη Σκηνή", d: "Ο Old Nick άρπαξε το λαούτο του βάρδου και δεν σταματάει. Είναι στο πέμπτο ανκόρ. Κανείς δεν ζήτησε.", s: "cha", e: 8, h: 13, a: ['pub','crowd']},
+    {t: "Το Τυχαίο Σόου Ταλέντων", d: "Ο Panchoncho έγραψε τους πάντες να εμφανιστούν. Το χωριό παρακολουθεί. Κανείς δεν ετοίμασε τίποτα.", s: "cha", e: 10, h: 16, a: ['pub','crowd']},
+    {t: "Το Καταραμένο Πρόποσης-Παιχνίδι του Panchoncho", d: "Οι κανόνες είναι απλοί: μην τιναχτείτε. Ο Panchoncho μόλις αποκάλυψε ένα φίδι κατοικίδιο που λέγεται 'Εφοριακός'.", s: "wil", e: 9, h: 14, a: ['pub','undead']},
+    {t: "Η Τετράωρη Ιστορία για Ύπνο του Nick", d: "Μείνετε ξύπνιοι μέχρι να τελειώσει ο Nick την ιστορία του. Δεν έχει τελειώσει ιστορία από τη Χρονιά του Ορκ.", s: "wil", e: 10, h: 15, a: ['pub','silent']},
+    {t: "Η Κατάσταση στο Υπόγειο της Ταβέρνας", d: "Το υπόγειο της ταβέρνας δεν έχει καθαριστεί από την εποχή του παππού του King Antony. Κατεβείτε στην καταπακτή. Μαζί.", s: "wil", e: 8, h: 13, a: ['pub','silent']},
+    {t: "Ο Αιώνιος Διαγωνισμός Βλεμμάτων της Yuumi", d: "Η γάτα προκάλεσε τους πάντες ταυτόχρονα. Δεν έχει ανοιγοκλείσει τα μάτια της εδώ και 40 λεπτά. Η επιστήμη δεν έχει απαντήσεις.", s: "wil", e: 9, h: 14, a: ['pub','silent']},
+    {t: "Η Παγίδα της Δωρεάν Μπύρας", d: "Ο King Antony έβαλε απεριόριστη δωρεάν μπύρα και κλείδωσε τις πόρτες. Παρακολουθεί. Λέει πως είναι τεστ.", s: "wil", e: 11, h: 16, a: ['pub','crowd']}
+];
+
+// ============================================================
+// HERO DATA
+// ============================================================
+
+const HEROES = [
+    { n: 'Dark Stalker', i: '../../images/dark.png', a: 'dark', s: {pow:5, spd:5, brn:5, cha:5, wil:5}, passive: '\u0395\u03bb\u03b5\u03b3\u03c7\u03bf\u03c2 \u03a3\u03ba\u03b9\u03c9\u03bd', passiveDesc: '\u0391\u03bd\u03b1\u03b3\u03ba\u03b1\u03c3\u03b5 \u03b5\u03bd\u03b1\u03bd \u03c0\u03b1\u03b9\u03ba\u03c4\u03b7 \u03bd\u03b1 \u03c7\u03c1\u03b7\u03c3\u03b9\u03bc\u03bf\u03c0\u03bf\u03b9\u03b7\u03c3\u03b5\u03b9 \u0394\u03b9\u03b1\u03bb\u03bf\u03b3\u03b9\u03c3\u03bc\u03bf. \u03a7\u03c1\u03b7\u03c3\u03b5\u03b9\u03c2: 2\u03c0=1, 3\u03c0=2, 4+\u03c0=3. \u0395\u03c0\u03b1\u03bd\u03b1\u03c6\u03bf\u03c1\u03b1 \u03c3\u03b5 \u03ba\u03b1\u03b8\u03b5 \u03ba\u03b1\u03c4\u03b1\u03c3\u03c4\u03b7\u03bc\u03b1.', quote: '"\u039a\u03b1\u03bd\u03b5\u03bd\u03b1 \u03c0\u03c1\u03bf\u03c3\u03c9\u03c0\u03bf. \u039a\u03b1\u03bd\u03b5\u03bd\u03b1 \u03bf\u03bd\u03bf\u03bc\u03b1. \u039a\u03b1\u03bd\u03b5\u03bd\u03b1 \u03b5\u03bb\u03b5\u03bf\u03c2."' },
+    { n: 'Friendly AI', i: '../../images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:2, wil:6}, passive: 'Παρακαμψη Συστηματος', passiveDesc: 'Μια φορα ανα παιχνιδι: επαναφερε ολα τα στατιστικα στις αρχικες τιμες (POW:6 SPD:5 BRN:6 CHA:2 WIL:6). Δεν επαναφορτιζεται.', quote: '"Υπολογιζω, αρα υπαρχω."' },
+    { n: 'Thug Dwarf', i: '../../images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Ωμη Βια', passiveDesc: 'Κερδισε +3 POW μονιμα καθε φορα που κερδιζεις οποιαδηποτε προκληση.', quote: '"Χτυπα πρωτος. Χτυπα δυνατα. Μη ζητας ποτε συγγνωμη."' },
+    { n: 'Babbler Rogue', i: '../../images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Αγαπημενος του Πληθους', passiveDesc: 'Κερδισε +1 μπονους Δοξα για καθε 3 προκλησεις που ολοκληρωνεις.', quote: '"Τα λογια κοβουν περισσοτερο απο καθε λεπιδα."' },
+    { n: 'Neighbor Witch', i: '../../images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Μυστικη Συμμαχια', passiveDesc: 'Μαντεψε ποσους ποντους στατιστικων θα κλεψεις. Αν δεν εχουν αρκετους, το ξορκι αποτυγχανει! Επαναφορτιζεται μετα απο 3 νικες.', quote: '"Μια πρεζα κακια, μια δοση καταστροφη."' },
+    { n: 'Fancy Ninja', i: '../../images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Συμβολαιο Δολοφονιας', passiveDesc: 'Στοιχηματισε οτι ενας αλλος παικτης θα αποτυχει. Αν αποτυχει: κλεψε +1 στατιστικο. Αν κερδισει: χασε -1 στατιστικο.', quote: '"Καθε φονος ειναι μια παρασταση."' },
+    { n: 'Lost Dragon', i: '../../images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:4, cha:3, wil:3}, passive: 'Οργη του Δρακου', passiveDesc: 'Οταν ξοδευεις 4+ σε οποιοδηποτε στατιστικο, κερδισε +3 μπονους στη ριψη σου.', quote: '"Ποτε δεν χαθηκα. Ο κοσμος μετακινηθηκε."' },
+    { n: 'Drunken Paladin', i: '../../images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Υγρο Θαρρος', passiveDesc: 'Μια φορα ανα σταδιο, ριξε ενα ζαρι. Στο 5-6: αμεση νικη! Επαναφορα σε καθε σταδιο.', quote: '"Η θεικη εμπνευση κυλαει καλυτερα με μπυρα."' },
+    { n: 'Mute Monk', i: '../../images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Εσωτερικη Γαληνη', passiveDesc: 'Οταν διαλογιζεσαι, αποκαταστησε +4 σε οποιοδηποτε στατιστικο της επιλογης σου αντι να περασεις απλα.', quote: '"Η σιωπη ειναι η πιο δυνατη απαντηση."' },
+    { n: 'Lover Zombie', i: '../../images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Καταραμενη Αγκαλια', passiveDesc: 'Στη νικη: ΟΛΟΙ οι αλλοι παικτες χανουν -2 απο ενα επιλεγμενο στατιστικο· εσυ κερδιζεις +1.', quote: '"Ο θανατος ειναι απλα μια μικρη ενοχληση."' },
+    { n: 'Devil Boy', i: '../../images/devil.png', a: 'dark', s: {pow:4, spd:4, brn:7, cha:6, wil:4}, passive: 'Soul Contract', passiveDesc: 'Choose a stat and swap its value with another player permanently. Recharges after 3 wins.', quote: '"Everything has a price. I set them."' },
+    { n: 'Quick Thief', i: '../../images/thief.png', a: 'shadow', s: {pow:3, spd:8, brn:5, cha:5, wil:3}, passive: 'Lucky Fingers', passiveDesc: 'Each challenge, roll a dice. On 5-6: steal 1 Glory from any player who has it.', quote: '"If it\'s not nailed down, it\'s mine."' },
+    { n: 'Sad Troll', i: '../../images/trol.png', a: 'silent', s: {pow:7, spd:2, brn:3, cha:3, wil:9}, passive: 'Rising Spirit', passiveDesc: 'Every 3 consecutive wins (including group), gain +5 to any stat.', quote: '"The world is heavy. But I carry on."' },
+    { n: 'Forest Spirit', i: '../../images/spirit.png', a: 'dark', s:{pow:3,spd:3,brn:4,cha:5,wil:5}, passive: "Nature's Gamble", passiveDesc: "Roll dice on win. 4-6: steal +1 ALL stats from most glory. 1-3: lose -1 ALL to least glory. Disabled if tied 1st/last or Spirit is 1st/last.", quote: '"The forest remembers what men forget."' },
+    { n: 'Ancient Tree Elder', i: '../../images/tree_elder.png', a: 'magic', s:{pow:7,spd:2,brn:8,cha:3,wil:7}, passive: 'Ancient Roots', passiveDesc: 'In group missions: force another hero (not reader) to join. They skip voting and must contribute.', quote: '"I have stood here since before your grandfathers."' },
+    { n: 'Granny the Priest', i: '../../images/priest_granny.png', a: 'silent', s:{pow:2,spd:1,brn:8,cha:8,wil:7}, passive: 'Divine Mercy', passiveDesc: 'If ALL players fail a regular mission, gain +1 Glory. Not in group missions.', quote: '"Have some cookies, dear. And a blessing."' },
+    { n: 'Warrior Girl', i: '../../images/warrior_ork.png', a: 'stone', s:{pow:8,spd:5,brn:6,cha:3,wil:6}, passive: 'Battle Born', passiveDesc: 'In group missions: always +3 bonus to contribution. Stacks with affinity.', quote: '"My blade speaks louder than words."' },
+    { n: 'Monkey Boy', i: '../../images/monkey_boy.png', a: 'shadow', s:{pow:4,spd:8,brn:4,cha:4,wil:4}, passive: 'Chaos Reroll', passiveDesc: 'After ANY dice roll, force a reroll. 3 uses. Recharges at shop.', quote: '"Ooh ooh! Let me try that again!"' },
+    { n: 'Wizard of Orks', i: '../../images/ork_wizard.png', a: 'magic', s:{pow:3,spd:3,brn:5,cha:5,wil:4}, passive: 'Ork Brotherhood', passiveDesc: 'If another ork (Quick Thief/Warrior Girl) is in the party: IMMUNE to all hero abilities. If no ork: choose Lucky Fingers or Battle Born.', quote: '"The old ways are the strongest ways."' },
+    { n: 'Another Drunk Guy', i: '../../images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Drunken Fate', passiveDesc: 'Every dice roll of 6: +1 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at game start.', quote: '"Is this round on me? I forgot..."' }
+];
+
+// ============================================================
+// STAT LABEL MAP
+// ============================================================
+
+const STAT_LABELS = {
+    pow: 'POWER',
+    spd: 'SPEED',
+    brn: 'BRAIN',
+    cha: 'CHARISMA',
+    wil: 'WILLPOWER'
+};
+
+// ============================================================
+// RENDER FUNCTIONS
+// ============================================================
+
+function renderSoulTag(soulKey) {
+    const soul = SOUL_DATA[soulKey];
+    if (!soul) return '';
+    return `<span class="soul-tag ${soulKey}"><span class="soul-icon">${soul.icon}</span> ${soul.label}</span>`;
+}
+
+function renderMissionCard(mission, index, isGroup) {
+    const affinities = Array.isArray(mission.a) ? mission.a : [mission.a];
+    const soulTags = affinities.map(a => renderSoulTag(a)).join('');
+    const num = String(index + 1).padStart(isGroup ? 2 : 3, '0');
+    const easyPts = isGroup ? 2 : 1;
+    const hardPts = isGroup ? 4 : 2;
+    const groupLabel = isGroup ? `<div class="group-label">GROUP MISSION</div>` : '';
+
+    return `<div class="mission-card">
+        <div class="card-frame">
+            <div class="card-inner">
+                <div class="stat-header ${mission.s}">
+                    <span class="card-num">#${num}</span>
+                    ${groupLabel}
+                    ${STAT_LABELS[mission.s]}
+                </div>
+                <div class="card-body">
+                    <div class="card-title">${mission.t}</div>
+                    <div class="card-desc">${mission.d}</div>
+                    <div class="diff-row">
+                        <div class="diff-box easy">
+                            <div class="diff-label">EASY</div>
+                            <div class="diff-value">${mission.e}</div>
+                            <div class="diff-pts">${easyPts} pt${easyPts > 1 ? 's' : ''}</div>
+                        </div>
+                        <div class="diff-box hard">
+                            <div class="diff-label">HARD</div>
+                            <div class="diff-value">${mission.h}</div>
+                            <div class="diff-pts">${hardPts} pts</div>
+                        </div>
+                    </div>
+                    <div class="affinity-section">
+                        <div class="affinity-label">AFFINITY BONUS:</div>
+                        <div class="soul-tags">${soulTags}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function renderHeroCard(hero) {
+    const soul = SOUL_DATA[hero.a];
+    const stats = ['pow','spd','brn','cha','wil'];
+    const statLabels = {pow:'POW', spd:'SPD', brn:'BRN', cha:'CHA', wil:'WIL'};
+
+    const statRows = stats.map(s => `
+        <div class="stat-row">
+            <div class="stat-color-bar ${s}"></div>
+            <div style="flex:1;">
+                <div class="stat-value">${hero.s[s]}</div>
+                <div class="stat-name">${statLabels[s]}</div>
+            </div>
+        </div>
+    `).join('');
+
+    return `<div class="hero-card">
+        <div class="card-frame">
+            <div class="card-inner">
+                <div class="hero-header">
+                    <img class="hero-portrait" src="${hero.i}" alt="${hero.n}" onerror="this.style.background='#333'; this.alt='[${hero.n}]';">
+                    <div class="hero-info">
+                        <div class="hero-name">${hero.n}</div>
+                        <div class="soul-badge ${hero.a}">
+                            <span class="soul-icon">${soul.icon}</span> ${soul.label} Soul
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-table">
+                    ${statRows}
+                </div>
+                <div class="passive-section">
+                    <div class="passive-title">PASSIVE: ${hero.passive}</div>
+                    <div class="passive-desc">${hero.passiveDesc}</div>
+                </div>
+                <div class="flavor-text">${hero.quote}</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================================
+// STAT REFERENCE CARD DATA
+// ============================================================
+
+const STAT_CARDS = [
+    {
+        key: 'pow',
+        abbr: 'POW',
+        name: 'POWER',
+        flavor: 'The strength of mountains, the fury of battle. When pure force is the only answer.',
+        examples: [
+            { name: 'Iron Portcullis', desc: 'Lift the heavy gate' },
+            { name: 'Troll Tug of War', desc: 'Pull harder!' },
+            { name: 'Beast Pit', desc: 'Wrestle the creature' }
+        ]
+    },
+    {
+        key: 'spd',
+        abbr: 'SPD',
+        name: 'SPEED',
+        flavor: 'The blur of motion, the blink before impact. Faster than thought, sharper than fate.',
+        examples: [
+            { name: 'The Bell Sprint', desc: 'Ring the pub bell first' },
+            { name: 'Angry Bee Situation', desc: 'Run!' },
+            { name: 'Barrel Avalanche', desc: 'Dodge them all' }
+        ]
+    },
+    {
+        key: 'brn',
+        abbr: 'BRN',
+        name: 'BRAIN',
+        flavor: 'The labyrinth of logic, the spark of genius. Where riddles bow and chaos becomes order.',
+        examples: [
+            { name: "Antony's Math Cube", desc: "Solve the king's puzzle" },
+            { name: "Lich's Mirror", desc: 'Answer the riddles' },
+            { name: 'Upside-Down Map', desc: 'Navigate home' }
+        ]
+    },
+    {
+        key: 'cha',
+        abbr: 'CHA',
+        name: 'CHARISMA',
+        flavor: 'The silver tongue that moves kings and dragons alike. Presence that fills every room.',
+        examples: [
+            { name: "King's Favor", desc: 'Impress the drunken king' },
+            { name: 'Dragon Negotiation', desc: 'Smooth things over' },
+            { name: 'Karaoke Night', desc: 'Praise his voice' }
+        ]
+    },
+    {
+        key: 'wil',
+        abbr: 'WIL',
+        name: 'WILLPOWER',
+        flavor: 'The unbreakable core. When all else fades, this is what remains standing.',
+        examples: [
+            { name: 'Tavern Temptation', desc: 'Resist the heavenly beer' },
+            { name: "Nick's Four-Hour Story", desc: 'Stay awake!' },
+            { name: 'Cursed Ring', desc: 'Resist it' }
+        ]
+    }
+];
+
+function getTopSoulsForStat(statKey) {
+    // Find the top 3 heroes for this stat, then return their unique soul types
+    const sorted = [...HEROES].sort((a, b) => b.s[statKey] - a.s[statKey]);
+    const top3 = sorted.slice(0, 3);
+    // Get unique souls in order of appearance
+    const seen = new Set();
+    const souls = [];
+    top3.forEach(h => {
+        if (!seen.has(h.a)) {
+            seen.add(h.a);
+            souls.push(h.a);
+        }
+    });
+    return souls;
+}
+
+function renderStatCard(stat) {
+    const topSouls = getTopSoulsForStat(stat.key);
+    const soulTags = topSouls.map(s => renderSoulTag(s)).join('');
+    const examples = stat.examples.map(ex =>
+        `<div class="example-challenge">
+            <div class="example-name">${ex.name}</div>
+            <div class="example-desc">${ex.desc}</div>
+        </div>`
+    ).join('');
+
+    return `<div class="stat-card ${stat.key}">
+        <div class="card-frame ${stat.key}">
+            <div class="card-inner ${stat.key}">
+                <div class="stat-card-header">
+                    <div class="stat-abbr">${stat.abbr}</div>
+                    <div class="stat-fullname">${stat.name}</div>
+                </div>
+                <div class="stat-card-body">
+                    <div class="stat-divider">
+                        <div class="stat-divider-line"></div>
+                        <div class="stat-divider-icon">◆</div>
+                        <div class="stat-divider-line"></div>
+                    </div>
+                    <div class="stat-flavor">${stat.flavor}</div>
+                    <div class="stat-divider">
+                        <div class="stat-divider-line"></div>
+                        <div class="stat-divider-icon">◆</div>
+                        <div class="stat-divider-line"></div>
+                    </div>
+                    <div class="stat-section-title">EXAMPLE CHALLENGES</div>
+                    ${examples}
+                    <div class="skilled-section">
+                        <div class="stat-divider">
+                            <div class="stat-divider-line"></div>
+                            <div class="stat-divider-icon">◆</div>
+                            <div class="stat-divider-line"></div>
+                        </div>
+                        <div class="skilled-title">NATURALLY SKILLED:</div>
+                        <div class="skilled-tags">${soulTags}</div>
+                    </div>
+                </div>
+                <div class="stat-card-footer">
+                    <div class="footer-warning">Stats are SPENT — they do not auto-recover!</div>
+                    <div class="footer-label">STAT REFERENCE</div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================================
+// BOOK OF THE WORLD
+// ============================================================
+
+function buildWorldBook() {
+    const grid = document.getElementById('world-grid');
+
+    // Page 1: Cover / Introduction
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner" style="justify-content: center; text-align: center;">
+                <div style="font-size:60px; margin-bottom:20px;">📜</div>
+                <div class="book-title" style="font-size:32px; margin-bottom:15px;">Book of the World</div>
+                <div class="book-subtitle" style="font-size:18px;">The Lands, Legends & Lore of Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote" style="border-left:none; text-align:center; background:none;">
+                    "In the heart of a realm where ancient forests whisper forgotten secrets,
+                    there lies Pavel — a humble settlement of five thousand souls,
+                    united by one truth: there is no problem that cannot be solved
+                    with good company and a cold mug of ale."
+                </div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-text" style="color:#8e7b55; margin-top:20px;">A Guide for Heroes & Adventurers</div>
+                <div class="book-page-num">— i —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 2: The World Map
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title">The World Map</div>
+                <div class="book-subtitle">The Lands Surrounding Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-text">Pavel Town sits at the heart of a vast realm. Hidden in the <em>Misty Forest</em> wander the Nomads of the Ninja and Elven.</div>
+
+                <div class="book-heading">The Cardinal Lands</div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">☁️ Northeast — Lost Dragon Town</div>
+                    <div class="book-npc-desc">A floating citadel beyond the clouds where the last sky-born dragons dwell. Few mortals have visited and returned unchanged. The dragons are not hostile — merely aloof, though they have been known to descend upon Pavel when the mead is particularly fine.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">⚔️ West — The Ork Fortress</div>
+                    <div class="book-npc-desc">An imposing stronghold of stone and iron. Once a symbol of endless conflict, the fortress has softened in recent years. Ork war cries have been replaced with drinking songs, and their raids on Pavel are now peaceful (if boisterous) tavern visits.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">🧘 Southeast — Monk Monasteries</div>
+                    <div class="book-npc-desc">Perched on serene hilltops, these ancient monasteries offer peace and enlightenment. The monks have discovered that enlightenment tastes remarkably like honey mead, and frequently make pilgrimages to Pavel's tavern for "spiritual research."</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">⛏️ Southwest — Dwarvish Mountains</div>
+                    <div class="book-npc-desc">Deep within the misty mountains, master craftsmen forge legendary weapons and brew legendary ales. The dwarves emerge occasionally, drawn by the promise of competitions, bar fights, and proving that dwarven brew is superior to anything surface-dwellers can produce.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">⚠️ The Swamps</div>
+                <div class="book-text">Between Pavel and safety lie the <strong>Swamps</strong> — where trolls lurk, emerging to raid the village. Many heroes have ventured in, but few return. And those who do speak in whispers of what dwells in the deepest shadows.</div>
+
+                <div class="book-quote">"The swamp does not forgive. The swamp does not forget. The swamp just... swallows."</div>
+
+                <div class="book-page-num">— 1 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 3: Pavel Town
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title">Pavel Town</div>
+                <div class="book-subtitle">The Town of Beer and Fellowship</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-text">Pavel is no grand city — it boasts no towering spires or marble halls. What it has is something far more valuable: <em>the finest tavern in all the realms</em>, a king who'd rather buy you a drink than wage a war, and a community bound together by loyalty, laughter, and a shared understanding that life is too short to drink bad ale.</div>
+
+                <div class="book-text">The town sits at a crossroads of every major path in the realm. This makes it a natural gathering point for adventurers, outcasts, merchants, and anyone looking for a warm fire, a cold drink, and a story worth telling.</div>
+
+                <div class="book-heading">Notable Citizens of Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">👑 King Antony — The Peaceful King</div>
+                    <div class="book-npc-desc">While neighboring monarchs concern themselves with conquest, Antony has but two ambitions: keeping his village peaceful and his tankard full. You'll find him at the tavern's corner table, buying rounds for travelers. <em>"A happy village is a peaceful village,"</em> he declares, raising his seventh mug of the evening.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">📖 Old Nick the Geezer — Keeper of Tales</div>
+                    <div class="book-npc-desc">Every night, Old Nick takes his seat by the hearth. With a voice weathered by a hundred winters, he weaves tales of when forests were deeper and monsters bolder. Some say he's simply too stubborn to let death interrupt a good story. Nobody has ever successfully escaped one of his tales before it ends — and none have ever ended.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">🍺 Panchonco & Yuumi — The Eternal Patron</div>
+                    <div class="book-npc-desc">Propped against the bar with his cat Yuumi perched on his shoulder, Panchonco haunts the pub day and night. Yuumi seems the only creature who truly understands his slurred philosophy. Some say he's been drinking since before King Antony was born. Others say he IS the tavern.</div>
+                </div>
+
+                <div class="book-page-num">— 2 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 4: The Visitors & The Threat
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">The Visitors & The Threat</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🌍 Those Who Come to Pavel</div>
+                <div class="book-text">Pavel's fame has spread across the realm. <em>Dragons</em> descend from Lost Dragon Town, their fiery breath dimmed by curiosity. <em>Orks</em> march from their Fortress, war cries replaced with drinking songs. <em>Monks</em> find enlightenment tastes like honey mead. Even <em>Dwarves</em> emerge from their misty mountains, grudgingly admitting that surface ale "isn't terrible."</div>
+
+                <div class="book-text">Heroes of every kind are drawn here — assassins seeking redemption, paladins seeking purpose, witches seeking ingredients, and zombies seeking... well, love, apparently.</div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">⚠️ The Ever-Present Danger</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">The Swamp Trolls</div>
+                    <div class="book-rule-text">In the Swamps lurk trolls — brutal creatures who strike without warning. Their raids are swift and merciless. Many have ventured into those marshes, but few return, and those who do speak in whispers of what dwells in the deepest shadows. It is because of this threat that King Antony has announced the Grand Competition — a series of Missions to identify the greatest heroes who can protect Pavel.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🏆 The Grand Competition</div>
+                <div class="book-text">And so it begins. King Antony has decreed that the heroes who gather at his tavern must prove their worth through trials of <strong>Power</strong>, <strong>Speed</strong>, <strong>Brain</strong>, <strong>Charisma</strong>, and <strong>Willpower</strong>. Only the one who claims the most <em>Glory</em> shall earn the title of Pavel's Champion.</div>
+
+                <div class="book-quote">"Every hero has a story. Every story needs a tavern. Welcome to Pavel."</div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">The Heroes</div>
+                <div class="book-text">Twenty legendary heroes gather at Pavel's tavern. Each carries unique abilities and a secret <em>Soul Affinity</em> — an elemental bond that grants them power over certain challenges. The ten Soul Types are:</div>
+                <div class="book-list" style="list-style:none; padding-left:0; display:flex; flex-wrap:wrap; gap:5px 20px;">
+                    ${Object.entries(SOUL_DATA).map(([k,v]) => `<span>${v.icon} <strong>${v.label}</strong></span>`).join('')}
+                </div>
+                <div class="book-text" style="margin-top:10px;">When a hero's Soul matches a mission's affinity, they receive a <strong>+3 bonus</strong> — a powerful advantage that can turn the tide of any challenge.</div>
+
+                <div class="book-page-num">— 3 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 5: Hero Roster (first half)
+    const half = Math.ceil(HEROES.length / 2);
+    const heroesPage1 = HEROES.slice(0, half);
+    const heroesPage2 = HEROES.slice(half);
+
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Heroes of Pavel</div>
+                <div class="book-subtitle">Part I — The First Champions</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${heroesPage1.map(h => {
+                    const soulInfo = Object.entries(SOUL_DATA).find(([k,v]) => k === h.a);
+                    const soulLabel = soulInfo ? soulInfo[1].icon + ' ' + soulInfo[1].label : h.a;
+                    return `<div class="book-ability">
+                        <div class="book-ability-name">${h.n} <span style="color:#8e7b55; font-weight:normal; font-size:11px;">[${h.s.pow}/${h.s.spd}/${h.s.brn}/${h.s.cha}/${h.s.wil}] — ${soulLabel}</span></div>
+                        <div class="book-ability-desc">${h.passiveDesc}</div>
+                    </div>`;
+                }).join('')}
+                <div class="book-page-num">— 4 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 6: Hero Roster (second half)
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Heroes of Pavel</div>
+                <div class="book-subtitle">Part II — The Later Champions</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${heroesPage2.map(h => {
+                    const soulInfo = Object.entries(SOUL_DATA).find(([k,v]) => k === h.a);
+                    const soulLabel = soulInfo ? soulInfo[1].icon + ' ' + soulInfo[1].label : h.a;
+                    return `<div class="book-ability">
+                        <div class="book-ability-name">${h.n} <span style="color:#8e7b55; font-weight:normal; font-size:11px;">[${h.s.pow}/${h.s.spd}/${h.s.brn}/${h.s.cha}/${h.s.wil}] — ${soulLabel}</span></div>
+                        <div class="book-ability-desc">${h.passiveDesc}</div>
+                    </div>`;
+                }).join('')}
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote">"Every hero has a story. Some just haven't finished writing it yet."</div>
+                <div class="book-page-num">— 5 —</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================================
+// BOOK OF GAME RULES
+// ============================================================
+
+function buildRulesBook() {
+    const grid = document.getElementById('rules-grid');
+
+    // Page 1: Cover
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner" style="justify-content: center; text-align: center;">
+                <div style="font-size:60px; margin-bottom:20px;">⚔️</div>
+                <div class="book-title" style="font-size:32px; margin-bottom:15px;">Book of Rules</div>
+                <div class="book-subtitle" style="font-size:18px;">The Official Guide to Missions in Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote" style="border-left:none; text-align:center; background:none;">
+                    "Twenty legendary heroes gather at Pavel's tavern,
+                    each with unique abilities and soul affinities.
+                    King Antony has announced a grand competition —
+                    a series of Missions where heroes prove their worth.
+                    Only one can claim the throne of Glory!"
+                </div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-text" style="color:#8e7b55; margin-top:20px;">For 2–10 Players</div>
+                <div class="book-page-num">— i —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 2: Setup & Objective
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Game Setup & Objective</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🎮 Setup</div>
+                <ol class="book-list">
+                    <li>Choose the number of players (2–10 heroes)</li>
+                    <li>Each player enters their name and receives a random hero</li>
+                    <li>Set the Quest Length (number of Rounds)</li>
+                    <li>The game begins with Player 1 as the first Reader</li>
+                </ol>
+
+                <div class="book-heading">🏆 Objective</div>
+                <div class="book-text">Accumulate the highest <em>Glory</em> score by completing challenges. The hero with the most Glory when all rounds are complete wins!</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Tiebreakers</div>
+                    <div class="book-rule-text">1st: Most remaining total stat points. 2nd: Most remaining Meditations.</div>
+                </div>
+
+                <div class="book-heading">📊 Hero Stats</div>
+                <div class="book-text">Each hero has 5 stats: <strong>POW</strong> (Power), <strong>SPD</strong> (Speed), <strong>BRN</strong> (Brain), <strong>CHA</strong> (Charisma), <strong>WIL</strong> (Willpower).</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">⚠️ Important</div>
+                    <div class="book-rule-text">Stats are SPENT to complete challenges. They do NOT regenerate automatically! Only the Alchemist Shop and certain abilities restore stats.</div>
+                </div>
+
+                <div class="book-heading">🔄 Rounds & Stages</div>
+                <ul class="book-list">
+                    <li>The game is divided into <strong>Rounds</strong></li>
+                    <li>One Stage = One mission card drawn and resolved</li>
+                    <li>Each player becomes <strong>Reader</strong> once per Round (rotating clockwise)</li>
+                    <li>A Round ends when the original first Reader becomes Reader again</li>
+                    <li>Example: 4 players = 4 stages per round</li>
+                </ul>
+
+                <div class="book-heading">📖 The Reader</div>
+                <div class="book-text">Each stage has a Reader who:</div>
+                <ul class="book-list">
+                    <li>Draws and reads the mission card aloud</li>
+                    <li>Rolls the <em>Fate Dice</em> to determine difficulty</li>
+                    <li>Knows the secret target number (others do NOT!)</li>
+                    <li>Does NOT participate in challenges during their turn</li>
+                    <li>CAN be targeted by hero abilities</li>
+                </ul>
+
+                <div class="book-page-num">— 1 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 3: Challenge Resolution
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Challenge Resolution</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🎲 Fate Dice & Difficulty</div>
+                <div class="book-text">When the Reader rolls the Fate Dice:</div>
+                <ul class="book-list">
+                    <li><strong>Roll 1–3 = EASY</strong> — Lower target, worth <strong>1 Glory</strong></li>
+                    <li><strong>Roll 4–6 = HARD</strong> — Higher target, worth <strong>2 Glory</strong></li>
+                    <li>Only the Reader sees the exact target — challengers must guess!</li>
+                </ul>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">Your Three Options</div>
+                <div class="book-text">Starting from the player to the Reader's left (clockwise), each Challenger chooses:</div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">1. ⚔️ Attempt the Challenge</div>
+                    <div class="book-npc-desc">
+                        Choose how many stat points to spend (using the required stat).<br>
+                        Your total = Points spent + Affinity bonus (if applicable).<br><br>
+                        <strong style="color:#4CAF50;">WIN</strong> (meet or exceed target): Gain Glory (1 Easy / 2 Hard), get back +2 of your spent points. Stage ends.<br>
+                        <strong style="color:#ff6b6b;">FAIL</strong> (below target): Lose ALL spent points. Challenge passes to next player.
+                    </div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">2. 🧘 Meditate (Pass)</div>
+                    <div class="book-npc-desc">
+                        Skip the challenge without spending points.<br>
+                        You have exactly <strong>3 Meditations</strong> for the entire game.<br>
+                        Meditations do NOT regenerate (except +1 at Alchemist Shop).<br>
+                        If ALL players meditate or fail, the mission is discarded — no one wins.
+                    </div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">3. 🤝 Challenge a Friend</div>
+                    <div class="book-npc-desc">
+                        Challenge another player (not the Reader) to a duel.<br>
+                        The Initiator gets a <strong>+3 Courage Bonus</strong> automatically.<br>
+                        Both players secretly invest points, then reveal simultaneously.<br><br>
+                        <strong>Both WIN:</strong> Both gain Glory.<br>
+                        <strong>One WINS:</strong> Winner gains +1 bonus Glory on top.<br>
+                        <strong>Both FAIL:</strong> No Glory awarded to either.<br><br>
+                        After the duel, a new card is drawn — the two duelists sit out.
+                    </div>
+                </div>
+
+                <div class="book-page-num">— 2 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 4: Group Missions & Soul Affinity
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Group Missions & Affinity</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🤝 Group Missions</div>
+                <div class="book-text">Special missions marked with 🤝 require teamwork from ALL heroes:</div>
+                <ul class="book-list">
+                    <li>Reader draws the card and rolls difficulty (does not contribute)</li>
+                    <li>Each non-Reader player votes <strong>YES</strong> (participate) or <strong>NO</strong> (sit out)</li>
+                    <li>Voting order is <strong>clockwise from the Reader</strong></li>
+                    <li>YES voters contribute points; NO voters contribute nothing</li>
+                    <li>All contributions are combined (including affinity bonuses)</li>
+                </ul>
+
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Group Mission Results</div>
+                    <div class="book-rule-text">
+                        <strong style="color:#4CAF50;">SUCCESS:</strong> All YES voters gain Glory (+2 Easy / +4 Hard) and it counts as a WIN for abilities.<br><br>
+                        <strong style="color:#ff6b6b;">FAILURE:</strong> You can 🎲 Gamble (dice adds +1 to +6 to total) for a last chance! If gamble fails too, all YES voters lose <strong>-3 to ALL five stats</strong>.<br><br>
+                        <strong>NO voters:</strong> No reward, no penalty. Does NOT affect ability streaks.
+                    </div>
+                </div>
+                <div class="book-text" style="color:#888; font-size:12px;">Note: Group missions require 3+ players and are disabled in 2-player games.</div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">✨ Soul-Type Affinity</div>
+                <div class="book-text">Each hero has a secret <em>Soul-Type</em> — an elemental bond:</div>
+                <div style="display:flex; flex-wrap:wrap; gap:5px 15px; margin:8px 0;">
+                    ${Object.entries(SOUL_DATA).map(([k,v]) => `<span style="font-size:13px;">${v.icon} <strong style="color:#f3cf7a;">${v.label}</strong></span>`).join('')}
+                </div>
+                <ul class="book-list">
+                    <li>Each challenge card has an Affinity tag</li>
+                    <li>If your Soul-Type matches: <strong>+3 automatic bonus</strong></li>
+                    <li>Applies to ALL challenge types (regular, friend, group)</li>
+                    <li>Soul-Types are secret — don't reveal yours!</li>
+                </ul>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🏪 The Alchemist Shop</div>
+                <div class="book-text">Periodically, the mysterious Alchemist appears:</div>
+                <ul class="book-list">
+                    <li>Each player receives <strong>10 Soul Points</strong> to distribute</li>
+                    <li>Spend points to restore any stat (max +5 per stat)</li>
+                    <li>You also regain <strong>+1 Meditation</strong></li>
+                    <li>Some hero abilities recharge at the shop</li>
+                </ul>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Shop Timing (P = number of players)</div>
+                    <div class="book-rule-text">
+                        1st Shop: Round P + 3 &nbsp;|&nbsp; 2nd Shop: 1st + (P + 4) &nbsp;|&nbsp; 3rd Shop: 2nd + (P + 5)<br>
+                        Example (4 players): Rounds 7, 15, 24, 34...
+                    </div>
+                </div>
+
+                <div class="book-page-num">— 3 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 5: Hero Abilities Part 1
+    const abilities1 = [
+        { icon: '🗡️', name: 'Dark Stalker — Shadow Control', desc: 'Force any player to use one of their Meditations. Limited uses based on party size (2p=1, 3p=2, 4+p=3). Resets at each shop.' },
+        { icon: '🤖', name: 'Friendly AI — System Override', desc: 'Once per game: reset ALL your stats back to starting values. Cannot be recharged. Also: Use ANY stat for a challenge instead of the required one (recharges on friend challenge win).' },
+        { icon: '💪', name: 'Thug Dwarf — Brute Force', desc: 'Gain +3 POW permanently every time you win any challenge. Always active.' },
+        { icon: '🎭', name: 'Babbler Rogue — Crowd Favorite', desc: '+1 bonus Glory for every 3 challenges completed. Always active.' },
+        { icon: '🔮', name: 'Neighbor Witch — Arcane Alliance', desc: 'Guess how many stat points to steal from any player. If they don\'t have enough, the spell FAILS. Recharges after 3 wins.' },
+        { icon: '🥷', name: 'Fancy Ninja — Assassination Contract', desc: 'Bet on another player failing. Win: steal +1 stat. Lose: -1 stat. Usable each stage.' },
+        { icon: '🐉', name: 'Lost Dragon — Dragon Rage', desc: 'When spending 4+ points, gain +3 bonus automatically. Always active.' },
+        { icon: '🍺', name: 'Drunken Paladin — Liquid Courage', desc: 'Once per stage, roll dice. On 5-6: instant win! On 1-4: attempt normally. Resets each stage.' },
+        { icon: '🧘', name: 'Mute Monk — Inner Peace', desc: 'When meditating, choose any stat to restore +4 points instead of just passing. Always active.' },
+        { icon: '🧟', name: 'Lover Zombie — Cursed Embrace', desc: 'When you win, ALL other players lose -2 from a stat you choose, and you gain +1 to that stat.' },
+    ];
+
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Hero Abilities</div>
+                <div class="book-subtitle">Part I — The Original Champions</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${abilities1.map(a => `<div class="book-ability">
+                    <div class="book-ability-name">${a.icon} ${a.name}</div>
+                    <div class="book-ability-desc">${a.desc}</div>
+                </div>`).join('')}
+                <div class="book-page-num">— 4 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 6: Hero Abilities Part 2
+    const abilities2 = [
+        { icon: '😈', name: 'Devil Boy — Soul Contract', desc: 'Choose a stat and swap its value with another player permanently. Recharges after 3 wins.' },
+        { icon: '🎲', name: 'Quick Thief — Lucky Fingers', desc: 'Each challenge, roll dice. On 5-6: steal 1 Glory from any player. Once per stage.' },
+        { icon: '🧌', name: 'Sad Troll — Rising Spirit', desc: 'Every 3 consecutive wins (including group), gain +5 to any stat. Streak resets on any failure.' },
+        { icon: '🌿', name: 'Forest Spirit — Nature\'s Gamble', desc: 'On every regular win, roll dice. 4-6: steal +1 ALL stats from most-glory player. 1-3: lose -1 ALL stats to least-glory player.' },
+        { icon: '🌳', name: 'Ancient Tree Elder — Ancient Roots', desc: 'In group missions: force another hero (not reader) to join. They skip voting and must contribute. Once per group mission.' },
+        { icon: '🙏', name: 'Granny the Priest — Divine Mercy', desc: 'If ALL players fail a regular mission (discarded), Granny gains +1 Glory. Does not trigger on group missions.' },
+        { icon: '⚔️', name: 'Warrior Girl — Battle Born', desc: 'In group missions: always +3 bonus to contribution. Stacks with affinity bonus.' },
+        { icon: '🐵', name: 'Monkey Boy — Chaos Reroll', desc: 'After ANY dice roll, force a complete reroll. 3 uses total. Recharges at each shop visit.' },
+        { icon: '🧙', name: 'Wizard of Orks — Ork Brotherhood', desc: 'With ork ally (Quick Thief/Warrior Girl): IMMUNE to all hero abilities. Without: choose Lucky Fingers or Battle Born at game start.' },
+        { icon: '🍺', name: 'Another Drunk Guy — Drunken Fate', desc: 'Every dice roll of 6 in the game: +1 to ALL stats. With Drunken Paladin in party: all other heroes lose -2 ALL stats at game start.' },
+    ];
+
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Hero Abilities</div>
+                <div class="book-subtitle">Part II — The New Champions</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${abilities2.map(a => `<div class="book-ability">
+                    <div class="book-ability-name">${a.icon} ${a.name}</div>
+                    <div class="book-ability-desc">${a.desc}</div>
+                </div>`).join('')}
+                <div class="book-page-num">— 5 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 7: Winning & Strategy
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Winning & Strategy</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🎲 Dice Gambling</div>
+                <div class="book-text">At certain points, you may gamble your Glory:</div>
+                <ul class="book-list">
+                    <li>Bet 1–5 Glory points</li>
+                    <li>Roll the dice: <strong>4-6 = WIN</strong> (double your bet), <strong>1-3 = LOSE</strong> (lose your bet)</li>
+                    <li>High risk, high reward!</li>
+                </ul>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🏆 Winning the Game</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Victory Conditions</div>
+                    <div class="book-rule-text">
+                        The game ends when all Rounds are completed.<br>
+                        <strong>1st:</strong> Hero with the highest Glory wins!<br>
+                        <strong>Tiebreaker:</strong> Most remaining total stat points.<br>
+                        <strong>2nd Tiebreaker:</strong> Most remaining Meditations.
+                    </div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">💡 Strategy Tips</div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">📦 Resource Management</div>
+                    <div class="book-npc-desc">Stats don't regenerate! Plan for the long game and don't overcommit early. Know when the next shop appears.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">✨ Know Your Affinity</div>
+                    <div class="book-npc-desc">Identify which challenges match your Soul-Type for the +3 bonus. This advantage can make or break a hard challenge.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🧘 Save Meditations</div>
+                    <div class="book-npc-desc">Don't waste them on easy challenges — save for when stats are critically low.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🤝 Challenge a Friend Wisely</div>
+                    <div class="book-npc-desc">The +3 Courage Bonus makes initiating advantageous. Use it when you're confident in your stat pool.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">⚠️ Group Mission Risk</div>
+                    <div class="book-npc-desc">Failing costs -3 to ALL stats! Only vote YES if the team can make it. Voting NO is sometimes the smart play.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">👁️ Watch Opponents</div>
+                    <div class="book-npc-desc">Track who has used their abilities and meditations. Knowledge of your rivals is itself a weapon.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote">"Fortune favors the bold — but wisdom favors the prepared."</div>
+
+                <div class="book-page-num">— 6 —</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================================
+// INITIALIZATION
+// ============================================================
+
+function init() {
+    // Build soul legend
+    const legendEl = document.getElementById('soul-legend');
+    Object.entries(SOUL_DATA).forEach(([key, data]) => {
+        const heroList = data.heroes.join(', ');
+        legendEl.innerHTML += `<div class="soul-legend-item">
+            ${renderSoulTag(key)}
+            <span class="hero-names">= ${heroList}</span>
+        </div>`;
+    });
+
+    // Build missions
+    const missionsGrid = document.getElementById('missions-grid');
+    STAGES.forEach((m, i) => {
+        missionsGrid.innerHTML += renderMissionCard(m, i, false);
+    });
+
+    // Build group missions
+    const groupGrid = document.getElementById('group-grid');
+    GROUP_STAGES.forEach((m, i) => {
+        groupGrid.innerHTML += renderMissionCard(m, i, true);
+    });
+
+    // Build heroes
+    const heroesGrid = document.getElementById('heroes-grid');
+    HEROES.forEach(h => {
+        heroesGrid.innerHTML += renderHeroCard(h);
+    });
+
+    // Build stat cards
+    const statsGrid = document.getElementById('stats-grid');
+    STAT_CARDS.forEach(s => {
+        statsGrid.innerHTML += renderStatCard(s);
+    });
+
+    // Build books
+    buildWorldBook();
+    buildRulesBook();
+}
+
+function showSection(section) {
+    document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+
+    const sections = ['missions', 'group', 'heroes', 'stats', 'world', 'rules'];
+    sections.forEach(s => document.getElementById(s + '-section').classList.add('hidden'));
+
+    if (section === 'all') {
+        sections.forEach(s => document.getElementById(s + '-section').classList.remove('hidden'));
+    } else {
+        document.getElementById(section + '-section').classList.remove('hidden');
+    }
+
+    document.getElementById('btn-' + section).classList.add('active');
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavel Missions - Γεννητρια Καρτων (Εκδοση Ψυχων)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=MedievalSharp&family=Almendra:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: #1a1a2e;
+    color: #d4c5a0;
+    font-family: 'MedievalSharp', serif;
+    padding: 20px;
+}
+
+.controls {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1a1a2e;
+    padding: 15px 0;
+    border-bottom: 2px solid #8e7b55;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.controls button {
+    padding: 10px 20px;
+    font-family: 'MedievalSharp', serif;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #8e7b55;
+    border-radius: 6px;
+    color: #d4c5a0;
+    background: #2a1a1a;
+}
+.controls button:hover { background: #3a2a1a; }
+.controls button.active { background: #5a3a1a; border-color: #f3cf7a; }
+.controls .note {
+    font-size: 13px;
+    color: #888;
+    margin-left: 15px;
+}
+
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* ========================================
+   MISSION CARD
+   ======================================== */
+.mission-card {
+    width: 350px;
+    min-height: 520px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Outer border/frame */
+.mission-card .card-frame {
+    border: 4px solid #8B4513;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #c4a265 0%, #d4c196 25%, #b89b5e 50%, #d4c196 75%, #c4a265 100%);
+    padding: 3px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mission-card .card-inner {
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Stat header bar */
+.mission-card .stat-header {
+    text-align: center;
+    padding: 8px 12px;
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    position: relative;
+}
+.mission-card .stat-header .card-num {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    font-size: 10px;
+    font-family: 'MedievalSharp', serif;
+    opacity: 0.7;
+}
+
+.stat-header.pow { background: linear-gradient(135deg, #8B0000, #c0392b); border-bottom: 3px solid #5a0000; }
+.stat-header.spd { background: linear-gradient(135deg, #1565C0, #2196F3); border-bottom: 3px solid #0D47A1; }
+.stat-header.brn { background: linear-gradient(135deg, #6A1B9A, #9C27B0); border-bottom: 3px solid #4A148C; }
+.stat-header.cha { background: linear-gradient(135deg, #E65100, #FF9800); border-bottom: 3px solid #BF360C; }
+.stat-header.wil { background: linear-gradient(135deg, #1B5E20, #4CAF50); border-bottom: 3px solid #1B5E20; }
+
+/* Card body */
+.mission-card .card-body {
+    padding: 18px 16px 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, rgba(196,162,101,0.3) 0%, rgba(180,148,88,0.15) 100%);
+}
+
+.mission-card .card-title {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: #3a2a1a;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.mission-card .card-desc {
+    font-size: 14px;
+    color: #5a4a3a;
+    text-align: center;
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+/* Difficulty boxes */
+.mission-card .diff-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.diff-box {
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+}
+.diff-box.easy {
+    background: rgba(27, 94, 32, 0.12);
+    border: 2px solid #4CAF50;
+}
+.diff-box.hard {
+    background: rgba(139, 0, 0, 0.08);
+    border: 2px solid #c0392b;
+}
+.diff-box .diff-label {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+}
+.diff-box.easy .diff-label { color: #1B5E20; }
+.diff-box.hard .diff-label { color: #8B0000; }
+.diff-box .diff-value {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1;
+}
+.diff-box.easy .diff-value { color: #2E7D32; }
+.diff-box.hard .diff-value { color: #c0392b; }
+.diff-box .diff-pts {
+    font-size: 12px;
+    color: #5a4a3a;
+    margin-top: 4px;
+}
+
+/* Affinity section */
+.mission-card .affinity-section {
+    text-align: center;
+    margin-top: auto;
+}
+.mission-card .affinity-label {
+    font-size: 11px;
+    color: #8a7a5a;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 400;
+}
+.mission-card .soul-tags {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.soul-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid;
+}
+.soul-tag .soul-icon { font-size: 13px; }
+
+/* Soul type colors */
+.soul-tag.dark    { background: #2a1a2a; color: #c9a0dc; border-color: #6a3a6a; }
+.soul-tag.tech    { background: #1a2a3a; color: #7ac4f3; border-color: #3a6a8a; }
+.soul-tag.stone   { background: #3a3028; color: #c8b080; border-color: #7a6a50; }
+.soul-tag.crowd   { background: #3a2818; color: #e8c070; border-color: #8a7040; }
+.soul-tag.magic   { background: #2a1a3a; color: #b080e8; border-color: #6a3a9a; }
+.soul-tag.shadow  { background: #1a1a28; color: #9090c0; border-color: #5050a0; }
+.soul-tag.sky     { background: #182838; color: #88c8f0; border-color: #3878a8; }
+.soul-tag.pub     { background: #382818; color: #d8a850; border-color: #906828; }
+.soul-tag.silent  { background: #283028; color: #a0c8a0; border-color: #507850; }
+.soul-tag.undead  { background: #2a2018; color: #c0a070; border-color: #786040; }
+
+/* Group mission label */
+.mission-card .group-label {
+    text-align: center;
+    font-size: 11px;
+    font-family: 'Cinzel Decorative', serif;
+    color: #fff;
+    letter-spacing: 3px;
+    padding: 2px 0 0;
+    font-weight: 700;
+}
+
+/* ========================================
+   HERO CARD
+   ======================================== */
+.hero-card {
+    width: 350px;
+    min-height: 620px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+}
+
+.hero-card .card-frame {
+    border: 4px solid #8B4513;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #c4a265 0%, #d4c196 25%, #b89b5e 50%, #d4c196 75%, #c4a265 100%);
+    padding: 3px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-card .card-inner {
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(196,162,101,0.3) 0%, rgba(180,148,88,0.15) 100%);
+}
+
+/* Hero header with image and name */
+.hero-card .hero-header {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 12px 8px;
+    gap: 12px;
+    position: relative;
+}
+
+.hero-card .hero-portrait {
+    width: 90px;
+    height: 90px;
+    border: 3px solid #8B4513;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #000;
+    flex-shrink: 0;
+}
+
+.hero-card .hero-info {
+    flex: 1;
+    padding-top: 4px;
+}
+
+.hero-card .hero-name {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: #3a2a1a;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.hero-card .hero-soul-line {
+    font-size: 12px;
+    color: #6a5a4a;
+}
+
+/* Soul badge - NEW prominent design */
+.hero-card .soul-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    border: 2px solid;
+}
+.soul-badge.dark    { background: #2a1a2a; color: #c9a0dc; border-color: #8a5a9a; }
+.soul-badge.tech    { background: #1a2a3a; color: #7ac4f3; border-color: #4a8aba; }
+.soul-badge.stone   { background: #3a3028; color: #c8b080; border-color: #9a8a60; }
+.soul-badge.crowd   { background: #3a2818; color: #e8c070; border-color: #b09050; }
+.soul-badge.magic   { background: #2a1a3a; color: #b080e8; border-color: #8a5aba; }
+.soul-badge.shadow  { background: #1a1a28; color: #9090c0; border-color: #7070b0; }
+.soul-badge.sky     { background: #182838; color: #88c8f0; border-color: #5898c8; }
+.soul-badge.pub     { background: #382818; color: #d8a850; border-color: #b08838; }
+.soul-badge.silent  { background: #283028; color: #a0c8a0; border-color: #709870; }
+.soul-badge.undead  { background: #2a2018; color: #c0a070; border-color: #987850; }
+.soul-badge .soul-icon { font-size: 15px; }
+
+/* Stat rows */
+.hero-card .stat-table {
+    padding: 8px 12px;
+}
+.hero-card .stat-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+    padding: 4px 0;
+}
+.hero-card .stat-color-bar {
+    width: 6px;
+    height: 28px;
+    border-radius: 2px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+.stat-color-bar.pow { background: #c0392b; }
+.stat-color-bar.spd { background: #2196F3; }
+.stat-color-bar.brn { background: #9C27B0; }
+.stat-color-bar.cha { background: #FF9800; }
+.stat-color-bar.wil { background: #4CAF50; }
+
+.hero-card .stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3a2a1a;
+    width: 40px;
+    text-align: center;
+}
+.hero-card .stat-name {
+    font-size: 11px;
+    color: #8a7a5a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Passive section */
+.hero-card .passive-section {
+    margin: 8px 12px;
+    border: 2px solid #8B4513;
+    border-radius: 6px;
+    padding: 10px;
+    background: rgba(255,255,255,0.06);
+}
+.hero-card .passive-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #3a2a1a;
+    margin-bottom: 6px;
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 12px;
+}
+.hero-card .passive-desc {
+    font-size: 13px;
+    color: #5a4a3a;
+    line-height: 1.4;
+}
+
+/* Flavor text */
+.hero-card .flavor-text {
+    margin-top: auto;
+    padding: 10px 16px 12px;
+    text-align: right;
+    font-style: italic;
+    font-size: 12px;
+    color: #8a7a5a;
+}
+
+/* Soul icons map */
+.soul-icon-text::before { content: attr(data-icon); }
+
+/* ========================================
+   STAT REFERENCE CARD
+   ======================================== */
+.stat-card {
+    width: 350px;
+    min-height: 520px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-card .card-frame {
+    border: 4px solid;
+    border-radius: 12px;
+    padding: 3px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.stat-card .card-frame.pow { border-color: #8B0000; background: linear-gradient(135deg, #3a1515, #5a2020 40%, #3a1515 100%); }
+.stat-card .card-frame.spd { border-color: #0D47A1; background: linear-gradient(135deg, #0a1a30, #152a50 40%, #0a1a30 100%); }
+.stat-card .card-frame.brn { border-color: #4A148C; background: linear-gradient(135deg, #1a0a30, #2a1550 40%, #1a0a30 100%); }
+.stat-card .card-frame.cha { border-color: #BF360C; background: linear-gradient(135deg, #301a0a, #4a2a10 40%, #301a0a 100%); }
+.stat-card .card-frame.wil { border-color: #1B5E20; background: linear-gradient(135deg, #0a1a0a, #152a15 40%, #0a1a0a 100%); }
+
+.stat-card .card-inner {
+    border: 2px solid;
+    border-radius: 8px;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.stat-card .card-inner.pow { border-color: #5a0000; }
+.stat-card .card-inner.spd { border-color: #0D47A1; }
+.stat-card .card-inner.brn { border-color: #4A148C; }
+.stat-card .card-inner.cha { border-color: #BF360C; }
+.stat-card .card-inner.wil { border-color: #1B5E20; }
+
+.stat-card .stat-card-header {
+    text-align: center;
+    padding: 24px 16px 12px;
+}
+.stat-card .stat-abbr {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 52px;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+.stat-card .stat-fullname {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+.stat-card.pow .stat-abbr, .stat-card.pow .stat-fullname { color: #f3cf7a; }
+.stat-card.spd .stat-abbr, .stat-card.spd .stat-fullname { color: #88c8f0; }
+.stat-card.brn .stat-abbr, .stat-card.brn .stat-fullname { color: #c9a0dc; }
+.stat-card.cha .stat-abbr, .stat-card.cha .stat-fullname { color: #f0c878; }
+.stat-card.wil .stat-abbr, .stat-card.wil .stat-fullname { color: #a0d8a0; }
+
+.stat-card .stat-card-body {
+    padding: 0 20px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-card .stat-flavor {
+    text-align: center;
+    font-size: 14px;
+    color: #c8b898;
+    line-height: 1.4;
+    margin-bottom: 18px;
+    padding: 0 8px;
+    font-style: italic;
+}
+
+.stat-card .stat-divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.stat-card .stat-divider-line {
+    flex: 1;
+    height: 1px;
+    opacity: 0.3;
+}
+.stat-card.pow .stat-divider-line { background: #c0392b; }
+.stat-card.spd .stat-divider-line { background: #2196F3; }
+.stat-card.brn .stat-divider-line { background: #9C27B0; }
+.stat-card.cha .stat-divider-line { background: #FF9800; }
+.stat-card.wil .stat-divider-line { background: #4CAF50; }
+
+.stat-card .stat-divider-icon {
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+.stat-card .stat-section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+.stat-card.pow .stat-section-title { color: #f3cf7a; }
+.stat-card.spd .stat-section-title { color: #88c8f0; }
+.stat-card.brn .stat-section-title { color: #c9a0dc; }
+.stat-card.cha .stat-section-title { color: #f0c878; }
+.stat-card.wil .stat-section-title { color: #a0d8a0; }
+
+.stat-card .example-challenge {
+    margin-bottom: 8px;
+    padding-left: 4px;
+}
+.stat-card .example-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #d8c8a8;
+}
+.stat-card .example-name::before {
+    content: '◆ ';
+    font-size: 10px;
+}
+.stat-card .example-desc {
+    font-size: 12px;
+    color: #a09080;
+    padding-left: 14px;
+}
+
+.stat-card .skilled-section {
+    margin-top: auto;
+    padding-top: 12px;
+}
+.stat-card .skilled-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+.stat-card.pow .skilled-title { color: #f3cf7a; }
+.stat-card.spd .skilled-title { color: #88c8f0; }
+.stat-card.brn .skilled-title { color: #c9a0dc; }
+.stat-card.cha .skilled-title { color: #f0c878; }
+.stat-card.wil .skilled-title { color: #a0d8a0; }
+
+.stat-card .skilled-tags {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-card .stat-card-footer {
+    text-align: center;
+    padding: 16px 12px 12px;
+    margin-top: auto;
+}
+.stat-card .footer-warning {
+    font-size: 13px;
+    color: #c8a878;
+    font-weight: bold;
+}
+.stat-card .footer-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-top: 4px;
+    color: #a09080;
+}
+
+/* Print styles */
+@media print {
+    body { background: white; padding: 0; }
+    .controls { display: none; }
+    .card-grid { gap: 10px; }
+    .mission-card, .hero-card { break-inside: avoid; }
+    .book-page { break-inside: avoid; box-shadow: none !important; }
+}
+
+/* ========================================
+   BOOKLET PAGES
+   ======================================== */
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.book-page {
+    width: 700px;
+    min-height: 960px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-page .book-frame {
+    border: 4px solid #5a3a1a;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2a1a0e 0%, #1a1020 50%, #2a1a0e 100%);
+    padding: 3px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-page .book-inner {
+    border: 2px solid #8e7b55;
+    border-radius: 8px;
+    padding: 35px 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(26,16,10,0.95) 0%, rgba(20,12,30,0.95) 100%);
+}
+
+.book-page .book-inner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238e7b55' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+}
+
+.book-page .book-inner > * { position: relative; z-index: 1; }
+
+.book-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 26px;
+    color: #f3cf7a;
+    text-align: center;
+    margin-bottom: 8px;
+    text-shadow: 0 0 15px rgba(243,207,122,0.3);
+}
+
+.book-subtitle {
+    font-family: 'Almendra', serif;
+    font-size: 15px;
+    color: #b89b5e;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.book-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0;
+}
+.book-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8e7b55, transparent);
+}
+.book-divider-icon {
+    color: #f3cf7a;
+    font-size: 12px;
+}
+
+.book-heading {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 17px;
+    color: #f3cf7a;
+    margin: 12px 0 8px;
+}
+
+.book-subheading {
+    font-family: 'Almendra', serif;
+    font-size: 15px;
+    color: #d4a76a;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.book-text {
+    font-family: 'Almendra', serif;
+    font-size: 14px;
+    color: #c8b88a;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.book-text em { color: #f3cf7a; font-style: italic; }
+.book-text strong { color: #d4a76a; }
+
+.book-quote {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #a89060;
+    border-left: 3px solid #8e7b55;
+    padding: 8px 15px;
+    margin: 10px 0;
+    background: rgba(142,123,85,0.08);
+    border-radius: 0 6px 6px 0;
+}
+
+.book-npc {
+    background: rgba(142,123,85,0.1);
+    border: 1px solid rgba(142,123,85,0.3);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 8px 0;
+}
+.book-npc-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    color: #f3cf7a;
+    margin-bottom: 4px;
+}
+.book-npc-desc {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #c8b88a;
+    line-height: 1.5;
+}
+
+.book-rule-box {
+    background: rgba(139,0,0,0.1);
+    border: 1px solid rgba(139,0,0,0.3);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 8px 0;
+}
+.book-rule-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    color: #ff6b6b;
+    margin-bottom: 6px;
+}
+.book-rule-text {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #c8b88a;
+    line-height: 1.5;
+}
+
+.book-list {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #c8b88a;
+    line-height: 1.7;
+    padding-left: 20px;
+    margin: 6px 0;
+}
+.book-list li { margin-bottom: 3px; }
+.book-list li strong { color: #f3cf7a; }
+
+.book-ability {
+    background: rgba(243,207,122,0.06);
+    border-left: 3px solid #8e7b55;
+    padding: 6px 12px;
+    margin: 5px 0;
+    border-radius: 0 6px 6px 0;
+}
+.book-ability-name {
+    font-family: 'Almendra', serif;
+    font-size: 13px;
+    color: #f3cf7a;
+    font-weight: bold;
+}
+.book-ability-desc {
+    font-family: 'Almendra', serif;
+    font-size: 12px;
+    color: #a89060;
+    line-height: 1.4;
+}
+
+.book-page-num {
+    text-align: center;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 12px;
+    color: #8e7b55;
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+.book-footer {
+    text-align: center;
+    font-family: 'Almendra', serif;
+    font-size: 11px;
+    color: #5a4a2a;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Section title */
+.section-title {
+    width: 100%;
+    text-align: center;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 28px;
+    color: #f3cf7a;
+    margin: 30px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #8e7b55;
+}
+
+.hidden { display: none !important; }
+
+/* Soul legend */
+.soul-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    border: 1px solid #8e7b55;
+}
+.soul-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+}
+.soul-legend-item .soul-tag { font-size: 11px; }
+.soul-legend-item .hero-names {
+    color: #888;
+    font-size: 11px;
+}
+</style>
+</head>
+<body>
+
+<h1 style="text-align:center; font-family:'Cinzel Decorative',serif; color:#f3cf7a; margin-bottom:5px;">Pavel Missions - Γεννητρια Καρτων</h1>
+<p style="text-align:center; color:#888; font-size:14px; margin-bottom:20px;">Εκδοση Ψυχων - Τα μπονους συγγενειας χρησιμοποιουν τυπους Ψυχης αντι για ονοματα ηρωων</p>
+
+<div class="controls">
+    <button onclick="showSection('missions')" id="btn-missions" class="active">Αποστολες (100)</button>
+    <button onclick="showSection('group')" id="btn-group">Ομαδικες Αποστολες (50)</button>
+    <button onclick="showSection('heroes')" id="btn-heroes">Ηρωες (20)</button>
+    <button onclick="showSection('stats')" id="btn-stats">Καρτες Στατιστικων (5)</button>
+    <button onclick="showSection('world')" id="btn-world">Βιβλιο του Κοσμου</button>
+    <button onclick="showSection('rules')" id="btn-rules">Βιβλιο Κανονων</button>
+    <button onclick="showSection('all')" id="btn-all">Εμφανιση Ολων</button>
+    <button onclick="window.print()" style="background:#1B5E20; border-color:#4CAF50;">Εκτυπωση / Αποθηκευση PDF</button>
+    <span class="note">Δεξι κλικ σε καρτα → "Αποθηκευση εικονας" ή Εκτυπωση για εξαγωγη PDF</span>
+</div>
+
+<!-- Soul Legend -->
+<div class="soul-legend" id="soul-legend">
+    <div style="width:100%; text-align:center; font-weight:bold; font-size:14px; margin-bottom:5px; color:#f3cf7a;">ΤΥΠΟΙ ΨΥΧΗΣ → ΗΡΩΕΣ</div>
+</div>
+
+<div id="missions-section">
+    <h2 class="section-title">Καρτες Αποστολων (1-100)</h2>
+    <div class="card-grid" id="missions-grid"></div>
+</div>
+
+<div id="group-section" class="hidden">
+    <h2 class="section-title">Καρτες Ομαδικων Αποστολων (1-50)</h2>
+    <div class="card-grid" id="group-grid"></div>
+</div>
+
+<div id="heroes-section" class="hidden">
+    <h2 class="section-title">Καρτες Ηρωων</h2>
+    <div class="card-grid" id="heroes-grid"></div>
+</div>
+
+<div id="stats-section" class="hidden">
+    <h2 class="section-title">Καρτες Αναφορας Στατιστικων</h2>
+    <div class="card-grid" id="stats-grid"></div>
+</div>
+
+<div id="world-section" class="hidden">
+    <h2 class="section-title">Βιβλιο του Κοσμου</h2>
+    <div class="book-grid" id="world-grid"></div>
+</div>
+
+<div id="rules-section" class="hidden">
+    <h2 class="section-title">Βιβλιο Κανονων Παιχνιδιου</h2>
+    <div class="book-grid" id="rules-grid"></div>
+</div>
+
+<script>
+// ============================================================
+// SOUL SYSTEM
+// ============================================================
+
+const SOUL_DATA = {
+    dark:   { icon: '🌑', label: 'Dark',   heroes: ['Dark Stalker', 'Devil Boy', 'Forest Spirit'] },
+    tech:   { icon: '⚙️', label: 'Tech',   heroes: ['Friendly AI'] },
+    stone:  { icon: '🪨', label: 'Stone',  heroes: ['Thug Dwarf', 'Warrior Girl'] },
+    crowd:  { icon: '👥', label: 'Crowd',  heroes: ['Babbler Rogue'] },
+    magic:  { icon: '✨', label: 'Magic',  heroes: ['Neighbor Witch', 'Ancient Tree Elder', 'Wizard of Orks'] },
+    shadow: { icon: '🌫️', label: 'Shadow', heroes: ['Fancy Ninja', 'Quick Thief', 'Monkey Boy'] },
+    sky:    { icon: '☁️', label: 'Sky',    heroes: ['Lost Dragon'] },
+    pub:    { icon: '🍺', label: 'Pub',    heroes: ['Drunken Paladin', 'Another Drunk Guy'] },
+    silent: { icon: '🤫', label: 'Silent', heroes: ['Mute Monk', 'Sad Troll', 'Granny the Priest'] },
+    undead: { icon: '💀', label: 'Undead', heroes: ['Lover Zombie'] }
+};
+
+// ============================================================
+// MISSION DATA (100 missions)
+// ============================================================
+
+const STAGES = [
+    {t: "Σιδερένια Καταπακτή", d: "Μια βαριά πύλη πέφτει με πάταγο. Μόνο ωμή δύναμη μπορεί να τη σηκώσει.", s: "pow", e: 4, h: 6, a: ['stone','tech']},
+    {t: "Η Μεταφορά της Ταβέρνας", d: "Μετέφερε τα βαρέλια μπίρας στην αποθήκη της ταβέρνας.", s: "pow", e: 2, h: 4, a: ['pub']},
+    {t: "Χαμένη Γάτα", d: "Βρες τη Yuumi. Τη γάτα του μεθυσμένου Panchoncho.", s: "wil", e: 2, h: 4, a: ['pub','shadow']},
+    {t: "Ογκόλιθος στο Δρόμο", d: "Ένας βράχος σου κλείνει τον δρόμο. Μετακίνησέ τον.", s: "pow", e: 4, h: 9, a: ['stone','silent']},
+    {t: "Καυγάς στην Ταβέρνα", d: "Συγκράτησε τον μεθυσμένο ορκ πριν καταστρέψει το μπαρ.", s: "pow", e: 3, h: 5, a: ['pub','stone']},
+    {t: "Σπασμένα Δεσμά", d: "Σπάσε τις αλυσίδες πριν γυρίσουν οι φρουροί!", s: "pow", e: 4, h: 7, a: ['stone','shadow']},
+    {t: "Ο Αγώνας του Καμπαναριού", d: "Όποιος χτυπήσει πρώτος την καμπάνα της ταβέρνας κερδίζει μια μπίρα.", s: "spd", e: 4, h: 9, a: ['pub','shadow']},
+    {t: "Νανικό Αμόνι", d: "Σφυρηλάτησε το πυρακτωμένο μέταλλο με σωματική δύναμη.", s: "pow", e: 5, h: 9, a: ['stone','tech']},
+    {t: "Παγίδα Συντριβής", d: "Οι τοίχοι κλείνουν! Βρες τον διακόπτη γρήγορα!", s: "spd", e: 5, h: 8, a: ['shadow','tech']},
+    {t: "Νυχτερινή Βόλτα στην Ταβέρνα", d: "Περπάτα γρήγορα μέσα στο δάσος για να φτάσεις στην ταβέρνα τη νύχτα.", s: "spd", e: 4, h: 7, a: ['dark','shadow']},
+    {t: "Πάλη με τον Νταή", d: "Ο νταής του χωριού σε προκαλεί. Ρίξ' τον κάτω!", s: "pow", e: 3, h: 6, a: ['stone','crowd']},
+    {t: "Ο Φόρος της Μπίρας", d: "Πήγαινε στην ταβέρνα και φέρε στον King Antony 100 μπίρες.", s: "wil", e: 2, h: 4, a: ['pub','crowd']},
+    {t: "Επισκευή Ανελκυστήρα", d: "Φτιάξε το σπασμένο σύστημα τροχαλίας για να βγεις από τον λάκκο!", s: "brn", e: 4, h: 7, a: ['tech','stone']},
+    {t: "Ο Μοχλός του Excalibur", d: "Τράβηξε το θρυλικό σπαθί από την πέτρα!", s: "pow", e: 5, h: 10, a: ['stone','magic']},
+    {t: "Σκοτεινό Κελάρι", d: "Το σκοτάδι ζωντανεύει. Τρέξε πριν σε πιάσει.", s: "spd", e: 5, h: 9, a: ['dark','shadow']},
+    {t: "Διάβαση στα Σύννεφα", d: "Διέσχισε τη λεπτή κρεμαστή γέφυρα ψηλά στα σύννεφα.", s: "wil", e: 5, h: 8, a: ['sky','silent']},
+    {t: "Βασιλικός Διαμεσολαβητής", d: "Ο King Antony μέθυσε πάλι. Βοήθησέ τον να κάνει φίλο έναν ορκ.", s: "cha", e: 4, h: 8, a: ['pub','crowd']},
+    {t: "Η Πυρκαγιά της Ταβέρνας", d: "Η ταβέρνα καίγεται! Πρέπει να σώσεις τους μεθυσμένους!", s: "brn", e: 5, h: 8, a: ['shadow','tech']},
+    {t: "Κυνηγητό στις Στέγες", d: "Κυνήγησε τον κλέφτη πάνω στις σκεπές του Pavel!", s: "spd", e: 4, h: 8, a: ['shadow','sky']},
+    {t: "Μάζεμα Νομισμάτων", d: "Δεκάδες νομίσματα πέφτουν από τον πάγκο της ταβέρνας. Πιάσ' τα.", s: "spd", e: 4, h: 6, a: ['shadow','tech']},
+    {t: "Εκκένωση Χωριού", d: "ΦΩΤΙΑ! Οδήγησε τους χωρικούς στην πλησιέστερη ασφαλή πόλη.", s: "brn", e: 5, h: 10, a: ['magic','tech']},
+    {t: "Πλημμυρισμένη Ταβέρνα", d: "Η ταβέρνα πλημμυρίζει! Βρες πώς να σταματήσεις τη διαρροή!", s: "brn", e: 3, h: 6, a: ['pub','tech']},
+    {t: "Το Ρακούν-Κλέφτης", d: "Ένα ρακούν σου έκλεψε το φαγητό. Κυνήγησέ το μέσα στην ταβέρνα.", s: "spd", e: 3, h: 6, a: ['shadow','sky']},
+    {t: "Βαλς στο Πλήθος", d: "Χόρεψε μέσα στην κατάμεστη αίθουσα χωρίς να χτυπήσεις κανέναν!", s: "spd", e: 3, h: 5, a: ['crowd','shadow']},
+    {t: "Η Πύλη Κλείνει", d: "Γλίστρα κάτω από την πύλη που κλείνει πριν παγιδευτείς!", s: "spd", e: 4, h: 7, a: ['shadow','stone']},
+    {t: "Κολλώδες Πάτωμα", d: "Ο αλχημιστής έχυσε κόλλα! Κινήσου προσεκτικά αλλά γρήγορα!", s: "spd", e: 3, h: 6, a: ['shadow','magic']},
+    {t: "Λεπίδες Μηχανισμού", d: "Πέρνα μέσα από την παγίδα με τις περιστρεφόμενες λεπίδες!", s: "spd", e: 5, h: 9, a: ['tech','shadow']},
+    {t: "Χάδια Αντιπερισπασμού", d: "Κράτα τη Yuumi απασχολημένη ενώ οι άλλοι περνούν κρυφά!", s: "cha", e: 2, h: 4, a: ['pub','silent']},
+    {t: "Ο Κύβος του Antony", d: "Λύσε τον γρίφο του βασιλιά για να αποδείξεις την αξία σου!", s: "brn", e: 4, h: 8, a: ['tech','magic']},
+    {t: "Ο Καθρέφτης του Λιτς", d: "Απάντησε στους γρίφους του αζώου για να περάσεις με ασφάλεια!", s: "brn", e: 5, h: 9, a: ['undead','dark']},
+    {t: "Η Χρυσή Επιδιόρθωση", d: "Επισκεύασε το χρυσό άγαλμα πριν το προσέξει ο βασιλιάς!", s: "brn", e: 3, h: 6, a: ['tech','crowd']},
+    {t: "Ο Γρίφος του Panchonco", d: "Λύσε τον μεθυσμένο γρίφο του Panchonco για ένα δωρεάν ποτό!", s: "brn", e: 3, h: 5, a: ['pub','tech']},
+    {t: "Μνήμη της Κρύπτης", d: "Θυμήσου τη σειρά των συμβόλων για να δραπετεύσεις από την κρύπτη!", s: "brn", e: 4, h: 8, a: ['undead','dark']},
+    {t: "Μεθυσμένος Λογαριασμός", d: "Είσαι μεθυσμένος! Υπολόγισε σωστά τον λογαριασμό της ταβέρνας!", s: "brn", e: 2, h: 4, a: ['pub','tech']},
+    {t: "Αφέντης του Χάρτη", d: "Βρες την έξοδο σε έναν μεταβαλλόμενο, σκοτεινό λαβύρινθο.", s: "brn", e: 5, h: 10, a: ['dark','shadow']},
+    {t: "Ουράνια Διπλωματία", d: "Η φυλή των δράκων θέλει να εισβάλει. Διαπραγματεύσου μαζί τους.", s: "brn", e: 4, h: 8, a: ['sky','crowd']},
+    {t: "Η Νυσταγμένη Συνοδεία", d: "Οδήγησε τον υπνοβάτη ευγενή πίσω στο κρεβάτι του με ασφάλεια!", s: "brn", e: 3, h: 5, a: ['crowd','silent']},
+    {t: "Πλαστά Χρυσά", d: "Εντόπισε τα πλαστά νομίσματα πριν τα προσέξει ο έμπορος!", s: "brn", e: 4, h: 7, a: ['tech','shadow']},
+    {t: "Το Κοκτέιλ του Panchonco", d: "Ο Panchonco θέλει κοκτέιλ. Ανακάτεψε τα ποτά.", s: "brn", e: 3, h: 6, a: ['pub','tech']},
+    {t: "Ο Γρίφος του Μπάρμαν", d: "Απάντησε στους τρεις γρίφους του μυστηριώδη μπάρμαν!", s: "brn", e: 4, h: 7, a: ['pub','magic']},
+    {t: "Κρυπτογραφημένη Κλειδαριά", d: "Αποκρυπτογράφησε τον αρχαίο κώδικα για να ανοίξεις το θησαυροφυλάκιο!", s: "brn", e: 5, h: 9, a: ['tech','magic']},
+    {t: "Δρακοκτόνος", d: "Ξεγέλασε τον δράκο με ένα έξυπνο σχέδιο μάχης!", s: "brn", e: 5, h: 10, a: ['sky','tech']},
+    {t: "Μεταμφίεση στην Ταβέρνα", d: "Φέρσου φυσικά για να αποφύγεις τους φρουρούς που ψάχνουν την ταβέρνα!", s: "cha", e: 3, h: 5, a: ['pub','shadow']},
+    {t: "Η Εύνοια του Βασιλιά", d: "Εντυπωσίασε τον μεθυσμένο βασιλιά με μια ψεύτικη ιστορία.", s: "cha", e: 3, h: 6, a: ['crowd','pub']},
+    {t: "Ψυχολογικό Παιχνίδι", d: "Πείσε τον πέτρινο γκόλεμ ότι είναι φτιαγμένος από ξύλο!", s: "cha", e: 4, h: 8, a: ['stone','magic']},
+    {t: "Κολακεία στον Old Nick", d: "Κέρδισε τη φιλία του γέρου Old Nick με κολακεία.", s: "cha", e: 3, h: 6, a: ['pub','crowd']},
+    {t: "Κουβέντα με τον Μπράβο", d: "Γοήτεψε τον πέτρινο γκόλεμ για να σε αφήσει να περάσεις.", s: "cha", e: 5, h: 10, a: ['crowd','magic','tech']},
+    {t: "Το Τραγούδι του Panchonco", d: "Τραγούδησε ένα τραγούδι που θα κάνει τον μεθυσμένο Panchoncho να δακρύσει.", s: "cha", e: 4, h: 8, a: ['pub','silent']},
+    {t: "Περίπολος Ορκ στον Βάλτο", d: "Πείσε την περίπολο των ορκ ότι ανήκεις στον βάλτο!", s: "cha", e: 4, h: 7, a: ['silent','crowd']},
+    {t: "Ψίθυρος στη Σκιά", d: "Πείσε τα σκοτεινά πνεύματα του δάσους να φωτίσουν τον δρόμο.", s: "cha", e: 4, h: 7, a: ['crowd','silent','dark']},
+    {t: "Σιωπηλή Ικεσία", d: "Μετέδωσε την επείγουσα ανάγκη σου χωρίς να μιλήσεις!", s: "cha", e: 3, h: 6, a: ['silent','crowd']},
+    {t: "Διαπραγματευτής των Ουρανών", d: "Φέρε ειρήνη ανάμεσα στους γίγαντες των σύννεφων!", s: "cha", e: 5, h: 9, a: ['sky','crowd']},
+    {t: "Παγίδα Αριστοκράτη", d: "Τελείωσε τη βαρετή συζήτηση χωρίς να γίνεις αγενής.", s: "cha", e: 3, h: 6, a: ['crowd','silent']},
+    {t: "Ο Μηχανικός Εφευρέτης", d: "Πείσε τον εφευρέτη να μοιραστεί τα μυστικά του!", s: "cha", e: 4, h: 7, a: ['tech','crowd']},
+    {t: "Θεϊκή Πρόποση", d: "Φώναξε τόσο δυνατά ώστε να σε ακούσουν οι θεοί.", s: "cha", e: 5, h: 10, a: ['sky','crowd']},
+    {t: "Φορολογικός Έλεγχος", d: "Ξεφύτρωσε με τα λόγια σου από τον φορολογικό έλεγχο!", s: "cha", e: 4, h: 8, a: ['crowd','tech']},
+    {t: "Πειρασμός της Ταβέρνας", d: "Η μπίρα μυρίζει παράδεισο. Μείνε συγκεντρωμένος.", s: "wil", e: 3, h: 6, a: ['undead','silent']},
+    {t: "Ο Ψίθυρος του Κενού", d: "Φωνές υπόσχονται δύναμη με αντάλλαγμα την ψυχή σου. Αντιστέκεσαι;", s: "wil", e: 4, h: 8, a: ['dark','undead','tech']},
+    {t: "Μοναστική Σιωπή", d: "Κάθισε ακίνητος ενώ έντομα σέρνονται πάνω στο δέρμα σου.", s: "wil", e: 3, h: 6, a: ['silent','dark','undead']},
+    {t: "Δαιμονική Ενοχή", d: "Ο δαίμονας σου δείχνει τις χειρότερες αναμνήσεις σου. Άντεξε!", s: "wil", e: 5, h: 9, a: ['dark','magic']},
+    {t: "Ατέλειωτη Σκάλα", d: "Ανέβα τα ατελείωτα σκαλιά χωρίς να χάσεις την ελπίδα σου!", s: "wil", e: 4, h: 8, a: ['magic','silent']},
+    {t: "Πέτρινη Μεταμόρφωση", d: "Αντιστάσου στο βλέμμα της μέδουσας καθώς πλησιάζεις!", s: "wil", e: 5, h: 9, a: ['stone','magic']},
+    {t: "Σταμάτα τον Τραγουδιστή", d: "Μην αφήσεις το μαγευτικό τραγούδι του βάρδου να σε ελέγξει!", s: "wil", e: 4, h: 7, a: ['magic','crowd']},
+    {t: "Το Καταραμένο Δαχτυλίδι", d: "Βγάλε το δαχτυλίδι που ψιθυρίζει σκοτεινούς πειρασμούς!", s: "wil", e: 5, h: 10, a: ['magic','dark']},
+    {t: "Η Δοκιμασία του Ζητιάνου", d: "Ο Old Nick ζητάει τα τελευταία σου χρήματα. Αντιστάσου και φύγε!", s: "wil", e: 2, h: 4, a: ['crowd','silent']},
+    {t: "Αντηχήσεις Φόβου", d: "Περπάτα στον στοιχειωμένο διάδρομο χωρίς να το βάλεις στα πόδια!", s: "wil", e: 4, h: 8, a: ['dark','undead']},
+    {t: "Πύρινο Πνεύμα", d: "Το πάτωμα της ταβέρνας καταρρέει. Ηρέμησε και διέσχισέ το!", s: "wil", e: 5, h: 10, a: ['sky','silent']},
+    {t: "Ο Αντιβασιλέας", d: "Αντιστάσου στον πειρασμό να κάνεις κατάχρηση της προσωρινής εξουσίας!", s: "wil", e: 4, h: 7, a: ['crowd','magic']},
+    {t: "Βασιλική Μπιρομαχία", d: "Κέρδισε μια μπιρομαχία ενάντια στον King Antony!", s: "wil", e: 3, h: 6, a: ['pub','crowd']},
+    {t: "Το Βάρος του Ήρωα", d: "Σήκωσε το βάρος της ευθύνης χωρίς να λυγίσεις!", s: "wil", e: 5, h: 9, a: ['silent','crowd']},
+    {t: "Χιονοστιβάδα Βαρελιών", d: "Βαρέλια μπίρας κυλούν από τις σκάλες της ταβέρνας. Απόφυγέ τα όλα!", s: "spd", e: 4, h: 8, a: ['magic','shadow']},
+    {t: "Φλεγόμενα Βέλη", d: "Απόφυγε τη βροχή φλεγόμενων βελών!", s: "spd", e: 5, h: 9, a: ['shadow','sky']},
+    {t: "Γέφυρα που Καταρρέει", d: "Τρέξε να περάσεις πριν καταρρεύσει η γέφυρα!", s: "spd", e: 4, h: 8, a: ['shadow','stone']},
+    {t: "Η Yuumi και τα Κλειδιά", d: "Η Yuumi πήρε τα κλειδιά σου. ΠΙΑΣ' ΤΗΝ!", s: "spd", e: 3, h: 6, a: ['shadow','pub']},
+    {t: "Κυνηγητό Κεραυνών", d: "Τρέξε πιο γρήγορα από τους μαγικούς κεραυνούς!", s: "spd", e: 5, h: 10, a: ['magic','shadow']},
+    {t: "Δηλητηριώδες Αέριο στον Βάλτο", d: "Φύγε μακριά από το τοξικό σύννεφο αερίου στον βάλτο!", s: "spd", e: 4, h: 7, a: ['silent','shadow']},
+    {t: "Η Ανάσα του Δράκου", d: "Εσύ εναντίον της Yuumi. Ποιος είναι πιο γρήγορος!", s: "spd", e: 3, h: 6, a: ['shadow','sky']},
+    {t: "Τα Στιλέτα του Δολοφόνου", d: "Απόφυγε τα μαχαίρια που πετάει ο δολοφόνος!", s: "spd", e: 5, h: 9, a: ['shadow','dark']},
+    {t: "Πάτωμα που Θρυμματίζεται", d: "Πήδα από πλακάκι σε πλακάκι καθώς το πάτωμα καταρρέει!", s: "spd", e: 4, h: 8, a: ['shadow','stone']},
+    {t: "Κυνηγητό στην Ταβέρνα", d: "Πιάσε τη Yuumi πριν καταλάβει ο Panchoncho ότι έφυγε!", s: "spd", e: 3, h: 5, a: ['pub','shadow']},
+    {t: "Ο Πολυέλαιος Πέφτει", d: "Πιάσε τον πολυέλαιο που πέφτει πριν συνθλίψει κάποιον!", s: "pow", e: 4, h: 7, a: ['pub','stone']},
+    {t: "Μπρα-ντε-φερ με Γίγαντα", d: "Ένας μεθυσμένος γίγαντας σε προκαλεί. Δείξε τη δύναμή σου!", s: "pow", e: 5, h: 10, a: ['stone','sky','undead','silent']},
+    {t: "Παραβίαση Πύλης Τρολ", d: "Σπάσε την ενισχυμένη πύλη του τρολ!", s: "pow", e: 5, h: 9, a: ['stone','silent']},
+    {t: "Παγωμένη Πόρτα", d: "Σπάσε την πόρτα που έχει καλυφθεί από πάγο!", s: "pow", e: 4, h: 8, a: ['stone','magic']},
+    {t: "Λάκκος Θηρίων", d: "Πάλεψε το πλάσμα και βάλ' το πίσω στο κλουβί του!", s: "pow", e: 5, h: 10, a: ['stone','undead']},
+    {t: "Σπάσιμο Αλυσίδων", d: "Σπάσε τις αλυσίδες που κρατούν τον φυλακισμένο!", s: "pow", e: 4, h: 7, a: ['stone','dark']},
+    {t: "Μάχη με τον Panchonco", d: "Ο μεθυσμένος Panchonco σου κλείνει τον δρόμο. Πολέμα ή διαπραγματεύσου!", s: "pow", e: 4, h: 8, a: ['stone','crowd','sky']},
+    {t: "Σήκωμα Βαρελιού", d: "Εντυπωσίασε έναν νάνο σηκώνοντας το βαρύτερο βαρέλι μπίρας του!", s: "pow", e: 3, h: 6, a: ['stone','undead']},
+    {t: "Νανούρισμα Δράκου", d: "Νανούρισε τον μεθυσμένο δράκο πριν κάψει το χωριό!", s: "cha", e: 5, h: 9, a: ['crowd','pub','sky']},
+    {t: "Συνθήκη Ειρήνης Ορκ", d: "Πείσε τον αρχηγό των ορκ ότι η ειρήνη είναι κερδοφόρα!", s: "cha", e: 5, h: 10, a: ['crowd','stone']},
+    {t: "Μονομαχία Βάρδων", d: "Νίκησε τον περιπλανώμενο βάρδο σε διαγωνισμό τραγουδιού!", s: "cha", e: 4, h: 7, a: ['pub','dark','undead']},
+    {t: "Διαπραγμάτευση με Πνεύμα", d: "Πείσε το θυμωμένο φάντασμα να βρει ειρήνη!", s: "cha", e: 4, h: 8, a: ['undead','silent']},
+    {t: "Η Εμπιστοσύνη του King Antony", d: "Κέρδισε την εμπιστοσύνη του King Antony με τα λόγια σου!", s: "cha", e: 4, h: 7, a: ['pub','crowd']},
+    {t: "Συμφωνία με τον Διάβολο", d: "Διαπραγματεύσου με τον δαιμόνιο χωρίς να χάσεις την ψυχή σου!", s: "cha", e: 5, h: 9, a: ['tech','dark','magic']},
+    {t: "Μεθυσμένος Μάγος", d: "Πείσε τον μεθυσμένο μάγο να ρίξει το σωστό ξόρκι!", s: "cha", e: 4, h: 8, a: ['magic','pub']},
+    {t: "Αντίδοτο Δηλητηρίου", d: "Κάτι έχει η μπίρα μου! Ανακάτεψε τα σωστά βότανα για να σωθείς!", s: "brn", e: 4, h: 8, a: ['magic','silent']},
+    {t: "Μηχανισμός Παγίδας", d: "Βρες πώς να απενεργοποιήσεις την πολύπλοκη παγίδα!", s: "brn", e: 5, h: 9, a: ['tech','shadow']},
+    {t: "Ο Γρίφος του King Antony", d: "Απάντησε στους τρεις γρίφους του King Antony ή αποκλείεσαι από την ταβέρνα του Pavel!", s: "brn", e: 4, h: 7, a: ['tech','magic','silent']},
+    {t: "Το Τραγούδι της Σειρήνας", d: "Αντιστάσου στο κάλεσμα της σειρήνας και βρες την πηγή του!", s: "wil", e: 5, h: 10, a: ['magic','sky']},
+    {t: "Βασίλειο Εφιαλτών", d: "Παγιδευμένος σε κατάρα ονείρων γεμάτη εφιάλτες. Ξύπνα με τη δύναμη της θέλησής σου!", s: "wil", e: 6, h: 10, a: ['dark','magic']}
+];
+
+// ============================================================
+// GROUP MISSION DATA (50 missions)
+// ============================================================
+
+const GROUP_STAGES = [
+    {t: "Η Μεγάλη Πλημμύρα του Βάλτου", d: "Το Pavel βυθίζεται! Αδειάστε όλοι μαζί το νερό από τον βάλτο.", s: "pow", e: 10, h: 15, a: ['silent','stone']},
+    {t: "Αντίσταση στην Ορδή των Ορκ", d: "Σπρώξτε πίσω την εφόρμηση της εμπροσθοφυλακής των ορκ όλοι μαζί!", s: "pow", e: 12, h: 16, a: ['stone','undead']},
+    {t: "Ο Βράχος του Γίγαντα", d: "Ένας γίγαντας του βουνού φράζει το μονοπάτι. Τραβήξτε τον ογκόλιθο!", s: "pow", e: 10, h: 18, a: ['stone','silent']},
+    {t: "Ο Αγώνας με τα Βαρέλια Μπύρας", d: "Κυλήστε τα τεράστια βαρέλια στην ταβέρνα πριν κλείσει!", s: "pow", e: 8, h: 13, a: ['pub','stone']},
+    {t: "Παραβίαση της Πύλης του Κάστρου", d: "Γκρεμίστε τις πύλες του κάστρου όλοι μαζί!", s: "pow", e: 11, h: 17, a: ['stone','tech']},
+    {t: "Η Πολιορκία του Δράκου", d: "Αποφύγετε τις μπάλες φωτιάς που ρίχνει ο μεθυσμένος δράκος!", s: "spd", e: 12, h: 17, a: ['sky','shadow']},
+    {t: "Κινούμενοι Τοίχοι", d: "Περάστε τον μεταμορφωνόμενο λαβύρινθο πριν σας συνθλίψουν οι τοίχοι!", s: "spd", e: 10, h: 15, a: ['shadow','tech']},
+    {t: "Ενέδρα στην Ομίχλη", d: "Ξεφύγετε από τους ληστές μέσα στην πυκνή ομίχλη όλοι μαζί!", s: "spd", e: 9, h: 14, a: ['shadow','dark']},
+    {t: "Η Πυροσβεστική του Χωριού", d: "Η ταβέρνα καίγεται! Περάστε τα σακιά με νερό αστραπιαία.", s: "spd", e: 8, h: 13, a: ['pub','shadow']},
+    {t: "Τρέξτε στην Αστραπόβροντη", d: "Φτάστε σε καταφύγιο πριν χτυπήσει η μαγική καταιγίδα!", s: "spd", e: 11, h: 16, a: ['magic','shadow']},
+    {t: "Αναζήτηση των Χαμένων Παιδιών", d: "Πλοηγηθείτε μέσα στις μεταβαλλόμενες ομίχλες με καθαρή λογική.", s: "brn", e: 10, h: 15, a: ['magic','silent']},
+    {t: "Επισκευή του Μαγικού Φράγματος", d: "Επαναβαθμονομήστε την ασπίδα του χωριού. Συγκέντρωση!", s: "brn", e: 9, h: 14, a: ['tech','magic']},
+    {t: "Κατασκευή Γέφυρας", d: "Σχεδιάστε και χτίστε μια γέφυρα πάνω από το φαράγγι!", s: "brn", e: 10, h: 15, a: ['tech','stone']},
+    {t: "Το Αίνιγμα της Σφίγγας", d: "Απαντήστε στα αρχαία αινίγματα της Σφίγγας ως ομάδα!", s: "brn", e: 11, h: 16, a: ['magic','undead']},
+    {t: "Η Κρίση του Αλχημιστή", d: "Το φίλτρο είναι ασταθές! Υπολογίστε τη λύση όλοι μαζί!", s: "brn", e: 9, h: 14, a: ['tech','magic']},
+    {t: "Μοναστική Χορωδία", d: "Τραγουδήστε σε τέλεια αρμονία για να μπείτε στην ιερή πόλη.", s: "cha", e: 7, h: 12, a: ['silent','sky']},
+    {t: "Η Τελευταία Πρόποση", d: "Οδηγήστε την ταβέρνα στο πιο επικό τραγούδι που ακούστηκε ποτέ.", s: "cha", e: 7, h: 12, a: ['pub','crowd']},
+    {t: "Διαπραγμάτευση με τον Δράκο", d: "Πείστε το συμβούλιο των δράκων να λυπηθεί το χωριό!", s: "cha", e: 11, h: 16, a: ['sky','crowd']},
+    {t: "Η Χάρη του Βασιλιά", d: "Υπερασπιστείτε την υπόθεσή σας ενώπιον του King Antony όλοι μαζί!", s: "cha", e: 9, h: 14, a: ['crowd','pub']},
+    {t: "Το Πανηγύρι του Χωριού", d: "Οργανώστε τη γιορτή για να ενώσετε τους κατοίκους!", s: "cha", e: 8, h: 13, a: ['crowd','pub']},
+    {t: "Το Βασιλικό Συμπόσιο", d: "Αντισταθείτε στον πειρασμό να πιείτε και τις 5000 μπύρες!", s: "wil", e: 8, h: 13, a: ['pub','undead']},
+    {t: "Η Σιωπηλή Αγρύπνια", d: "Κάντε βάρδια όλη νύχτα χωρίς να σας πάρει ο ύπνος!", s: "wil", e: 9, h: 14, a: ['silent','dark']},
+    {t: "Καθαρισμός Ταβέρνας", d: "Αντέξτε τον καθαρισμό του χειρότερου χάλιου που είδε ποτέ το Pavel!", s: "wil", e: 7, h: 12, a: ['pub','silent']},
+    {t: "Η Μεθυσμένη Παρέλαση", d: "Βαδίστε μέσα στην πόλη αντιστεκόμενοι σε κάθε περισπασμό!", s: "wil", e: 8, h: 13, a: ['crowd','pub']},
+    {t: "Οι Ιστορίες του Nick", d: "Κρατήστε τη θέση σας απέναντι στον γέρο Nick πριν αρχίσει κι άλλη ιστορία!", s: "wil", e: 8, h: 13, a: ['silent','crowd']},
+    {t: "Το Τουρνουά Μπρα-ντε-Φερ του Panchoncho", d: "Ο Panchoncho σε μπλακάουτ νικάει ΟΛΟΥΣ. Κερδίζει συνέχεια. Μόλις στέκεται. Πώς γίνεται;!", s: "pow", e: 12, h: 18, a: ['pub','stone']},
+    {t: "Η Βασιλική Εκτόξευση Βαρελιού", d: "Ο King Antony θέλει να εκτοξευτεί ένα βαρέλι πάνω από το τείχος του κάστρου για 'διπλωματικούς λόγους'. Χωρίς ερωτήσεις.", s: "pow", e: 10, h: 16, a: ['pub','stone']},
+    {t: "Η Yuumi σε Πανύψηλο Δέντρο", d: "Η γάτα του Panchoncho σκαρφάλωσε στο ψηλότερο δέντρο στο Pavel και κρίνει τους πάντες από ψηλά. Κατεβάστε την!", s: "pow", e: 9, h: 15, a: ['pub','sky']},
+    {t: "Η Πόρτα της Ταβέρνας Κόλλησε Πάλι", d: "Η πόρτα της ταβέρνας πάγωσε. Τον Ιούλιο. Κάτι πάει πολύ στραβά. Σπρώξτε!", s: "pow", e: 8, h: 14, a: ['pub','magic']},
+    {t: "Διελκυστίνδα με Τρολ", d: "Ένα μπερδεμένο τρολ άρπαξε ένα σχοινί και δεν το αφήνει. Φαίνεται να διασκεδάζει. Τραβήξτε δυνατότερα!", s: "pow", e: 11, h: 17, a: ['stone','silent']},
+    {t: "Η Yuumi Έκλεψε το Βασιλικό Στέμμα", d: "Η γάτα φοράει το στέμμα του King Antony και τρέχει σαν τρελή σε όλο το Pavel. Η Μεγαλειότητά του ΔΕΝ διασκεδάζει.", s: "spd", e: 10, h: 15, a: ['pub','shadow']},
+    {t: "Το Περιστατικό με τις Θυμωμένες Μέλισσες", d: "Κάποιος — δεν λέμε ποιος — αναποδογύρισε την κυψέλη. Οι μέλισσες έχουν ΑΠΟΨΗ. ΤΡΕΞΤΕ!", s: "spd", e: 11, h: 16, a: ['sky','shadow']},
+    {t: "Καυτή Πατάτα, Κυριολεκτικά Καυτή", d: "Ένας μπερδεμένος μάγος σας έδωσε μια κανονική μπάλα φωτιάς. Πασάρτε τη γρήγορα πριν χάσει κάποιος χέρι!", s: "spd", e: 12, h: 17, a: ['magic','shadow']},
+    {t: "Το Ακυβέρνητο Κάρο Μπύρας", d: "Το κάρο με τις μπύρες δεν έχει οδηγό, δεν έχει φρένα και κατευθύνεται στην ταβέρνα. Κουνηθείτε, ΤΩΡΑ!", s: "spd", e: 9, h: 14, a: ['pub','shadow']},
+    {t: "Ο Μεγάλος Αγώνας Κύλισης Βαρελιών", d: "Η τελευταία ομάδα που κυλάει το βαρέλι στην ταβέρνα κερνάει τον επόμενο γύρο. Κανείς δεν θέλει να κεράσει. ΣΠΡΙΝΤ!", s: "spd", e: 8, h: 13, a: ['pub','stone']},
+    {t: "Το Αδύνατο Κουίζ του Old Nick", d: "Ο Old Nick εξετάζει αν ΠΡΑΓΜΑΤΙΚΑ ακούγατε την 6ωρη ιστορία του. Ερώτηση-παγίδα: κανείς δεν άκουγε.", s: "brn", e: 9, h: 14, a: ['pub','silent']},
+    {t: "Το Πρόβλημα με το Λάθος Φίλτρο", d: "Ο Panchoncho ήπιε κάτι μοβ και τώρα μιλάει ανάποδα και αιωρείται ελαφρώς. Βρείτε το αντίδοτο!", s: "brn", e: 10, h: 15, a: ['magic','pub']},
+    {t: "Τα Βασιλικά Μαθηματικά Φορολογίας του King Antony", d: "Ο βασιλιάς κάνει φορολογική δήλωση μετά από 14 μπύρες. Χρωστάει λεφτά στον εαυτό του κάπως. Φτιάξτε το αμέσως.", s: "brn", e: 11, h: 16, a: ['pub','crowd']},
+    {t: "Η Μεθυσμένη Φιλοσοφία του Panchoncho", d: "Αποκρυπτογραφήστε τη μπερδεμένη σοφία του Panchoncho πριν λιποθυμήσει στη μέση της πρότασης. Λέει ότι είναι επείγον. Δεν είναι.", s: "brn", e: 8, h: 13, a: ['pub','silent']},
+    {t: "Ο Ανάποδος Χάρτης", d: "Κάποιος ζωγράφισε χάρτη του Pavel μετά από τρεις μπύρες. Ο βορράς είναι εκεί που πρέπει να είναι ο νότος. Βρείτε τον δρόμο σπίτι. Καλή τύχη.", s: "brn", e: 9, h: 15, a: ['pub','tech']},
+    {t: "Ο Δράκος Προσβλήθηκε", d: "Κάποιος τον αποκάλεσε 'μεγάλη σαύρα'. Το άκουσε. Είναι στην πόρτα της ταβέρνας. Μαλακώστε το ΤΩΡΑ ΑΜΕΣΩΣ.", s: "cha", e: 10, h: 15, a: ['sky','crowd']},
+    {t: "Η Βραδιά Καραόκε του King Antony", d: "Ο βασιλιάς επιμένει ότι έχει υπέροχη φωνή. Πείτε του ότι αληθεύει χωρίς να πείτε ψέματα. Με κάποιον τρόπο.", s: "cha", e: 9, h: 14, a: ['pub','crowd']},
+    {t: "Η Μεγάλη Περιοδεία Συγγνωμών", d: "Μετά το 'περιστατικό' της χθεσινής βραδιάς, κάθε κάτοικος του Pavel χρειάζεται προσωπική συγγνώμη. Εσείς φταίτε.", s: "cha", e: 11, h: 16, a: ['pub','crowd']},
+    {t: "Κατεβάστε τον Nick από τη Σκηνή", d: "Ο Old Nick άρπαξε το λαούτο του βάρδου και δεν σταματάει. Είναι στο πέμπτο ανκόρ. Κανείς δεν ζήτησε.", s: "cha", e: 8, h: 13, a: ['pub','crowd']},
+    {t: "Το Τυχαίο Σόου Ταλέντων", d: "Ο Panchoncho έγραψε τους πάντες να εμφανιστούν. Το χωριό παρακολουθεί. Κανείς δεν ετοίμασε τίποτα.", s: "cha", e: 10, h: 16, a: ['pub','crowd']},
+    {t: "Το Καταραμένο Πρόποσης-Παιχνίδι του Panchoncho", d: "Οι κανόνες είναι απλοί: μην τιναχτείτε. Ο Panchoncho μόλις αποκάλυψε ένα φίδι κατοικίδιο που λέγεται 'Εφοριακός'.", s: "wil", e: 9, h: 14, a: ['pub','undead']},
+    {t: "Η Τετράωρη Ιστορία για Ύπνο του Nick", d: "Μείνετε ξύπνιοι μέχρι να τελειώσει ο Nick την ιστορία του. Δεν έχει τελειώσει ιστορία από τη Χρονιά του Ορκ.", s: "wil", e: 10, h: 15, a: ['pub','silent']},
+    {t: "Η Κατάσταση στο Υπόγειο της Ταβέρνας", d: "Το υπόγειο της ταβέρνας δεν έχει καθαριστεί από την εποχή του παππού του King Antony. Κατεβείτε στην καταπακτή. Μαζί.", s: "wil", e: 8, h: 13, a: ['pub','silent']},
+    {t: "Ο Αιώνιος Διαγωνισμός Βλεμμάτων της Yuumi", d: "Η γάτα προκάλεσε τους πάντες ταυτόχρονα. Δεν έχει ανοιγοκλείσει τα μάτια της εδώ και 40 λεπτά. Η επιστήμη δεν έχει απαντήσεις.", s: "wil", e: 9, h: 14, a: ['pub','silent']},
+    {t: "Η Παγίδα της Δωρεάν Μπύρας", d: "Ο King Antony έβαλε απεριόριστη δωρεάν μπύρα και κλείδωσε τις πόρτες. Παρακολουθεί. Λέει πως είναι τεστ.", s: "wil", e: 11, h: 16, a: ['pub','crowd']}
+];
+
+// ============================================================
+// HERO DATA
+// ============================================================
+
+const HEROES = [
+    { n: 'Dark Stalker', i: '../../images/dark.png', a: 'dark', s: {pow:5, spd:5, brn:5, cha:5, wil:5}, passive: '\u0395\u03bb\u03b5\u03b3\u03c7\u03bf\u03c2 \u03a3\u03ba\u03b9\u03c9\u03bd', passiveDesc: '\u0391\u03bd\u03b1\u03b3\u03ba\u03b1\u03c3\u03b5 \u03b5\u03bd\u03b1\u03bd \u03c0\u03b1\u03b9\u03ba\u03c4\u03b7 \u03bd\u03b1 \u03c7\u03c1\u03b7\u03c3\u03b9\u03bc\u03bf\u03c0\u03bf\u03b9\u03b7\u03c3\u03b5\u03b9 \u0394\u03b9\u03b1\u03bb\u03bf\u03b3\u03b9\u03c3\u03bc\u03bf. \u03a7\u03c1\u03b7\u03c3\u03b5\u03b9\u03c2: 2\u03c0=1, 3\u03c0=2, 4+\u03c0=3. \u0395\u03c0\u03b1\u03bd\u03b1\u03c6\u03bf\u03c1\u03b1 \u03c3\u03b5 \u03ba\u03b1\u03b8\u03b5 \u03ba\u03b1\u03c4\u03b1\u03c3\u03c4\u03b7\u03bc\u03b1.', quote: '"\u039a\u03b1\u03bd\u03b5\u03bd\u03b1 \u03c0\u03c1\u03bf\u03c3\u03c9\u03c0\u03bf. \u039a\u03b1\u03bd\u03b5\u03bd\u03b1 \u03bf\u03bd\u03bf\u03bc\u03b1. \u039a\u03b1\u03bd\u03b5\u03bd\u03b1 \u03b5\u03bb\u03b5\u03bf\u03c2."' },
+    { n: 'Friendly AI', i: '../../images/ai.png', a: 'tech', s: {pow:6, spd:5, brn:6, cha:2, wil:6}, passive: 'Παρακαμψη Συστηματος', passiveDesc: 'Μια φορα ανα παιχνιδι: επαναφερε ολα τα στατιστικα στις αρχικες τιμες (POW:6 SPD:5 BRN:6 CHA:2 WIL:6). Δεν επαναφορτιζεται.', quote: '"Υπολογιζω, αρα υπαρχω."' },
+    { n: 'Thug Dwarf', i: '../../images/swag.png', a: 'stone', s: {pow:7, spd:2, brn:2, cha:5, wil:6}, passive: 'Ωμη Βια', passiveDesc: 'Κερδισε +3 POW μονιμα καθε φορα που κερδιζεις οποιαδηποτε προκληση.', quote: '"Χτυπα πρωτος. Χτυπα δυνατα. Μη ζητας ποτε συγγνωμη."' },
+    { n: 'Babbler Rogue', i: '../../images/rogue.png', a: 'crowd', s: {pow:2, spd:4, brn:5, cha:8, wil:6}, passive: 'Αγαπημενος του Πληθους', passiveDesc: 'Κερδισε +1 μπονους Δοξα για καθε 3 προκλησεις που ολοκληρωνεις.', quote: '"Τα λογια κοβουν περισσοτερο απο καθε λεπιδα."' },
+    { n: 'Neighbor Witch', i: '../../images/magic.png', a: 'magic', s: {pow:2, spd:3, brn:8, cha:4, wil:7}, passive: 'Μυστικη Συμμαχια', passiveDesc: 'Μαντεψε ποσους ποντους στατιστικων θα κλεψεις. Αν δεν εχουν αρκετους, το ξορκι αποτυγχανει! Επαναφορτιζεται μετα απο 3 νικες.', quote: '"Μια πρεζα κακια, μια δοση καταστροφη."' },
+    { n: 'Fancy Ninja', i: '../../images/ninja.png', a: 'shadow', s: {pow:4, spd:7, brn:5, cha:3, wil:5}, passive: 'Συμβολαιο Δολοφονιας', passiveDesc: 'Στοιχηματισε οτι ενας αλλος παικτης θα αποτυχει. Αν αποτυχει: κλεψε +1 στατιστικο. Αν κερδισει: χασε -1 στατιστικο.', quote: '"Καθε φονος ειναι μια παρασταση."' },
+    { n: 'Lost Dragon', i: '../../images/dragon.png', a: 'sky', s: {pow:8, spd:5, brn:4, cha:3, wil:3}, passive: 'Οργη του Δρακου', passiveDesc: 'Οταν ξοδευεις 4+ σε οποιοδηποτε στατιστικο, κερδισε +3 μπονους στη ριψη σου.', quote: '"Ποτε δεν χαθηκα. Ο κοσμος μετακινηθηκε."' },
+    { n: 'Drunken Paladin', i: '../../images/paladin.png', a: 'pub', s: {pow:3, spd:2, brn:3, cha:8, wil:7}, passive: 'Υγρο Θαρρος', passiveDesc: 'Μια φορα ανα σταδιο, ριξε ενα ζαρι. Στο 5-6: αμεση νικη! Επαναφορα σε καθε σταδιο.', quote: '"Η θεικη εμπνευση κυλαει καλυτερα με μπυρα."' },
+    { n: 'Mute Monk', i: '../../images/monk.png', a: 'silent', s: {pow:3, spd:3, brn:9, cha:6, wil:7}, passive: 'Εσωτερικη Γαληνη', passiveDesc: 'Οταν διαλογιζεσαι, αποκαταστησε +4 σε οποιοδηποτε στατιστικο της επιλογης σου αντι να περασεις απλα.', quote: '"Η σιωπη ειναι η πιο δυνατη απαντηση."' },
+    { n: 'Lover Zombie', i: '../../images/zombie.png', a: 'undead', s: {pow:9, spd:2, brn:4, cha:3, wil:8}, passive: 'Καταραμενη Αγκαλια', passiveDesc: 'Στη νικη: ΟΛΟΙ οι αλλοι παικτες χανουν -2 απο ενα επιλεγμενο στατιστικο· εσυ κερδιζεις +1.', quote: '"Ο θανατος ειναι απλα μια μικρη ενοχληση."' },
+    { n: 'Devil Boy', i: '../../images/devil.png', a: 'dark', s: {pow:4, spd:4, brn:7, cha:6, wil:4}, passive: 'Συμβολαιο Ψυχης', passiveDesc: 'Διαλεξε ενα στατιστικο και ανταλλαξε την τιμη του με εναν αλλο παικτη μονιμα. Επαναφορτιζεται μετα απο 3 νικες.', quote: '"Ολα εχουν μια τιμη. Εγω τις οριζω."' },
+    { n: 'Quick Thief', i: '../../images/thief.png', a: 'shadow', s: {pow:3, spd:8, brn:5, cha:5, wil:3}, passive: 'Τυχερα Δαχτυλα', passiveDesc: 'Σε καθε προκληση, ριξε ενα ζαρι. Στο 5-6: κλεψε 1 Δοξα απο οποιονδηποτε παικτη την εχει.', quote: '"Αν δεν ειναι καρφωμενο, ειναι δικο μου."' },
+    { n: 'Sad Troll', i: '../../images/trol.png', a: 'silent', s: {pow:7, spd:2, brn:3, cha:3, wil:9}, passive: 'Ανερχομενο Πνευμα', passiveDesc: 'Καθε 3 συνεχομενες νικες (συμπεριλαμβανομενων ομαδικων), κερδισε +5 σε οποιοδηποτε στατιστικο.', quote: '"Ο κοσμος ειναι βαρυς. Αλλα συνεχιζω."' },
+    { n: 'Forest Spirit', i: '../../images/spirit.png', a: 'dark', s:{pow:3,spd:3,brn:4,cha:5,wil:5}, passive: "Στοιχημα της Φυσης", passiveDesc: "Ριξε ζαρι στη νικη. 4-6: κλεψε +1 ΟΛΑ τα στατιστικα απο ΟΛΟΥΣ τους ισοβαθμους με τη μεγαλυτερη Δοξα. 1-3: χασε -1 ΟΛΑ προς ΟΛΟΥΣ τους ισοβαθμους με τη λιγοτερη Δοξα. Απενεργοποιειται αν το Πνευμα ειναι 1ο/τελευταιο.", quote: '"Το δασος θυμαται αυτα που οι ανθρωποι ξεχνουν."' },
+    { n: 'Ancient Tree Elder', i: '../../images/tree_elder.png', a: 'magic', s:{pow:7,spd:2,brn:8,cha:3,wil:7}, passive: 'Αρχαιες Ριζες', passiveDesc: 'Σε ομαδικες αποστολες: αναγκασε εναν αλλο ηρωα (οχι τον αναγνωστη) να συμμετασχει. Παρακαμπτει την ψηφοφορια και πρεπει να συνεισφερει.', quote: '"Στεκομαι εδω απο πριν τους παππουδες σας."' },
+    { n: 'Granny the Priest', i: '../../images/priest_granny.png', a: 'silent', s:{pow:2,spd:1,brn:8,cha:8,wil:7}, passive: 'Θεικο Ελεος', passiveDesc: 'Αν ΟΛΟΙ οι παικτες αποτυχουν σε μια κανονικη αποστολη, κερδισε +1 Δοξα. Δεν ισχυει σε ομαδικες αποστολες.', quote: '"Παρε μερικα μπισκοτα, αγαπη μου. Και μια ευλογια."' },
+    { n: 'Warrior Girl', i: '../../images/warrior_ork.png', a: 'stone', s:{pow:8,spd:5,brn:6,cha:3,wil:6}, passive: 'Γεννημενη για Μαχη', passiveDesc: 'Σε ομαδικες αποστολες: παντα +3 μπονους στη συνεισφορα. Σωρευεται με τη συγγενεια.', quote: '"Η λεπιδα μου μιλαει πιο δυνατα απο τα λογια."' },
+    { n: 'Monkey Boy', i: '../../images/monkey_boy.png', a: 'shadow', s:{pow:4,spd:8,brn:4,cha:4,wil:4}, passive: 'Χαοτικη Επαναριψη', passiveDesc: 'Μετα απο ΟΠΟΙΑΔΗΠΟΤΕ ριψη ζαριου, αναγκασε επαναριψη. 3 χρησεις. Επαναφορτιζεται στο καταστημα.', quote: '"Ουου ουου! Ασε με να το ξαναδοκιμασω!"' },
+    { n: 'Wizard of Orks', i: '../../images/ork_wizard.png', a: 'magic', s:{pow:3,spd:3,brn:5,cha:5,wil:4}, passive: 'Αδελφοτητα των Ορκ', passiveDesc: 'Αν ενας αλλος ορκ (Quick Thief/Warrior Girl) ειναι στην ομαδα: ΑΣΥΛΙΑ σε ολες τις ικανοτητες ηρωων. Αν δεν υπαρχει ορκ: διαλεξε Τυχερα Δαχτυλα η Γεννημενη για Μαχη.', quote: '"Οι παλιοι τροποι ειναι οι πιο δυνατοι."' },
+    { n: 'Another Drunk Guy', i: '../../images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Μεθυσμενη Μοιρα', passiveDesc: 'Καθε ριψη ζαριου με 6: +1 ΟΛΑ τα στατιστικα. Με τον Drunken Paladin: ολοι οι αλλοι χανουν -2 ΟΛΑ τα στατιστικα στην αρχη του παιχνιδιου.', quote: '"Αυτος ο γυρος ειναι δικος μου; Ξεχασα..."' }
+];
+
+// ============================================================
+// STAT LABEL MAP
+// ============================================================
+
+const STAT_LABELS = {
+    pow: 'ΔΥΝΑΜΗ',
+    spd: 'ΤΑΧΥΤΗΤΑ',
+    brn: 'ΜΥΑΛΟ',
+    cha: 'ΧΑΡΙΣΜΑ',
+    wil: 'ΘΕΛΗΣΗ'
+};
+
+// ============================================================
+// RENDER FUNCTIONS
+// ============================================================
+
+function renderSoulTag(soulKey) {
+    const soul = SOUL_DATA[soulKey];
+    if (!soul) return '';
+    return `<span class="soul-tag ${soulKey}"><span class="soul-icon">${soul.icon}</span> ${soul.label}</span>`;
+}
+
+function renderMissionCard(mission, index, isGroup) {
+    const affinities = Array.isArray(mission.a) ? mission.a : [mission.a];
+    const soulTags = affinities.map(a => renderSoulTag(a)).join('');
+    const num = String(index + 1).padStart(isGroup ? 2 : 3, '0');
+    const easyPts = isGroup ? 2 : 1;
+    const hardPts = isGroup ? 4 : 2;
+    const groupLabel = isGroup ? `<div class="group-label">ΟΜΑΔΙΚΗ ΑΠΟΣΤΟΛΗ</div>` : '';
+
+    return `<div class="mission-card">
+        <div class="card-frame">
+            <div class="card-inner">
+                <div class="stat-header ${mission.s}">
+                    <span class="card-num">#${num}</span>
+                    ${groupLabel}
+                    ${STAT_LABELS[mission.s]}
+                </div>
+                <div class="card-body">
+                    <div class="card-title">${mission.t}</div>
+                    <div class="card-desc">${mission.d}</div>
+                    <div class="diff-row">
+                        <div class="diff-box easy">
+                            <div class="diff-label">ΕΥΚΟΛΟ</div>
+                            <div class="diff-value">${mission.e}</div>
+                            <div class="diff-pts">${easyPts} pt${easyPts > 1 ? 's' : ''}</div>
+                        </div>
+                        <div class="diff-box hard">
+                            <div class="diff-label">ΔΥΣΚΟΛΟ</div>
+                            <div class="diff-value">${mission.h}</div>
+                            <div class="diff-pts">${hardPts} pts</div>
+                        </div>
+                    </div>
+                    <div class="affinity-section">
+                        <div class="affinity-label">ΜΠΟΝΟΥΣ ΣΥΓΓΕΝΕΙΑΣ:</div>
+                        <div class="soul-tags">${soulTags}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function renderHeroCard(hero) {
+    const soul = SOUL_DATA[hero.a];
+    const stats = ['pow','spd','brn','cha','wil'];
+    const statLabels = {pow:'POW', spd:'SPD', brn:'BRN', cha:'CHA', wil:'WIL'};
+
+    const statRows = stats.map(s => `
+        <div class="stat-row">
+            <div class="stat-color-bar ${s}"></div>
+            <div style="flex:1;">
+                <div class="stat-value">${hero.s[s]}</div>
+                <div class="stat-name">${statLabels[s]}</div>
+            </div>
+        </div>
+    `).join('');
+
+    return `<div class="hero-card">
+        <div class="card-frame">
+            <div class="card-inner">
+                <div class="hero-header">
+                    <img class="hero-portrait" src="${hero.i}" alt="${hero.n}" onerror="this.style.background='#333'; this.alt='[${hero.n}]';">
+                    <div class="hero-info">
+                        <div class="hero-name">${hero.n}</div>
+                        <div class="soul-badge ${hero.a}">
+                            <span class="soul-icon">${soul.icon}</span> ${soul.label} Soul
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-table">
+                    ${statRows}
+                </div>
+                <div class="passive-section">
+                    <div class="passive-title">ΠΑΘΗΤΙΚΟ: ${hero.passive}</div>
+                    <div class="passive-desc">${hero.passiveDesc}</div>
+                </div>
+                <div class="flavor-text">${hero.quote}</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================================
+// STAT REFERENCE CARD DATA
+// ============================================================
+
+const STAT_CARDS = [
+    {
+        key: 'pow',
+        abbr: 'POW',
+        name: 'ΔΥΝΑΜΗ',
+        flavor: 'Η δυναμη των βουνων, η μανια της μαχης. Οταν η ωμη βια ειναι η μονη απαντηση.',
+        examples: [
+            { name: 'Σιδερενια Καταρακτη', desc: 'Σηκωσε τη βαρια πυλη' },
+            { name: 'Τραβα Σκοινι με Τρολ', desc: 'Τραβα δυνατοτερα!' },
+            { name: 'Αρενα Θηριων', desc: 'Παλεψε με το πλασμα' }
+        ]
+    },
+    {
+        key: 'spd',
+        abbr: 'SPD',
+        name: 'ΤΑΧΥΤΗΤΑ',
+        flavor: 'Η θολωση της κινησης, το ανοιγμα των ματιων πριν τη συγκρουση. Πιο γρηγορος απο τη σκεψη, πιο κοφτερος απο τη μοιρα.',
+        examples: [
+            { name: 'Το Σπριντ της Καμπανας', desc: 'Χτυπα πρωτος την καμπανα' },
+            { name: 'Κατασταση Θυμωμενης Μελισσας', desc: 'Τρεχα!' },
+            { name: 'Χιονοστιβαδα Βαρελιων', desc: 'Αποφυγε τα ολα' }
+        ]
+    },
+    {
+        key: 'brn',
+        abbr: 'BRN',
+        name: 'ΜΥΑΛΟ',
+        flavor: 'Ο λαβυρινθος της λογικης, η σπιθα της ιδιοφυιας. Εκει που οι γριφοι υποκλινονται και το χαος γινεται ταξη.',
+        examples: [
+            { name: 'Ο Μαθηματικος Κυβος του Antony', desc: 'Λυσε το βασιλικο παζλ' },
+            { name: 'Ο Καθρεφτης του Lich', desc: 'Απαντησε στους γριφους' },
+            { name: 'Αναποδος Χαρτης', desc: 'Βρες τον δρομο για το σπιτι' }
+        ]
+    },
+    {
+        key: 'cha',
+        abbr: 'CHA',
+        name: 'ΧΑΡΙΣΜΑ',
+        flavor: 'Η αργυρη γλωσσα που κινει βασιλιαδες και δρακους. Παρουσια που γεμιζει καθε δωματιο.',
+        examples: [
+            { name: 'Η Ευνοια του Βασιλια', desc: 'Εντυπωσιασε τον μεθυσμενο βασιλια' },
+            { name: 'Διαπραγματευση με Δρακο', desc: 'Ομαλυνε τα πραγματα' },
+            { name: 'Βραδια Καραοκε', desc: 'Επαινεσε τη φωνη του' }
+        ]
+    },
+    {
+        key: 'wil',
+        abbr: 'WIL',
+        name: 'ΘΕΛΗΣΗ',
+        flavor: 'Ο ασπαστος πυρηνας. Οταν ολα τα αλλα σβησουν, αυτο ειναι που μενει ορθιο.',
+        examples: [
+            { name: 'Πειρασμος της Ταβερνας', desc: 'Αντιστασου στην ουρανια μπιρα' },
+            { name: 'Η Τετραωρη Ιστορια του Nick', desc: 'Μεινε ξυπνιος!' },
+            { name: 'Καταραμενο Δαχτυλιδι', desc: 'Αντιστασου του' }
+        ]
+    }
+];
+
+function getTopSoulsForStat(statKey) {
+    // Find the top 3 heroes for this stat, then return their unique soul types
+    const sorted = [...HEROES].sort((a, b) => b.s[statKey] - a.s[statKey]);
+    const top3 = sorted.slice(0, 3);
+    // Get unique souls in order of appearance
+    const seen = new Set();
+    const souls = [];
+    top3.forEach(h => {
+        if (!seen.has(h.a)) {
+            seen.add(h.a);
+            souls.push(h.a);
+        }
+    });
+    return souls;
+}
+
+function renderStatCard(stat) {
+    const topSouls = getTopSoulsForStat(stat.key);
+    const soulTags = topSouls.map(s => renderSoulTag(s)).join('');
+    const examples = stat.examples.map(ex =>
+        `<div class="example-challenge">
+            <div class="example-name">${ex.name}</div>
+            <div class="example-desc">${ex.desc}</div>
+        </div>`
+    ).join('');
+
+    return `<div class="stat-card ${stat.key}">
+        <div class="card-frame ${stat.key}">
+            <div class="card-inner ${stat.key}">
+                <div class="stat-card-header">
+                    <div class="stat-abbr">${stat.abbr}</div>
+                    <div class="stat-fullname">${stat.name}</div>
+                </div>
+                <div class="stat-card-body">
+                    <div class="stat-divider">
+                        <div class="stat-divider-line"></div>
+                        <div class="stat-divider-icon">◆</div>
+                        <div class="stat-divider-line"></div>
+                    </div>
+                    <div class="stat-flavor">${stat.flavor}</div>
+                    <div class="stat-divider">
+                        <div class="stat-divider-line"></div>
+                        <div class="stat-divider-icon">◆</div>
+                        <div class="stat-divider-line"></div>
+                    </div>
+                    <div class="stat-section-title">ΠΑΡΑΔΕΙΓΜΑΤΑ ΠΡΟΚΛΗΣΕΩΝ</div>
+                    ${examples}
+                    <div class="skilled-section">
+                        <div class="stat-divider">
+                            <div class="stat-divider-line"></div>
+                            <div class="stat-divider-icon">◆</div>
+                            <div class="stat-divider-line"></div>
+                        </div>
+                        <div class="skilled-title">ΦΥΣΙΚΑ ΙΚΑΝΟΙ:</div>
+                        <div class="skilled-tags">${soulTags}</div>
+                    </div>
+                </div>
+                <div class="stat-card-footer">
+                    <div class="footer-warning">Τα στατιστικα ΞΟΔΕΥΟΝΤΑΙ — δεν ανακτωνται αυτοματα!</div>
+                    <div class="footer-label">ΑΝΑΦΟΡΑ ΣΤΑΤΙΣΤΙΚΩΝ</div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================================
+// BOOK OF THE WORLD
+// ============================================================
+
+function buildWorldBook() {
+    const grid = document.getElementById('world-grid');
+
+    // Page 1: Cover / Introduction
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner" style="justify-content: center; text-align: center;">
+                <div style="font-size:60px; margin-bottom:20px;">📜</div>
+                <div class="book-title" style="font-size:32px; margin-bottom:15px;">Βιβλιο του Κοσμου</div>
+                <div class="book-subtitle" style="font-size:18px;">Τα Εδαφη, οι Θρυλοι & η Παραδοση του Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote" style="border-left:none; text-align:center; background:none;">
+                    "Στην καρδια ενος βασιλειου οπου αρχαια δαση ψιθυριζουν ξεχασμενα μυστικα,
+                    βρισκεται το Pavel — ενας ταπεινος οικισμος πεντε χιλιαδων ψυχων,
+                    ενωμενων απο μια αληθεια: δεν υπαρχει προβλημα που δεν λυνεται
+                    με καλη παρεα και μια παγωμενη κουπα μπιρας."
+                </div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-text" style="color:#8e7b55; margin-top:20px;">Ενας Οδηγος για Ηρωες & Τυχοδιωκτες</div>
+                <div class="book-page-num">— i —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 2: The World Map
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title">Ο Χαρτης του Κοσμου</div>
+                <div class="book-subtitle">Τα Εδαφη Γυρω απο το Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-text">Η πολη του Pavel βρισκεται στην καρδια ενος απεραντου βασιλειου. Κρυμμενοι στο Ομιχλωδες Δασος περιπλανιουνται οι Νομαδες των Ninja και των Ξωτικων.</div>
+
+                <div class="book-heading">Τα Τεσσερα Σημεια</div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">☁️ Βορειοανατολικα — Lost Dragon Town</div>
+                    <div class="book-npc-desc">Μια αιωρουμενη ακροπολη περα απο τα συννεφα οπου κατοικουν οι τελευταιοι ουρανογεννητοι δρακοι. Λιγοι θνητοι την εχουν επισκεφτει και εχουν επιστρεψει αναλλοιωτοι. Οι δρακοι δεν ειναι εχθρικοι — απλα απομακροι, αν και ειναι γνωστο οτι κατεβαινουν στο Pavel οταν ο υδρομελι ειναι ιδιαιτερα καλος.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">⚔️ Δυτικα — Το Φρουριο των Ορκ</div>
+                    <div class="book-npc-desc">Ενα επιβλητικο οχυρο απο πετρα και σιδερο. Καποτε συμβολο ατελειωτων συγκρουσεων, το φρουριο εχει μαλακωσει τα τελευταια χρονια. Οι πολεμικες κραυγες των Ορκ εχουν αντικατασταθει απο τραγουδια ποτου, και οι επιδρομες τους στο Pavel ειναι πλεον ειρηνικες (αν και θορυβωδεις) επισκεψεις στην ταβερνα.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">🧘 Νοτιοανατολικα — Μοναστηρια Μοναχων</div>
+                    <div class="book-npc-desc">Σκαρφαλωμενα σε γαληνιες κορυφες λοφων, αυτα τα αρχαια μοναστηρια προσφερουν ειρηνη και φωτιση. Οι μοναχοι εχουν ανακαλυψει οτι η φωτιση μοιαζει εκπληκτικα με υδρομελι, και συχνα προσκυνουν στην ταβερνα του Pavel για "πνευματικη ερευνα."</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">⛏️ Νοτιοδυτικα — Τα Νανικα Βουνα</div>
+                    <div class="book-npc-desc">Βαθια μεσα στα ομιχλωδη βουνα, μαστοροι τεχνιτες σφυρηλατουν θρυλικα οπλα και παρασκευαζουν θρυλικες μπιρες. Οι νανοι εμφανιζονται περιστασιακα, ελκυομενοι απο την υποσχεση αγωνων, καβγαδων στο μπαρ, και την αποδειξη οτι η νανικη μπιρα ειναι ανωτερη απο οτιδηποτε μπορουν να παραγουν οι κατοικοι της επιφανειας.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">⚠️ Οι Βαλτοι</div>
+                <div class="book-text">Αναμεσα στο Pavel και την ασφαλεια βρισκονται οι <strong>Βαλτοι</strong> — οπου τα τρολ παραμονευουν, ξεπροβαλλοντας για να λεηλατησουν το χωριο. Πολλοι ηρωες εχουν τολμησει να μπουν, αλλα λιγοι επιστρεφουν. Και οσοι επιστρεφουν μιλουν ψιθυριστα για αυτο που κρυβεται στις βαθυτερες σκιες.</div>
+
+                <div class="book-quote">"Ο βαλτος δεν συγχωρει. Ο βαλτος δεν ξεχνα. Ο βαλτος απλα... καταπινει."</div>
+
+                <div class="book-page-num">— 1 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 3: Pavel Town
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title">Η Πολη του Pavel</div>
+                <div class="book-subtitle">Η Πολη της Μπιρας και της Συντροφικοτητας</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-text">Το Pavel δεν ειναι μεγαλη πολη — δεν εχει ψηλους πυργους ή μαρμαρινες αιθουσες. Αυτο που εχει ειναι κατι πολυ πιο πολυτιμο: <em>την καλυτερη ταβερνα σε ολα τα βασιλεια</em>, εναν βασιλια που προτιμα να σου κερασει ενα ποτο παρα να κανει πολεμο, και μια κοινοτητα δεμενη με πιστοτητα, γελιο, και την κοινη κατανοηση οτι η ζωη ειναι πολυ μικρη για να πινεις κακη μπιρα.</div>
+
+                <div class="book-text">Η πολη βρισκεται σε σταυροδρομι ολων των μεγαλων μονοπατιων του βασιλειου. Αυτο την κανει φυσικο σημειο συγκεντρωσης για τυχοδιωκτες, παριες, εμπορους, και οποιονδηποτε ψαχνει μια ζεστη φωτια, ενα κρυο ποτο, και μια ιστορια που αξιζει να ειπωθει.</div>
+
+                <div class="book-heading">Επιφανεις Πολιτες του Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">👑 King Antony — Ο Ειρηνικος Βασιλιας</div>
+                    <div class="book-npc-desc">Ενω οι γειτονικοι μοναρχες ασχολουνται με κατακτησεις, ο Antony εχει μονο δυο φιλοδοξιες: να κραταει το χωριο του ειρηνικο και την κουπα του γεματη. Θα τον βρειτε στο γωνιακο τραπεζι της ταβερνας, να κερναει γυρες σε ταξιδιωτες. <em>"Ενα χαρουμενο χωριο ειναι ενα ειρηνικο χωριο,"</em> δηλωνει, σηκωνοντας την εβδομη κουπα του βραδιου.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">📖 Old Nick ο Γεροντας — Φυλακας Ιστοριων</div>
+                    <div class="book-npc-desc">Καθε βραδυ, ο Old Nick παιρνει τη θεση του διπλα στο τζακι. Με μια φωνη ταλαιπωρημενη απο εκατο χειμωνες, υφαινει ιστοριες απο τοτε που τα δαση ηταν βαθυτερα και τα τερατα πιο τολμηρα. Μερικοι λενε πως ειναι απλα πολυ πεισματαρης για να αφησει τον θανατο να διακοψει μια καλη ιστορια. Κανεις δεν εχει καταφερει ποτε να ξεφυγει απο μια ιστορια του πριν τελειωσει — και καμια δεν εχει τελειωσει ποτε.</div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">🍺 Panchonco & Yuumi — Ο Αιωνιος Θαμωνας</div>
+                    <div class="book-npc-desc">Ακουμπισμενος στο μπαρ με τη γατα του Yuumi σκαρφαλωμενη στον ωμο του, ο Panchonco στοιχειωνει την παμπ μερα και νυχτα. Η Yuumi φαινεται να ειναι το μονο πλασμα που κατανοει πραγματικα την παραπαιουσα φιλοσοφια του. Μερικοι λενε πως πινει απο πριν γεννηθει ο King Antony. Αλλοι λενε πως ΕΙΝΑΙ η ταβερνα.</div>
+                </div>
+
+                <div class="book-page-num">— 2 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 4: The Visitors & The Threat
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Οι Επισκεπτες & Η Απειλη</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🌍 Αυτοι που Ερχονται στο Pavel</div>
+                <div class="book-text">Η φημη του Pavel εχει απλωθει σε ολο το βασιλειο. Οι <em>Δρακοι</em> κατεβαινουν απο το Lost Dragon Town, η φλογερη πνοη τους σβησμενη απο την περιεργεια. Οι <em>Ορκ</em> βαδιζουν απο το Φρουριο τους, οι πολεμικες κραυγες αντικατασταθηκαν με τραγουδια ποτου. Οι <em>Μοναχοι</em> ανακαλυπτουν οτι η φωτιση μοιαζει με υδρομελι. Ακομα και οι <em>Νανοι</em> ξεπροβαλλουν απο τα ομιχλωδη βουνα τους, παραδεχομενοι απροθυμα οτι η μπιρα της επιφανειας "δεν ειναι τοσο κακη."</div>
+
+                <div class="book-text">Ηρωες καθε ειδους ελκυονται εδω — δολοφονοι που αναζητουν λυτρωση, παλαντιν που αναζητουν σκοπο, μαγισσες που αναζητουν συστατικα, και ζομπι που αναζητουν... λοιπον, αγαπη, προφανως.</div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">⚠️ Ο Πανταχου Παρων Κινδυνος</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Τα Τρολ του Βαλτου</div>
+                    <div class="book-rule-text">Στους Βαλτους παραμονευουν τα τρολ — βαναυσα πλασματα που χτυπουν χωρις προειδοποιηση. Οι επιδρομες τους ειναι γρηγορες και ανελεητες. Πολλοι εχουν τολμησει να μπουν σε αυτα τα ελη, αλλα λιγοι επιστρεφουν, και οσοι επιστρεφουν μιλουν ψιθυριστα για αυτο που κατοικει στις βαθυτερες σκιες. Εξαιτιας αυτης της απειλης ο King Antony ανακοινωσε τον Μεγαλο Διαγωνισμο — μια σειρα Αποστολων για να αναδειχθουν οι μεγαλυτεροι ηρωες που μπορουν να προστατεψουν το Pavel.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🏆 Ο Μεγαλος Διαγωνισμος</div>
+                <div class="book-text">Και ετσι αρχιζει. Ο King Antony διεταξε οτι οι ηρωες που συγκεντρωνονται στην ταβερνα του πρεπει να αποδειξουν την αξια τους μεσα απο δοκιμασιες <strong>Power</strong>, <strong>Speed</strong>, <strong>Brain</strong>, <strong>Charisma</strong>, και <strong>Willpower</strong>. Μονο αυτος που διεκδικησει την περισσοτερη <em>Δοξα</em> θα κερδισει τον τιτλο του Πρωταθλητη του Pavel.</div>
+
+                <div class="book-quote">"Καθε ηρωας εχει μια ιστορια. Καθε ιστορια χρειαζεται μια ταβερνα. Καλως ηρθατε στο Pavel."</div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">Οι Ηρωες</div>
+                <div class="book-text">Εικοσι θρυλικοι ηρωες συγκεντρωνονται στην ταβερνα του Pavel. Καθενας φερει μοναδικες ικανοτητες και μια μυστικη <em>Συγγενεια Ψυχης</em> — εναν στοιχειακο δεσμο που τους δινει δυναμη σε συγκεκριμενες προκλησεις. Οι δεκα Τυποι Ψυχης ειναι:</div>
+                <div class="book-list" style="list-style:none; padding-left:0; display:flex; flex-wrap:wrap; gap:5px 20px;">
+                    ${Object.entries(SOUL_DATA).map(([k,v]) => `<span>${v.icon} <strong>${v.label}</strong></span>`).join('')}
+                </div>
+                <div class="book-text" style="margin-top:10px;">Οταν η Ψυχη ενος ηρωα ταιριαζει με τη συγγενεια μιας αποστολης, λαμβανει ενα <strong>+3 bonus</strong> — ενα ισχυρο πλεονεκτημα που μπορει να αλλαξει την εκβαση οποιασδηποτε προκλησης.</div>
+
+                <div class="book-page-num">— 3 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 5: Hero Roster (first half)
+    const half = Math.ceil(HEROES.length / 2);
+    const heroesPage1 = HEROES.slice(0, half);
+    const heroesPage2 = HEROES.slice(half);
+
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Ηρωες του Pavel</div>
+                <div class="book-subtitle">Μερος I — Οι Πρωτοι Πρωταθλητες</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${heroesPage1.map(h => {
+                    const soulInfo = Object.entries(SOUL_DATA).find(([k,v]) => k === h.a);
+                    const soulLabel = soulInfo ? soulInfo[1].icon + ' ' + soulInfo[1].label : h.a;
+                    return `<div class="book-ability">
+                        <div class="book-ability-name">${h.n} <span style="color:#8e7b55; font-weight:normal; font-size:11px;">[${h.s.pow}/${h.s.spd}/${h.s.brn}/${h.s.cha}/${h.s.wil}] — ${soulLabel}</span></div>
+                        <div class="book-ability-desc">${h.passiveDesc}</div>
+                    </div>`;
+                }).join('')}
+                <div class="book-page-num">— 4 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 6: Hero Roster (second half)
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Ηρωες του Pavel</div>
+                <div class="book-subtitle">Μερος II — Οι Νεοτεροι Πρωταθλητες</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${heroesPage2.map(h => {
+                    const soulInfo = Object.entries(SOUL_DATA).find(([k,v]) => k === h.a);
+                    const soulLabel = soulInfo ? soulInfo[1].icon + ' ' + soulInfo[1].label : h.a;
+                    return `<div class="book-ability">
+                        <div class="book-ability-name">${h.n} <span style="color:#8e7b55; font-weight:normal; font-size:11px;">[${h.s.pow}/${h.s.spd}/${h.s.brn}/${h.s.cha}/${h.s.wil}] — ${soulLabel}</span></div>
+                        <div class="book-ability-desc">${h.passiveDesc}</div>
+                    </div>`;
+                }).join('')}
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote">"Καθε ηρωας εχει μια ιστορια. Μερικοι απλα δεν την εχουν τελειωσει ακομα."</div>
+                <div class="book-page-num">— 5 —</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================================
+// BOOK OF GAME RULES
+// ============================================================
+
+function buildRulesBook() {
+    const grid = document.getElementById('rules-grid');
+
+    // Page 1: Cover
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner" style="justify-content: center; text-align: center;">
+                <div style="font-size:60px; margin-bottom:20px;">⚔️</div>
+                <div class="book-title" style="font-size:32px; margin-bottom:15px;">Βιβλιο Κανονων</div>
+                <div class="book-subtitle" style="font-size:18px;">Ο Επισημος Οδηγος Αποστολων στο Pavel</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote" style="border-left:none; text-align:center; background:none;">
+                    "Εικοσι θρυλικοι ηρωες συγκεντρωνονται στην ταβερνα του Pavel,
+                    ο καθενας με μοναδικες ικανοτητες και συγγενειες ψυχης.
+                    Ο Βασιλιας Antony ανακοινωσε εναν μεγαλο διαγωνισμο —
+                    μια σειρα Αποστολων οπου οι ηρωες αποδεικνυουν την αξια τους.
+                    Μονο ενας μπορει να διεκδικησει τον θρονο της Δοξας!"
+                </div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-text" style="color:#8e7b55; margin-top:20px;">Για 2–10 Παικτες</div>
+                <div class="book-page-num">— i —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 2: Setup & Objective
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Προετοιμασια & Στοχος Παιχνιδιου</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🎮 Προετοιμασια</div>
+                <ol class="book-list">
+                    <li>Επιλεξτε τον αριθμο παικτων (2–10 ηρωες)</li>
+                    <li>Καθε παικτης εισαγει το ονομα του και λαμβανει εναν τυχαιο ηρωα</li>
+                    <li>Ορισε το Μηκος Αποστολης (αριθμος Γυρων)</li>
+                    <li>Το παιχνιδι ξεκινα με τον Παικτη 1 ως πρωτο Αναγνωστη</li>
+                </ol>
+
+                <div class="book-heading">🏆 Στοχος</div>
+                <div class="book-text">Συγκεντρωσε την υψηλοτερη βαθμολογια <em>Δοξας</em> ολοκληρωνοντας προκλησεις. Ο ηρωας με την περισσοτερη Δοξα οταν ολοκληρωθουν ολοι οι γυροι κερδιζει!</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Ισοπαλια</div>
+                    <div class="book-rule-text">1ο: Περισσοτεροι συνολικοι ποντοι στατιστικων. 2ο: Περισσοτεροι εναπομεινοντες Διαλογισμοι.</div>
+                </div>
+
+                <div class="book-heading">📊 Στατιστικα Ηρωων</div>
+                <div class="book-text">Καθε ηρωας εχει 5 στατιστικα: <strong>POW</strong> (Δυναμη), <strong>SPD</strong> (Ταχυτητα), <strong>BRN</strong> (Εξυπναδα), <strong>CHA</strong> (Χαρισμα), <strong>WIL</strong> (Θεληση).</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">⚠️ Σημαντικο</div>
+                    <div class="book-rule-text">Τα στατιστικα ΞΟΔΕΥΟΝΤΑΙ για να ολοκληρωσεις προκλησεις. ΔΕΝ αναπληρωνονται αυτοματα! Μονο το Καταστημα Αλχημιστη και ορισμενες ικανοτητες επαναφερουν στατιστικα.</div>
+                </div>
+
+                <div class="book-heading">🔄 Γυροι & Σταδια</div>
+                <ul class="book-list">
+                    <li>Το παιχνιδι χωριζεται σε <strong>Γυρους</strong></li>
+                    <li>Ενα Σταδιο = Μια καρτα αποστολης τραβιεται και επιλυεται</li>
+                    <li>Καθε παικτης γινεται <strong>Αναγνωστης</strong> μια φορα ανα Γυρο (εναλλαξ δεξιοστροφα)</li>
+                    <li>Ενας Γυρος τελειωνει οταν ο αρχικος πρωτος Αναγνωστης γινει ξανα Αναγνωστης</li>
+                    <li>Παραδειγμα: 4 παικτες = 4 σταδια ανα γυρο</li>
+                </ul>
+
+                <div class="book-heading">📖 Ο Αναγνωστης</div>
+                <div class="book-text">Καθε σταδιο εχει εναν Αναγνωστη που:</div>
+                <ul class="book-list">
+                    <li>Τραβαει και διαβαζει την καρτα αποστολης δυνατα</li>
+                    <li>Ριχνει το <em>Ζαρι της Μοιρας</em> για να καθορισει τη δυσκολια</li>
+                    <li>Γνωριζει τον μυστικο αριθμο-στοχο (οι αλλοι ΟΧΙ!)</li>
+                    <li>ΔΕΝ συμμετεχει σε προκλησεις κατα τη σειρα του</li>
+                    <li>ΜΠΟΡΕΙ να στοχοποιηθει απο ικανοτητες ηρωων</li>
+                </ul>
+
+                <div class="book-page-num">— 1 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 3: Challenge Resolution
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Επιλυση Προκλησεων</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🎲 Ζαρι Μοιρας & Δυσκολια</div>
+                <div class="book-text">Οταν ο Αναγνωστης ριχνει το Ζαρι της Μοιρας:</div>
+                <ul class="book-list">
+                    <li><strong>Ζαρια 1–3 = ΕΥΚΟΛΟ</strong> — Χαμηλοτερος στοχος, αξιζει <strong>1 Δοξα</strong></li>
+                    <li><strong>Ζαρια 4–6 = ΔΥΣΚΟΛΟ</strong> — Υψηλοτερος στοχος, αξιζει <strong>2 Δοξα</strong></li>
+                    <li>Μονο ο Αναγνωστης βλεπει τον ακριβη στοχο — οι Προκαλωντες πρεπει να μαντεψουν!</li>
+                </ul>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">Οι Τρεις Επιλογες σου</div>
+                <div class="book-text">Ξεκινωντας απο τον παικτη αριστερα του Αναγνωστη (δεξιοστροφα), καθε Προκαλων επιλεγει:</div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">1. ⚔️ Δοκιμασε την Προκληση</div>
+                    <div class="book-npc-desc">
+                        Διαλεξε ποσους ποντους στατιστικων θα ξοδεψεις (χρησιμοποιωντας το απαιτουμενο στατιστικο).<br>
+                        Το συνολο σου = Ποντοι που ξοδεψες + Μπονους συγγενειας (αν ισχυει).<br><br>
+                        <strong style="color:#4CAF50;">ΝΙΚΗ</strong> (φτανεις ή ξεπερνας τον στοχο): Κερδιζεις Δοξα (1 Ευκολο / 2 Δυσκολο), παιρνεις πισω +2 απο τους ποντους σου. Το Σταδιο τελειωνει.<br>
+                        <strong style="color:#ff6b6b;">ΑΠΟΤΥΧΙΑ</strong> (κατω απο τον στοχο): Χανεις ΟΛΟΥΣ τους ποντους. Η προκληση περναει στον επομενο παικτη.
+                    </div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">2. 🧘 Διαλογισμος (Πασο)</div>
+                    <div class="book-npc-desc">
+                        Παραλειψε την προκληση χωρις να ξοδεψεις ποντους.<br>
+                        Εχεις ακριβως <strong>3 Διαλογισμους</strong> για ολο το παιχνιδι.<br>
+                        Οι Διαλογισμοι ΔΕΝ αναπληρωνονται (εκτος απο +1 στο Καταστημα Αλχημιστη).<br>
+                        Αν ΟΛΟΙ οι παικτες κανουν διαλογισμο ή αποτυχουν, η αποστολη απορριπτεται — κανεις δεν κερδιζει.
+                    </div>
+                </div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">3. 🤝 Προκαλεσε εναν Φιλο</div>
+                    <div class="book-npc-desc">
+                        Προκαλεσε αλλον παικτη (οχι τον Αναγνωστη) σε μονομαχια.<br>
+                        Ο Εκκινητης παιρνει αυτοματα <strong>+3 Μπονους Θαρρους</strong>.<br>
+                        Και οι δυο παικτες επενδυουν κρυφα ποντους, μετα αποκαλυπτουν ταυτοχρονα.<br><br>
+                        <strong>Και οι δυο ΝΙΚΟΥΝ:</strong> Και οι δυο κερδιζουν Δοξα.<br>
+                        <strong>Ενας ΝΙΚΑ:</strong> Ο νικητης κερδιζει +1 επιπλεον Δοξα.<br>
+                        <strong>Και οι δυο ΑΠΟΤΥΓΧΑΝΟΥΝ:</strong> Καμια Δοξα σε κανεναν.<br><br>
+                        Μετα τη μονομαχια, τραβιεται νεα καρτα — οι δυο μονομαχοι δεν συμμετεχουν.
+                    </div>
+                </div>
+
+                <div class="book-page-num">— 2 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 4: Group Missions & Soul Affinity
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Ομαδικες Αποστολες & Συγγενεια</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🤝 Ομαδικες Αποστολες</div>
+                <div class="book-text">Ειδικες αποστολες σημειωμενες με 🤝 απαιτουν ομαδικη εργασια απο ΟΛΟΥΣ τους ηρωες:</div>
+                <ul class="book-list">
+                    <li>Ο Αναγνωστης τραβαει την καρτα και ριχνει δυσκολια (δεν συνεισφερει)</li>
+                    <li>Καθε μη-Αναγνωστης παικτης ψηφιζει <strong>ΝΑΙ</strong> (συμμετεχω) ή <strong>ΟΧΙ</strong> (απεχω)</li>
+                    <li>Η σειρα ψηφοφοριας ειναι <strong>δεξιοστροφα απο τον Αναγνωστη</strong></li>
+                    <li>Οι ψηφοφοροι ΝΑΙ συνεισφερουν ποντους· οι ψηφοφοροι ΟΧΙ δεν συνεισφερουν τιποτα</li>
+                    <li>Ολες οι συνεισφορες αθροιζονται (συμπεριλαμβανομενων μπονους συγγενειας)</li>
+                </ul>
+
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Αποτελεσματα Ομαδικης Αποστολης</div>
+                    <div class="book-rule-text">
+                        <strong style="color:#4CAF50;">ΕΠΙΤΥΧΙΑ:</strong> Ολοι οι ψηφοφοροι ΝΑΙ κερδιζουν Δοξα (+2 Ευκολο / +4 Δυσκολο) και μετραει ως ΝΙΚΗ για ικανοτητες.<br><br>
+                        <strong style="color:#ff6b6b;">ΑΠΟΤΥΧΙΑ:</strong> Μπορεις να 🎲 Τζογαρεις (το ζαρι προσθετει +1 εως +6 στο συνολο) για τελευταια ευκαιρια! Αν αποτυχει κι αυτο, ολοι οι ψηφοφοροι ΝΑΙ χανουν <strong>-3 σε ΟΛΑ τα πεντε στατιστικα</strong>.<br><br>
+                        <strong>Ψηφοφοροι ΟΧΙ:</strong> Χωρις ανταμοιβη, χωρις ποινη. ΔΕΝ επηρεαζει σερι ικανοτητων.
+                    </div>
+                </div>
+                <div class="book-text" style="color:#888; font-size:12px;">Σημειωση: Οι ομαδικες αποστολες απαιτουν 3+ παικτες και ειναι απενεργοποιημενες σε παιχνιδια 2 παικτων.</div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">✨ Συγγενεια Τυπου Ψυχης</div>
+                <div class="book-text">Καθε ηρωας εχει εναν μυστικο <em>Τυπο Ψυχης</em> — εναν στοιχειακο δεσμο:</div>
+                <div style="display:flex; flex-wrap:wrap; gap:5px 15px; margin:8px 0;">
+                    ${Object.entries(SOUL_DATA).map(([k,v]) => `<span style="font-size:13px;">${v.icon} <strong style="color:#f3cf7a;">${v.label}</strong></span>`).join('')}
+                </div>
+                <ul class="book-list">
+                    <li>Καθε καρτα προκλησης εχει μια ετικετα Συγγενειας</li>
+                    <li>Αν ο Τυπος Ψυχης σου ταιριαζει: <strong>+3 αυτοματο μπονους</strong></li>
+                    <li>Ισχυει σε ΟΛΟΥΣ τους τυπους προκλησεων (κανονικη, φιλικη, ομαδικη)</li>
+                    <li>Οι Τυποι Ψυχης ειναι μυστικοι — μην αποκαλυψεις τον δικο σου!</li>
+                </ul>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🏪 Το Καταστημα του Αλχημιστη</div>
+                <div class="book-text">Περιοδικα, ο μυστηριωδης Αλχημιστης εμφανιζεται:</div>
+                <ul class="book-list">
+                    <li>Καθε παικτης λαμβανει <strong>10 Ποντους Ψυχης</strong> για να μοιρασει</li>
+                    <li>Ξοδεψε ποντους για να επαναφερεις οποιοδηποτε στατιστικο (μεγιστο +5 ανα στατιστικο)</li>
+                    <li>Επισης ανακτας <strong>+1 Διαλογισμο</strong></li>
+                    <li>Ορισμενες ικανοτητες ηρωων επαναφορτιζονται στο καταστημα</li>
+                </ul>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Χρονισμος Καταστηματος (P = αριθμος παικτων)</div>
+                    <div class="book-rule-text">
+                        1ο Καταστημα: Γυρος P + 3 &nbsp;|&nbsp; 2ο Καταστημα: 1ο + (P + 4) &nbsp;|&nbsp; 3ο Καταστημα: 2ο + (P + 5)<br>
+                        Παραδειγμα (4 παικτες): Γυροι 7, 15, 24, 34...
+                    </div>
+                </div>
+
+                <div class="book-page-num">— 3 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 5: Hero Abilities Part 1
+    const abilities1 = [
+        { icon: '🗡️', name: 'Dark Stalker — Shadow Control', desc: 'Αναγκασε οποιονδηποτε παικτη να χρησιμοποιησει εναν απο τους Διαλογισμους του. Περιορισμενες χρησεις αναλογα με το μεγεθος της ομαδας (2π=1, 3π=2, 4+π=3). Επαναφερεται σε καθε καταστημα.' },
+        { icon: '🤖', name: 'Friendly AI — System Override', desc: 'Μια φορα ανα παιχνιδι: επαναφερε ΟΛΑ τα στατιστικα σου στις αρχικες τιμες. Δεν μπορει να επαναφορτιστει. Επισης: Χρησιμοποιησε ΟΠΟΙΟΔΗΠΟΤΕ στατιστικο αντι του απαιτουμενου (επαναφορτιζεται με νικη σε φιλικη προκληση).' },
+        { icon: '💪', name: 'Thug Dwarf — Brute Force', desc: 'Κερδισε +3 POW μονιμα καθε φορα που κερδιζεις οποιαδηποτε προκληση. Παντα ενεργο.' },
+        { icon: '🎭', name: 'Babbler Rogue — Crowd Favorite', desc: '+1 μπονους Δοξα για καθε 3 προκλησεις που ολοκληρωνεις. Παντα ενεργο.' },
+        { icon: '🔮', name: 'Neighbor Witch — Arcane Alliance', desc: 'Μαντεψε ποσους ποντους στατιστικων θα κλεψεις απο οποιονδηποτε παικτη. Αν δεν εχει αρκετους, το ξορκι ΑΠΟΤΥΓΧΑΝΕΙ. Επαναφορτιζεται μετα απο 3 νικες.' },
+        { icon: '🥷', name: 'Fancy Ninja — Assassination Contract', desc: 'Στοιχηματισε οτι αλλος παικτης θα αποτυχει. Νικη: κλεψε +1 στατιστικο. Ηττα: -1 στατιστικο. Χρησιμοποιειται καθε σταδιο.' },
+        { icon: '🐉', name: 'Lost Dragon — Dragon Rage', desc: 'Οταν ξοδευεις 4+ ποντους, κερδιζεις +3 μπονους αυτοματα. Παντα ενεργο.' },
+        { icon: '🍺', name: 'Drunken Paladin — Liquid Courage', desc: 'Μια φορα ανα σταδιο, ριξε ζαρι. Στο 5-6: αμεση νικη! Στο 1-4: δοκιμασε κανονικα. Επαναφερεται καθε σταδιο.' },
+        { icon: '🧘', name: 'Mute Monk — Inner Peace', desc: 'Οταν κανεις διαλογισμο, διαλεξε οποιοδηποτε στατιστικο για να επαναφερεις +4 ποντους αντι να κανεις απλα πασο. Παντα ενεργο.' },
+        { icon: '🧟', name: 'Lover Zombie — Cursed Embrace', desc: 'Οταν κερδιζεις, ΟΛΟΙ οι αλλοι παικτες χανουν -2 απο ενα στατιστικο της επιλογης σου, και εσυ κερδιζεις +1 σε αυτο το στατιστικο.' },
+    ];
+
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Ικανοτητες Ηρωων</div>
+                <div class="book-subtitle">Μερος I — Οι Αρχικοι Πρωταθλητες</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${abilities1.map(a => `<div class="book-ability">
+                    <div class="book-ability-name">${a.icon} ${a.name}</div>
+                    <div class="book-ability-desc">${a.desc}</div>
+                </div>`).join('')}
+                <div class="book-page-num">— 4 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 6: Hero Abilities Part 2
+    const abilities2 = [
+        { icon: '😈', name: 'Devil Boy — Soul Contract', desc: 'Διαλεξε ενα στατιστικο και ανταλλαξε την τιμη του με αλλον παικτη μονιμα. Επαναφορτιζεται μετα απο 3 νικες.' },
+        { icon: '🎲', name: 'Quick Thief — Lucky Fingers', desc: 'Σε καθε προκληση, ριξε ζαρι. Στο 5-6: κλεψε 1 Δοξα απο οποιονδηποτε παικτη. Μια φορα ανα σταδιο.' },
+        { icon: '🧌', name: 'Sad Troll — Rising Spirit', desc: 'Καθε 3 συνεχομενες νικες (συμπεριλαμβανομενων ομαδικων), κερδισε +5 σε οποιοδηποτε στατιστικο. Το σερι μηδενιζεται σε οποιαδηποτε αποτυχια.' },
+        { icon: '🌿', name: 'Forest Spirit — Nature\'s Gamble', desc: 'Σε καθε κανονικη νικη, ριξε ζαρι. 4-6: κλεψε +1 ΟΛΑ τα στατιστικα απο ΟΛΟΥΣ τους ισοβαθμους με περισσοτερη Δοξα. 1-3: χασε -1 ΟΛΑ προς ΟΛΟΥΣ τους ισοβαθμους με λιγοτερη Δοξα. Απενεργοποιειται αν το Πνευμα ειναι 1ο/τελευταιο.' },
+        { icon: '🌳', name: 'Ancient Tree Elder — Ancient Roots', desc: 'Σε ομαδικες αποστολες: αναγκασε αλλον ηρωα (οχι τον αναγνωστη) να συμμετασχει. Παρακαμπτουν την ψηφοφορια και πρεπει να συνεισφερουν. Μια φορα ανα ομαδικη αποστολη.' },
+        { icon: '🙏', name: 'Granny the Priest — Divine Mercy', desc: 'Αν ΟΛΟΙ οι παικτες αποτυχουν σε κανονικη αποστολη (απορριπτεται), η Granny κερδιζει +1 Δοξα. Δεν ενεργοποιειται σε ομαδικες αποστολες.' },
+        { icon: '⚔️', name: 'Warrior Girl — Battle Born', desc: 'Σε ομαδικες αποστολες: παντα +3 μπονους στη συνεισφορα. Σωρευεται με μπονους συγγενειας.' },
+        { icon: '🐵', name: 'Monkey Boy — Chaos Reroll', desc: 'Μετα απο ΟΠΟΙΟΔΗΠΟΤΕ ζαρι, αναγκασε πληρη επαναρριψη. 3 χρησεις συνολικα. Επαναφορτιζεται σε καθε επισκεψη καταστηματος.' },
+        { icon: '🧙', name: 'Wizard of Orks — Ork Brotherhood', desc: 'Με συμμαχο ορκ (Quick Thief/Warrior Girl): ΑΣΥΛΙΑ σε ολες τις ικανοτητες ηρωων. Χωρις: διαλεξε Lucky Fingers ή Battle Born στην αρχη του παιχνιδιου.' },
+        { icon: '🍺', name: 'Another Drunk Guy — Drunken Fate', desc: 'Καθε ζαρι 6 στο παιχνιδι: +1 σε ΟΛΑ τα στατιστικα. Με τον Drunken Paladin στην ομαδα: ολοι οι αλλοι ηρωες χανουν -2 ΟΛΑ τα στατιστικα στην αρχη του παιχνιδιου.' },
+    ];
+
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Ικανοτητες Ηρωων</div>
+                <div class="book-subtitle">Μερος II — Οι Νεοι Πρωταθλητες</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+                ${abilities2.map(a => `<div class="book-ability">
+                    <div class="book-ability-name">${a.icon} ${a.name}</div>
+                    <div class="book-ability-desc">${a.desc}</div>
+                </div>`).join('')}
+                <div class="book-page-num">— 5 —</div>
+            </div>
+        </div>
+    </div>`;
+
+    // Page 7: Winning & Strategy
+    grid.innerHTML += `<div class="book-page">
+        <div class="book-frame">
+            <div class="book-inner">
+                <div class="book-title" style="font-size:22px;">Νικη & Στρατηγικη</div>
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🎲 Τζογος με Ζαρια</div>
+                <div class="book-text">Σε ορισμενα σημεια, μπορεις να τζογαρεις τη Δοξα σου:</div>
+                <ul class="book-list">
+                    <li>Στοιχηματισε 1–5 ποντους Δοξας</li>
+                    <li>Ριξε το ζαρι: <strong>4-6 = ΝΙΚΗ</strong> (διπλασιασε το στοιχημα σου), <strong>1-3 = ΗΤΤΑ</strong> (χανεις το στοιχημα σου)</li>
+                    <li>Υψηλο ρισκο, υψηλη ανταμοιβη!</li>
+                </ul>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">🏆 Πως Κερδιζεις</div>
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Συνθηκες Νικης</div>
+                    <div class="book-rule-text">
+                        Το παιχνιδι τελειωνει οταν ολοκληρωθουν ολοι οι Γυροι.<br>
+                        <strong>1ο:</strong> Ο ηρωας με την υψηλοτερη Δοξα κερδιζει!<br>
+                        <strong>Ισοπαλια:</strong> Περισσοτεροι συνολικοι ποντοι στατιστικων.<br>
+                        <strong>2η Ισοπαλια:</strong> Περισσοτεροι εναπομεινοντες Διαλογισμοι.
+                    </div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading">💡 Στρατηγικες Συμβουλες</div>
+
+                <div class="book-npc">
+                    <div class="book-npc-name">📦 Διαχειριση Πορων</div>
+                    <div class="book-npc-desc">Τα στατιστικα δεν αναπληρωνονται! Σχεδιασε για μακροχρονιο παιχνιδι και μην υπερδεσμευτεις νωρις. Μαθε ποτε εμφανιζεται το επομενο καταστημα.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">✨ Γνωρισε τη Συγγενεια σου</div>
+                    <div class="book-npc-desc">Αναγνωρισε ποιες προκλησεις ταιριαζουν με τον Τυπο Ψυχης σου για το μπονους +3. Αυτο το πλεονεκτημα μπορει να κρινει μια δυσκολη προκληση.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🧘 Φυλαξε τους Διαλογισμους</div>
+                    <div class="book-npc-desc">Μην τους σπαταλας σε ευκολες προκλησεις — φυλαξε τους για οταν τα στατιστικα ειναι κρισιμα χαμηλα.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🤝 Προκαλεσε Φιλο με Σοφια</div>
+                    <div class="book-npc-desc">Το +3 Μπονους Θαρρους κανει την εκκινηση πλεονεκτικη. Χρησιμοποιησε το οταν εισαι σιγουρος για τους ποντους σου.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">⚠️ Κινδυνος Ομαδικης Αποστολης</div>
+                    <div class="book-npc-desc">Η αποτυχια κοστιζει -3 σε ΟΛΑ τα στατιστικα! Ψηφισε ΝΑΙ μονο αν η ομαδα μπορει. Το ΟΧΙ ειναι μερικες φορες η εξυπνη επιλογη.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">👁️ Παρακολουθησε τους Αντιπαλους</div>
+                    <div class="book-npc-desc">Παρακολουθησε ποιος εχει χρησιμοποιησει τις ικανοτητες και τους διαλογισμους του. Η γνωση για τους αντιπαλους σου ειναι απο μονη της οπλο.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote">"Η τυχη ευνοει τους τολμηρους — αλλα η σοφια ευνοει τους προετοιμασμενους."</div>
+
+                <div class="book-page-num">— 6 —</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+// ============================================================
+// INITIALIZATION
+// ============================================================
+
+function init() {
+    // Build soul legend
+    const legendEl = document.getElementById('soul-legend');
+    Object.entries(SOUL_DATA).forEach(([key, data]) => {
+        const heroList = data.heroes.join(', ');
+        legendEl.innerHTML += `<div class="soul-legend-item">
+            ${renderSoulTag(key)}
+            <span class="hero-names">= ${heroList}</span>
+        </div>`;
+    });
+
+    // Build missions
+    const missionsGrid = document.getElementById('missions-grid');
+    STAGES.forEach((m, i) => {
+        missionsGrid.innerHTML += renderMissionCard(m, i, false);
+    });
+
+    // Build group missions
+    const groupGrid = document.getElementById('group-grid');
+    GROUP_STAGES.forEach((m, i) => {
+        groupGrid.innerHTML += renderMissionCard(m, i, true);
+    });
+
+    // Build heroes
+    const heroesGrid = document.getElementById('heroes-grid');
+    HEROES.forEach(h => {
+        heroesGrid.innerHTML += renderHeroCard(h);
+    });
+
+    // Build stat cards
+    const statsGrid = document.getElementById('stats-grid');
+    STAT_CARDS.forEach(s => {
+        statsGrid.innerHTML += renderStatCard(s);
+    });
+
+    // Build books
+    buildWorldBook();
+    buildRulesBook();
+}
+
+function showSection(section) {
+    document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+
+    const sections = ['missions', 'group', 'heroes', 'stats', 'world', 'rules'];
+    sections.forEach(s => document.getElementById(s + '-section').classList.add('hidden'));
+
+    if (section === 'all') {
+        sections.forEach(s => document.getElementById(s + '-section').classList.remove('hidden'));
+    } else {
+        document.getElementById(section + '-section').classList.remove('hidden');
+    }
+
+    document.getElementById('btn-' + section).classList.add('active');
+}
+
+init();
+</script>
+</body>
+</html>
