@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavel Missions - Κανονες & Κοσμος</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=MedievalSharp&family=Almendra:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+@media print {
+    body { background: #1a100a !important; }
+    .page { break-after: page; break-inside: avoid; }
+    .no-print { display: none !important; }
+}
+
+body {
+    background: #1a100a;
+    color: #d4c5a0;
+    font-family: 'Almendra', serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 40px;
+    line-height: 1.7;
+}
+
+h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 36px;
+    color: #f3cf7a;
+    text-align: center;
+    margin: 40px 0 10px;
+    text-shadow: 0 0 20px rgba(243,207,122,0.3);
+}
+
+h2 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 24px;
+    color: #f3cf7a;
+    margin: 35px 0 12px;
+    text-shadow: 0 0 10px rgba(243,207,122,0.2);
+}
+
+h3 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 18px;
+    color: #d4a76a;
+    margin: 25px 0 8px;
+}
+
+h4 {
+    font-family: 'Almendra', serif;
+    font-size: 16px;
+    color: #f3cf7a;
+    margin: 18px 0 6px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    font-family: 'Almendra', serif;
+    font-size: 18px;
+    color: #b89b5e;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 25px 0;
+}
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8e7b55, transparent);
+}
+.divider-icon {
+    color: #f3cf7a;
+    font-size: 14px;
+}
+
+.quote {
+    border-left: 3px solid #8e7b55;
+    padding: 10px 15px;
+    margin: 15px 0;
+    background: rgba(142,123,85,0.08);
+    font-style: italic;
+    color: #b89b5e;
+}
+
+.rule-box {
+    border: 1px solid #5a4a2a;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    background: rgba(90,74,42,0.15);
+}
+.rule-box-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    color: #f3cf7a;
+    margin-bottom: 6px;
+}
+
+.npc {
+    margin: 12px 0;
+    padding-left: 10px;
+    border-left: 2px solid #5a4a2a;
+}
+.npc-name {
+    font-weight: bold;
+    color: #f3cf7a;
+    font-size: 15px;
+}
+.npc-desc {
+    font-size: 14px;
+    color: #c4b590;
+}
+
+.ability {
+    margin: 8px 0;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(142,123,85,0.2);
+}
+.ability-name {
+    font-weight: bold;
+    color: #d4a76a;
+    font-size: 14px;
+}
+.ability-desc {
+    font-size: 13px;
+    color: #c4b590;
+}
+
+ul, ol {
+    margin: 10px 0 10px 25px;
+    font-size: 14px;
+}
+li { margin-bottom: 5px; }
+
+strong { color: #f3cf7a; }
+em { color: #d4a76a; }
+
+.toc {
+    margin: 20px 0 30px;
+    padding: 15px 20px;
+    border: 1px solid #5a4a2a;
+    border-radius: 8px;
+    background: rgba(90,74,42,0.1);
+}
+.toc-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 16px;
+    color: #f3cf7a;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.toc a {
+    color: #d4a76a;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    padding: 3px 0;
+}
+.toc a:hover { color: #f3cf7a; text-decoration: underline; }
+
+.print-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 30px;
+    background: #1B5E20;
+    color: #fff;
+    border: 2px solid #4CAF50;
+    border-radius: 6px;
+    font-family: 'MedievalSharp', serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+.print-btn:hover { background: #2E7D32; }
+
+.soul-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin: 10px 0;
+    list-style: none;
+    padding: 0;
+}
+.soul-list li { margin: 0; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">Εκτυπωση / Αποθηκευση PDF</button>
+
+<!-- ============================================================ -->
+<!-- COVER -->
+<!-- ============================================================ -->
+
+<div style="text-align:center; margin: 60px 0 40px;">
+    <div style="font-size:80px; margin-bottom:20px;">&#9876;&#65039;</div>
+    <h1 style="font-size:42px; margin-bottom:15px;">Pavel Missions</h1>
+    <div class="subtitle" style="font-size:22px;">Κανονες Παιχνιδιου & Κοσμος</div>
+    <div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9884;</div><div class="divider-line"></div></div>
+    <p style="color:#8e7b55; font-size:16px;">Για 2-10 Παικτες</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- TABLE OF CONTENTS -->
+<!-- ============================================================ -->
+
+<div class="toc">
+    <div class="toc-title">Περιεχομενα</div>
+    <strong style="font-size:13px; color:#8e7b55;">ΜΕΡΟΣ Α: Ο ΚΟΣΜΟΣ</strong>
+    <a href="#world-intro">1. Ο Κοσμος του Pavel</a>
+    <a href="#world-map">2. Ο Χαρτης του Κοσμου</a>
+    <a href="#pavel-town">3. Η Πολη του Pavel</a>
+    <a href="#visitors">4. Οι Επισκεπτες & Η Απειλη</a>
+    <a href="#heroes-lore">5. Οι Ηρωες του Pavel</a>
+    <br>
+    <strong style="font-size:13px; color:#8e7b55;">ΜΕΡΟΣ Β: ΚΑΝΟΝΕΣ ΠΑΙΧΝΙΔΙΟΥ</strong>
+    <a href="#setup">6. Προετοιμασια & Στοχος</a>
+    <a href="#challenge">7. Επιλυση Προκλησεων</a>
+    <a href="#group">8. Ομαδικες Αποστολες & Συγγενεια Ψυχης</a>
+    <a href="#abilities">9. Ικανοτητες Ηρωων</a>
+    <a href="#winning">10. Νικη & Στρατηγικη</a>
+</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9830;</div><div class="divider-line"></div></div>
+
+<!-- ============================================================ -->
+<!-- PART A: THE WORLD -->
+<!-- ============================================================ -->
+
+<h1 style="font-size:28px;">ΜΕΡΟΣ Α: Ο ΚΟΣΜΟΣ</h1>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9884;</div><div class="divider-line"></div></div>
+
+<!-- Chapter 1 -->
+<h2 id="world-intro">1. Ο Κοσμος του Pavel</h2>
+
+<div class="quote">
+"Στην καρδια ενος βασιλειου οπου αρχαια δαση ψιθυριζουν ξεχασμενα μυστικα, βρισκεται το Pavel — ενας ταπεινος οικισμος πεντε χιλιαδων ψυχων, ενωμενων απο μια αληθεια: δεν υπαρχει προβλημα που δεν λυνεται με καλη παρεα και μια παγωμενη κουπα μπιρας."
+</div>
+
+<p>Το Pavel δεν ειναι μεγαλη πολη — δεν διαθετει ψηλους πυργους ουτε μαρμαρινες αιθουσες. Αυτο που εχει ειναι κατι πολυ πιο πολυτιμο: <em>την καλυτερη ταβερνα σε ολα τα βασιλεια</em>, εναν βασιλια που προτιμα να σου κερασει ενα ποτο παρα να κανει πολεμο, και μια κοινοτητα δεμενη απο πιστη, γελιο, και μια κοινη κατανοηση οτι η ζωη ειναι πολυ μικρη για κακη μπιρα.</p>
+
+<p>Η πολη βρισκεται σε σταυροδρομι καθε σημαντικου δρομου του βασιλειου. Αυτο την κανει φυσικο σημειο συναντησης για τυχοδιωκτες, παριες, εμπορους, και οποιονδηποτε αναζητα μια ζεστη φωτια, ενα κρυο ποτο, και μια ιστορια που αξιζει να ειπωθει.</p>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9830;</div><div class="divider-line"></div></div>
+
+<!-- Chapter 2 -->
+<h2 id="world-map">2. Ο Χαρτης του Κοσμου</h2>
+
+<p>Η πολη του Pavel βρισκεται στην καρδια ενος απεραντου βασιλειου. Κρυμμενοι στο <em>Ομιχλωδες Δασος</em> περιπλανιουνται οι Νομαδες των Ninja και των Ξωτικων.</p>
+
+<h3>Τα Τεσσερα Σημεια</h3>
+
+<div class="npc">
+    <div class="npc-name">Βορειοανατολικα — Η Πολη του Χαμενου Δρακου</div>
+    <div class="npc-desc">Μια αιωρουμενη ακροπολη περα απο τα συννεφα οπου κατοικουν οι τελευταιοι δρακοι του ουρανου. Λιγοι θνητοι την εχουν επισκεφτει και γυρισαν αναλλαγοι. Οι δρακοι δεν ειναι εχθρικοι — απλα αδιαφοροι, αν και εχουν κατεβει στο Pavel οταν ο μελομαχος ηταν ιδιαιτερα καλος.</div>
+</div>
+
+<div class="npc">
+    <div class="npc-name">Δυτικα — Το Φρουριο των Ορκ</div>
+    <div class="npc-desc">Ενα επιβλητικο οχυρο απο πετρα και σιδερο. Καποτε συμβολο ατελειωτης συγκρουσης, το φρουριο εχει μαλακωσει τα τελευταια χρονια. Οι πολεμικες κραυγες των Ορκ αντικατασταθηκαν απο τραγουδια ποτου, και οι επιδρομες τους στο Pavel ειναι πλεον ειρηνικες (αν και θορυβωδεις) επισκεψεις στην ταβερνα.</div>
+</div>
+
+<div class="npc">
+    <div class="npc-name">Νοτιοανατολικα — Τα Μοναστηρια των Μοναχων</div>
+    <div class="npc-desc">Σκαρφαλωμενα σε γαληνιες κορυφες λοφων, αυτα τα αρχαια μοναστηρια προσφερουν ειρηνη και φωτιση. Οι μοναχοι ανακαλυψαν οτι η φωτιση μοιαζει αξιοσημειωτα με μελομαχο, και συχνα κανουν προσκυνηματα στην ταβερνα του Pavel για "πνευματικη ερευνα."</div>
+</div>
+
+<div class="npc">
+    <div class="npc-name">Νοτιοδυτικα — Τα Νανικα Βουνα</div>
+    <div class="npc-desc">Βαθια μεσα στα ομιχλωδη βουνα, μαστοροι-τεχνιτες σφυρηλατουν θρυλικα οπλα και ζυθοποιουν θρυλικες μπιρες. Οι νανοι εμφανιζονται περιστασιακα, παρασυρμενοι απο την υποσχεση διαγωνισμων, μπαρ-τσακωμων, και αποδειξης οτι η νανικη μπιρα ειναι ανωτερη απο οτιδηποτε μπορουν να παραγουν οι κατοικοι της επιφανειας.</div>
+</div>
+
+<h3>Οι Βαλτοι</h3>
+
+<p>Αναμεσα στο Pavel και την ασφαλεια βρισκονται οι <strong>Βαλτοι</strong> — οπου τα τρολ παραμονευουν, βγαινοντας για να λεηλατησουν το χωριο. Πολλοι ηρωες εχουν τολμησει να μπουν, αλλα λιγοι επιστρεφουν. Και οσοι επιστρεφουν μιλανε ψιθυριστα για αυτο που κατοικει στα πιο βαθια σκοταδια.</p>
+
+<div class="quote">"Ο βαλτος δεν συγχωρει. Ο βαλτος δεν ξεχνα. Ο βαλτος απλα... καταπινει."</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9830;</div><div class="divider-line"></div></div>
+
+<!-- Chapter 3 -->
+<h2 id="pavel-town">3. Η Πολη του Pavel</h2>
+
+<h3>Επιφανεις Πολιτες</h3>
+
+<div class="npc">
+    <div class="npc-name">King Antony — Ο Ειρηνικος Βασιλιας</div>
+    <div class="npc-desc">Ενω οι γειτονικοι μοναρχες ασχολουνται με κατακτησεις, ο Antony εχει μονο δυο φιλοδοξιες: να κραταει το χωριο του ειρηνικο και την κουπα του γεματη. Θα τον βρεις στο γωνιακο τραπεζι της ταβερνας, να κερνα γυρες σε ταξιδιωτες. <em>"Ενα χαρουμενο χωριο ειναι ενα ειρηνικο χωριο,"</em> δηλωνει, σηκωνοντας την εβδομη κουπα του βραδιου.</div>
+</div>
+
+<div class="npc">
+    <div class="npc-name">Old Nick ο Γεροντας — Φυλακας Ιστοριων</div>
+    <div class="npc-desc">Καθε βραδυ, ο Old Nick παιρνει τη θεση του πλαι στο τζακι. Με φωνη φθαρμενη απο εκατο χειμωνες, υφαινει ιστοριες απο εποχες που τα δαση ηταν βαθυτερα και τα τερατα πιο τολμηρα. Μερικοι λενε πως ειναι απλα πολυ πεισματαρης για να αφησει τον θανατο να διακοψει μια καλη ιστορια. Κανεις δεν εχει ξεφυγει ποτε απο μια ιστορια του πριν τελειωσει — και καμια δεν εχει τελειωσει ποτε.</div>
+</div>
+
+<div class="npc">
+    <div class="npc-name">Panchonco & Yuumi — Ο Αιωνιος Θαμωνας</div>
+    <div class="npc-desc">Ακουμπισμενος στο μπαρ με τη γατα του Yuumi σκαρφαλωμενη στον ωμο του, ο Panchonco στοιχειωνει το μαγαζι μερα και νυχτα. Η Yuumi φαινεται να ειναι το μονο πλασμα που καταλαβαινει πραγματικα τη μεθυσμενη φιλοσοφια του. Μερικοι λενε οτι πινει απο πριν γεννηθει ο King Antony. Αλλοι λενε οτι ΑΥΤΟΣ ειναι η ταβερνα.</div>
+</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9830;</div><div class="divider-line"></div></div>
+
+<!-- Chapter 4 -->
+<h2 id="visitors">4. Οι Επισκεπτες & Η Απειλη</h2>
+
+<h3>Αυτοι που Ερχονται στο Pavel</h3>
+
+<p>Η φημη του Pavel εχει απλωθει σε ολο το βασιλειο. <em>Δρακοι</em> κατεβαινουν απο την Πολη του Χαμενου Δρακου, με τη φλογερη τους πνοη σβησμενη απο περιεργεια. <em>Ορκ</em> βαδιζουν απο το Φρουριο τους, με πολεμικες κραυγες που αντικατασταθηκαν απο τραγουδια ποτου. <em>Μοναχοι</em> ανακαλυπτουν οτι η φωτιση μοιαζει με μελομαχο. Ακομα και <em>Νανοι</em> βγαινουν απο τα ομιχλωδη βουνα τους, παραδεχομενοι απροθυμα οτι η μπιρα της επιφανειας "δεν ειναι τρομερη."</p>
+
+<p>Ηρωες καθε ειδους ελκυονται εδω — δολοφονοι που αναζητουν λυτρωση, παλαντιν που αναζητουν σκοπο, μαγισσες που αναζητουν συστατικα, και ζομπι που αναζητουν... λοιπον, αγαπη, προφανως.</p>
+
+<h3>Ο Πανταχου Παρων Κινδυνος</h3>
+
+<div class="rule-box">
+    <div class="rule-box-title">Τα Τρολ του Βαλτου</div>
+    <p style="font-size:14px;">Στους Βαλτους παραμονευουν τρολ — βαναυσα πλασματα που χτυπουν χωρις προειδοποιηση. Οι επιδρομες τους ειναι γρηγορες και ανελεητες. Πολλοι εχουν τολμησει μεσα σε εκεινα τα ελη, αλλα λιγοι επιστρεφουν, και οσοι επιστρεφουν μιλανε ψιθυριστα για αυτο που κατοικει στα πιο βαθια σκοταδια. Εξαιτιας αυτης της απειλης, ο King Antony ανακοινωσε τον Μεγαλο Διαγωνισμο — μια σειρα Αποστολων για να αναδειχθουν οι μεγαλυτεροι ηρωες που μπορουν να προστατεψουν το Pavel.</p>
+</div>
+
+<h3>Ο Μεγαλος Διαγωνισμος</h3>
+
+<p>Και ετσι ξεκινα. Ο King Antony διεταξε οτι οι ηρωες που συγκεντρωνονται στην ταβερνα του πρεπει να αποδειξουν την αξια τους μεσα απο δοκιμασιες <strong>Δυναμης</strong>, <strong>Ταχυτητας</strong>, <strong>Μυαλου</strong>, <strong>Χαρισματος</strong> και <strong>Θελησης</strong>. Μονο αυτος που θα κερδισει τη μεγαλυτερη <em>Δοξα</em> θα κερδισει τον τιτλο του Πρωταθλητη του Pavel.</p>
+
+<div class="quote">"Καθε ηρωας εχει μια ιστορια. Καθε ιστορια χρειαζεται μια ταβερνα. Καλως ηρθατε στο Pavel."</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9830;</div><div class="divider-line"></div></div>
+
+<!-- Chapter 5 -->
+<h2 id="heroes-lore">5. Οι Ηρωες του Pavel</h2>
+
+<p>Εικοσι θρυλικοι ηρωες συγκεντρωνονται στην ταβερνα του Pavel. Καθενας κουβαλα μοναδικες ικανοτητες και μια μυστικη <em>Συγγενεια Ψυχης</em> — εναν στοιχειακο δεσμο που τους δινει δυναμη σε συγκεκριμενες προκλησεις. Οι δεκα Τυποι Ψυχης ειναι:</p>
+
+<ul class="soul-list">
+    <li><strong>Dark</strong> (Σκοτεινη)</li>
+    <li><strong>Tech</strong> (Τεχνολογια)</li>
+    <li><strong>Stone</strong> (Πετρα)</li>
+    <li><strong>Crowd</strong> (Πληθος)</li>
+    <li><strong>Magic</strong> (Μαγεια)</li>
+    <li><strong>Shadow</strong> (Σκια)</li>
+    <li><strong>Sky</strong> (Ουρανος)</li>
+    <li><strong>Pub</strong> (Ταβερνα)</li>
+    <li><strong>Silent</strong> (Σιωπη)</li>
+    <li><strong>Undead</strong> (Αναιθητος)</li>
+</ul>
+
+<p>Οταν η Ψυχη ενος ηρωα ταιριαζει με τη συγγενεια μιας αποστολης, λαμβανει <strong>+3 μπονους</strong> — ενα ισχυρο πλεονεκτημα που μπορει να αλλαξει την εκβαση οποιασδηποτε προκλησης.</p>
+
+<h3>Καταλογος Ηρωων</h3>
+
+<div class="ability">
+    <div class="ability-name">Dark Stalker [POW:5 SPD:5 BRN:5 CHA:5 WIL:5] — Dark</div>
+    <div class="ability-desc"><strong>Ελεγχος Σκιων:</strong> Αναγκασε εναν παικτη να χρησιμοποιησει Διαλογισμο. Χρησεις: 2π=1, 3π=2, 4+π=3. Επαναφορα σε καθε καταστημα.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Friendly AI [POW:6 SPD:5 BRN:6 CHA:2 WIL:6] — Tech</div>
+    <div class="ability-desc"><strong>Παρακαμψη Συστηματος:</strong> Μια φορα ανα παιχνιδι: επαναφορα ολων των στατιστικων στις αρχικες τιμες (POW:6 SPD:5 BRN:6 CHA:2 WIL:6). Δεν μπορει να επαναφορτιστει.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Thug Dwarf [POW:7 SPD:2 BRN:2 CHA:5 WIL:6] — Stone</div>
+    <div class="ability-desc"><strong>Ωμη Βια:</strong> Κερδισε +3 POW μονιμα καθε φορα που κερδιζεις οποιαδηποτε προκληση.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Babbler Rogue [POW:2 SPD:4 BRN:5 CHA:8 WIL:6] — Crowd</div>
+    <div class="ability-desc"><strong>Αγαπημενος του Πληθους:</strong> Κερδισε +1 μπονους Δοξα για καθε 3 ολοκληρωμενες προκλησεις.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Neighbor Witch [POW:2 SPD:3 BRN:8 CHA:4 WIL:7] — Magic</div>
+    <div class="ability-desc"><strong>Μυστικη Συμμαχια:</strong> Μαντεψε ποσους ποντους στατιστικων να κλεψεις. Αν δεν εχουν αρκετους, το ξορκι αποτυγχανει! Επαναφορτιζεται μετα απο 3 νικες.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Fancy Ninja [POW:4 SPD:7 BRN:5 CHA:3 WIL:5] — Shadow</div>
+    <div class="ability-desc"><strong>Συμβολαιο Δολοφονιας:</strong> Στοιχηματισε οτι αλλος παικτης θα αποτυχει. Αν αποτυχει: κλεψε +1 στατιστικο. Αν κερδισει: χασε -1 στατιστικο.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Lost Dragon [POW:8 SPD:5 BRN:4 CHA:3 WIL:3] — Sky</div>
+    <div class="ability-desc"><strong>Οργη του Δρακου:</strong> Οταν ξοδευεις 4+ σε οποιοδηποτε στατιστικο, κερδισε +3 μπονους στη ριψη σου.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Drunken Paladin [POW:3 SPD:2 BRN:3 CHA:8 WIL:7] — Pub</div>
+    <div class="ability-desc"><strong>Υγρο Θαρρος:</strong> Μια φορα ανα σταδιο, ριξε ζαρι. Στο 5-6: αμεση νικη! Επαναφορα σε καθε σταδιο.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Mute Monk [POW:3 SPD:3 BRN:9 CHA:6 WIL:7] — Silent</div>
+    <div class="ability-desc"><strong>Εσωτερικη Γαληνη:</strong> Οταν διαλογιζεσαι, αποκαταστησε +4 σε οποιοδηποτε στατιστικο της επιλογης σου αντι να απλα περασεις.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Lover Zombie [POW:9 SPD:2 BRN:4 CHA:3 WIL:8] — Undead</div>
+    <div class="ability-desc"><strong>Καταραμενη Αγκαλια:</strong> Στη νικη: ΟΛΟΙ οι αλλοι παικτες χανουν -2 απο ενα στατιστικο της επιλογης σου· εσυ κερδιζεις +1.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Devil Boy [POW:4 SPD:4 BRN:7 CHA:6 WIL:4] — Dark</div>
+    <div class="ability-desc"><strong>Συμβολαιο Ψυχης:</strong> Διαλεξε ενα στατιστικο και ανταλλαξε την τιμη του με αλλον παικτη μονιμα. Επαναφορτιζεται μετα απο 3 νικες.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Quick Thief [POW:3 SPD:8 BRN:5 CHA:5 WIL:3] — Shadow</div>
+    <div class="ability-desc"><strong>Τυχερα Δαχτυλα:</strong> Σε καθε προκληση, ριξε ζαρι. Στο 5-6: κλεψε 1 Δοξα απο οποιονδηποτε παικτη την εχει.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Sad Troll [POW:7 SPD:2 BRN:3 CHA:3 WIL:9] — Silent</div>
+    <div class="ability-desc"><strong>Ανερχομενο Πνευμα:</strong> Καθε 3 συνεχομενες νικες (συμπεριλαμβανομενων ομαδικων), κερδισε +5 σε οποιοδηποτε στατιστικο.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Forest Spirit [POW:3 SPD:3 BRN:4 CHA:5 WIL:5] — Dark</div>
+    <div class="ability-desc"><strong>Στοιχημα της Φυσης:</strong> Ριξε ζαρι στη νικη. 4-6: κλεψε +1 ΟΛΑ τα στατιστικα απο ΟΛΟΥΣ τους ισοβαθμους με τη μεγαλυτερη Δοξα. 1-3: χασε -1 ΟΛΑ προς ΟΛΟΥΣ τους ισοβαθμους με τη λιγοτερη Δοξα. Απενεργοποιειται αν το Πνευμα ειναι 1ο/τελευταιο.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Ancient Tree Elder [POW:7 SPD:2 BRN:8 CHA:3 WIL:7] — Magic</div>
+    <div class="ability-desc"><strong>Αρχαιες Ριζες:</strong> Σε ομαδικες αποστολες: αναγκασε εναν αλλο ηρωα (οχι τον αναγνωστη) να συμμετασχει. Παρακαμπτει την ψηφοφορια και πρεπει να συνεισφερει.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Granny the Priest [POW:2 SPD:1 BRN:8 CHA:8 WIL:7] — Silent</div>
+    <div class="ability-desc"><strong>Θεικο Ελεος:</strong> Αν ΟΛΟΙ οι παικτες αποτυχουν σε κανονικη αποστολη, κερδισε +1 Δοξα. Δεν ισχυει σε ομαδικες αποστολες.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Warrior Girl [POW:8 SPD:5 BRN:6 CHA:3 WIL:6] — Stone</div>
+    <div class="ability-desc"><strong>Γεννημενη για Μαχη:</strong> Σε ομαδικες αποστολες: παντα +3 μπονους στη συνεισφορα. Σωρευεται με μπονους συγγενειας.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Monkey Boy [POW:4 SPD:8 BRN:4 CHA:4 WIL:4] — Shadow</div>
+    <div class="ability-desc"><strong>Χαοτικη Επαναριψη:</strong> Μετα απο ΟΠΟΙΑΔΗΠΟΤΕ ριψη ζαριου, αναγκασε επαναριψη. 3 χρησεις. Επαναφορτιζεται στο καταστημα.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Wizard of Orks [POW:3 SPD:3 BRN:5 CHA:5 WIL:4] — Magic</div>
+    <div class="ability-desc"><strong>Αδελφοτητα των Ορκ:</strong> Αν αλλο ορκ (Quick Thief/Warrior Girl) ειναι στην ομαδα: ΑΣΥΛΙΑ σε ολες τις ικανοτητες ηρωων. Αν δεν υπαρχει ορκ: διαλεξε Τυχερα Δαχτυλα η Γεννημενη για Μαχη.</div>
+</div>
+
+<div class="ability">
+    <div class="ability-name">Another Drunk Guy [POW:6 SPD:2 BRN:4 CHA:4 WIL:4] — Pub</div>
+    <div class="ability-desc"><strong>Μεθυσμενη Μοιρα:</strong> Καθε ριψη ζαριου 6: +1 ΟΛΑ τα στατιστικα. Με τον Drunken Paladin: ολοι οι αλλοι χανουν -2 ΟΛΑ τα στατιστικα στην αρχη του παιχνιδιου.</div>
+</div>
+
+<div class="quote">"Καθε ηρωας εχει μια ιστορια. Μερικοι απλα δεν την εχουν τελειωσει ακομα."</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9884;</div><div class="divider-line"></div></div>
+
+<!-- ============================================================ -->
+<!-- PART B: GAME RULES -->
+<!-- ============================================================ -->
+
+<h1 style="font-size:28px;">ΜΕΡΟΣ Β: ΚΑΝΟΝΕΣ ΠΑΙΧΝΙΔΙΟΥ</h1>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9884;</div><div class="divider-line"></div></div>
+
+<!-- Chapter 6 -->
+<h2 id="setup">6. Προετοιμασια & Στοχος</h2>
+
+<h3>Προετοιμασια</h3>
+<ol>
+    <li>Επελεξε τον αριθμο παικτων (2-10 ηρωες)</li>
+    <li>Καθε παικτης γραφει το ονομα του και λαμβανει εναν τυχαιο ηρωα</li>
+    <li>Ορισε το Μηκος Αναζητησης (αριθμος Γυρων)</li>
+    <li>Το παιχνιδι ξεκινα με τον Παικτη 1 ως πρωτο Αναγνωστη</li>
+</ol>
+
+<h3>Στοχος</h3>
+<p>Συγκεντρωσε την υψηλοτερη βαθμολογια <em>Δοξας</em> ολοκληρωνοντας προκλησεις. Ο ηρωας με τη μεγαλυτερη Δοξα οταν ολοι οι γυροι τελειωσουν, κερδιζει!</p>
+
+<div class="rule-box">
+    <div class="rule-box-title">Ισοπαλια</div>
+    <p style="font-size:14px;">1ο: Περισσοτεροι εναπομειναντες συνολικοι ποντοι στατιστικων. 2ο: Περισσοτεροι εναπομειναντες Διαλογισμοι.</p>
+</div>
+
+<h3>Στατιστικα Ηρωων</h3>
+<p>Καθε ηρωας εχει 5 στατιστικα: <strong>POW</strong> (Δυναμη), <strong>SPD</strong> (Ταχυτητα), <strong>BRN</strong> (Μυαλο), <strong>CHA</strong> (Χαρισμα), <strong>WIL</strong> (Θεληση).</p>
+
+<div class="rule-box">
+    <div class="rule-box-title">ΣΗΜΑΝΤΙΚΟ</div>
+    <p style="font-size:14px;">Τα στατιστικα ΞΟΔΕΥΟΝΤΑΙ για να ολοκληρωσεις προκλησεις. ΔΕΝ αναγεννιουνται αυτοματα! Μονο το Καταστημα Αλχημιστη και ορισμενες ικανοτητες αποκαθιστουν στατιστικα.</p>
+</div>
+
+<div class="rule-box">
+    <div class="rule-box-title">Μαρκες Στατιστικων (Live Play)</div>
+    <p style="font-size:14px;">Για το ζωντανο παιχνιδι με καρτες, καθε παικτης χρησιμοποιει <strong>μαρκες 5 διαφορετικων χρωματων</strong> (οπως στο ποκερ) για να παρακολουθει τα στατιστικα του. Καθε χρωμα αντιστοιχει σε ενα στατιστικο:<br><br>
+    <strong style="color:#ff6b6b;">Κοκκινο</strong> = POW (Δυναμη)<br>
+    <strong style="color:#88c8f0;">Μπλε</strong> = SPD (Ταχυτητα)<br>
+    <strong style="color:#c9a0dc;">Μωβ</strong> = BRN (Μυαλο)<br>
+    <strong style="color:#f0c878;">Κιτρινο</strong> = CHA (Χαρισμα)<br>
+    <strong style="color:#a0d8a0;">Πρασινο</strong> = WIL (Θεληση)<br><br>
+    Οταν ξοδευεις ποντους, επιστρεφεις μαρκες. Οταν κερδιζεις πισω ποντους, παιρνεις μαρκες. Ετσι εχεις παντα ορατη την κατασταση των στατιστικων σου!</p>
+</div>
+
+<h3>Γυροι & Σταδια</h3>
+<ul>
+    <li>Το παιχνιδι χωριζεται σε <strong>Γυρους</strong></li>
+    <li>Ενα Σταδιο = Μια καρτα αποστολης τραβιεται και επιλυεται</li>
+    <li>Καθε παικτης γινεται <strong>Αναγνωστης</strong> μια φορα ανα Γυρο (εναλλαγη δεξιοστροφα)</li>
+    <li>Ενας Γυρος τελειωνει οταν ο αρχικος πρωτος Αναγνωστης γινει παλι Αναγνωστης</li>
+    <li>Παραδειγμα: 4 παικτες = 4 σταδια ανα γυρο</li>
+</ul>
+
+<h3>Ο Αναγνωστης</h3>
+<p>Καθε σταδιο εχει εναν Αναγνωστη που:</p>
+<ul>
+    <li>Τραβαει και διαβαζει δυνατα την καρτα αποστολης</li>
+    <li>Ριχνει το <em>Ζαρι της Μοιρας</em> για τον καθορισμο δυσκολιας</li>
+    <li>Γνωριζει τον μυστικο αριθμο-στοχο (οι αλλοι ΔΕΝ τον ξερουν!)</li>
+    <li>ΔΕΝ συμμετεχει σε προκλησεις στη σειρα του</li>
+    <li>ΜΠΟΡΕΙ να γινει στοχος ικανοτητων ηρωων</li>
+</ul>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9830;</div><div class="divider-line"></div></div>
+
+<!-- Chapter 7 -->
+<h2 id="challenge">7. Επιλυση Προκλησεων</h2>
+
+<h3>Ζαρι Μοιρας & Δυσκολια</h3>
+<p>Οταν ο Αναγνωστης ριχνει το Ζαρι της Μοιρας:</p>
+<ul>
+    <li><strong>Ριψη 1-3 = ΕΥΚΟΛΟ</strong> — Χαμηλοτερος στοχος, αξιας <strong>1 Δοξας</strong></li>
+    <li><strong>Ριψη 4-6 = ΔΥΣΚΟΛΟ</strong> — Υψηλοτερος στοχος, αξιας <strong>2 Δοξας</strong></li>
+    <li>Μονο ο Αναγνωστης βλεπει τον ακριβη στοχο — οι υποψηφιοι πρεπει να μαντεψουν!</li>
+</ul>
+
+<h3>Οι Τρεις Επιλογες σου</h3>
+<p>Ξεκινωντας απο τον παικτη αριστερα του Αναγνωστη (δεξιοστροφα), καθε Προκαλων επιλεγει:</p>
+
+<h4>1. Προσπαθησε την Προκληση</h4>
+<p>Διαλεξε ποσους ποντους στατιστικων να ξοδεψεις (χρησιμοποιωντας το απαιτουμενο στατιστικο).<br>
+Το συνολο σου = Ποντοι που ξοδευτηκαν + Μπονους συγγενειας (αν ισχυει).</p>
+<ul>
+    <li><strong style="color:#4CAF50;">ΝΙΚΗ</strong> (φτανεις η ξεπερνας τον στοχο): Κερδισε Δοξα (1 Ευκολο / 2 Δυσκολο), παρε πισω +2 απο τους ποντους που ξοδεψες. Το σταδιο τελειωνει.</li>
+    <li><strong style="color:#ff6b6b;">ΑΠΟΤΥΧΙΑ</strong> (κατω απο τον στοχο): Χανεις ΟΛΟΥΣ τους ποντους που ξοδεψες. Η προκληση περνα στον επομενο παικτη.</li>
+</ul>
+
+<div class="rule-box">
+    <div class="rule-box-title">Τζογος Αποτυχιας (Ζαρι Σωτηριας)</div>
+    <p style="font-size:14px;">Οταν αποτυχαινεις σε μια προκληση, εχεις την επιλογη να <strong>ριξεις ενα ζαρι</strong> ως τελευταια ευκαιρια. Το αποτελεσμα του ζαριου (+1 εως +6) προστιθεται στο συνολο σου. Αν τωρα φτανεις τον στοχο, κερδιζεις! Αν οχι, χανεις τους ποντους κανονικα. Αυτο ισχυει τοσο σε κανονικες οσο και σε ομαδικες αποστολες.</p>
+</div>
+
+<h4>2. Διαλογισμος (Πασο)</h4>
+<p>Παρελειψε την προκληση χωρις να ξοδεψεις ποντους.</p>
+<ul>
+    <li>Εχεις ακριβως <strong>3 Διαλογισμους</strong> για ολο το παιχνιδι</li>
+    <li>Οι Διαλογισμοι ΔΕΝ αναγεννιουνται (εκτος +1 στο Καταστημα Αλχημιστη)</li>
+    <li>Αν ΟΛΟΙ οι παικτες διαλογιστουν η αποτυχουν, η αποστολη απορριπτεται — κανεις δεν κερδιζει</li>
+</ul>
+
+<h4>3. Προκαλεσε Φιλο</h4>
+<p>Προκαλεσε εναν αλλο παικτη (οχι τον Αναγνωστη) σε μονομαχια.</p>
+<ul>
+    <li>Ο Εναρκτης παιρνει <strong>+3 Μπονους Θαρρους</strong> αυτοματα</li>
+    <li>Και οι δυο παικτες επενδυουν κρυφα ποντους, μετα αποκαλυπτουν ταυτοχρονα</li>
+    <li><strong>Και οι δυο ΝΙΚΟΥΝ:</strong> Και οι δυο κερδιζουν Δοξα</li>
+    <li><strong>Ενας ΝΙΚΑ:</strong> Ο νικητης κερδιζει +1 μπονους Δοξα επιπλεον</li>
+    <li><strong>Και οι δυο ΑΠΟΤΥΓΧΑΝΟΥΝ:</strong> Δεν δινεται Δοξα σε κανεναν</li>
+    <li>Μετα τη μονομαχια, τραβιεται νεα καρτα — οι δυο μονομαχοι δεν συμμετεχουν</li>
+</ul>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9830;</div><div class="divider-line"></div></div>
+
+<!-- Chapter 8 -->
+<h2 id="group">8. Ομαδικες Αποστολες & Συγγενεια Ψυχης</h2>
+
+<h3>Ομαδικες Αποστολες</h3>
+<p>Ειδικες αποστολες που απαιτουν ομαδικη εργασια απο ΟΛΟΥΣ τους ηρωες:</p>
+<ul>
+    <li>Ο Αναγνωστης τραβαει την καρτα και ριχνει τη δυσκολια (δεν συνεισφερει)</li>
+    <li>Καθε μη-Αναγνωστης ψηφιζει <strong>ΝΑΙ</strong> (συμμετεχω) η <strong>ΟΧΙ</strong> (απεχω)</li>
+    <li>Η σειρα ψηφοφοριας ειναι <strong>δεξιοστροφα απο τον Αναγνωστη</strong></li>
+    <li>Οι ψηφοφοροι ΝΑΙ συνεισφερουν ποντους· οι ψηφοφοροι ΟΧΙ τιποτα</li>
+    <li>Ολες οι συνεισφορες αθροιζονται (συμπεριλαμβανομενων μπονους συγγενειας)</li>
+</ul>
+
+<div class="rule-box">
+    <div class="rule-box-title">Αποτελεσματα Ομαδικης Αποστολης</div>
+    <p style="font-size:14px;">
+        <strong style="color:#4CAF50;">ΕΠΙΤΥΧΙΑ:</strong> Ολοι οι ψηφοφοροι ΝΑΙ κερδιζουν Δοξα (+2 Ευκολο / +4 Δυσκολο) και μετρα ως ΝΙΚΗ για ικανοτητες.<br><br>
+        <strong style="color:#ff6b6b;">ΑΠΟΤΥΧΙΑ:</strong> Μπορεις να κανεις Τζογο (το ζαρι προσθετει +1 εως +6 στο συνολο) για τελευταια ευκαιρια! Αν αποτυχει κι αυτο, ολοι οι ψηφοφοροι ΝΑΙ χανουν <strong>-3 σε ΟΛΑ τα στατιστικα</strong>.<br><br>
+        <strong>Ψηφοφοροι ΟΧΙ:</strong> Καμια ανταμοιβη, καμια τιμωρια. ΔΕΝ επηρεαζει σερι ικανοτητων.
+    </p>
+</div>
+<p style="color:#888; font-size:13px;">Σημειωση: Οι ομαδικες αποστολες απαιτουν 3+ παικτες και απενεργοποιουνται σε παιχνιδια 2 ατομων.</p>
+
+<h3>Συγγενεια Τυπου Ψυχης</h3>
+<p>Καθε ηρωας εχει εναν μυστικο <em>Τυπο Ψυχης</em> — εναν στοιχειακο δεσμο:</p>
+<ul>
+    <li>Καθε καρτα προκλησης εχει μια ετικετα Συγγενειας</li>
+    <li>Αν ο Τυπος Ψυχης σου ταιριαζει: <strong>+3 αυτοματο μπονους</strong></li>
+    <li>Εφαρμοζεται σε ΟΛΟΥΣ τους τυπους προκλησεων (κανονικη, φιλικη, ομαδικη)</li>
+    <li>Οι Τυποι Ψυχης ειναι μυστικοι — μην αποκαλυψεις τον δικο σου!</li>
+</ul>
+
+<h3>Το Καταστημα του Αλχημιστη</h3>
+<p>Περιοδικα, ο μυστηριωδης Αλχημιστης εμφανιζεται:</p>
+<ul>
+    <li>Καθε παικτης λαμβανει <strong>10 Ποντους Ψυχης</strong> για κατανομη</li>
+    <li>Ξοδεψε ποντους για αποκατασταση στατιστικων (μεγιστο +5 ανα στατιστικο)</li>
+    <li>Κερδιζεις επισης <strong>+1 Διαλογισμο</strong></li>
+    <li>Ορισμενες ικανοτητες ηρωων επαναφορτιζονται στο καταστημα</li>
+</ul>
+
+<div class="rule-box">
+    <div class="rule-box-title">Χρονισμος Καταστηματος (Π = αριθμος παικτων)</div>
+    <p style="font-size:14px;">1ο Καταστημα: Γυρος Π + 3 | 2ο Καταστημα: 1ο + (Π + 4) | 3ο Καταστημα: 2ο + (Π + 5)<br>
+    Παραδειγμα (4 παικτες): Γυροι 7, 15, 24, 34...</p>
+</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9830;</div><div class="divider-line"></div></div>
+
+<!-- Chapter 9 -->
+<h2 id="abilities">9. Ικανοτητες Ηρωων</h2>
+
+<p>Ολες οι ικανοτητες αναφερονται αναλυτικα στο <a href="#heroes-lore" style="color:#f3cf7a;">Κεφαλαιο 5: Οι Ηρωες του Pavel</a>. Εδω παρατιθενται βασικες κατηγοριες:</p>
+
+<div class="rule-box">
+    <div class="rule-box-title">Παντα Ενεργες</div>
+    <p style="font-size:14px;">Thug Dwarf (Ωμη Βια), Babbler Rogue (Αγαπημενος Πληθους), Lost Dragon (Οργη Δρακου), Mute Monk (Εσωτερικη Γαληνη), Lover Zombie (Καταραμενη Αγκαλια), Warrior Girl (Γεννημενη για Μαχη), Another Drunk Guy (Μεθυσμενη Μοιρα), Forest Spirit (Στοιχημα της Φυσης)</p>
+</div>
+
+<div class="rule-box">
+    <div class="rule-box-title">Μια Φορα ανα Σταδιο</div>
+    <p style="font-size:14px;">Drunken Paladin (Υγρο Θαρρος), Fancy Ninja (Συμβολαιο Δολοφονιας), Quick Thief (Τυχερα Δαχτυλα)</p>
+</div>
+
+<div class="rule-box">
+    <div class="rule-box-title">Επαναφορτιζομενες (μετα απο 3 νικες)</div>
+    <p style="font-size:14px;">Neighbor Witch (Μυστικη Συμμαχια), Devil Boy (Συμβολαιο Ψυχης)</p>
+</div>
+
+<div class="rule-box">
+    <div class="rule-box-title">Επαναφορτιση στο Καταστημα</div>
+    <p style="font-size:14px;">Dark Stalker (Ελεγχος Σκιων), Monkey Boy (Χαοτικη Επαναριψη)</p>
+</div>
+
+<div class="rule-box">
+    <div class="rule-box-title">Μια Φορα ανα Παιχνιδι</div>
+    <p style="font-size:14px;">Friendly AI (Παρακαμψη Συστηματος)</p>
+</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9830;</div><div class="divider-line"></div></div>
+
+<!-- Chapter 10 -->
+<h2 id="winning">10. Νικη & Στρατηγικη</h2>
+
+<h3>Τζογος με Ζαρια</h3>
+<p>Σε ορισμενα σημεια, μπορεις να παιξεις τζογο με τη Δοξα σου:</p>
+<ul>
+    <li>Στοιχηματισε 1-5 ποντους Δοξας</li>
+    <li>Ριξε το ζαρι: <strong>4-6 = ΝΙΚΗ</strong> (διπλασιασε το στοιχημα σου), <strong>1-3 = ΗΤΤΑ</strong> (χασε το στοιχημα σου)</li>
+    <li>Υψηλο ρισκο, υψηλη ανταμοιβη!</li>
+</ul>
+
+<h3>Πως Κερδιζεις</h3>
+
+<div class="rule-box">
+    <div class="rule-box-title">Συνθηκες Νικης</div>
+    <p style="font-size:14px;">
+        Το παιχνιδι τελειωνει οταν ολοκληρωθουν ολοι οι Γυροι.<br>
+        <strong>1ος:</strong> Ο ηρωας με τη μεγαλυτερη Δοξα κερδιζει!<br>
+        <strong>Ισοπαλια:</strong> Περισσοτεροι εναπομειναντες συνολικοι ποντοι στατιστικων.<br>
+        <strong>2η Ισοπαλια:</strong> Περισσοτεροι εναπομειναντες Διαλογισμοι.
+    </p>
+</div>
+
+<h3>Στρατηγικες Συμβουλες</h3>
+
+<div class="npc">
+    <div class="npc-name">Διαχειριση Πορων</div>
+    <div class="npc-desc">Τα στατιστικα δεν αναγεννιουνται! Σχεδιασε μακροπροθεσμα και μην υπερ-δεσμευτεις νωρις. Μαθε ποτε εμφανιζεται το επομενο καταστημα.</div>
+</div>
+<div class="npc">
+    <div class="npc-name">Γνωρισε τη Συγγενεια σου</div>
+    <div class="npc-desc">Αναγνωρισε ποιες προκλησεις ταιριαζουν με τον Τυπο Ψυχης σου για το +3 μπονους. Αυτο το πλεονεκτημα μπορει να κανει τη διαφορα σε δυσκολη προκληση.</div>
+</div>
+<div class="npc">
+    <div class="npc-name">Φυλαξε τους Διαλογισμους</div>
+    <div class="npc-desc">Μην τους σπαταλας σε ευκολες προκλησεις — φυλαξε τους για οταν τα στατιστικα ειναι κρισιμα χαμηλα.</div>
+</div>
+<div class="npc">
+    <div class="npc-name">Προκαλεσε Φιλο Σοφα</div>
+    <div class="npc-desc">Το +3 Μπονους Θαρρους κανει την εναρξη πλεονεκτικη. Χρησιμοποιησε το οταν εισαι σιγουρος για το αποθεμα στατιστικων σου.</div>
+</div>
+<div class="npc">
+    <div class="npc-name">Κινδυνος Ομαδικης Αποστολης</div>
+    <div class="npc-desc">Η αποτυχια κοστιζει -3 σε ΟΛΑ τα στατιστικα! Ψηφισε ΝΑΙ μονο αν η ομαδα μπορει να τα καταφερει. Το ΟΧΙ ειναι μερικες φορες η εξυπνη επιλογη.</div>
+</div>
+<div class="npc">
+    <div class="npc-name">Παρακολουθησε τους Αντιπαλους</div>
+    <div class="npc-desc">Παρακολουθησε ποιος εχει χρησιμοποιησει τις ικανοτητες και τους διαλογισμους του. Η γνωση των αντιπαλων σου ειναι απο μονη της οπλο.</div>
+</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-icon">&#9884;</div><div class="divider-line"></div></div>
+
+<div class="quote" style="text-align:center; border-left:none; background:none; font-size:16px;">"Η τυχη ευνοει τους τολμηρους — αλλα η σοφια ευνοει τους προετοιμασμενους."</div>
+
+<div style="text-align:center; margin:40px 0; color:#5a4a2a; font-size:13px;">
+    Pavel Missions &copy; 2026
+</div>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+Missions in Pavel
+A medieval tavern card game for 2-10 players
+
+==============================
+SHORT DESCRIPTION (for itch.io subtitle)
+==============================
+
+A strategic pass-and-play party game with 20 heroes, 150 missions, and unique abilities. Play digitally or print the cards for tabletop!
+
+==============================
+FULL DESCRIPTION (paste into itch.io page)
+==============================
+
+# Missions in Pavel
+
+Twenty legendary heroes gather at Pavel's tavern. King Antony has announced a grand competition — a series of Missions where heroes prove their worth through trials of Power, Speed, Brain, Charisma, and Willpower. Only the one who claims the most Glory shall earn the title of Champion.
+
+## What You Get
+
+- A complete browser game (single HTML file, no install)
+- 100 regular mission cards + 50 group mission cards
+- 20 unique heroes with distinct passive abilities
+- 10 Soul Types with affinity bonuses
+- Printable card PNGs for physical tabletop play (English + Greek)
+- Printable rulebook and world lore book
+
+## How It Works
+
+This is a local pass-and-play game. Everyone shares one device and takes turns. No internet required.
+
+Each round, one player becomes the Reader who draws a mission card and rolls for difficulty. The other players are Challengers who decide, one at a time:
+
+1. ATTEMPT THE CHALLENGE — Spend stat points to try and beat the target. Win = earn Glory and get some points back. Fail = lose your points, but you can roll a Salvation Dice for a last chance!
+
+2. MEDITATE — Skip the challenge. You only have 3 for the whole game, so use them wisely.
+
+3. CHALLENGE A FRIEND — Duel another player. The initiator gets a +3 Courage Bonus. Both invest secretly, then reveal. Both can win, one can win, or both can fail.
+
+Stats are SPENT — they don't come back automatically. The Alchemist Shop appears periodically to restore some points and recharge abilities.
+
+## Group Missions
+
+Special cooperative challenges where the whole party votes YES or NO. Everyone who votes YES contributes points together. Success = big Glory for all. Failure = gamble with a dice for one more chance, or lose -3 to ALL stats. Voting NO means safety but no reward.
+
+## The 20 Heroes
+
+Every hero has unique stats and a powerful passive ability:
+
+- Dark Stalker — Force others to waste their Meditations
+- Friendly AI — Once per game: full stat reset
+- Thug Dwarf — Gets permanently stronger with every win
+- Babbler Rogue — Bonus Glory for completing lots of challenges
+- Neighbor Witch — Steal stat points (but guess wrong and the spell fails)
+- Fancy Ninja — Bet on other players failing
+- Lost Dragon — Massive bonus when going all-in
+- Drunken Paladin — Roll 5-6 for instant win each stage
+- Mute Monk — Meditation actually restores +4 to any stat
+- Lover Zombie — Win = drain all opponents
+- Devil Boy — Permanently swap stats with another player
+- Quick Thief — Steal Glory on lucky dice rolls
+- Sad Troll — 3 wins in a row = huge stat boost
+- Forest Spirit — Win triggers a gamble affecting the leaders or losers
+- Ancient Tree Elder — Drag other heroes into group missions
+- Granny the Priest — Gains Glory when everyone else fails
+- Warrior Girl — Always +3 bonus in group missions
+- Monkey Boy — Force reroll on ANY dice (3 uses)
+- Wizard of Orks — Immune to all abilities with an ork ally
+- Another Drunk Guy — Every dice-6 in the game buffs all stats
+
+## Soul Affinity
+
+Each hero has a secret Soul Type (Dark, Tech, Stone, Crowd, Magic, Shadow, Sky, Pub, Silent, Undead). When your soul matches a mission's affinity, you get +3 automatic bonus. Keep your soul type secret!
+
+## Print & Play (Physical Tabletop)
+
+Want to play with real cards at the table? Everything is included:
+
+WHAT YOU NEED:
+- Print the card images from the all_cards/ folder (188 high-res PNGs)
+- 5 colors of poker chips for stats: Red=POW, Blue=SPD, Purple=BRN, Yellow=CHA, Green=WIL
+- One 6-sided dice
+- Something to track Glory (paper or tokens)
+- 3 small tokens per player for Meditations
+
+HOW TO PRINT:
+- Download the game files
+- Open the card images from all_cards/ (or all_cards_gr/ for Greek)
+- Print on cardstock for best results, then cut to size
+- Or open card_generator.html in your browser and click "Print / Save PDF" to get everything at once
+- Cards are exported at 3x resolution for crisp printing
+
+The rules are identical to the digital version. The Reader draws from the physical deck, rolls the dice, and keeps the target secret. Players place chips face-down to commit points, then reveal. Track Glory on paper.
+
+## Available in Greek
+
+Full Greek translation included:
+- card_generator_gr.html — All cards rendered in Greek
+- all_cards_gr/ — 188 exported Greek card PNGs
+- Pavel_Missions_Rulebook_GR.html — Complete printable rulebook in Greek
+
+## Credits
+
+Made with ale and determination in the taverns of Pavel.
+
+"Every hero has a story. Every story needs a tavern. Welcome to Pavel."
+
+==============================
+SUGGESTED ITCH.IO TAGS
+==============================
+
+card-game, strategy, local-multiplayer, party-game, tabletop, print-and-play, medieval, fantasy, pass-and-play, html5, browser-game, board-game
+
+==============================
+SUGGESTED ITCH.IO METADATA
+==============================
+
+Genre: Strategy, Card Game
+Platform: HTML (browser)
+Players: 2-10 (local multiplayer)
+Input: Mouse / Touch
+Made with: HTML5, CSS3, JavaScript
+Average session: 15-60 minutes
+Languages: English, Greek
+Accessibility: Fully responsive (desktop, tablet, mobile)
