@@ -2134,17 +2134,14 @@ function selectOrkWizardAbility(playerIdx, choice) {
 // ANOTHER DRUNK GUY - DRUNKEN FATE HELPERS
 // ============================================================
 
-function checkDrunkGuyBonus(diceValue) {
+function checkDrunkGuyBonus(diceValue, rollerIdx) {
     if (!drunkGuyDiceBonus || diceValue !== 6) return '';
-    let bonusText = '';
-    party.forEach((p, idx) => {
-        if (p.n === 'Another Drunk Guy') {
-            ['pow','spd','brn','cha','wil'].forEach(s => p.cur[s] += 1);
-            bonusText += `<p style="color:#f3cf7a; font-size:12px;">🍺 Drunken Fate: ${p.pName} gains +1 to ALL stats!</p>`;
-        }
-    });
-    if (bonusText) updatePartyUI();
-    return bonusText;
+    // Only trigger on Another Drunk Guy's OWN dice rolls
+    if (rollerIdx === undefined || party[rollerIdx].n !== 'Another Drunk Guy') return '';
+    const p = party[rollerIdx];
+    ['pow','spd','brn','cha','wil'].forEach(s => p.cur[s] += 1);
+    updatePartyUI();
+    return `<p style="color:#f3cf7a; font-size:12px;">🍺 Drunken Fate: ${p.pName} gains +1 to ALL stats!</p>`;
 }
 
 // ============================================================
@@ -2458,7 +2455,7 @@ function rollDifficultyDice(isGroup) {
         
         setTimeout(() => {
             isProcessing = false;
-            const fateDrunkBonus = checkDrunkGuyBonus(diceResult);
+            const fateDrunkBonus = checkDrunkGuyBonus(diceResult, readerIdx);
 
             // Determine difficulty based on dice
             const isEasy = diceResult <= 3;
@@ -2809,7 +2806,7 @@ function gamble(cur, usedStat) {
 
 function resolveGamble(cur, usedStat, luck) {
     const h = party[activeIdx];
-    const drunkBonus = checkDrunkGuyBonus(luck);
+    const drunkBonus = checkDrunkGuyBonus(luck, activeIdx);
     let fin = cur + luck;
     let win = fin >= pTarget;
 
@@ -2936,7 +2933,7 @@ function triggerNaturesGamble(onComplete) {
         document.getElementById('dice-container').innerHTML = renderDice(roll);
 
         setTimeout(() => {
-            const ngDrunkBonus = checkDrunkGuyBonus(roll);
+            const ngDrunkBonus = checkDrunkGuyBonus(roll, activeIdx);
             const stats = ['pow','spd','brn','cha','wil'];
             if(roll >= 4) {
                 // Find ALL players tied for most glory (excluding self, excluding immune)
@@ -4011,7 +4008,7 @@ function useFriendLiquidCourage(role) {
         document.getElementById('dice-container').innerHTML = renderDice(roll);
         
         setTimeout(() => {
-            const friendLCDrunkBonus = checkDrunkGuyBonus(roll);
+            const friendLCDrunkBonus = checkDrunkGuyBonus(roll, activeIdx);
             if(roll >= 5) {
                 // Auto-win!
                 if(role === 'challenger') {
@@ -4221,8 +4218,8 @@ function useFriendLuckyFingers(role) {
 }
 
 function resolveFriendLuckyFingers(roll, role) {
-    checkDrunkGuyBonus(roll);
     const playerIdx = role === 'challenger' ? friendChallengeData.challenger : friendChallengeData.opponent;
+    checkDrunkGuyBonus(roll, playerIdx);
     const thief = party[playerIdx];
     if(roll >= 5) {
         let targetOptions = '';
@@ -4837,7 +4834,7 @@ function groupGamble() {
 
 function resolveGroupGamble(luck) {
     const { totalContribution, numParticipants, statLoss, yesVoters, contributionSummary } = pendingGroupFailure;
-    checkDrunkGuyBonus(luck);
+    checkDrunkGuyBonus(luck, readerIdx);
     const newTotal = totalContribution + luck;
 
             if(newTotal >= pTarget) {
@@ -5289,11 +5286,11 @@ function useGroupLuckyFingers(idx, yesVoters) {
 }
 
 function resolveGroupLuckyFingers(roll) {
-    checkDrunkGuyBonus(roll);
     const idx = window._groupLFIdx;
     const yesVoters = window._groupLFVoters;
     const voterData = yesVoters[idx];
     const playerIdx = voterData.playerIndex;
+    checkDrunkGuyBonus(roll, playerIdx);
     if(roll >= 5) {
         let targetOptions = '';
         party.forEach((p, i) => {
@@ -5637,7 +5634,7 @@ function rollPaladinDice() {
 
 function resolvePaladinDice(roll) {
     const h = party[activeIdx];
-    const paladinDrunkBonus = checkDrunkGuyBonus(roll);
+    const paladinDrunkBonus = checkDrunkGuyBonus(roll, activeIdx);
     if(roll >= 5) {
         h.score += pPts;
         h.cur[pStage.s] += 2;
@@ -6148,7 +6145,7 @@ function useLuckyFingers() {
 }
 
 function resolveLuckyFingers(roll) {
-    checkDrunkGuyBonus(roll);
+    checkDrunkGuyBonus(roll, activeIdx);
     const thief = party[activeIdx];
     if(roll >= 5) {
         let targetOptions = '';
