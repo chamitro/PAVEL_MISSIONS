@@ -2802,20 +2802,50 @@ function startGame() {
     // Calculate total stages needed (each round has 1 stage per player)
     const totalStagesNeeded = totalRounds * party.length;
     
-    // Filter out group missions if only 2 players
-    let masterPool = [...STAGES];
+    // Build deck: separate regular and group missions, then interleave group missions evenly
+    let regularPool = STAGES.filter(s => !s.isGroup);
+    let groupPool = STAGES.filter(s => s.isGroup);
+
     if(party.length === 2) {
-        masterPool = masterPool.filter(s => !s.isGroup);
+        groupPool = [];
         console.log('2 players: Group missions disabled');
     }
-    
-    // Create deck with enough cards for all stages (may need to repeat cards if not enough)
-    let deckCards = [];
-    while (deckCards.length < totalStagesNeeded) {
-        const shuffled = [...masterPool].sort(() => 0.5 - Math.random());
-        deckCards = deckCards.concat(shuffled);
+
+    // Decide how many group missions to include (~1 in 4 cards are group)
+    const groupCount = groupPool.length > 0 ? Math.max(1, Math.floor(totalStagesNeeded / 4)) : 0;
+    const regularCount = totalStagesNeeded - groupCount;
+
+    // Build regular mission deck
+    let regularCards = [];
+    while (regularCards.length < regularCount) {
+        const shuffled = [...regularPool].sort(() => 0.5 - Math.random());
+        regularCards = regularCards.concat(shuffled);
     }
-    deck = deckCards.slice(0, totalStagesNeeded);
+    regularCards = regularCards.slice(0, regularCount);
+
+    // Build group mission pool
+    let groupCards = [];
+    if(groupCount > 0) {
+        while (groupCards.length < groupCount) {
+            const shuffled = [...groupPool].sort(() => 0.5 - Math.random());
+            groupCards = groupCards.concat(shuffled);
+        }
+        groupCards = groupCards.slice(0, groupCount);
+    }
+
+    // Interleave group missions evenly into regular deck (never back-to-back)
+    deck = [...regularCards];
+    if(groupCards.length > 0) {
+        const gSpacing = Math.max(3, Math.floor(regularCards.length / groupCards.length));
+        let gOffset = 0;
+        for(let i = 0; i < groupCards.length; i++) {
+            let pos = (i * gSpacing) + 1 + Math.floor(Math.random() * 2) + gOffset;
+            pos = Math.min(pos, deck.length);
+            deck.splice(pos, 0, groupCards[i]);
+            gOffset++;
+        }
+        console.log(`🤝 ${groupCards.length} group missions spread into deck (1 per ~${gSpacing} regular missions)`);
+    }
     
     // Initialize turn structure
     readerIdx = 0;                              // Player 0 is first reader
