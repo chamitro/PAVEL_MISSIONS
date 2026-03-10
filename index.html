@@ -1713,6 +1713,41 @@
                 <p style="margin-left: 15px;">• Tiebreaker: Most remaining total stat points</p>
                 <p style="margin-left: 15px;">• Second tiebreaker: Most remaining Meditations</p>
                 
+                <!-- TAVERN CARDS -->
+                <p style="margin-top: 20px;"><b style="color: var(--blood); font-size: 16px;">🃏 TAVERN CARDS</b></p>
+                <p>Mixed into the mission deck are <b>50 Tavern Cards</b> — special action cards that add strategy and chaos!</p>
+
+                <p style="margin-top: 10px;"><b>How Tavern Cards Work:</b></p>
+                <p style="margin-left: 15px;">• When the Reader draws a Tavern Card instead of a mission, they <b>keep it</b> and draw again</p>
+                <p style="margin-left: 15px;">• Multiple tavern cards can be drawn in a row</p>
+                <p style="margin-left: 15px;">• Cards are kept in your hand and can be played <b>on your turn</b> as Challenger</p>
+                <p style="margin-left: 15px;">• Use the <b>🃏 Tavern Cards</b> button to view and play your cards</p>
+                <p style="margin-left: 15px;">• Each card is <b>one-use</b> — once played, it's gone</p>
+
+                <p style="margin-top: 12px;"><b style="color: #c0392b;">Offensive Cards (Red):</b></p>
+                <p style="margin-left: 15px;">• <b>👊 Tavern Brawl</b> — Steal 3 points from any stat of another player</p>
+                <p style="margin-left: 15px;">• <b>🍺 Poison Ale</b> — Target player loses -2 to ALL stats</p>
+                <p style="margin-left: 15px;">• <b>🏹 Bounty Hunter</b> — Steal 2 Glory from another player</p>
+                <p style="margin-left: 15px;">• <b>🎲 Cursed Dice</b> — Target's next dice roll is automatically 1</p>
+
+                <p style="margin-top: 12px;"><b style="color: #2980b9;">Defensive Cards (Blue):</b></p>
+                <p style="margin-left: 15px;">• <b>👑 King's Blessing</b> — Gain +5 to any one stat</p>
+                <p style="margin-left: 15px;">• <b>🛡️ Shield of Pavel</b> — Block the next ability or card targeting you</p>
+                <p style="margin-left: 15px;">• <b>🍖 Tavern Rest</b> — Gain +2 to ALL stats</p>
+                <p style="margin-left: 15px;">• <b>💨 Second Wind</b> — Recover all points from your last failed challenge</p>
+                <p style="margin-left: 15px;">• <b>📜 Meditation Scroll</b> — Regain +1 Meditation</p>
+
+                <p style="margin-top: 12px;"><b style="color: #27ae60;">Tactical Cards (Green):</b></p>
+                <p style="margin-left: 15px;">• <b>🕵️ Spy Network</b> — Peek at the secret target number</p>
+                <p style="margin-left: 15px;">• <b>⚡ Double or Nothing</b> — Double Glory from your next win</p>
+                <p style="margin-left: 15px;">• <b>🔄 Mission Swap</b> — Discard current mission, draw a new one</p>
+                <p style="margin-left: 15px;">• <b>📯 Challenge Decree</b> — Force another player to attempt (can't meditate)</p>
+                <p style="margin-left: 15px;">• <b>🍀 Lucky Charm</b> — Your next dice roll is automatically 6</p>
+
+                <p style="margin-top: 12px;"><b style="color: #f39c12;">Wild Cards (Gold):</b></p>
+                <p style="margin-left: 15px;">• <b>🪙 Fate's Coin</b> — Roll dice: 4-6 = +3 Glory, 1-3 = -2 Glory</p>
+                <p style="margin-left: 15px;">• <b>🌀 Chaos Round</b> — ALL players roll: odd = lose 2 highest stat, even = gain 2 lowest stat</p>
+
                 <!-- STRATEGY TIPS -->
                 <p style="margin-top: 20px; color: var(--gold); background: rgba(197,160,89,0.15); padding: 15px; border: 1px solid var(--gold); border-radius: 8px;">
                 <b style="font-size: 14px;">💡 STRATEGY TIPS</b><br><br>
@@ -1723,7 +1758,8 @@
                 • <b>Group Mission Risk:</b> Failing costs -3 to ALL stats! Only vote YES if the team can make it.<br><br>
                 • <b>Shop Timing:</b> Know when shops appear and ration your stats accordingly.<br><br>
                 • <b>Watch Opponents:</b> Track who has used their abilities and meditations.<br><br>
-                • <b>Ability Synergy:</b> Some heroes combo well - Witch can steal stats that Dragon needs, Ninja can profit from others' failures.
+                • <b>Ability Synergy:</b> Some heroes combo well - Witch can steal stats that Dragon needs, Ninja can profit from others' failures.<br><br>
+                • <b>Tavern Cards:</b> Save powerful cards (Shield, Spy Network, Lucky Charm) for critical moments. Use offensive cards to disrupt leaders!
                 </p>
                 
             </div>
@@ -1785,6 +1821,7 @@
         </div>
         <button id="draw-btn" class="btn btn-main" onclick="readerOpensMission()">📜 Open a Mission (Reader)</button>
         <div id="game-controls" style="display:none;">
+            <button id="btn-tavern" class="btn" style="background:linear-gradient(135deg,#382818,#4a3520); color:#d8a850; border:2px solid #906828; margin-bottom:8px; width:100%;" onclick="showTavernHand(activeIdx)">Tavern Cards (<span id="tavern-card-count">0</span>)</button>
             <button id="btn-fight" class="btn btn-fight" onclick="startFight()">Do the Challenge</button>
             <button id="btn-skip" class="btn btn-skip" onclick="meditateTurn()">Pass (Meditate)</button>
             <button id="btn-discard" class="btn btn-danger" onclick="initiateFriendChallenge()">Challenge a Friend</button>
@@ -2015,6 +2052,33 @@ const HEROES = [
 ];
 
 // ============================================================
+// TAVERN CARDS
+// ============================================================
+
+const TAVERN_CARDS = [
+    // Offensive (Red) - 13 cards
+    { id: 'tavern_brawl', name: 'Tavern Brawl', type: 'offensive', color: '#c0392b', icon: '\u{1F44A}', desc: 'Steal 3 points from any stat of another player', copies: 4 },
+    { id: 'poison_ale', name: 'Poison Ale', type: 'offensive', color: '#c0392b', icon: '\u{1F37A}', desc: 'Target player loses -2 to ALL stats', copies: 3 },
+    { id: 'bounty_hunter', name: 'Bounty Hunter', type: 'offensive', color: '#c0392b', icon: '\u{1F3F9}', desc: 'Steal 2 Glory from another player', copies: 3 },
+    { id: 'cursed_dice', name: 'Cursed Dice', type: 'offensive', color: '#c0392b', icon: '\u{1F3B2}', desc: "Target player's next dice roll is automatically 1", copies: 3 },
+    // Defensive (Blue) - 15 cards
+    { id: 'kings_blessing', name: "King's Blessing", type: 'defensive', color: '#2980b9', icon: '\u{1F451}', desc: 'Gain +5 to any one stat', copies: 4 },
+    { id: 'shield_of_pavel', name: 'Shield of Pavel', type: 'defensive', color: '#2980b9', icon: '\u{1F6E1}\u{FE0F}', desc: 'Block the next ability or card targeting you', copies: 3 },
+    { id: 'tavern_rest', name: 'Tavern Rest', type: 'defensive', color: '#2980b9', icon: '\u{1F356}', desc: 'Gain +2 to ALL stats', copies: 3 },
+    { id: 'second_wind', name: 'Second Wind', type: 'defensive', color: '#2980b9', icon: '\u{1F4A8}', desc: 'Recover all points from your last failed challenge', copies: 2 },
+    { id: 'meditation_scroll', name: 'Meditation Scroll', type: 'defensive', color: '#2980b9', icon: '\u{1F4DC}', desc: 'Regain +1 Meditation', copies: 3 },
+    // Tactical (Green) - 14 cards
+    { id: 'spy_network', name: 'Spy Network', type: 'tactical', color: '#27ae60', icon: '\u{1F575}\u{FE0F}', desc: 'Peek at the target number before deciding', copies: 4 },
+    { id: 'double_or_nothing', name: 'Double or Nothing', type: 'tactical', color: '#27ae60', icon: '\u{26A1}', desc: 'Double Glory from your next win', copies: 2 },
+    { id: 'mission_swap', name: 'Mission Swap', type: 'tactical', color: '#27ae60', icon: '\u{1F504}', desc: 'Discard current mission, draw a new one', copies: 2 },
+    { id: 'challenge_decree', name: 'Challenge Decree', type: 'tactical', color: '#27ae60', icon: '\u{1F4EF}', desc: "Force another player to attempt (can't meditate)", copies: 3 },
+    { id: 'lucky_charm', name: 'Lucky Charm', type: 'tactical', color: '#27ae60', icon: '\u{1F340}', desc: 'Your next dice roll is automatically 6', copies: 3 },
+    // Wild (Gold) - 8 cards
+    { id: 'fates_coin', name: "Fate's Coin", type: 'wild', color: '#f39c12', icon: '\u{1FA99}', desc: 'Roll dice: 4-6 = +3 Glory, 1-3 = -2 Glory', copies: 4 },
+    { id: 'chaos_round', name: 'Chaos Round', type: 'wild', color: '#f39c12', icon: '\u{1F300}', desc: 'ALL players roll: odd = lose 2 highest stat, even = gain 2 lowest stat', copies: 4 }
+];
+
+// ============================================================
 // GAME STATE VARIABLES
 // ============================================================
 
@@ -2065,6 +2129,465 @@ let tempStats = {};
 
 let isProcessing = false; // Prevent race conditions
 let pendingGroupFailure = null; // Store data for group failure gamble
+
+// Tavern Card system
+let tavernDeck = [];
+let tavernDiscard = [];
+let missionAttempted = false; // Track if anyone attempted this mission (for Mission Swap)
+let deckPointer = 0; // Current position in the deck (advances past tavern cards too)
+
+// ============================================================
+// TAVERN CARD DECK MANAGEMENT
+// ============================================================
+
+function buildTavernDeck() {
+    tavernDeck = [];
+    tavernDiscard = [];
+    TAVERN_CARDS.forEach(card => {
+        for(let i = 0; i < card.copies; i++) {
+            tavernDeck.push({...card});
+        }
+    });
+    for(let i = tavernDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [tavernDeck[i], tavernDeck[j]] = [tavernDeck[j], tavernDeck[i]];
+    }
+    console.log(`Tavern deck built: ${tavernDeck.length} cards`);
+}
+
+function drawTavernCard(playerIdx, count) {
+    count = count || 1;
+    for(let i = 0; i < count; i++) {
+        if(tavernDeck.length === 0) {
+            if(tavernDiscard.length === 0) return;
+            tavernDeck = [...tavernDiscard];
+            tavernDiscard = [];
+            for(let j = tavernDeck.length - 1; j > 0; j--) {
+                const k = Math.floor(Math.random() * (j + 1));
+                [tavernDeck[j], tavernDeck[k]] = [tavernDeck[k], tavernDeck[j]];
+            }
+        }
+        party[playerIdx].hand.push(tavernDeck.pop());
+    }
+}
+
+function discardTavernCard(playerIdx, cardId) {
+    const idx = party[playerIdx].hand.findIndex(c => c.id === cardId);
+    if(idx !== -1) {
+        tavernDiscard.push(party[playerIdx].hand.splice(idx, 1)[0]);
+    }
+}
+
+function checkShield(targetIdx, sourceName) {
+    if(party[targetIdx].shieldActive) {
+        party[targetIdx].shieldActive = false;
+        showModal('Shield of Pavel!', `${party[targetIdx].pName}'s shield blocks ${sourceName}!`,
+            `<p>The shield absorbs the effect and shatters!</p>
+            <button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+        updatePartyUI();
+        return true;
+    }
+    return false;
+}
+
+function getModifiedDice(playerIdx, naturalRoll) {
+    if(party[playerIdx] && party[playerIdx].cursedDice) {
+        party[playerIdx].cursedDice = false;
+        return 1;
+    }
+    if(party[playerIdx] && party[playerIdx].luckyCharm) {
+        party[playerIdx].luckyCharm = false;
+        return 6;
+    }
+    return naturalRoll;
+}
+
+// ============================================================
+// TAVERN CARD UI & PLAYING
+// ============================================================
+
+function showTavernHand(playerIdx) {
+    const p = party[playerIdx];
+    if(!p.hand || p.hand.length === 0) {
+        showModal('No Cards', `${p.pName} has no Tavern Cards!`,
+            `<button class="btn btn-main" onclick="closeModal()">OK</button>`);
+        return;
+    }
+
+    let cardsHTML = p.hand.map((card, idx) => `
+        <div style="background:linear-gradient(135deg, rgba(0,0,0,0.6), rgba(30,20,10,0.8)); border:2px solid ${card.color}; border-radius:8px; padding:12px; margin:8px 0; text-align:center;">
+            <div style="font-size:28px; margin-bottom:5px;">${card.icon}</div>
+            <div style="color:${card.color}; font-weight:bold; font-size:14px; text-transform:uppercase; letter-spacing:1px;">${card.name}</div>
+            <div style="color:#ccc; font-size:11px; margin:8px 0; line-height:1.3;">${card.desc}</div>
+            <button class="btn btn-main" style="background:${card.color}; border-color:${card.color}; font-size:12px; padding:6px 20px;" onclick="playTavernCard(${playerIdx}, '${card.id}', ${idx})">Play</button>
+        </div>
+    `).join('');
+
+    showModal(`${p.pName}'s Tavern Cards`, `${p.hand.length} card${p.hand.length > 1 ? 's' : ''} in hand`,
+        `<div style="max-height:400px; overflow-y:auto;">${cardsHTML}</div>
+        <button class="btn btn-skip" style="margin-top:15px;" onclick="closeModal()">Close</button>`);
+}
+
+function playTavernCard(playerIdx, cardId, handIdx) {
+    const p = party[playerIdx];
+    const card = p.hand[handIdx];
+    if(!card || card.id !== cardId) return;
+
+    closeModal();
+
+    switch(cardId) {
+        case 'tavern_brawl': playTavernBrawl(playerIdx); break;
+        case 'poison_ale': playPoisonAle(playerIdx); break;
+        case 'bounty_hunter': playBountyHunter(playerIdx); break;
+        case 'cursed_dice': playCursedDice(playerIdx); break;
+        case 'kings_blessing': playKingsBlessing(playerIdx); break;
+        case 'shield_of_pavel': playShieldOfPavel(playerIdx); break;
+        case 'tavern_rest': playTavernRest(playerIdx); break;
+        case 'second_wind': playSecondWind(playerIdx); break;
+        case 'meditation_scroll': playMeditationScroll(playerIdx); break;
+        case 'spy_network': playSpyNetwork(playerIdx); break;
+        case 'double_or_nothing': playDoubleOrNothing(playerIdx); break;
+        case 'mission_swap': playMissionSwap(playerIdx); break;
+        case 'challenge_decree': playChallengeDecree(playerIdx); break;
+        case 'lucky_charm': playLuckyCharm(playerIdx); break;
+        case 'fates_coin': playFatesCoin(playerIdx); break;
+        case 'chaos_round': playChaosRound(playerIdx); break;
+    }
+}
+
+// ============================================================
+// TAVERN CARD EFFECTS
+// ============================================================
+
+function playTavernBrawl(playerIdx) {
+    const targets = party.map((p, i) => i).filter(i => i !== playerIdx);
+    if(targets.length === 0) return;
+
+    let targetBtns = targets.map(i => `<button class="btn btn-main" style="margin:4px; background:#c0392b;" onclick="tavernBrawlTarget(${playerIdx}, ${i})">${party[i].pName}</button>`).join('');
+
+    showModal('Tavern Brawl', 'Choose a target to steal 3 stat points from!',
+        `${targetBtns}<br><button class="btn btn-skip" style="margin-top:10px;" onclick="showTavernHand(${playerIdx})">Cancel</button>`);
+}
+
+function tavernBrawlTarget(playerIdx, targetIdx) {
+    if(checkShield(targetIdx, 'Tavern Brawl')) {
+        discardTavernCard(playerIdx, 'tavern_brawl');
+        updatePartyUI();
+        return;
+    }
+
+    let statBtns = ['pow','spd','brn','cha','wil'].map(s =>
+        `<button class="btn btn-main" style="margin:4px; min-width:60px;" onclick="tavernBrawlSteal(${playerIdx}, ${targetIdx}, '${s}')">${s.toUpperCase()} (${party[targetIdx].cur[s]})</button>`
+    ).join('');
+
+    showModal('Tavern Brawl', `Steal from ${party[targetIdx].pName} - choose stat:`,
+        `${statBtns}<br><button class="btn btn-skip" style="margin-top:10px;" onclick="showTavernHand(${playerIdx})">Cancel</button>`);
+}
+
+function tavernBrawlSteal(playerIdx, targetIdx, stat) {
+    const stolen = Math.min(3, party[targetIdx].cur[stat]);
+    party[targetIdx].cur[stat] -= stolen;
+    party[playerIdx].cur[stat] += stolen;
+    discardTavernCard(playerIdx, 'tavern_brawl');
+    updatePartyUI();
+    showModal('Tavern Brawl!', `${party[playerIdx].pName} steals ${stolen} ${stat.toUpperCase()} from ${party[targetIdx].pName}!`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playPoisonAle(playerIdx) {
+    const targets = party.map((p, i) => i).filter(i => i !== playerIdx);
+    let targetBtns = targets.map(i => `<button class="btn btn-main" style="margin:4px; background:#c0392b;" onclick="poisonAleTarget(${playerIdx}, ${i})">${party[i].pName}</button>`).join('');
+
+    showModal('Poison Ale', 'Choose a target to lose -2 to ALL stats!',
+        `${targetBtns}<br><button class="btn btn-skip" style="margin-top:10px;" onclick="showTavernHand(${playerIdx})">Cancel</button>`);
+}
+
+function poisonAleTarget(playerIdx, targetIdx) {
+    if(checkShield(targetIdx, 'Poison Ale')) {
+        discardTavernCard(playerIdx, 'poison_ale');
+        updatePartyUI();
+        return;
+    }
+
+    ['pow','spd','brn','cha','wil'].forEach(s => party[targetIdx].cur[s] = Math.max(0, party[targetIdx].cur[s] - 2));
+    discardTavernCard(playerIdx, 'poison_ale');
+    updatePartyUI();
+    showModal('Poison Ale!', `${party[targetIdx].pName} drinks poisoned ale! -2 to ALL stats!`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playBountyHunter(playerIdx) {
+    const targets = party.map((p, i) => i).filter(i => i !== playerIdx);
+    let targetBtns = targets.map(i => `<button class="btn btn-main" style="margin:4px; background:#c0392b;" onclick="bountyHunterTarget(${playerIdx}, ${i})">${party[i].pName} (${party[i].score} Glory)</button>`).join('');
+
+    showModal('Bounty Hunter', 'Choose a target to steal 2 Glory from!',
+        `${targetBtns}<br><button class="btn btn-skip" style="margin-top:10px;" onclick="showTavernHand(${playerIdx})">Cancel</button>`);
+}
+
+function bountyHunterTarget(playerIdx, targetIdx) {
+    if(checkShield(targetIdx, 'Bounty Hunter')) {
+        discardTavernCard(playerIdx, 'bounty_hunter');
+        updatePartyUI();
+        return;
+    }
+
+    const stolen = Math.min(2, party[targetIdx].score);
+    party[targetIdx].score -= stolen;
+    party[playerIdx].score += stolen;
+    discardTavernCard(playerIdx, 'bounty_hunter');
+    updatePartyUI();
+    showModal('Bounty Hunter!', `${party[playerIdx].pName} steals ${stolen} Glory from ${party[targetIdx].pName}!`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playCursedDice(playerIdx) {
+    const targets = party.map((p, i) => i).filter(i => i !== playerIdx);
+    let targetBtns = targets.map(i => `<button class="btn btn-main" style="margin:4px; background:#c0392b;" onclick="cursedDiceTarget(${playerIdx}, ${i})">${party[i].pName}</button>`).join('');
+
+    showModal('Cursed Dice', "Choose a target - their next dice roll will be 1!",
+        `${targetBtns}<br><button class="btn btn-skip" style="margin-top:10px;" onclick="showTavernHand(${playerIdx})">Cancel</button>`);
+}
+
+function cursedDiceTarget(playerIdx, targetIdx) {
+    if(checkShield(targetIdx, 'Cursed Dice')) {
+        discardTavernCard(playerIdx, 'cursed_dice');
+        updatePartyUI();
+        return;
+    }
+
+    party[targetIdx].cursedDice = true;
+    discardTavernCard(playerIdx, 'cursed_dice');
+    updatePartyUI();
+    showModal('Cursed Dice!', `${party[targetIdx].pName}'s next dice roll will automatically be 1!`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playKingsBlessing(playerIdx) {
+    const p = party[playerIdx];
+    let statBtns = ['pow','spd','brn','cha','wil'].map(s =>
+        `<button class="btn btn-main" style="margin:4px; min-width:60px; background:#2980b9;" onclick="kingsBlessingApply(${playerIdx}, '${s}')">${s.toUpperCase()} (${p.cur[s]})</button>`
+    ).join('');
+
+    showModal("King's Blessing", 'Choose a stat to gain +5!',
+        `${statBtns}<br><button class="btn btn-skip" style="margin-top:10px;" onclick="showTavernHand(${playerIdx})">Cancel</button>`);
+}
+
+function kingsBlessingApply(playerIdx, stat) {
+    party[playerIdx].cur[stat] += 5;
+    discardTavernCard(playerIdx, 'kings_blessing');
+    updatePartyUI();
+    showModal("King's Blessing!", `${party[playerIdx].pName} gains +5 ${stat.toUpperCase()}! (now ${party[playerIdx].cur[stat]})`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playShieldOfPavel(playerIdx) {
+    party[playerIdx].shieldActive = true;
+    discardTavernCard(playerIdx, 'shield_of_pavel');
+    updatePartyUI();
+    showModal('Shield of Pavel!', `${party[playerIdx].pName} activates a protective shield!`,
+        `<p style="color:#2980b9;">The next ability or card targeting you will be blocked!</p>
+        <button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playTavernRest(playerIdx) {
+    ['pow','spd','brn','cha','wil'].forEach(s => party[playerIdx].cur[s] += 2);
+    discardTavernCard(playerIdx, 'tavern_rest');
+    updatePartyUI();
+    showModal('Tavern Rest!', `${party[playerIdx].pName} rests and gains +2 to ALL stats!`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playSecondWind(playerIdx) {
+    const p = party[playerIdx];
+    if(!p.lastFailedSpend || !p.lastFailedSpend.stat || p.lastFailedSpend.amount === 0) {
+        showModal('Second Wind', 'No recent failed challenge to recover from!',
+            `<button class="btn btn-main" onclick="showTavernHand(${playerIdx})">Back</button>`);
+        return;
+    }
+
+    const stat = p.lastFailedSpend.stat;
+    const amount = p.lastFailedSpend.amount;
+    p.cur[stat] += amount;
+    p.lastFailedSpend = {stat: null, amount: 0};
+    discardTavernCard(playerIdx, 'second_wind');
+    updatePartyUI();
+    showModal('Second Wind!', `${p.pName} recovers +${amount} ${stat.toUpperCase()} from their last failure!`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playMeditationScroll(playerIdx) {
+    party[playerIdx].skips++;
+    discardTavernCard(playerIdx, 'meditation_scroll');
+    updatePartyUI();
+    showModal('Meditation Scroll!', `${party[playerIdx].pName} gains +1 Meditation! (now ${party[playerIdx].skips})`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playSpyNetwork(playerIdx) {
+    if(!pTarget) {
+        showModal('Spy Network', 'No active mission to spy on!',
+            `<button class="btn btn-main" onclick="showTavernHand(${playerIdx})">Back</button>`);
+        return;
+    }
+    discardTavernCard(playerIdx, 'spy_network');
+    showModal('Spy Network!', `${party[playerIdx].pName}'s spies reveal the secret target!`,
+        `<div style="background:rgba(39,174,96,0.2); border:2px solid #27ae60; padding:15px; margin:15px 0;">
+            <p style="font-size:24px; color:#27ae60; font-weight:bold;">Target: ${pTarget} ${pStage.s.toUpperCase()}</p>
+        </div>
+        <p style="color:#888; font-size:12px;">Don't let others see!</p>
+        <button class="btn btn-main" onclick="closeModal()">Got it!</button>`);
+}
+
+function playDoubleOrNothing(playerIdx) {
+    party[playerIdx].doubleGlory = true;
+    discardTavernCard(playerIdx, 'double_or_nothing');
+    updatePartyUI();
+    showModal('Double or Nothing!', `${party[playerIdx].pName}'s next challenge win earns DOUBLE Glory!`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playMissionSwap(playerIdx) {
+    if(missionAttempted) {
+        showModal('Mission Swap', 'Too late - someone already attempted this mission!',
+            `<button class="btn btn-main" onclick="showTavernHand(${playerIdx})">Back</button>`);
+        return;
+    }
+    if(!pStage) {
+        showModal('Mission Swap', 'No active mission to swap!',
+            `<button class="btn btn-main" onclick="showTavernHand(${playerIdx})">Back</button>`);
+        return;
+    }
+
+    let pool = pStage.isGroup ? STAGES.filter(s => s.isGroup) : STAGES.filter(s => !s.isGroup);
+    const newMission = pool[Math.floor(Math.random() * pool.length)];
+    pStage = newMission;
+
+    const diceResult = Math.floor(Math.random() * 6) + 1;
+    const isEasy = diceResult <= 3;
+    pTarget = isEasy ? pStage.e : pStage.h;
+    pPts = isEasy ? 1 : 2;
+    if(pStage.isGroup) pPts *= 2;
+
+    discardTavernCard(playerIdx, 'mission_swap');
+
+    document.getElementById('st-title').innerText = `${pStage.isGroup ? '' : ''}${pStage.t}`;
+    document.getElementById('st-desc').innerText = pStage.d;
+    document.getElementById('st-req').innerText = `${pStage.s.toUpperCase()} | ${isEasy ? 'EASY' : 'HARD'} (${pPts} Glory)`;
+
+    showModal('Mission Swap!', `${party[playerIdx].pName} swaps the mission!`,
+        `<div style="background:rgba(39,174,96,0.2); border:2px solid #27ae60; padding:15px; margin:15px 0;">
+            <h3 style="color:#27ae60;">${pStage.t}</h3>
+            <p style="font-style:italic; font-size:13px;">"${pStage.d}"</p>
+            <p>Required: <b>${pStage.s.toUpperCase()}</b></p>
+            <p>Difficulty: <b>${isEasy ? 'Easy' : 'Hard'}</b> (${pPts} Glory)</p>
+        </div>
+        <p style="color:#888; font-size:12px;">Only the Reader knows the new target!</p>
+        <button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playChallengeDecree(playerIdx) {
+    const targets = party.map((p, i) => i).filter(i => i !== playerIdx && i !== readerIdx);
+    if(targets.length === 0) return;
+
+    let targetBtns = targets.map(i => `<button class="btn btn-main" style="margin:4px; background:#27ae60;" onclick="challengeDecreeTarget(${playerIdx}, ${i})">${party[i].pName}</button>`).join('');
+
+    showModal('Challenge Decree', "Force a player to attempt - they can't meditate this stage!",
+        `${targetBtns}<br><button class="btn btn-skip" style="margin-top:10px;" onclick="showTavernHand(${playerIdx})">Cancel</button>`);
+}
+
+function challengeDecreeTarget(playerIdx, targetIdx) {
+    if(checkShield(targetIdx, 'Challenge Decree')) {
+        discardTavernCard(playerIdx, 'challenge_decree');
+        updatePartyUI();
+        return;
+    }
+
+    party[targetIdx].challengeDecreeTarget = true;
+    discardTavernCard(playerIdx, 'challenge_decree');
+    updatePartyUI();
+    showModal('Challenge Decree!', `${party[targetIdx].pName} is decreed to fight! They cannot meditate this stage!`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playLuckyCharm(playerIdx) {
+    party[playerIdx].luckyCharm = true;
+    discardTavernCard(playerIdx, 'lucky_charm');
+    updatePartyUI();
+    showModal('Lucky Charm!', `${party[playerIdx].pName}'s next dice roll will automatically be 6!`,
+        `<button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
+
+function playFatesCoin(playerIdx) {
+    discardTavernCard(playerIdx, 'fates_coin');
+
+    showModal("Fate's Coin", "Flipping...", `<div id="coin-dice-container" style="margin: 30px 0;"></div>`);
+
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('coin-dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const result = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('coin-dice-container').innerHTML = renderDice(result);
+
+        setTimeout(() => {
+            const p = party[playerIdx];
+            if(result >= 4) {
+                p.score += 3;
+                showModal("Fortune Smiles!", `Rolled ${result} - ${p.pName} gains +3 Glory!`,
+                    `<p style="color:#27ae60; font-size:20px; font-weight:bold;">+3 Glory!</p>
+                    <button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+            } else {
+                p.score = Math.max(0, p.score - 2);
+                showModal("Fortune Frowns!", `Rolled ${result} - ${p.pName} loses 2 Glory!`,
+                    `<p style="color:#c0392b; font-size:20px; font-weight:bold;">-2 Glory!</p>
+                    <button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+            }
+            updatePartyUI();
+        }, 500);
+    }, 900);
+}
+
+function playChaosRound(playerIdx) {
+    discardTavernCard(playerIdx, 'chaos_round');
+
+    let results = [];
+    party.forEach((p, idx) => {
+        const roll = Math.floor(Math.random() * 6) + 1;
+        const isOdd = roll % 2 !== 0;
+
+        if(isOdd) {
+            let highStat = 'pow';
+            let highVal = p.cur.pow;
+            ['spd','brn','cha','wil'].forEach(s => {
+                if(p.cur[s] > highVal) { highVal = p.cur[s]; highStat = s; }
+            });
+            const loss = Math.min(2, p.cur[highStat]);
+            p.cur[highStat] -= loss;
+            results.push(`<p style="color:#c0392b;">${p.pName}: rolled ${roll} (odd) - ${loss} ${highStat.toUpperCase()}</p>`);
+        } else {
+            let lowStat = 'pow';
+            let lowVal = p.cur.pow;
+            ['spd','brn','cha','wil'].forEach(s => {
+                if(p.cur[s] < lowVal) { lowVal = p.cur[s]; lowStat = s; }
+            });
+            p.cur[lowStat] += 2;
+            results.push(`<p style="color:#27ae60;">${p.pName}: rolled ${roll} (even) +2 ${lowStat.toUpperCase()}</p>`);
+        }
+    });
+
+    updatePartyUI();
+    showModal('Chaos Round!', `${party[playerIdx].pName} unleashes chaos! Everyone rolls!`,
+        `<div style="background:rgba(0,0,0,0.3); padding:15px; margin:15px 0; border:1px solid #f39c12; text-align:left;">
+            ${results.join('')}
+        </div>
+        <button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+}
 
 // ============================================================
 // MONKEY BOY - CHAOS REROLL HELPERS
@@ -2222,7 +2745,7 @@ function handleReg() {
     const originalIndex = HEROES.indexOf(hero);
     usedHeroes.push(originalIndex);
     
-    party.push({ pName: name, ...hero, cur: {...hero.s}, score: 0, skips: 3 });
+    party.push({ pName: name, ...hero, cur: {...hero.s}, score: 0, skips: 3, hand: [], shieldActive: false, cursedDice: false, luckyCharm: false, doubleGlory: false, lastFailedSpend: {stat:null, amount:0}, challengeDecreeTarget: false });
     
     passiveUsed[regIdx] = false;
     challengesCompleted[regIdx] = 0;
@@ -2266,6 +2789,7 @@ function startGame() {
     shopCount = 0;
     shadowControlledPlayers = []; // Reset shadow control for new game
     window.pendingRisingSpiritPlayerIdx = null; // Reset Rising Spirit for new game
+    deckPointer = 0;
     
     // Initialize pending state variables
     pendingReaderIdx = 0;
@@ -2336,6 +2860,17 @@ function startGame() {
         }, orkWizardMode[party.findIndex(p => p.n === 'Wizard of Orks')] === null ? 1500 : 100);
     }
 
+    // Mix tavern cards into the mission deck
+    buildTavernDeck();
+    // Insert all tavern cards into the deck at random positions
+    tavernDeck.forEach(card => {
+        card.isTavern = true;
+        const pos = Math.floor(Math.random() * (deck.length + 1));
+        deck.splice(pos, 0, card);
+    });
+    tavernDeck = []; // All cards are now in the main deck
+    console.log(`🃏 ${TAVERN_CARDS.reduce((s,c) => s+c.copies, 0)} tavern cards mixed into deck (total: ${deck.length})`);
+
     updatePartyUI();
     updateTurnLabels();
 
@@ -2388,30 +2923,52 @@ function updateCounters() {
 function readerOpensMission() {
     if (isProcessing) return;
     isProcessing = true;
-    
-    // Calculate deck index based on total missions played (round * party.length + stageInRound - 1)
-    const deckIndex = (round * party.length) + stageInRound - 1;
-    
+
+    // Draw from deck, handling tavern cards
+    drawFromDeck();
+}
+
+function drawFromDeck() {
     // Check if deck is exhausted
-    if (deckIndex >= deck.length) {
+    if (deckPointer >= deck.length) {
         isProcessing = false;
         endGame();
         return;
     }
-    
-    pStage = deck[deckIndex];
+
+    const drawnCard = deck[deckPointer];
+    deckPointer++;
     const reader = party[readerIdx];
-    
+
+    // If it's a tavern card, the Reader keeps it and draws again
+    if(drawnCard.isTavern) {
+        reader.hand.push({...drawnCard});
+        updatePartyUI();
+
+        showModal(
+            `🃏 Tavern Card Found!`,
+            `${reader.pName} found a card in the mission pile!`,
+            `<div style="background:linear-gradient(135deg, rgba(0,0,0,0.6), rgba(30,20,10,0.8)); border:2px solid ${drawnCard.color}; border-radius:8px; padding:15px; margin:15px 0; text-align:center;">
+                <div style="font-size:48px; margin-bottom:8px;">${drawnCard.icon}</div>
+                <div style="color:${drawnCard.color}; font-weight:bold; font-size:16px; text-transform:uppercase; letter-spacing:1px;">${drawnCard.name}</div>
+                <div style="color:#ccc; font-size:12px; margin-top:8px;">${drawnCard.desc}</div>
+            </div>
+            <p style="font-size:12px; color:#888;">Card added to ${reader.pName}'s hand! Drawing next card...</p>
+            <button class="btn btn-main" onclick="closeModal(); drawFromDeck();">Continue Drawing</button>`
+        );
+        return;
+    }
+
+    pStage = drawnCard;
+
     // Check if this is a group mission with only 2 players (shouldn't happen but safety)
     if(pStage.isGroup && party.length === 2) {
-        // Draw another card
-        deck[deckIndex] = deck.filter(s => !s.isGroup).sort(() => 0.5 - Math.random())[0];
-        pStage = deck[deckIndex];
+        pStage = STAGES.filter(s => !s.isGroup).sort(() => 0.5 - Math.random())[0];
     }
-    
+
     setTimeout(() => {
         isProcessing = false;
-        
+
         // Show the mission and roll dice for difficulty
         showModal(
             `📜 ${reader.pName} Reads the Mission`,
@@ -2450,9 +3007,10 @@ function rollDifficultyDice(isGroup) {
     
     setTimeout(() => {
         clearInterval(rollInterval);
-        const diceResult = Math.floor(Math.random() * 6) + 1;
+        let diceResult = Math.floor(Math.random() * 6) + 1;
+        diceResult = getModifiedDice(readerIdx, diceResult);
         document.getElementById('fate-dice-container').innerHTML = renderDice(diceResult);
-        
+
         setTimeout(() => {
             isProcessing = false;
             const fateDrunkBonus = checkDrunkGuyBonus(diceResult, readerIdx);
@@ -2658,9 +3216,13 @@ function processAttempt() {
     
     let total = spend + affinityBonus + dragonBonus;
     h.cur[pStage.s] -= spend;
-    
+
+    // Track spend for Second Wind card
+    party[activeIdx].lastFailedSpend = {stat: pStage.s, amount: spend};
+    missionAttempted = true;
+
     let win = total >= pTarget;
-    
+
     showResult(spend, affinityBonus + dragonBonus, total, win, pStage.s);
 }
 
@@ -2681,9 +3243,15 @@ function showResult(spent, bonus, final, win, usedStat) {
         );
     } else if(win) {
         // Success!
-        h.score += pPts;
+        let gloryGain = pPts;
+        if(h.doubleGlory) {
+            gloryGain *= 2;
+            h.doubleGlory = false;
+        }
+        h.score += gloryGain;
         h.cur[usedStat] += 2; // Recover 2 points
-        
+        h.lastFailedSpend = {stat: null, amount: 0};
+
         // Track challenge completion
         challengesCompleted[activeIdx]++;
         
@@ -2787,7 +3355,8 @@ function gamble(cur, usedStat) {
 
     setTimeout(() => {
         clearInterval(rollInterval);
-        const luck = Math.floor(Math.random() * 6) + 1;
+        let luck = Math.floor(Math.random() * 6) + 1;
+        luck = getModifiedDice(activeIdx, luck);
         document.getElementById('dice-container').innerHTML = renderDice(luck);
 
         setTimeout(() => {
@@ -2811,8 +3380,14 @@ function resolveGamble(cur, usedStat, luck) {
     let win = fin >= pTarget;
 
     if(win) {
-        h.score += pPts;
+        let gloryGain = pPts;
+        if(h.doubleGlory) {
+            gloryGain *= 2;
+            h.doubleGlory = false;
+        }
+        h.score += gloryGain;
         h.cur[usedStat] += 2;
+        h.lastFailedSpend = {stat: null, amount: 0};
         challengesCompleted[activeIdx]++;
 
         let passiveTriggers = drunkBonus;
@@ -3218,7 +3793,13 @@ function shadowControlSkip() {
 function advanceToNextStage() {
     // Clear any active ninja contract for new stage
     ninjaContract = null;
-    
+
+    // Reset per-stage tavern card flags
+    missionAttempted = false;
+    party.forEach(p => {
+        p.challengeDecreeTarget = false;
+    });
+
     // Reset Drunken Paladin's dice for new stage (can use once per turn)
     party.forEach(p => {
         if(p.n === 'Drunken Paladin') {
@@ -3316,10 +3897,16 @@ function advanceToNextRound() {
 function resetUI() {
     // Reset Quick Thief roll for new stage
     thiefRolledThisTurn = false;
-    
+
     // Clear ninja contract at start of new stage (contract is per-stage)
     ninjaContract = null;
-    
+
+    // Reset per-stage tavern card flags
+    missionAttempted = false;
+    party.forEach(p => {
+        p.challengeDecreeTarget = false;
+    });
+
     // NOTE: shadowControlledPlayers is NOT cleared here - effect persists until player is forced to skip
     
     document.getElementById('draw-btn').style.display = 'block';
@@ -3351,11 +3938,18 @@ function meditateTurn() {
     
     const h = party[activeIdx];
     
+    if(h.challengeDecreeTarget) {
+        showModal('Challenge Decree!', `${h.pName} has been decreed to fight!`,
+            `<p style="color:var(--blood);">You cannot meditate this stage!</p>
+            <button class="btn btn-main" onclick="closeModal()">Must Fight!</button>`);
+        return;
+    }
+
     if(h.skips <= 0) {
         alert("No meditations remaining! You must attempt the challenge.");
         return;
     }
-    
+
     h.skips--;
     
     // Mute Monk passive
@@ -3679,13 +4273,41 @@ function finalizeFriendChallenge(challengerWin, opponentWin) {
     
     if(challengerWin && opponentWin) {
         // Both win
-        challenger.score += pPts;
-        opponent.score += pPts;
+        let cGlory = pPts;
+        let oGlory = pPts;
+        if(challenger.doubleGlory) { cGlory *= 2; challenger.doubleGlory = false; }
+        if(opponent.doubleGlory) { oGlory *= 2; opponent.doubleGlory = false; }
+        challenger.score += cGlory;
+        opponent.score += oGlory;
         challenger.cur[pStage.s] += 2;
         opponent.cur[pStage.s] += 2;
-        message = `Both ${challenger.pName} and ${opponent.pName} succeed! +${pPts} Glory each!`;
+        message = `Both ${challenger.pName} and ${opponent.pName} succeed! Glory earned!`;
         anyoneWon = true;
-        
+
+        // Track challenge completion (both)
+        challengesCompleted[friendChallengeData.challenger]++;
+        challengesCompleted[friendChallengeData.opponent]++;
+
+        // Thug Dwarf Brute Force (both win)
+        if(challenger.n === 'Thug Dwarf') {
+            challenger.cur.pow += 3;
+            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Brute Force: ${challenger.pName} +3 POW!</p>`;
+        }
+        if(opponent.n === 'Thug Dwarf') {
+            opponent.cur.pow += 3;
+            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Brute Force: ${opponent.pName} +3 POW!</p>`;
+        }
+
+        // Babbler Rogue Crowd Favorite (both win)
+        if(challenger.n === 'Babbler Rogue' && challengesCompleted[friendChallengeData.challenger] % 3 === 0) {
+            challenger.score += 1;
+            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Crowd Favorite: ${challenger.pName} +1 Glory!</p>`;
+        }
+        if(opponent.n === 'Babbler Rogue' && challengesCompleted[friendChallengeData.opponent] % 3 === 0) {
+            opponent.score += 1;
+            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Crowd Favorite: ${opponent.pName} +1 Glory!</p>`;
+        }
+
         // Check for Neighbor Witch recharge (both win)
         if(challenger.n === 'Neighbor Witch') {
             witchWins[friendChallengeData.challenger] = (witchWins[friendChallengeData.challenger] || 0) + 1;
@@ -3730,11 +4352,28 @@ function finalizeFriendChallenge(challengerWin, opponentWin) {
             checkRisingSpirit(friendChallengeData.opponent);
         }
     } else if(challengerWin) {
-        challenger.score += pPts * 2; // Double glory for solo win
+        let cGlory = pPts * 2;
+        if(challenger.doubleGlory) { cGlory *= 2; challenger.doubleGlory = false; }
+        challenger.score += cGlory;
         challenger.cur[pStage.s] += 2;
-        message = `${challenger.pName} wins solo! +${pPts * 2} Glory!`;
+        message = `${challenger.pName} wins solo! +${cGlory} Glory!`;
         anyoneWon = true;
-        
+
+        // Track challenge completion
+        challengesCompleted[friendChallengeData.challenger]++;
+
+        // Thug Dwarf Brute Force
+        if(challenger.n === 'Thug Dwarf') {
+            challenger.cur.pow += 3;
+            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Brute Force: +3 POW!</p>`;
+        }
+
+        // Babbler Rogue Crowd Favorite
+        if(challenger.n === 'Babbler Rogue' && challengesCompleted[friendChallengeData.challenger] % 3 === 0) {
+            challenger.score += 1;
+            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Crowd Favorite: +1 Glory!</p>`;
+        }
+
         // Check for Neighbor Witch recharge
         if(challenger.n === 'Neighbor Witch') {
             witchWins[friendChallengeData.challenger] = (witchWins[friendChallengeData.challenger] || 0) + 1;
@@ -3763,11 +4402,28 @@ function finalizeFriendChallenge(challengerWin, opponentWin) {
         // Reset opponent's troll consecutive wins on loss
         resetTrollConsecutiveWins(friendChallengeData.opponent);
     } else if(opponentWin) {
-        opponent.score += pPts * 2;
+        let oGlory = pPts * 2;
+        if(opponent.doubleGlory) { oGlory *= 2; opponent.doubleGlory = false; }
+        opponent.score += oGlory;
         opponent.cur[pStage.s] += 2;
-        message = `${opponent.pName} wins solo! +${pPts * 2} Glory!`;
+        message = `${opponent.pName} wins solo! +${oGlory} Glory!`;
         anyoneWon = true;
-        
+
+        // Track challenge completion
+        challengesCompleted[friendChallengeData.opponent]++;
+
+        // Thug Dwarf Brute Force
+        if(opponent.n === 'Thug Dwarf') {
+            opponent.cur.pow += 3;
+            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Brute Force: +3 POW!</p>`;
+        }
+
+        // Babbler Rogue Crowd Favorite
+        if(opponent.n === 'Babbler Rogue' && challengesCompleted[friendChallengeData.opponent] % 3 === 0) {
+            opponent.score += 1;
+            passiveTriggers += `<p style="color:#f3cf7a; font-size:12px;">⚡ Crowd Favorite: +1 Glory!</p>`;
+        }
+
         // Check for Neighbor Witch recharge
         if(opponent.n === 'Neighbor Witch') {
             witchWins[friendChallengeData.opponent] = (witchWins[friendChallengeData.opponent] || 0) + 1;
@@ -4642,8 +5298,10 @@ function resolveGroupChallenge(yesVoters) {
         // Everyone who participated gets glory
         yesVoters.forEach(v => {
             const p = party[v.playerIndex];
-            p.score += pPts * 2;
-            
+            let gGlory = pPts * 2;
+            if(p.doubleGlory) { gGlory *= 2; p.doubleGlory = false; }
+            p.score += gGlory;
+
             // Find their contribution for stat recovery
             const contrib = groupChallengeContributions.find(c => c.playerIndex === v.playerIndex);
             if(contrib && contrib.contribution > 0) {
@@ -4840,11 +5498,13 @@ function resolveGroupGamble(luck) {
             if(newTotal >= pTarget) {
                 // Miraculous success! Apply group success rewards
                 pendingGroupFailure = null;
-                
+
                 yesVoters.forEach(v => {
                     const p = party[v.playerIndex];
-                    p.score += pPts * 2;
-                    
+                    let gGlory = pPts * 2;
+                    if(p.doubleGlory) { gGlory *= 2; p.doubleGlory = false; }
+                    p.score += gGlory;
+
                     const contrib = groupChallengeContributions.find(c => c.playerIndex === v.playerIndex);
                     if(contrib && contrib.contribution > 0) {
                         p.cur[pStage.s] += 2;
@@ -5615,7 +6275,8 @@ function rollPaladinDice() {
 
     setTimeout(() => {
         clearInterval(rollInterval);
-        const roll = Math.floor(Math.random() * 6) + 1;
+        let roll = Math.floor(Math.random() * 6) + 1;
+        roll = getModifiedDice(activeIdx, roll);
         document.getElementById('dice-container').innerHTML = renderDice(roll);
 
         setTimeout(() => {
@@ -5636,7 +6297,9 @@ function resolvePaladinDice(roll) {
     const h = party[activeIdx];
     const paladinDrunkBonus = checkDrunkGuyBonus(roll, activeIdx);
     if(roll >= 5) {
-        h.score += pPts;
+        let pGlory = pPts;
+        if(h.doubleGlory) { pGlory *= 2; h.doubleGlory = false; }
+        h.score += pGlory;
         h.cur[pStage.s] += 2;
         challengesCompleted[activeIdx]++;
 
@@ -5762,7 +6425,9 @@ function applyZombieDebuff() {
 
     party.forEach((p, idx) => {
         if(idx !== activeIdx && !isImmuneToAbilities(idx)) {
-            p.cur[chosenStat] = Math.max(0, p.cur[chosenStat] - 2);
+            if(!checkShield(idx, 'Cursed Embrace')) {
+                p.cur[chosenStat] = Math.max(0, p.cur[chosenStat] - 2);
+            }
         }
     });
     zombie.cur[chosenStat] += 1;
@@ -5835,10 +6500,17 @@ function confirmArcaneAlliance() {
         return;
     }
 
+    // Shield of Pavel check
+    if(checkShield(targetIdx, 'Arcane Alliance')) {
+        passiveUsed[activeIdx] = true;
+        witchWins[activeIdx] = 0;
+        return;
+    }
+
     // Mark as used BEFORE checking (ability is spent either way!)
     passiveUsed[activeIdx] = true;
     witchWins[activeIdx] = 0;
-    
+
     // Check if target has enough - if not, spell FAILS!
     if(target.cur[stat] < amount) {
         showModal(
@@ -5967,10 +6639,16 @@ function confirmShadowControl() {
     }
     
     const stalker = party[activeIdx];
-    
+
+    // Shield of Pavel check
+    if(checkShield(targetIdx, 'Shadow Control')) {
+        shadowControlUses[activeIdx] = (shadowControlUses[activeIdx] || 0) + 1;
+        return;
+    }
+
     console.log(`🗡️ ${stalker.pName} using Shadow Control on ${party[targetIdx].pName}`);
     console.log(`🗡️ ${party[targetIdx].pName} meditations BEFORE: ${party[targetIdx].skips}`);
-    
+
     // Use the meditation - directly on party array
     party[targetIdx].skips = party[targetIdx].skips - 1;
     
@@ -6078,6 +6756,13 @@ function confirmSoulContract() {
         return;
     }
 
+    // Shield of Pavel check
+    if(checkShield(targetIdx, 'Soul Contract')) {
+        passiveUsed[activeIdx] = true;
+        devilWins[activeIdx] = 0;
+        return;
+    }
+
     // Get the values
     const devilValue = devil.cur[stat];
     const targetValue = target.cur[stat];
@@ -6182,7 +6867,12 @@ function confirmLuckyFingers() {
     const targetIdx = parseInt(document.getElementById('thief-target').value);
     const thief = party[activeIdx];
     const target = party[targetIdx];
-    
+
+    // Shield of Pavel check
+    if(checkShield(targetIdx, 'Lucky Fingers')) {
+        return;
+    }
+
     // Steal 1 glory
     target.score--;
     thief.score++;
@@ -6540,7 +7230,7 @@ function finishStore() {
         party[storePlayerIdx].skips++;
         console.log(`🧘 ${party[storePlayerIdx].pName} gained +1 meditation (now ${party[storePlayerIdx].skips})`);
     }
-    
+
     storePlayerIdx++;
     
     if(storePlayerIdx < party.length) {
@@ -6586,10 +7276,12 @@ function updatePartyUI() {
         return `
         ${isReader ? '<div class="reader-banner">📜 READER - Opens & Sets Difficulty</div>' : ''}
         ${isActive && !isReader ? '<div class="turn-banner">⚔️ YOUR TURN TO ATTEMPT ⚔️</div>' : ''}
-        <div class="hero-sheet ${isActive ? 'active-now' : ''} ${isReader ? 'is-reader' : ''}">
+        <div class="hero-sheet ${isActive ? 'active-now' : ''} ${isReader ? 'is-reader' : ''}" style="position:relative;">
             <div class="meditate-count">🧘 ${p.skips} left</div>
+            ${p.shieldActive ? '<div style="position:absolute; top:5px; right:120px; background:rgba(41,128,185,0.3); border:1px solid #2980b9; padding:2px 6px; border-radius:15px; font-size:6px; color:#2980b9; font-weight:bold; z-index:5;">🛡️</div>' : ''}
             <div class="wax-seal"><span class="score-display">${p.score}</span></div>
             <div style="font-size:13px; font-weight:bold; letter-spacing:1px; color:#5a4634; margin-top: 2px;">${p.pName.toUpperCase()}</div>
+            ${p.hand && p.hand.length > 0 ? `<div style="font-size:10px; color:#906828; margin-top:2px;">🃏 ${p.hand.length} tavern card${p.hand.length > 1 ? 's' : ''}</div>` : ''}
             
             <div class="medieval" style="display: flex; align-items: center; gap: 15px; font-size:20px; margin: 10px 0;">
                 <img src="${p.i}" alt="${p.n}" style="width: 60px; height: 60px; border: 2px solid #8e7b55; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); background: #000;">
@@ -6605,6 +7297,11 @@ function updatePartyUI() {
         </div>
     `;
     }).join('');
+
+    const tavernCountEl = document.getElementById('tavern-card-count');
+    if(tavernCountEl && party[activeIdx]) {
+        tavernCountEl.innerText = party[activeIdx].hand ? party[activeIdx].hand.length : 0;
+    }
 }
 
 // ============================================================

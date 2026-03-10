@@ -830,6 +830,108 @@ body {
 
 .hidden { display: none !important; }
 
+/* ========================================
+   TAVERN CARD
+   ======================================== */
+.tavern-card {
+    width: 350px;
+    min-height: 480px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+}
+.tavern-card .card-frame {
+    border: 4px solid #8B4513;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #c4a265 0%, #d4c196 25%, #b89b5e 50%, #d4c196 75%, #c4a265 100%);
+    padding: 3px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.tavern-card .card-inner {
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+.tavern-card .tavern-header {
+    text-align: center;
+    padding: 10px 12px;
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+.tavern-header.offensive { background: linear-gradient(135deg, #8B0000, #c0392b); border-bottom: 3px solid #5a0000; }
+.tavern-header.defensive { background: linear-gradient(135deg, #1565C0, #2196F3); border-bottom: 3px solid #0D47A1; }
+.tavern-header.tactical  { background: linear-gradient(135deg, #1B5E20, #4CAF50); border-bottom: 3px solid #1B5E20; }
+.tavern-header.wild      { background: linear-gradient(135deg, #E65100, #FF9800); border-bottom: 3px solid #BF360C; }
+
+.tavern-card .tavern-body {
+    padding: 20px 16px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(196,162,101,0.3) 0%, rgba(180,148,88,0.15) 100%);
+}
+.tavern-card .tavern-icon {
+    font-size: 64px;
+    margin: 20px 0;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+.tavern-card .tavern-name {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: #3a2a1a;
+    margin-bottom: 12px;
+}
+.tavern-card .tavern-desc {
+    font-size: 15px;
+    color: #5a4a3a;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    padding: 0 10px;
+}
+.tavern-card .tavern-type-badge {
+    margin-top: auto;
+    padding: 6px 20px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 2px solid;
+}
+.tavern-type-badge.offensive { background: rgba(139,0,0,0.1); color: #8B0000; border-color: #c0392b; }
+.tavern-type-badge.defensive { background: rgba(21,101,192,0.1); color: #1565C0; border-color: #2196F3; }
+.tavern-type-badge.tactical  { background: rgba(27,94,32,0.1); color: #1B5E20; border-color: #4CAF50; }
+.tavern-type-badge.wild      { background: rgba(230,81,0,0.1); color: #E65100; border-color: #FF9800; }
+
+.tavern-card .card-footer {
+    text-align: center;
+    padding: 6px;
+    font-size: 10px;
+    color: #8a7a5a;
+    letter-spacing: 1px;
+    font-family: 'Cinzel Decorative', serif;
+    border-top: 1px solid rgba(139,69,19,0.3);
+    background: rgba(139,69,19,0.05);
+}
+
 /* Soul legend */
 .soul-legend {
     display: flex;
@@ -867,6 +969,7 @@ body {
     <button onclick="showSection('stats')" id="btn-stats">Stat Cards (5)</button>
     <button onclick="showSection('world')" id="btn-world">Book of the World</button>
     <button onclick="showSection('rules')" id="btn-rules">Book of Rules</button>
+    <button onclick="showSection('tavern')" id="btn-tavern">Tavern Cards (50)</button>
     <button onclick="showSection('all')" id="btn-all">Show All</button>
     <button onclick="window.print()" style="background:#1B5E20; border-color:#4CAF50;">Print / Save PDF</button>
     <span class="note">Right-click any card → "Save image as" or use Print for PDF export</span>
@@ -905,6 +1008,11 @@ body {
 <div id="rules-section" class="hidden">
     <h2 class="section-title">Book of Game Rules</h2>
     <div class="book-grid" id="rules-grid"></div>
+</div>
+
+<div id="tavern-section" class="hidden">
+    <h2 class="section-title">Tavern Cards (Action Cards)</h2>
+    <div class="card-grid" id="tavern-grid"></div>
 </div>
 
 <script>
@@ -1872,6 +1980,124 @@ function buildRulesBook() {
                 <div class="book-page-num">— 6 —</div>
             </div>
         </div>
+    </div>
+
+    <!-- PAGE 7: Tavern Cards -->
+    <div class="book-page">
+        <div class="book-page-inner">
+            <div class="book-content">
+                <div class="book-chapter-title">Chapter 7: Tavern Cards</div>
+
+                <div class="book-text">
+                    Mixed into the mission deck are <strong>50 Tavern Cards</strong> — special action cards that add strategy and chaos to the game.
+                </div>
+
+                <div class="book-rule-box">
+                    <div class="book-rule-title">How Tavern Cards Work</div>
+                    <div class="book-rule-text">
+                        When the Reader draws a Tavern Card instead of a mission, they <strong>keep it</strong> in their hand and draw again.<br>
+                        Cards can be played on your turn as Challenger, before or instead of attempting.<br>
+                        Each card is <strong>one-use</strong> — once played, it's discarded.
+                    </div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading" style="color:#c0392b;">Offensive Cards (Red)</div>
+                <div class="book-npc">
+                    <div class="book-npc-name">👊 Tavern Brawl (×4)</div>
+                    <div class="book-npc-desc">Steal 3 points from any stat of another player.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🍺 Poison Ale (×3)</div>
+                    <div class="book-npc-desc">Target player loses -2 to ALL stats.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🏹 Bounty Hunter (×3)</div>
+                    <div class="book-npc-desc">Steal 2 Glory from another player.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🎲 Cursed Dice (×3)</div>
+                    <div class="book-npc-desc">Target player's next dice roll is automatically 1.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading" style="color:#2980b9;">Defensive Cards (Blue)</div>
+                <div class="book-npc">
+                    <div class="book-npc-name">👑 King's Blessing (×4)</div>
+                    <div class="book-npc-desc">Gain +5 to any one stat of your choice.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🛡️ Shield of Pavel (×3)</div>
+                    <div class="book-npc-desc">Block the next ability or card targeting you. Lasts until triggered.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🍖 Tavern Rest (×3)</div>
+                    <div class="book-npc-desc">Gain +2 to ALL stats immediately.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">💨 Second Wind (×2)</div>
+                    <div class="book-npc-desc">Recover all points from your last failed challenge.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">📜 Meditation Scroll (×3)</div>
+                    <div class="book-npc-desc">Regain +1 Meditation token.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading" style="color:#27ae60;">Tactical Cards (Green)</div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🕵️ Spy Network (×4)</div>
+                    <div class="book-npc-desc">Peek at the secret target number before deciding to attempt.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">⚡ Double or Nothing (×2)</div>
+                    <div class="book-npc-desc">Double the Glory reward from your next challenge win.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🔄 Mission Swap (×2)</div>
+                    <div class="book-npc-desc">Discard the current mission and draw a new one with new difficulty.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">📯 Challenge Decree (×3)</div>
+                    <div class="book-npc-desc">Force another player to attempt. They can't meditate this stage.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🍀 Lucky Charm (×3)</div>
+                    <div class="book-npc-desc">Your next dice roll is automatically 6.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading" style="color:#f39c12;">Wild Cards (Gold)</div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🪙 Fate's Coin (×4)</div>
+                    <div class="book-npc-desc">Roll a dice: 4-6 = gain +3 Glory. 1-3 = lose 2 Glory.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🌀 Chaos Round (×4)</div>
+                    <div class="book-npc-desc">ALL players roll a dice. Odd = lose 2 from highest stat. Even = gain 2 to lowest stat.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Physical Play: Tavern Cards</div>
+                    <div class="book-rule-text">
+                        Print the 50 tavern cards and shuffle them into the mission deck.<br>
+                        When a Reader draws a tavern card, they keep it face-down and draw again.<br>
+                        Players play cards from their hand on their turn by revealing them.
+                    </div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote">"In Pavel's tavern, even the cards have tricks up their sleeves."</div>
+
+                <div class="book-page-num">— 7 —</div>
+            </div>
+        </div>
     </div>`;
 }
 
@@ -1917,12 +2143,15 @@ function init() {
     // Build books
     buildWorldBook();
     buildRulesBook();
+
+    // Build tavern cards
+    buildTavernCards();
 }
 
 function showSection(section) {
     document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
 
-    const sections = ['missions', 'group', 'heroes', 'stats', 'world', 'rules'];
+    const sections = ['missions', 'group', 'heroes', 'stats', 'world', 'rules', 'tavern'];
     sections.forEach(s => document.getElementById(s + '-section').classList.add('hidden'));
 
     if (section === 'all') {
@@ -1932,6 +2161,64 @@ function showSection(section) {
     }
 
     document.getElementById('btn-' + section).classList.add('active');
+}
+
+// ============================================================
+// TAVERN CARDS
+// ============================================================
+
+const TAVERN_CARDS = [
+    // Offensive (Red) - 13 cards
+    { id: 'tavern_brawl', name: 'Tavern Brawl', type: 'offensive', typeLabel: 'OFFENSIVE', icon: '👊', desc: 'Steal 3 points from any stat of another player.', copies: 4 },
+    { id: 'poison_ale', name: 'Poison Ale', type: 'offensive', typeLabel: 'OFFENSIVE', icon: '🍺', desc: 'Target player loses -2 to ALL stats.', copies: 3 },
+    { id: 'bounty_hunter', name: 'Bounty Hunter', type: 'offensive', typeLabel: 'OFFENSIVE', icon: '🏹', desc: 'Steal 2 Glory from another player.', copies: 3 },
+    { id: 'cursed_dice', name: 'Cursed Dice', type: 'offensive', typeLabel: 'OFFENSIVE', icon: '🎲', desc: "Target player's next dice roll is automatically 1.", copies: 3 },
+    // Defensive (Blue) - 15 cards
+    { id: 'kings_blessing', name: "King's Blessing", type: 'defensive', typeLabel: 'DEFENSIVE', icon: '👑', desc: 'Gain +5 to any one stat of your choice.', copies: 4 },
+    { id: 'shield_of_pavel', name: 'Shield of Pavel', type: 'defensive', typeLabel: 'DEFENSIVE', icon: '🛡️', desc: 'Block the next ability or card targeting you. Lasts until triggered.', copies: 3 },
+    { id: 'tavern_rest', name: 'Tavern Rest', type: 'defensive', typeLabel: 'DEFENSIVE', icon: '🍖', desc: 'Gain +2 to ALL stats immediately.', copies: 3 },
+    { id: 'second_wind', name: 'Second Wind', type: 'defensive', typeLabel: 'DEFENSIVE', icon: '💨', desc: 'Recover all points you spent on your last failed challenge.', copies: 2 },
+    { id: 'meditation_scroll', name: 'Meditation Scroll', type: 'defensive', typeLabel: 'DEFENSIVE', icon: '📜', desc: 'Regain +1 Meditation token.', copies: 3 },
+    // Tactical (Green) - 14 cards
+    { id: 'spy_network', name: 'Spy Network', type: 'tactical', typeLabel: 'TACTICAL', icon: '🕵️', desc: 'Peek at the secret target number before deciding to attempt.', copies: 4 },
+    { id: 'double_or_nothing', name: 'Double or Nothing', type: 'tactical', typeLabel: 'TACTICAL', icon: '⚡', desc: 'Double the Glory reward from your next challenge win.', copies: 2 },
+    { id: 'mission_swap', name: 'Mission Swap', type: 'tactical', typeLabel: 'TACTICAL', icon: '🔄', desc: 'Discard the current mission and draw a new one with new difficulty.', copies: 2 },
+    { id: 'challenge_decree', name: 'Challenge Decree', type: 'tactical', typeLabel: 'TACTICAL', icon: '📯', desc: "Force another player to attempt the mission. They can't meditate this stage.", copies: 3 },
+    { id: 'lucky_charm', name: 'Lucky Charm', type: 'tactical', typeLabel: 'TACTICAL', icon: '🍀', desc: 'Your next dice roll is automatically 6.', copies: 3 },
+    // Wild (Gold) - 8 cards
+    { id: 'fates_coin', name: "Fate's Coin", type: 'wild', typeLabel: 'WILD', icon: '🪙', desc: 'Roll a dice: 4-6 = gain +3 Glory. 1-3 = lose 2 Glory.', copies: 4 },
+    { id: 'chaos_round', name: 'Chaos Round', type: 'wild', typeLabel: 'WILD', icon: '🌀', desc: 'ALL players roll a dice. Odd = lose 2 from highest stat. Even = gain 2 to lowest stat.', copies: 4 }
+];
+
+function renderTavernCard(card, copyNum) {
+    return `<div class="tavern-card">
+        <div class="card-frame">
+            <div class="card-inner">
+                <div class="tavern-header ${card.type}">
+                    <span style="position:absolute; left:8px; top:8px; font-size:10px; font-family:'MedievalSharp',serif; opacity:0.7;">🃏</span>
+                    TAVERN CARD
+                </div>
+                <div class="tavern-body">
+                    <div class="tavern-icon">${card.icon}</div>
+                    <div class="tavern-name">${card.name}</div>
+                    <div class="tavern-desc">${card.desc}</div>
+                    <div class="tavern-type-badge ${card.type}">${card.typeLabel}</div>
+                </div>
+                <div class="card-footer">MISSIONS IN PAVEL${copyNum > 1 ? ' • ' + copyNum + '/' + card.copies : ''}</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function buildTavernCards() {
+    const grid = document.getElementById('tavern-grid');
+    let html = '';
+    TAVERN_CARDS.forEach(card => {
+        for(let i = 0; i < card.copies; i++) {
+            html += renderTavernCard(card, i + 1);
+        }
+    });
+    grid.innerHTML = html;
 }
 
 init();

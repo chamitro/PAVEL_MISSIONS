@@ -124,12 +124,39 @@ async function exportCards() {
     const rulesPages = await page.$$('#rules-grid .book-page');
     console.log(`Found ${rulesPages.length} rules book pages`);
 
-    const rulesPageNames = ['00_Cover', '01_Setup_and_Objective', '02_Challenge_Resolution', '03_Group_Missions_and_Affinity', '04_Hero_Abilities_Part1', '05_Hero_Abilities_Part2', '06_Winning_and_Strategy'];
+    const rulesPageNames = ['00_Cover', '01_Setup_and_Objective', '02_Challenge_Resolution', '03_Group_Missions_and_Affinity', '04_Hero_Abilities_Part1', '05_Hero_Abilities_Part2', '06_Winning_and_Strategy', '07_Tavern_Cards'];
     for (let i = 0; i < rulesPages.length; i++) {
         const filename = `${rulesPageNames[i] || 'page_' + i}.png`;
         const outPath = path.join(OUTPUT_DIR, 'rules_book', filename);
         await rulesPages[i].screenshot({ path: outPath, type: 'png', omitBackground: true });
         process.stdout.write(`\r  Rules ${i + 1}/${rulesPages.length}: ${filename}`);
+    }
+    console.log('\n  Done!');
+
+    // ---- TAVERN CARDS ----
+    console.log('\n--- Exporting Tavern Cards (GR) ---');
+    const tavernDir = path.join(OUTPUT_DIR, 'tavern_cards');
+    if (!fs.existsSync(tavernDir)) fs.mkdirSync(tavernDir, { recursive: true });
+
+    const tavernCards = await page.$$('#tavern-grid .tavern-card');
+    console.log(`Found ${tavernCards.length} tavern cards`);
+
+    const tavernNames = await page.evaluate(() => {
+        let names = [];
+        TAVERN_CARDS.forEach((card, cardIdx) => {
+            for(let i = 0; i < card.copies; i++) {
+                const num = String(names.length + 1).padStart(2, '0');
+                names.push(`${num}_tavern`);
+            }
+        });
+        return names;
+    });
+
+    for (let i = 0; i < tavernCards.length; i++) {
+        const filename = `${tavernNames[i] || 'tavern_' + i}.png`;
+        const outPath = path.join(tavernDir, filename);
+        await tavernCards[i].screenshot({ path: outPath, type: 'png', omitBackground: true });
+        process.stdout.write(`\r  Tavern ${i + 1}/${tavernCards.length}: ${filename}`);
     }
     console.log('\n  Done!');
 
@@ -140,7 +167,8 @@ async function exportCards() {
     console.log('GREEK EXPORT COMPLETE!');
     console.log('========================================');
     let total = 0;
-    dirs.forEach(d => {
+    const allDirs = [...dirs, 'tavern_cards'];
+    allDirs.forEach(d => {
         const dirPath = path.join(OUTPUT_DIR, d);
         if (fs.existsSync(dirPath)) {
             const files = fs.readdirSync(dirPath).filter(f => f.endsWith('.png'));

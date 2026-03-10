@@ -830,6 +830,108 @@ body {
 
 .hidden { display: none !important; }
 
+/* ========================================
+   TAVERN CARD
+   ======================================== */
+.tavern-card {
+    width: 350px;
+    min-height: 480px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+}
+.tavern-card .card-frame {
+    border: 4px solid #8B4513;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #c4a265 0%, #d4c196 25%, #b89b5e 50%, #d4c196 75%, #c4a265 100%);
+    padding: 3px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.tavern-card .card-inner {
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+.tavern-card .tavern-header {
+    text-align: center;
+    padding: 10px 12px;
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+.tavern-header.offensive { background: linear-gradient(135deg, #8B0000, #c0392b); border-bottom: 3px solid #5a0000; }
+.tavern-header.defensive { background: linear-gradient(135deg, #1565C0, #2196F3); border-bottom: 3px solid #0D47A1; }
+.tavern-header.tactical  { background: linear-gradient(135deg, #1B5E20, #4CAF50); border-bottom: 3px solid #1B5E20; }
+.tavern-header.wild      { background: linear-gradient(135deg, #E65100, #FF9800); border-bottom: 3px solid #BF360C; }
+
+.tavern-card .tavern-body {
+    padding: 20px 16px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(196,162,101,0.3) 0%, rgba(180,148,88,0.15) 100%);
+}
+.tavern-card .tavern-icon {
+    font-size: 64px;
+    margin: 20px 0;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+.tavern-card .tavern-name {
+    font-family: 'Almendra', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: #3a2a1a;
+    margin-bottom: 12px;
+}
+.tavern-card .tavern-desc {
+    font-size: 15px;
+    color: #5a4a3a;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    padding: 0 10px;
+}
+.tavern-card .tavern-type-badge {
+    margin-top: auto;
+    padding: 6px 20px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 2px solid;
+}
+.tavern-type-badge.offensive { background: rgba(139,0,0,0.1); color: #8B0000; border-color: #c0392b; }
+.tavern-type-badge.defensive { background: rgba(21,101,192,0.1); color: #1565C0; border-color: #2196F3; }
+.tavern-type-badge.tactical  { background: rgba(27,94,32,0.1); color: #1B5E20; border-color: #4CAF50; }
+.tavern-type-badge.wild      { background: rgba(230,81,0,0.1); color: #E65100; border-color: #FF9800; }
+
+.tavern-card .card-footer {
+    text-align: center;
+    padding: 6px;
+    font-size: 10px;
+    color: #8a7a5a;
+    letter-spacing: 1px;
+    font-family: 'Cinzel Decorative', serif;
+    border-top: 1px solid rgba(139,69,19,0.3);
+    background: rgba(139,69,19,0.05);
+}
+
 /* Soul legend */
 .soul-legend {
     display: flex;
@@ -867,6 +969,7 @@ body {
     <button onclick="showSection('stats')" id="btn-stats">Καρτες Στατιστικων (5)</button>
     <button onclick="showSection('world')" id="btn-world">Βιβλιο του Κοσμου</button>
     <button onclick="showSection('rules')" id="btn-rules">Βιβλιο Κανονων</button>
+    <button onclick="showSection('tavern')" id="btn-tavern">Καρτες Ταβερνας (50)</button>
     <button onclick="showSection('all')" id="btn-all">Εμφανιση Ολων</button>
     <button onclick="window.print()" style="background:#1B5E20; border-color:#4CAF50;">Εκτυπωση / Αποθηκευση PDF</button>
     <span class="note">Δεξι κλικ σε καρτα → "Αποθηκευση εικονας" ή Εκτυπωση για εξαγωγη PDF</span>
@@ -905,6 +1008,11 @@ body {
 <div id="rules-section" class="hidden">
     <h2 class="section-title">Βιβλιο Κανονων Παιχνιδιου</h2>
     <div class="book-grid" id="rules-grid"></div>
+</div>
+
+<div id="tavern-section" class="hidden">
+    <h2 class="section-title">Καρτες Ταβερνας</h2>
+    <div class="card-grid" id="tavern-grid"></div>
 </div>
 
 <script>
@@ -1872,6 +1980,124 @@ function buildRulesBook() {
                 <div class="book-page-num">— 6 —</div>
             </div>
         </div>
+    </div>
+
+    <!-- ΣΕΛΙΔΑ 7: Καρτες Ταβερνας -->
+    <div class="book-page">
+        <div class="book-page-inner">
+            <div class="book-content">
+                <div class="book-chapter-title">Κεφαλαιο 7: Καρτες Ταβερνας</div>
+
+                <div class="book-text">
+                    Αναμεμειγμενες στην τραπουλα αποστολων βρισκονται <strong>50 Καρτες Ταβερνας</strong> — ειδικες καρτες δρασης που προσθετουν στρατηγικη και χαος στο παιχνιδι.
+                </div>
+
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Πως Λειτουργουν</div>
+                    <div class="book-rule-text">
+                        Οταν ο Αναγνωστης τραβηξει Καρτα Ταβερνας αντι για αποστολη, την <strong>κραταει</strong> και τραβαει ξανα.<br>
+                        Οι καρτες παιζονται στη σειρα σου ως Προκαλων, πριν η αντι για προσπαθεια.<br>
+                        Καθε καρτα ειναι <strong>μιας χρησης</strong> — μολις παιχτει, απορριπτεται.
+                    </div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading" style="color:#c0392b;">Επιθετικες Καρτες (Κοκκινες)</div>
+                <div class="book-npc">
+                    <div class="book-npc-name">👊 Καυγας Ταβερνας (×4)</div>
+                    <div class="book-npc-desc">Κλεψε 3 ποντους απο οποιοδηποτε χαρακτηριστικο αλλου παικτη.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🍺 Δηλητηριωδης Μπυρα (×3)</div>
+                    <div class="book-npc-desc">Ο στοχος χανει -2 σε ΟΛΑ τα χαρακτηριστικα.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🏹 Κυνηγος Κεφαλων (×3)</div>
+                    <div class="book-npc-desc">Κλεψε 2 Δοξα απο αλλον παικτη.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🎲 Καταραμενο Ζαρι (×3)</div>
+                    <div class="book-npc-desc">Το επομενο ζαρι του στοχου ειναι αυτοματα 1.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading" style="color:#2980b9;">Αμυντικες Καρτες (Μπλε)</div>
+                <div class="book-npc">
+                    <div class="book-npc-name">👑 Ευλογια του Βασιλια (×4)</div>
+                    <div class="book-npc-desc">Κερδισε +5 σε οποιοδηποτε χαρακτηριστικο.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🛡️ Ασπιδα του Pavel (×3)</div>
+                    <div class="book-npc-desc">Μπλοκαρε την επομενη ικανοτητα η καρτα που σε στοχευει.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🍖 Ξεκουραση Ταβερνας (×3)</div>
+                    <div class="book-npc-desc">Κερδισε +2 σε ΟΛΑ τα χαρακτηριστικα.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">💨 Δευτερη Ευκαιρια (×2)</div>
+                    <div class="book-npc-desc">Ανακτησε ολους τους ποντους απο την τελευταια αποτυχια.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">📜 Κυλινδρος Διαλογισμου (×3)</div>
+                    <div class="book-npc-desc">Κερδισε +1 Διαλογισμο.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading" style="color:#27ae60;">Τακτικες Καρτες (Πρασινες)</div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🕵️ Δικτυο Κατασκοπων (×4)</div>
+                    <div class="book-npc-desc">Δες τον μυστικο αριθμο-στοχο πριν αποφασισεις.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">⚡ Ολα η Τιποτα (×2)</div>
+                    <div class="book-npc-desc">Διπλασιασε τη Δοξα απο την επομενη νικη σου.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🔄 Αλλαγη Αποστολης (×2)</div>
+                    <div class="book-npc-desc">Αντικατεστησε την τρεχουσα αποστολη με νεα.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">📯 Βασιλικο Διαταγμα (×3)</div>
+                    <div class="book-npc-desc">Αναγκασε αλλον παικτη να δοκιμασει. Δεν μπορει να κανει διαλογισμο.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🍀 Φυλαχτο Τυχης (×3)</div>
+                    <div class="book-npc-desc">Το επομενο ζαρι σου ειναι αυτοματα 6.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-heading" style="color:#f39c12;">Αγριες Καρτες (Χρυσες)</div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🪙 Νομισμα της Μοιρας (×4)</div>
+                    <div class="book-npc-desc">Ριξε ζαρι: 4-6 = +3 Δοξα. 1-3 = -2 Δοξα.</div>
+                </div>
+                <div class="book-npc">
+                    <div class="book-npc-name">🌀 Γυρος Χαους (×4)</div>
+                    <div class="book-npc-desc">ΟΛΟΙ ριχνουν ζαρι. Μονο = -2 υψηλοτερο χαρ. Ζυγο = +2 χαμηλοτερο χαρ.</div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">◆</div><div class="book-divider-line"></div></div>
+
+                <div class="book-rule-box">
+                    <div class="book-rule-title">Φυσικο Παιχνιδι: Καρτες Ταβερνας</div>
+                    <div class="book-rule-text">
+                        Εκτυπωστε τις 50 καρτες ταβερνας και ανακατεψτε τις στην τραπουλα αποστολων.<br>
+                        Οταν ο Αναγνωστης τραβηξει καρτα ταβερνας, την κραταει μπροστα και τραβαει ξανα.<br>
+                        Οι παικτες παιζουν καρτες απο το χερι τους στη σειρα τους αποκαλυπτοντας τες.
+                    </div>
+                </div>
+
+                <div class="book-divider"><div class="book-divider-line"></div><div class="book-divider-icon">⚜</div><div class="book-divider-line"></div></div>
+                <div class="book-quote">"Στην ταβερνα του Pavel, ακομα και οι καρτες εχουν κολπα στο μανικι τους."</div>
+
+                <div class="book-page-num">— 7 —</div>
+            </div>
+        </div>
     </div>`;
 }
 
@@ -1917,12 +2143,13 @@ function init() {
     // Build books
     buildWorldBook();
     buildRulesBook();
+    buildTavernCards();
 }
 
 function showSection(section) {
     document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
 
-    const sections = ['missions', 'group', 'heroes', 'stats', 'world', 'rules'];
+    const sections = ['missions', 'group', 'heroes', 'stats', 'world', 'rules', 'tavern'];
     sections.forEach(s => document.getElementById(s + '-section').classList.add('hidden'));
 
     if (section === 'all') {
@@ -1932,6 +2159,64 @@ function showSection(section) {
     }
 
     document.getElementById('btn-' + section).classList.add('active');
+}
+
+// ============================================================
+// TAVERN CARDS (GREEK)
+// ============================================================
+
+const TAVERN_CARDS = [
+    // Επιθετικες (Κοκκινες) - 13 καρτες
+    { id: 'tavern_brawl', name: 'Καυγας Ταβερνας', type: 'offensive', typeLabel: 'ΕΠΙΘΕΤΙΚΗ', icon: '👊', desc: 'Κλεψε 3 ποντους απο οποιοδηποτε χαρακτηριστικο αλλου παικτη.', copies: 4 },
+    { id: 'poison_ale', name: 'Δηλητηριωδης Μπυρα', type: 'offensive', typeLabel: 'ΕΠΙΘΕΤΙΚΗ', icon: '🍺', desc: 'Ο στοχος χανει -2 σε ΟΛΑ τα χαρακτηριστικα.', copies: 3 },
+    { id: 'bounty_hunter', name: 'Κυνηγος Κεφαλων', type: 'offensive', typeLabel: 'ΕΠΙΘΕΤΙΚΗ', icon: '🏹', desc: 'Κλεψε 2 Δοξα απο αλλον παικτη.', copies: 3 },
+    { id: 'cursed_dice', name: 'Καταραμενο Ζαρι', type: 'offensive', typeLabel: 'ΕΠΙΘΕΤΙΚΗ', icon: '🎲', desc: 'Το επομενο ζαρι του στοχου ειναι αυτοματα 1.', copies: 3 },
+    // Αμυντικες (Μπλε) - 15 καρτες
+    { id: 'kings_blessing', name: 'Ευλογια του Βασιλια', type: 'defensive', typeLabel: 'ΑΜΥΝΤΙΚΗ', icon: '👑', desc: 'Κερδισε +5 σε οποιοδηποτε χαρακτηριστικο.', copies: 4 },
+    { id: 'shield_of_pavel', name: 'Ασπιδα του Pavel', type: 'defensive', typeLabel: 'ΑΜΥΝΤΙΚΗ', icon: '🛡️', desc: 'Μπλοκαρε την επομενη ικανοτητα η καρτα που σε στοχευει.', copies: 3 },
+    { id: 'tavern_rest', name: 'Ξεκουραση Ταβερνας', type: 'defensive', typeLabel: 'ΑΜΥΝΤΙΚΗ', icon: '🍖', desc: 'Κερδισε +2 σε ΟΛΑ τα χαρακτηριστικα.', copies: 3 },
+    { id: 'second_wind', name: 'Δευτερη Ευκαιρια', type: 'defensive', typeLabel: 'ΑΜΥΝΤΙΚΗ', icon: '💨', desc: 'Ανακτησε ολους τους ποντους απο την τελευταια αποτυχημενη προκληση.', copies: 2 },
+    { id: 'meditation_scroll', name: 'Κυλινδρος Διαλογισμου', type: 'defensive', typeLabel: 'ΑΜΥΝΤΙΚΗ', icon: '📜', desc: 'Κερδισε +1 Διαλογισμο.', copies: 3 },
+    // Τακτικες (Πρασινες) - 14 καρτες
+    { id: 'spy_network', name: 'Δικτυο Κατασκοπων', type: 'tactical', typeLabel: 'ΤΑΚΤΙΚΗ', icon: '🕵️', desc: 'Δες τον μυστικο αριθμο-στοχο πριν αποφασισεις.', copies: 4 },
+    { id: 'double_or_nothing', name: 'Ολα η Τιποτα', type: 'tactical', typeLabel: 'ΤΑΚΤΙΚΗ', icon: '⚡', desc: 'Διπλασιασε τη Δοξα απο την επομενη νικη σου.', copies: 2 },
+    { id: 'mission_swap', name: 'Αλλαγη Αποστολης', type: 'tactical', typeLabel: 'ΤΑΚΤΙΚΗ', icon: '🔄', desc: 'Αντικατεστησε την τρεχουσα αποστολη με νεα και νεα δυσκολια.', copies: 2 },
+    { id: 'challenge_decree', name: 'Βασιλικο Διαταγμα', type: 'tactical', typeLabel: 'ΤΑΚΤΙΚΗ', icon: '📯', desc: 'Αναγκασε αλλον παικτη να δοκιμασει. Δεν μπορει να κανει διαλογισμο.', copies: 3 },
+    { id: 'lucky_charm', name: 'Φυλαχτο Τυχης', type: 'tactical', typeLabel: 'ΤΑΚΤΙΚΗ', icon: '🍀', desc: 'Το επομενο ζαρι σου ειναι αυτοματα 6.', copies: 3 },
+    // Αγριες (Χρυσες) - 8 καρτες
+    { id: 'fates_coin', name: 'Νομισμα της Μοιρας', type: 'wild', typeLabel: 'ΑΓΡΙΑ', icon: '🪙', desc: 'Ριξε ζαρι: 4-6 = +3 Δοξα. 1-3 = -2 Δοξα.', copies: 4 },
+    { id: 'chaos_round', name: 'Γυρος Χαους', type: 'wild', typeLabel: 'ΑΓΡΙΑ', icon: '🌀', desc: 'ΟΛΟΙ ριχνουν ζαρι. Μονο = -2 υψηλοτερο χαρ. Ζυγο = +2 χαμηλοτερο χαρ.', copies: 4 }
+];
+
+function renderTavernCard(card, copyNum) {
+    return `<div class="tavern-card">
+        <div class="card-frame">
+            <div class="card-inner">
+                <div class="tavern-header ${card.type}">
+                    <span style="position:absolute; left:8px; top:8px; font-size:10px; font-family:'MedievalSharp',serif; opacity:0.7;">🃏</span>
+                    ΚΑΡΤΑ ΤΑΒΕΡΝΑΣ
+                </div>
+                <div class="tavern-body">
+                    <div class="tavern-icon">${card.icon}</div>
+                    <div class="tavern-name">${card.name}</div>
+                    <div class="tavern-desc">${card.desc}</div>
+                    <div class="tavern-type-badge ${card.type}">${card.typeLabel}</div>
+                </div>
+                <div class="card-footer">ΑΠΟΣΤΟΛΕΣ ΣΤΟ PAVEL${copyNum > 1 ? ' • ' + copyNum + '/' + card.copies : ''}</div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function buildTavernCards() {
+    const grid = document.getElementById('tavern-grid');
+    let html = '';
+    TAVERN_CARDS.forEach(card => {
+        for(let i = 0; i < card.copies; i++) {
+            html += renderTavernCard(card, i + 1);
+        }
+    });
+    grid.innerHTML = html;
 }
 
 init();
