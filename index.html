@@ -2860,16 +2860,30 @@ function startGame() {
         }, orkWizardMode[party.findIndex(p => p.n === 'Wizard of Orks')] === null ? 1500 : 100);
     }
 
-    // Mix tavern cards into the mission deck
+    // Mix tavern cards into the mission deck (max 1 tavern card between missions)
     buildTavernDeck();
-    // Insert all tavern cards into the deck at random positions
-    tavernDeck.forEach(card => {
-        card.isTavern = true;
-        const pos = Math.floor(Math.random() * (deck.length + 1));
-        deck.splice(pos, 0, card);
-    });
-    tavernDeck = []; // All cards are now in the main deck
-    console.log(`🃏 ${TAVERN_CARDS.reduce((s,c) => s+c.copies, 0)} tavern cards mixed into deck (total: ${deck.length})`);
+    tavernDeck.forEach(card => { card.isTavern = true; });
+    // Shuffle tavern cards
+    for(let i = tavernDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [tavernDeck[i], tavernDeck[j]] = [tavernDeck[j], tavernDeck[i]];
+    }
+    // Interleave: place 1 tavern card every few mission cards, never back-to-back
+    const missionCount = deck.length;
+    const tavernCount = tavernDeck.length;
+    const spacing = Math.max(2, Math.floor(missionCount / tavernCount));
+    let newDeck = [...deck]; // start with all missions
+    let insertOffset = 0;
+    for(let i = 0; i < tavernCount; i++) {
+        // Place tavern card after every 'spacing' missions, with ±1 randomness
+        let pos = (i * spacing) + Math.floor(Math.random() * 2) + insertOffset;
+        pos = Math.min(pos, newDeck.length); // don't go past end
+        newDeck.splice(pos, 0, tavernDeck[i]);
+        insertOffset++; // account for inserted cards shifting positions
+    }
+    deck = newDeck;
+    tavernDeck = [];
+    console.log(`🃏 ${tavernCount} tavern cards spread into deck (1 per ~${spacing} missions, total: ${deck.length})`);
 
     updatePartyUI();
     updateTurnLabels();
