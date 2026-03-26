@@ -2811,34 +2811,38 @@ function finishClownMimicChoice() {
 // SPIDER ELDER - WEB TRAP HELPERS
 // ============================================================
 
+let _spiderQueue = [];
+let _spiderWinnerIdx = -1;
+
 function checkSpiderWebTrap(winnerIdx, callback) {
-    const spiders = [];
+    _spiderQueue = [];
+    _spiderWinnerIdx = winnerIdx;
     party.forEach((p, idx) => {
         if(actsAs(p, 'Spider Elder') && idx !== winnerIdx && (spiderWebUses[idx] || 0) > 0) {
-            spiders.push(idx);
+            _spiderQueue.push(idx);
         }
     });
 
-    if(spiders.length === 0) {
+    if(_spiderQueue.length === 0) {
         if(callback) callback();
         return;
     }
 
     pendingSpiderCallback = callback;
-    showSpiderChoice(spiders, winnerIdx);
+    showNextSpider();
 }
 
-function showSpiderChoice(spiderQueue, winnerIdx) {
-    if(spiderQueue.length === 0) {
-        if(pendingSpiderCallback) pendingSpiderCallback();
+function showNextSpider() {
+    if(_spiderQueue.length === 0) {
+        const cb = pendingSpiderCallback;
         pendingSpiderCallback = null;
+        if(cb) cb();
         return;
     }
 
-    const spiderIdx = spiderQueue[0];
+    const spiderIdx = _spiderQueue[0];
     const spider = party[spiderIdx];
-    const winner = party[winnerIdx];
-    const remainingQueue = JSON.stringify(spiderQueue.slice(1));
+    const winner = party[_spiderWinnerIdx];
 
     showModal('Web Trap!', `${spider.pName} senses ${winner.pName}'s victory!`,
         `<div style="margin:15px 0;">
@@ -2846,13 +2850,19 @@ function showSpiderChoice(spiderQueue, winnerIdx) {
         </div>
         <p>Uses remaining: <b>${spiderWebUses[spiderIdx]}</b></p>
         <p>Drain -1 from each of ${winner.pName}'s stats (+1 to yours)?</p>
-        <button class="btn btn-main" style="background:#1B5E20; border-color:#4CAF50;" onclick="executeWebTrap(${spiderIdx}, ${winnerIdx}, ${remainingQueue})">Drain!</button>
-        <button class="btn btn-skip" onclick="showSpiderChoice(${remainingQueue}, ${winnerIdx})">Skip</button>`);
+        <button class="btn btn-main" style="background:#1B5E20; border-color:#4CAF50;" onclick="executeWebTrap(${spiderIdx})">Drain!</button>
+        <button class="btn btn-skip" onclick="skipWebTrap()">Skip</button>`);
 }
 
-function executeWebTrap(spiderIdx, winnerIdx, remainingQueue) {
+function skipWebTrap() {
+    _spiderQueue.shift();
+    showNextSpider();
+}
+
+function executeWebTrap(spiderIdx) {
+    _spiderQueue.shift();
     const spider = party[spiderIdx];
-    const winner = party[winnerIdx];
+    const winner = party[_spiderWinnerIdx];
 
     spiderWebUses[spiderIdx]--;
     ['pow','spd','brn','cha','wil'].forEach(s => {
@@ -2865,7 +2875,7 @@ function executeWebTrap(spiderIdx, winnerIdx, remainingQueue) {
     showModal('Web Trap!', `${spider.pName} drains ${winner.pName}!`,
         `<p style="color:#27ae60;">-1 to each of ${winner.pName}'s stats</p>
         <p style="color:#f3cf7a;">+1 to each of ${spider.pName}'s stats</p>
-        <button class="btn btn-main" onclick="showSpiderChoice(${JSON.stringify(remainingQueue)}, ${winnerIdx})">Continue</button>`);
+        <button class="btn btn-main" onclick="showNextSpider()">Continue</button>`);
 }
 
 // ============================================================
