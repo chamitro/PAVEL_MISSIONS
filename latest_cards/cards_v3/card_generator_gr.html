@@ -965,7 +965,7 @@ body {
 <div class="controls">
     <button onclick="showSection('missions')" id="btn-missions" class="active">Αποστολες (100)</button>
     <button onclick="showSection('group')" id="btn-group">Ομαδικες Αποστολες (50)</button>
-    <button onclick="showSection('heroes')" id="btn-heroes">Ηρωες (20)</button>
+    <button onclick="showSection('heroes')" id="btn-heroes">Ηρωες (25)</button>
     <button onclick="showSection('stats')" id="btn-stats">Καρτες Στατιστικων (5)</button>
     <button onclick="showSection('world')" id="btn-world">Βιβλιο του Κοσμου</button>
     <button onclick="showSection('rules')" id="btn-rules">Βιβλιο Κανονων</button>
@@ -1023,13 +1023,13 @@ body {
 const SOUL_DATA = {
     dark:   { icon: '🌑', label: 'Dark',   heroes: ['Dark Stalker', 'Devil Boy', 'Forest Spirit'] },
     tech:   { icon: '⚙️', label: 'Tech',   heroes: ['Friendly AI'] },
-    stone:  { icon: '🪨', label: 'Stone',  heroes: ['Thug Dwarf', 'Warrior Girl'] },
-    crowd:  { icon: '👥', label: 'Crowd',  heroes: ['Babbler Rogue'] },
+    stone:  { icon: '🪨', label: 'Stone',  heroes: ['Thug Dwarf', 'Warrior Girl', 'Tattoo Man'] },
+    crowd:  { icon: '👥', label: 'Crowd',  heroes: ['Babbler Rogue', 'Pig CEO'] },
     magic:  { icon: '✨', label: 'Magic',  heroes: ['Neighbor Witch', 'Ancient Tree Elder', 'Wizard of Orks'] },
-    shadow: { icon: '🌫️', label: 'Shadow', heroes: ['Fancy Ninja', 'Quick Thief', 'Monkey Boy'] },
+    shadow: { icon: '🌫️', label: 'Shadow', heroes: ['Fancy Ninja', 'Quick Thief', 'Monkey Boy', 'Mask Man Ork'] },
     sky:    { icon: '☁️', label: 'Sky',    heroes: ['Lost Dragon'] },
-    pub:    { icon: '🍺', label: 'Pub',    heroes: ['Drunken Paladin', 'Another Drunk Guy'] },
-    silent: { icon: '🤫', label: 'Silent', heroes: ['Mute Monk', 'Sad Troll', 'Granny the Priest'] },
+    pub:    { icon: '🍺', label: 'Pub',    heroes: ['Drunken Paladin', 'Another Drunk Guy', 'Village Clown'] },
+    silent: { icon: '🤫', label: 'Silent', heroes: ['Mute Monk', 'Sad Troll', 'Granny the Priest', 'Spider Elder'] },
     undead: { icon: '💀', label: 'Undead', heroes: ['Lover Zombie'] }
 };
 
@@ -1221,7 +1221,12 @@ const HEROES = [
     { n: 'Warrior Girl', i: '../../images/warrior_ork.png', a: 'stone', s:{pow:8,spd:5,brn:6,cha:3,wil:6}, passive: 'Γεννημενη για Μαχη', passiveDesc: 'Σε ομαδικες αποστολες: παντα +3 μπονους στη συνεισφορα. Σωρευεται με τη συγγενεια.', quote: '"Η λεπιδα μου μιλαει πιο δυνατα απο τα λογια."' },
     { n: 'Monkey Boy', i: '../../images/monkey_boy.png', a: 'shadow', s:{pow:4,spd:8,brn:4,cha:4,wil:4}, passive: 'Χαοτικη Επαναριψη', passiveDesc: 'Μετα απο ΟΠΟΙΑΔΗΠΟΤΕ ριψη ζαριου, αναγκασε επαναριψη. 3 χρησεις. Επαναφορτιζεται στο καταστημα.', quote: '"Ουου ουου! Ασε με να το ξαναδοκιμασω!"' },
     { n: 'Wizard of Orks', i: '../../images/ork_wizard.png', a: 'magic', s:{pow:3,spd:3,brn:5,cha:5,wil:4}, passive: 'Αδελφοτητα των Ορκ', passiveDesc: 'Αν ενας αλλος ορκ (Quick Thief/Warrior Girl) ειναι στην ομαδα: ΑΣΥΛΙΑ σε ολες τις ικανοτητες ηρωων. Αν δεν υπαρχει ορκ: διαλεξε Τυχερα Δαχτυλα η Γεννημενη για Μαχη.', quote: '"Οι παλιοι τροποι ειναι οι πιο δυνατοι."' },
-    { n: 'Another Drunk Guy', i: '../../images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Μεθυσμενη Μοιρα', passiveDesc: 'Καθε ριψη ζαριου με 6: +1 ΟΛΑ τα στατιστικα. Με τον Drunken Paladin: ολοι οι αλλοι χανουν -2 ΟΛΑ τα στατιστικα στην αρχη του παιχνιδιου.', quote: '"Αυτος ο γυρος ειναι δικος μου; Ξεχασα..."' }
+    { n: 'Another Drunk Guy', i: '../../images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Μεθυσμενη Μοιρα', passiveDesc: 'Καθε ριψη ζαριου με 6: +1 ΟΛΑ τα στατιστικα. Με τον Drunken Paladin: ολοι οι αλλοι χανουν -2 ΟΛΑ τα στατιστικα στην αρχη του παιχνιδιου.', quote: '"Αυτος ο γυρος ειναι δικος μου; Ξεχασα..."' },
+    { n: 'Village Clown', i: '../../images/village_clown.png', a: 'pub', s:{pow:4, spd:4, brn:4, cha:4, wil:4}, passive: "Μιμηση του Τρελου", passiveDesc: "Αντεγραψε την ικανοτητα οποιουδηποτε ηρωα στην ομαδα σου. Επιλεξε στην αρχη, αλλαξε σε καθε μαγαζι. Δεν αντιγραφει Αδελφοτητα Ορκ." },
+    { n: 'Spider Elder', i: '../../images/spider_elder.png', a: 'silent', s:{pow:4, spd:4, brn:4, cha:4, wil:4}, passive: 'Παγιδα Ιστου', passiveDesc: 'Οταν καποιος κερδισει προκληση, αποστραγγισε 1 απο καθε χαρακτηριστικο του (+1 στα δικα σου). 2 χρησεις, επαναφορα στο μαγαζι.' },
+    { n: 'Pig CEO', i: '../../images/pig_CEO.png', a: 'crowd', s:{pow:3, spd:2, brn:8, cha:7, wil:5}, passive: 'Εχθρικη Εξαγορα', passiveDesc: 'Κλεψε ΟΛΕΣ τις καρτες ταβερνας απο εναν παικτη. 1 χρηση, επαναφορα στο μαγαζι.' },
+    { n: 'Tattoo Man', i: '../../images/tattoo_man.png', a: 'stone', s:{pow:6, spd:5, brn:4, cha:3, wil:8}, passive: 'Ζωντανο Μελανι', passiveDesc: 'Καθε φορα που κανεις διαλογισμο, κερδιζεις +1 σε ΟΛΑ τα χαρακτηριστικα μονιμα.' },
+    { n: 'Mask Man Ork', i: '../../images/mask_man_ork.png', a: 'shadow', s:{pow:5, spd:5, brn:5, cha:5, wil:5}, passive: 'Κλεμμενο Προσωπο', passiveDesc: 'Οταν καποιος τραβηξει καρτα ταβερνας, μπορεις να την ανταλλαξεις τυφλα με μια δικη σου.' }
 ];
 
 // ============================================================
