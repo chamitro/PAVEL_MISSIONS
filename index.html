@@ -1541,7 +1541,7 @@
                     </div>
                 </div>
                 <p class="hero-card-desc">A ruthless corporate swine who acquires everything through hostile takeovers and cunning deals.</p>
-                <p class="hero-card-ability"><b>🐷 Hostile Takeover:</b> Steal ALL tavern cards from one player. 1 use, recharges at shop.</p>
+                <p class="hero-card-ability"><b>🎰 Casino Dice:</b> Roll a dice: 1=-2 Glory, 2=-1 Glory, 3=-1 all stats, 4=+1 Glory, 5=+2 Glory, 6=+3 all stats. 2 uses, recharges at shop. Glory can go negative!</p>
             </div>
 
             <!-- Tattoo Man -->
@@ -1770,8 +1770,8 @@
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🕷️ Spider Elder - Web Trap</b></p>
                 <p style="margin-left: 20px;">After any player wins a challenge, drain 1 from each of their stats (+1 to yours). 2 uses, recharges at shop.</p>
 
-                <p style="margin-top: 10px; margin-left: 10px;"><b>🐷 Pig CEO - Hostile Takeover</b></p>
-                <p style="margin-left: 20px;">Steal ALL tavern cards from one player. 1 use, recharges at shop. Blocked by Shield of Pavel.</p>
+                <p style="margin-top: 10px; margin-left: 10px;"><b>🎰 Pig CEO - Casino Dice</b></p>
+                <p style="margin-left: 20px;">Roll a dice: 1=-2 Glory, 2=-1 Glory, 3=-1 all stats, 4=+1 Glory, 5=+2 Glory, 6=+3 all stats. 2 uses, recharges at shop. Glory can go negative!</p>
 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🖋️ Tattoo Man - Living Ink</b></p>
                 <p style="margin-left: 20px;">Every time you meditate, gain +1 to ALL stats permanently. Your tattoos grow stronger with rest.</p>
@@ -2131,7 +2131,7 @@ const HEROES = [
     { n: 'Another Drunk Guy', i: './images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Drunken Fate', passiveDesc: 'Every dice roll of 6: +1 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at game start.' },
     { n: 'Village Clown', i: './images/village_clown.png', a: 'pub', s:{pow:4, spd:4, brn:4, cha:4, wil:4}, passive: "Fool's Mimicry", passiveDesc: "Copy any hero's ability from your party. Pick at game start, change at each shop. Cannot copy Ork Brotherhood." },
     { n: 'Spider Elder', i: './images/spider_elder.png', a: 'silent', s:{pow:4, spd:4, brn:4, cha:4, wil:4}, passive: 'Web Trap', passiveDesc: 'After any player wins a challenge, drain 1 from each of their stats. 2 uses, recharges at shop.' },
-    { n: 'Pig CEO', i: './images/pig_CEO.png', a: 'crowd', s:{pow:3, spd:2, brn:8, cha:7, wil:5}, passive: 'Hostile Takeover', passiveDesc: 'Steal ALL tavern cards from one player. 1 use, recharges at shop.' },
+    { n: 'Pig CEO', i: './images/pig_CEO.png', a: 'crowd', s:{pow:3, spd:2, brn:8, cha:7, wil:5}, passive: 'Casino Dice', passiveDesc: 'Roll a dice: 1=-2 Glory, 2=-1 Glory, 3=-1 all stats, 4=+1 Glory, 5=+2 Glory, 6=+3 all stats. 2 uses, recharges at shop. Glory can go negative!' },
     { n: 'Tattoo Man', i: './images/tattoo_man.png', a: 'stone', s:{pow:6, spd:5, brn:4, cha:3, wil:8}, passive: 'Living Ink', passiveDesc: 'Every time you meditate, gain +1 to ALL stats permanently. Your tattoos grow stronger with rest.' },
     { n: 'Mask Man Ork', i: './images/mask_man_ork.png', a: 'shadow', s:{pow:5, spd:5, brn:5, cha:5, wil:5}, passive: 'Masked Swap', passiveDesc: 'When any player draws a tavern card, you may swap it with a random card from your hand (blind swap).' }
 ];
@@ -2207,7 +2207,7 @@ let clownMimicTarget = null;   // Hero name string the Village Clown is copying
 let clownPlayerIdx = -1;       // Which player index is the Village Clown
 let spiderWebUses = {};        // keyed by playerIdx, tracks Spider Elder web trap uses
 let pendingSpiderCallback = null; // Callback after spider web trap resolution
-let pigCeoUses = {};           // keyed by playerIdx, tracks Pig CEO hostile takeover uses
+let pigCeoUses = {};           // keyed by playerIdx, tracks Pig CEO casino dice uses
 let pendingMaskSwapData = null; // Track pending Mask Man Ork swap data
 
 // Shop system - NOW BASED ON ROUNDS
@@ -2790,7 +2790,7 @@ function confirmClownMimicChoice() {
     // Initialize resources for copied abilities
     if(selected === 'Monkey Boy' && !monkeyRerollUses[clownPlayerIdx]) monkeyRerollUses[clownPlayerIdx] = 3;
     if(selected === 'Spider Elder' && !spiderWebUses[clownPlayerIdx]) spiderWebUses[clownPlayerIdx] = 2;
-    if(selected === 'Pig CEO' && !pigCeoUses[clownPlayerIdx]) pigCeoUses[clownPlayerIdx] = 1;
+    if(selected === 'Pig CEO' && !pigCeoUses[clownPlayerIdx]) pigCeoUses[clownPlayerIdx] = 2;
     if(selected === 'Dark Stalker') shadowControlUses[clownPlayerIdx] = shadowControlUses[clownPlayerIdx] || 0;
     closeModal();
     showModal("🤡 Fool's Mimicry", `${clown.pName} copies <b>${selected}</b>!`,
@@ -2882,27 +2882,69 @@ function executeWebTrap(spiderIdx) {
 // PIG CEO - HOSTILE TAKEOVER HELPERS
 // ============================================================
 
-function useHostileTakeover() {
-    const targets = party.map((p, i) => i).filter(i => i !== activeIdx && party[i].hand && party[i].hand.length > 0);
-    let btns = targets.map(i => `<button class="btn btn-main" style="margin:4px; background:#c0392b;" onclick="executeHostileTakeover(${i})">${party[i].pName} (${party[i].hand.length} cards)</button>`).join('');
-    showModal('🐷 Hostile Takeover', 'Choose a player to steal ALL tavern cards from!',
-        `${btns}<br><button class="btn btn-skip" style="margin-top:10px;" onclick="startFight()">Cancel</button>`);
-}
-
-function executeHostileTakeover(targetIdx) {
-    if(checkShield(targetIdx, 'Hostile Takeover')) {
-        pigCeoUses[activeIdx]--;
-        updatePartyUI();
-        return;
-    }
-    const stolen = party[targetIdx].hand.length;
-    party[activeIdx].hand = party[activeIdx].hand.concat(party[targetIdx].hand);
-    party[targetIdx].hand = [];
+function useCasinoDice() {
+    const h = party[activeIdx];
     pigCeoUses[activeIdx]--;
-    updatePartyUI();
-    showModal('🐷 Hostile Takeover!', `${party[activeIdx].pName} steals ${stolen} cards from ${party[targetIdx].pName}!`,
-        `<p style="color:#c0392b; font-size:16px;">Corporate raid complete!</p>
-        <button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+
+    showModal("🎰 Casino Dice!", `${h.pName} rolls the Casino Dice!`, `<div id="casino-dice-container" style="margin: 30px 0;"></div>`);
+
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        const randomNum = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('casino-dice-container').innerHTML = renderDice(randomNum);
+        rollCount++;
+        if(rollCount >= 8) clearInterval(rollInterval);
+    }, 100);
+
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const result = Math.floor(Math.random() * 6) + 1;
+        document.getElementById('casino-dice-container').innerHTML = renderDice(result);
+
+        setTimeout(() => {
+            let effectText = '';
+            let effectColor = '';
+
+            switch(result) {
+                case 1:
+                    h.score -= 2;
+                    effectText = '-2 Glory!';
+                    effectColor = '#c0392b';
+                    break;
+                case 2:
+                    h.score -= 1;
+                    effectText = '-1 Glory!';
+                    effectColor = '#c0392b';
+                    break;
+                case 3:
+                    ['pow','spd','brn','cha','wil'].forEach(s => h.cur[s] = Math.max(0, h.cur[s] - 1));
+                    effectText = '-1 to ALL stats!';
+                    effectColor = '#e67e22';
+                    break;
+                case 4:
+                    h.score += 1;
+                    effectText = '+1 Glory!';
+                    effectColor = '#27ae60';
+                    break;
+                case 5:
+                    h.score += 2;
+                    effectText = '+2 Glory!';
+                    effectColor = '#27ae60';
+                    break;
+                case 6:
+                    ['pow','spd','brn','cha','wil'].forEach(s => h.cur[s] += 3);
+                    effectText = '+3 to ALL stats!';
+                    effectColor = '#f39c12';
+                    break;
+            }
+
+            updatePartyUI();
+            showModal('🎰 Casino Dice!', `${h.pName} rolled a ${result}!`,
+                `<p style="color:${effectColor}; font-size:22px; font-weight:bold;">${effectText}</p>
+                <p style="font-size:12px; color:#888;">Uses remaining: ${pigCeoUses[activeIdx] || 0}</p>
+                <button class="btn btn-main" onclick="closeModal()">Continue</button>`);
+        }, 500);
+    }, 900);
 }
 
 // ============================================================
@@ -3052,7 +3094,7 @@ function handleReg() {
     if (hero.n === 'Monkey Boy') monkeyRerollUses[regIdx] = 3;
     if (hero.n === 'Wizard of Orks') orkWizardMode[regIdx] = null;
     if (hero.n === 'Spider Elder') spiderWebUses[regIdx] = 2;
-    if (hero.n === 'Pig CEO') pigCeoUses[regIdx] = 1;
+    if (hero.n === 'Pig CEO') pigCeoUses[regIdx] = 2;
     if (hero.n === 'Village Clown') { clownPlayerIdx = regIdx; }
 
     showModal(
@@ -3517,9 +3559,9 @@ function startFight() {
         passiveButtons.push(`<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useLuckyFingers()">🎲 Lucky Fingers (Roll to Steal Glory)</button>`);
     }
 
-    // Pig CEO - Hostile Takeover
-    if(actsAs(h, 'Pig CEO') && (pigCeoUses[activeIdx] || 0) > 0 && party.some((p, i) => i !== activeIdx && p.hand && p.hand.length > 0)) {
-        passiveButtons.push(`<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useHostileTakeover()">🐷 Hostile Takeover (Steal Cards)</button>`);
+    // Pig CEO - Casino Dice
+    if(actsAs(h, 'Pig CEO') && (pigCeoUses[activeIdx] || 0) > 0) {
+        passiveButtons.push(`<button class="btn btn-main" style="background:#2b1010; border-color:#8b0000; margin-top:8px; width:100%;" onclick="useCasinoDice()">🎰 Casino Dice (${pigCeoUses[activeIdx]} left)</button>`);
     }
 
     // Wizard of Orks - Lucky Fingers (when chosen)
@@ -7636,8 +7678,8 @@ function openStore() {
             console.log(`🕷️ ${p.pName}'s Web Trap recharged to 2!`);
         }
         if (actsAs(p, 'Pig CEO')) {
-            pigCeoUses[idx] = 1;
-            console.log(`🐷 ${p.pName}'s Hostile Takeover recharged to 1!`);
+            pigCeoUses[idx] = 2;
+            console.log(`🐷 ${p.pName}'s Casino Dice recharged to 2!`);
         }
     });
 
