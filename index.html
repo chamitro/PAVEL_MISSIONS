@@ -1528,7 +1528,7 @@
                     </div>
                 </div>
                 <p class="hero-card-desc">An ancient arachnid elder who drains the strength of victors, growing stronger with each conquest.</p>
-                <p class="hero-card-ability"><b>🕷️ Web Trap:</b> After any player wins a challenge, drain 1 from each of their stats. 2 uses, recharges at shop.</p>
+                <p class="hero-card-ability"><b>🕷️ Web Trap:</b> After any player wins a challenge, drain 1 from each of their stats. 3 uses, recharges at shop.</p>
             </div>
 
             <!-- Pig CEO -->
@@ -1768,7 +1768,7 @@
                 <p style="margin-left: 20px;">Copy any hero's ability from your party. Pick at game start, change at each shop. Cannot copy Ork Brotherhood.</p>
 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🕷️ Spider Elder - Web Trap</b></p>
-                <p style="margin-left: 20px;">After any player wins a challenge, drain 1 from each of their stats (+1 to yours). 2 uses, recharges at shop.</p>
+                <p style="margin-left: 20px;">After any player wins a challenge, drain 1 from each of their stats (+1 to yours). 3 uses, recharges at shop.</p>
 
                 <p style="margin-top: 10px; margin-left: 10px;"><b>🎰 Pig CEO - Casino Dice</b></p>
                 <p style="margin-left: 20px;">Roll a dice: 1=-2 Glory, 2=-1 Glory, 3=-1 all stats, 4=+1 Glory, 5=+2 Glory, 6=+3 all stats. 2 uses, recharges at shop. Glory can go negative!</p>
@@ -2130,7 +2130,7 @@ const HEROES = [
     { n: 'Wizard of Orks', i: './images/ork_wizard.png', a: 'magic', s:{pow:3,spd:3,brn:5,cha:5,wil:4}, passive: 'Ork Brotherhood', passiveDesc: 'If another ork (Quick Thief/Warrior Girl) is in the party: IMMUNE to all hero abilities. If no ork: choose Lucky Fingers or Battle Born.' },
     { n: 'Another Drunk Guy', i: './images/drunk_guy.png', a: 'pub', s:{pow:6,spd:2,brn:4,cha:4,wil:4}, passive: 'Drunken Fate', passiveDesc: 'Every dice roll of 6: +1 ALL stats. With Drunken Paladin: all others lose -2 ALL stats at game start.' },
     { n: 'Village Clown', i: './images/village_clown.png', a: 'pub', s:{pow:4, spd:4, brn:4, cha:4, wil:4}, passive: "Fool's Mimicry", passiveDesc: "Copy any hero's ability from your party. Pick at game start, change at each shop. Cannot copy Ork Brotherhood." },
-    { n: 'Spider Elder', i: './images/spider_elder.png', a: 'silent', s:{pow:4, spd:4, brn:4, cha:4, wil:4}, passive: 'Web Trap', passiveDesc: 'After any player wins a challenge, drain 1 from each of their stats. 2 uses, recharges at shop.' },
+    { n: 'Spider Elder', i: './images/spider_elder.png', a: 'silent', s:{pow:4, spd:4, brn:4, cha:4, wil:4}, passive: 'Web Trap', passiveDesc: 'After any player wins a challenge, drain 1 from each of their stats. 3 uses, recharges at shop.' },
     { n: 'Pig CEO', i: './images/pig_CEO.png', a: 'crowd', s:{pow:3, spd:2, brn:8, cha:7, wil:5}, passive: 'Casino Dice', passiveDesc: 'Roll a dice: 1=-2 Glory, 2=-1 Glory, 3=-1 all stats, 4=+1 Glory, 5=+2 Glory, 6=+3 all stats. 2 uses, recharges at shop. Glory can go negative!' },
     { n: 'Tattoo Man', i: './images/tattoo_man.png', a: 'stone', s:{pow:6, spd:5, brn:4, cha:3, wil:8}, passive: 'Living Ink', passiveDesc: 'Every time you meditate, gain +1 to ALL stats permanently. Your tattoos grow stronger with rest.' },
     { n: 'Mask Man Ork', i: './images/mask_man_ork.png', a: 'shadow', s:{pow:5, spd:5, brn:5, cha:5, wil:5}, passive: 'Masked Swap', passiveDesc: 'When any player draws a tavern card, you may swap it with a random card from your hand (blind swap).' }
@@ -2789,7 +2789,7 @@ function confirmClownMimicChoice() {
     const clown = party[clownPlayerIdx];
     // Initialize resources for copied abilities
     if(selected === 'Monkey Boy' && !monkeyRerollUses[clownPlayerIdx]) monkeyRerollUses[clownPlayerIdx] = 3;
-    if(selected === 'Spider Elder' && !spiderWebUses[clownPlayerIdx]) spiderWebUses[clownPlayerIdx] = 2;
+    if(selected === 'Spider Elder' && !spiderWebUses[clownPlayerIdx]) spiderWebUses[clownPlayerIdx] = 3;
     if(selected === 'Pig CEO' && !pigCeoUses[clownPlayerIdx]) pigCeoUses[clownPlayerIdx] = 2;
     if(selected === 'Dark Stalker') shadowControlUses[clownPlayerIdx] = shadowControlUses[clownPlayerIdx] || 0;
     closeModal();
@@ -3093,7 +3093,7 @@ function handleReg() {
     trollConsecutiveWins[regIdx] = 0;
     if (hero.n === 'Monkey Boy') monkeyRerollUses[regIdx] = 3;
     if (hero.n === 'Wizard of Orks') orkWizardMode[regIdx] = null;
-    if (hero.n === 'Spider Elder') spiderWebUses[regIdx] = 2;
+    if (hero.n === 'Spider Elder') spiderWebUses[regIdx] = 3;
     if (hero.n === 'Pig CEO') pigCeoUses[regIdx] = 2;
     if (hero.n === 'Village Clown') { clownPlayerIdx = regIdx; }
 
@@ -7674,7 +7674,7 @@ function openStore() {
             console.log(`🐵 ${p.pName}'s Chaos Reroll recharged to 3!`);
         }
         if (actsAs(p, 'Spider Elder')) {
-            spiderWebUses[idx] = 2;
+            spiderWebUses[idx] = 3;
             console.log(`🕷️ ${p.pName}'s Web Trap recharged to 2!`);
         }
         if (actsAs(p, 'Pig CEO')) {
